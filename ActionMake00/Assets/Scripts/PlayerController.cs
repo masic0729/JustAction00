@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     float rotateSpeed = 20f;
     float jumpPower = 5f;
 
-    bool isAttack = true;
     bool isGround = true;
     // Start is called before the first frame update
     void Start()
@@ -97,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //땅에 있어야 되며, 공격 가능상태여야 함
-        if (Input.GetMouseButtonDown(0) && isAttack && isGround)
+        if (Input.GetMouseButtonDown(0) && isGround && anim.GetBool("isAttacking") == false)
         {
             CharacterAttack();
         }
@@ -114,7 +113,8 @@ public class PlayerController : MonoBehaviour
     void CharacterJump()
     {
         isGround = false;
-        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * jumpPower * 2, ForceMode.Impulse);
+        anim.SetTrigger("Jump");
     }
 
 
@@ -123,11 +123,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void CharacterAttack()
     {
-        isAttack = false;
-
-        Debug.Log("공격했지롱");
-        isAttack = true;
-
+        anim.SetTrigger("Attack");
+        anim.SetBool("isAttacking", true);
     }
 
     void OnDrawGizmosSelected()
