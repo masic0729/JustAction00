@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
-    [Header ("Character default info")]
-    private GameObject mainCamera;
+    [Header("Character default info")]
     private Animator anim;
-    public GameObject weapon;
-    private Transform weaponTransform;
     private Rigidbody rb;
     private Vector3 moveVector;
+
+    public GameObject weapon;
+    private Transform weaponTransform;
 
     [Header("Physics check info")]
     public Transform groundCheck;
@@ -21,19 +21,16 @@ public class PlayerController : MonoBehaviour
     float moveSpeed = 5f;
     float rotateSpeed = 20f;
     float jumpPower = 5f;
+    
 
     bool isGround = true;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Init();
-    }
+    bool canCombo = false;
 
-    // Update is called once per frame
-    void Update()
+    // 초기화
+    protected override void Start()
     {
-        PlayerInput();
-        CheckGround();
+        base.Start();
+        Init();
     }
 
     void Init()
@@ -44,62 +41,57 @@ public class PlayerController : MonoBehaviour
         weaponTransform = FindTransformAtChild("Weapon");
         weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
         weapon.transform.parent = weaponTransform;
+
+        // 기본 무기 히트박스는 비활성화
+        BoxCollider col = weapon.GetComponent<BoxCollider>();
+        if (col != null) col.enabled = false;
     }
 
-    /// <summary>
-    /// 자식 오브젝트의 transform을 불러옴
-    /// </summary>
-    /// <param name="transformName"></param>
-    /// <returns></returns>
-    Transform FindTransformAtChild(string transformName)
+    protected override void Update()
     {
-        Transform[] instance = GetComponentsInChildren<Transform>();
-        foreach (Transform t in instance)
-        {
-            if (t.name == transformName)
-            {
-                return t;
-            }
-        }
-        Debug.Log("not found");
-        return null;
+        base.Update();
+        PlayerInput();
+        CheckGround();
     }
 
-    /// <summary>
-    /// 플레이어의 이동, 공격, 점프가 존재함
-    /// </summary>
     void PlayerInput()
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
-
         moveVector = new Vector3(h, 0, v);
 
-        //이동 애니메이션에 필요한 값 입력
         anim.SetFloat("moveValue", moveVector.magnitude);
 
-        //이동 값이 존재해야 움직인다
+        // 이동 처리 (중복 제거)
         if (moveVector.magnitude > 0.1f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveVector);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-
-            // 이동 (앞 방향으로 전진)
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
-            transform.Translate(moveVector * moveSpeed * Time.deltaTime);
+            transform.position += moveVector.normalized * moveSpeed * Time.deltaTime;
         }
 
-        //땅에 있어야 점프할 수 있음
-        if(Input.GetKeyDown(KeyCode.Space) && isGround)
+        // 점프
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             CharacterJump();
         }
 
-        //땅에 있어야 되며, 공격 가능상태여야 함
-        if (Input.GetMouseButtonDown(0) && isGround && anim.GetBool("isAttacking") == false)
+        // 공격
+        if (Input.GetMouseButtonDown(0))
         {
-            CharacterAttack();
+            if (!anim.GetBool("isAttacking"))
+            {
+                anim.SetTrigger("Attack");
+                anim.SetBool("isAttacking", true);
+            }
+            else if (anim.GetBool("isReAttack") == false)                       //if(canCombo)
+            {
+                anim.SetBool("isReAttack", true);
+            }
         }
+
+        // 디버그 확인용
+        //Debug.Log($"[Debug] Combo: {canCombo}, isAttacking: {anim.GetBool("isAttacking")}, isReAttack: {anim.GetBool("isReAttack")}");
     }
 
     void CheckGround()
@@ -107,9 +99,6 @@ public class PlayerController : MonoBehaviour
         isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
-    /// <summary>
-    /// 캐릭터 점프
-    /// </summary>
     void CharacterJump()
     {
         isGround = false;
@@ -117,20 +106,47 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("Jump");
     }
 
+    Transform FindTransformAtChild(string name)
+    {
+        foreach (Transform t in GetComponentsInChildren<Transform>())
+        {
+            if (t.name == name) return t;
+        }
+        Debug.LogWarning("Child transform not found: " + name);
+        return null;
+    }
 
     /// <summary>
-    /// 캐릭터의 일반 공격
+    /// 콤보 타이밍 허용 (애니메이션 이벤트에서 호출)
     /// </summary>
-    void CharacterAttack()
+    public void EnableCombo()
     {
-        anim.SetTrigger("Attack");
-        anim.SetBool("isAttacking", true);
+        canCombo = true;
+        StartCoroutine(ComboResetTimer());
     }
+
+    public void DisableCombo() => canCombo = false;
+
+    IEnumerator ComboResetTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canCombo = false;
+        anim.SetBool("isReAttack", false); // 안전하게 리셋
+    }
+
+    public void InterruptCombo()
+    {
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("isReAttack", false);
+        canCombo = false;
+    }
+
+    public void EnableHitbox() => weapon.GetComponent<BoxCollider>().enabled = true;
+    public void DisableHitbox() => weapon.GetComponent<BoxCollider>().enabled = false;
 
     void OnDrawGizmosSelected()
     {
         if (groundCheck == null) return;
-
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
     }
