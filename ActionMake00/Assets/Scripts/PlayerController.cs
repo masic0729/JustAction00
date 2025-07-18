@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : Character
 {
     [Header("Character default info")]
-    private Animator anim;
+    [HideInInspector]
+    public Animator anim;
     private Rigidbody rb;
     private Vector3 moveVector;
 
@@ -25,6 +26,7 @@ public class PlayerController : Character
 
     bool isGround = true;
     bool canCombo = false;
+    public bool canEscapeAttackAnim = false;
 
     // 초기화
     protected override void Start()
@@ -37,7 +39,6 @@ public class PlayerController : Character
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
         weaponTransform = FindTransformAtChild("Weapon");
         weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
         weapon.transform.parent = weaponTransform;
@@ -56,24 +57,29 @@ public class PlayerController : Character
 
     void PlayerInput()
     {
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-        moveVector = new Vector3(h, 0, v);
-
-        anim.SetFloat("moveValue", moveVector.magnitude);
-
-        // 이동 처리 (중복 제거)
-        if (moveVector.magnitude > 0.1f)
+        if(anim.GetBool("isAttacking") == false && canEscapeAttackAnim)
         {
-            Quaternion targetRot = Quaternion.LookRotation(moveVector);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-            transform.position += moveVector.normalized * moveSpeed * Time.deltaTime;
-        }
+            if (anim.GetBool("isAttacking") == true)
+                anim.SetBool("isAttacking", false);
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
+            moveVector = new Vector3(h, 0, v);
 
-        // 점프
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
-        {
-            CharacterJump();
+            anim.SetFloat("moveValue", moveVector.magnitude);
+
+            // 이동 처리 (중복 제거)
+            if (moveVector.magnitude > 0.1f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(moveVector);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
+                transform.position += moveVector.normalized * moveSpeed * Time.deltaTime;
+            }
+
+            // 점프
+            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            {
+                CharacterJump();
+            }
         }
 
         // 공격
@@ -84,7 +90,7 @@ public class PlayerController : Character
                 anim.SetTrigger("Attack");
                 anim.SetBool("isAttacking", true);
             }
-            else if (anim.GetBool("isReAttack") == false)                       //if(canCombo)
+            else if (canCombo && anim.GetBool("isAttacking"))                       //if(canCombo)
             {
                 anim.SetBool("isReAttack", true);
             }
@@ -122,17 +128,17 @@ public class PlayerController : Character
     public void EnableCombo()
     {
         canCombo = true;
-        StartCoroutine(ComboResetTimer());
+        //StartCoroutine(ComboResetTimer());
     }
 
     public void DisableCombo() => canCombo = false;
 
-    IEnumerator ComboResetTimer()
+    /*IEnumerator ComboResetTimer()
     {
         yield return new WaitForSeconds(0.5f);
         canCombo = false;
         anim.SetBool("isReAttack", false); // 안전하게 리셋
-    }
+    }*/
 
     public void InterruptCombo()
     {
@@ -143,6 +149,8 @@ public class PlayerController : Character
 
     public void EnableHitbox() => weapon.GetComponent<BoxCollider>().enabled = true;
     public void DisableHitbox() => weapon.GetComponent<BoxCollider>().enabled = false;
+
+    public void EscapeAttackAnim() => canEscapeAttackAnim = true;
 
     void OnDrawGizmosSelected()
     {
