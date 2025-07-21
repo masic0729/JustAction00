@@ -11,7 +11,7 @@ public class ResetEndAttackFlag : PlayerState
         //animator.SetBool("isAttacking", false);
         animator.SetBool("isReAttack", false);                                                              // 콤보도 같이 초기화
         PlayerController instance = animator.gameObject.GetComponent<PlayerController>();
-        player.canEscapeAttackAnim = false;
+        player.isEscapeAttackAnim = false;
         player.DisableCombo();
 
 

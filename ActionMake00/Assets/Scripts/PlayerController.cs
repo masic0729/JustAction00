@@ -26,7 +26,7 @@ public class PlayerController : Character
 
     bool isGround = true;
     bool canCombo = false;
-    public bool canEscapeAttackAnim = false;
+    public bool isEscapeAttackAnim = false;
 
     // ÃÊ±âÈ­
     protected override void Start()
@@ -57,8 +57,9 @@ public class PlayerController : Character
 
     void PlayerInput()
     {
-        if(anim.GetBool("isAttacking") == false && canEscapeAttackAnim)
+        if(anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
         {
+            
             if (anim.GetBool("isAttacking") == true)
                 anim.SetBool("isAttacking", false);
             h = Input.GetAxis("Horizontal");
@@ -89,6 +90,7 @@ public class PlayerController : Character
             {
                 anim.SetTrigger("Attack");
                 anim.SetBool("isAttacking", true);
+                isEscapeAttackAnim = false;
             }
             else if (canCombo && anim.GetBool("isAttacking"))                       //if(canCombo)
             {
@@ -150,7 +152,7 @@ public class PlayerController : Character
     public void EnableHitbox() => weapon.GetComponent<BoxCollider>().enabled = true;
     public void DisableHitbox() => weapon.GetComponent<BoxCollider>().enabled = false;
 
-    public void EscapeAttackAnim() => canEscapeAttackAnim = true;
+    public void EscapeAttackAnim() => isEscapeAttackAnim = true;
 
     void OnDrawGizmosSelected()
     {
