@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ICharacterDamageable
 {
-    protected float hp;
+    protected int hp { get; set; }
+    protected int damage { get; set; }
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -16,14 +17,21 @@ public class Character : MonoBehaviour
         
     }
 
+    virtual protected void Init()
+    {
+        //base Init
+        hp = 10;
+        damage = 1;
+    }
+
     public float GetHp() => hp;
-    public void SetHp(float value) => hp = value;
-    public void TakeDamage(float amount)
+    public void SetHp(int value) => hp = value;
+
+    public virtual void TakeDamage(int amount)
     {
         if (hp - amount < 0)
             hp = 0;
         else
             hp -= amount;
     }
-
 }

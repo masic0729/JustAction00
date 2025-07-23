@@ -35,13 +35,17 @@ public class PlayerController : Character
         Init();
     }
 
-    void Init()
+    protected override void Init()
     {
+        base.Init();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         weaponTransform = FindTransformAtChild("Weapon");
         weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
         weapon.transform.parent = weaponTransform;
+
+        hp = 100;
+        damage = 10;
 
         // 기본 무기 히트박스는 비활성화
         BoxCollider col = weapon.GetComponent<BoxCollider>();
