@@ -6,13 +6,13 @@ public abstract class Tree : MonoBehaviour
 {
     Node rootNode;
     // Start is called before the first frame update
-    protected void Start()
+    virtual protected void Start()
     {
         rootNode = SetupBehaviorTree();
     }
 
     // Update is called once per frame
-    protected void Update()
+    virtual protected void Update()
     {
         if (rootNode is null)
             return;

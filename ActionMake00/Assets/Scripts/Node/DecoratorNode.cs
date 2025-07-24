@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,25 +6,17 @@ using UnityEngine;
 public class DecoratorNode : Node
 {
     protected Node child;
+    private Func<bool> condition;
 
-    public DecoratorNode(Node child)
+    public DecoratorNode(Node child, Func<bool> condition)
     {
         this.child = child;
+        this.condition = condition;
     }
 
     public override NodeState Evaluate()
     {
-        NodeState result = child.Evaluate();
-        if (result == NodeState.Success)
-        {
-            Debug.Log("单内饭捞磐 角菩贸府");
-            return NodeState.Failure;
-        }
-        if (result == NodeState.Failure)
-        {
-            Debug.Log("单内饭捞磐 己傍 贸府");
-            return NodeState.Success;
-        }
-        return NodeState.Running;
+        if (!condition()) return NodeState.Failure;
+        return child.Evaluate();
     }
 }
