@@ -1,10 +1,17 @@
 
+/// <summary>
+/// 캐릭터간 기본 상호작용. 대표적으로 데미지, 사망이 존재한다
+/// </summary>
 public interface ICharacterDamageable
 {
     
-    void TakeDamage(int amount);
+    abstract void TakeDamage(int amount);
+    abstract void Dead();
 }
 
+/// <summary>
+/// just Test
+/// </summary>
 public interface ITest
 {
     void Test();

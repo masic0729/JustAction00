@@ -14,7 +14,6 @@ public class EnemyTest : FollwingPlayerEnemyBT
     protected override void Update()
     {
         base.Update();
-             
     }
 
 

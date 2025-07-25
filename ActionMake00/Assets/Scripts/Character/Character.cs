@@ -34,4 +34,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
         else
             hp -= amount;
     }
+
+    public virtual void Dead()
+    {
+
+    }
 }

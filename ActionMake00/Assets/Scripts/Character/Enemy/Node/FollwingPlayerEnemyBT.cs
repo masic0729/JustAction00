@@ -32,7 +32,7 @@ public abstract class FollwingPlayerEnemyBT : Tree
             { 
             new CheckPlayerInNearNode(thisObject),
             //여기에 공격을 하는데, 패턴1을 할 수도 있고, 2를 할 수도 있다
-            new StayNearPlayerNode(thisObject)
+            new StayNearPlayerNode(player, thisObject)
             }),
             
             new GoToPlayerNode(player, thisObject)

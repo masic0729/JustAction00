@@ -18,7 +18,7 @@ public abstract class Node
     public Node parentNode;                                                     //부모 노드
     protected List<Node> childrenNode = new List<Node>();                       //자식 노드 리스트
     public Animator anim;
-
+    protected Transform thisObject;
     public Node()
     {
         //최초 생성시 데이터 미할당
@@ -31,6 +31,7 @@ public abstract class Node
         {
             anim = transform.gameObject.GetComponent<Animator>();
         }
+        thisObject = transform;
     }
 
     /// <summary>
