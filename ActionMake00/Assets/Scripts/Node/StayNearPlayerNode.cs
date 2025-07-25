@@ -4,16 +4,31 @@ using UnityEngine;
 
 public class StayNearPlayerNode : Node
 {
-    Animator anim;
 
-    public StayNearPlayerNode(Transform transform)
+    public StayNearPlayerNode(Transform transform) :base(transform)
     {
-        anim = transform.GetComponent<Animator>();
     }
 
     public override NodeState Evaluate()
     {
-        Debug.Log("플레이어 근처에 대기중");
-        return state = NodeState.Running;
+
+        if (anim.GetBool("isAttacking") == true)
+        {
+            //공격 중이니까 러닝
+            
+            return state = NodeState.Running;
+            
+        }
+        else 
+        {
+            
+            anim.SetTrigger("Attack");
+            anim.SetBool("isAttacking", true);
+            //공격이 끝나면 끝내기
+            return state = NodeState.Success;
+        }
+
     }
+
+    
 }

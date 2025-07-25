@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 
 /// <summary>
@@ -16,11 +17,20 @@ public abstract class Node
     protected NodeState state;                                                  //현재 노드상태확인
     public Node parentNode;                                                     //부모 노드
     protected List<Node> childrenNode = new List<Node>();                       //자식 노드 리스트
+    public Animator anim;
 
     public Node()
     {
         //최초 생성시 데이터 미할당
         parentNode = null;
+
+    }
+    public Node(Transform transform)
+    {
+        if(anim == null)
+        {
+            anim = transform.gameObject.GetComponent<Animator>();
+        }
     }
 
     /// <summary>

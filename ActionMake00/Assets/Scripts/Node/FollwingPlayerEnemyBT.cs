@@ -6,13 +6,14 @@ using UnityEngine.UIElements;
 
 public abstract class FollwingPlayerEnemyBT : Tree
 {
+    protected Node root;
     public Transform player;
     public Transform thisObject;
-    protected int index = 1;
 
     protected override void Start()
     {
         base.Start();
+        
     }
 
     protected override void Update()
@@ -24,25 +25,19 @@ public abstract class FollwingPlayerEnemyBT : Tree
 
     protected override Node SetupBehaviorTree()
     {
-        Debug.Log("실행함");
-        Node root = new SelecterNode(new List<Node>
-    {
-        new DecoratorNode(
-            new GoToPlayerNode(player, thisObject),
-            () => index == 0
-        ),
 
-        new DecoratorNode(
+        root = new SelecterNode(new List<Node>
+        {
             new SequenceNode(new List<Node>
-            {
-                new CheckPlayerInNearNode(thisObject),
-                new StayNearPlayerNode(thisObject)
+            { 
+            new CheckPlayerInNearNode(thisObject),
+            //여기에 공격을 하는데, 패턴1을 할 수도 있고, 2를 할 수도 있다
+            new StayNearPlayerNode(thisObject)
             }),
-            () => index == 1
-        )
-    });
+            
+            new GoToPlayerNode(player, thisObject)
+        });
         return root;
     }
 
-    
 }

@@ -8,6 +8,7 @@ public abstract class Tree : MonoBehaviour
     // Start is called before the first frame update
     virtual protected void Start()
     {
+
         rootNode = SetupBehaviorTree();
     }
 

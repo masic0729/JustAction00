@@ -9,17 +9,13 @@ public class EnemyTest : FollwingPlayerEnemyBT
     protected override void Start()
     {
         base.Start();
-        StartCoroutine(SwitchStateRoutine());
     }
 
-    IEnumerator SwitchStateRoutine()
+    protected override void Update()
     {
-        while (true)
-        {
-            index = 0; // 추적
-            yield return new WaitForSeconds(2f);
-            index = 1; // 대기
-            yield return new WaitForSeconds(2f);
-        }
+        base.Update();
+             
     }
+
+
 }
