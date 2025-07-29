@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyTest : FollwingPlayerEnemyBT
 {
+    public ParticleSystem pEffect;
     //private int aiStateIndex = 0; // 0: 추적, 1: 대기
 
     protected override void Start()

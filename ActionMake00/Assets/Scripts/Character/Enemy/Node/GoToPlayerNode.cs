@@ -7,7 +7,7 @@ public class GoToPlayerNode : Node
     Transform player;
     Transform transform;
 
-    public GoToPlayerNode(Transform player, Transform transform)
+    public GoToPlayerNode(Transform player, Transform transform) : base(transform)
     {
         this.player = player;
         this.transform = transform;
@@ -16,12 +16,15 @@ public class GoToPlayerNode : Node
     {
         transform.LookAt(player);
         Debug.Log("플레이어 쫒아가는중");
+
         if(Vector3.Distance(transform.position, player.transform.position) < 2f)
         {
+            anim.SetBool("GoToPlayer", false);
             return state = NodeState.Success;
         }
         transform.position = Vector3.Lerp(transform.position, player.position, Time.deltaTime);
 
+        anim.SetBool("GoToPlayer", true);
         return state = NodeState.Running;
     }
 }

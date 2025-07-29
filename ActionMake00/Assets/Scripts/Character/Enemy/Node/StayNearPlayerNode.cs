@@ -22,15 +22,21 @@ public class StayNearPlayerNode : Node
             return state = NodeState.Running;
         }
 
-        if (anim.GetBool("isAttacking") == false)
+        /*if (anim.GetBool("isAttacking") == false)
         {
             //공격이 끝나면 끝내기
             return state = NodeState.Success;
+        }*/
+
+        if (isAttacked == true && anim.GetBool("isAttacking") == true)
+        {
+            return state = NodeState.Running;
+
         }
-
-        isAttacked = true;
-        return state = NodeState.Running;
-
+        else {
+            isAttacked = false;
+            return state = NodeState.Success;
+        }
     }
 
     
