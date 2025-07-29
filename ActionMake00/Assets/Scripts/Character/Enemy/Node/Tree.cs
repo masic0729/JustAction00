@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Tree : MonoBehaviour
+public abstract class Tree : Character
 {
     Node rootNode;
     // Start is called before the first frame update
-    virtual protected void Start()
+    protected override void Start()
     {
-
+        base.Start();
         rootNode = SetupBehaviorTree();
+
     }
 
     // Update is called once per frame
-    virtual protected void Update()
+    protected override void Update()
     {
+        base.Update();
         if (rootNode is null)
             return;
         rootNode.Evaluate();

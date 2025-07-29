@@ -27,6 +27,7 @@ public class PlayerController : Character
     bool isGround = true;
     bool canCombo = false;
     public bool isEscapeAttackAnim = false;
+    bool canInput = true;
 
     // 초기화
     protected override void Start()
@@ -61,6 +62,9 @@ public class PlayerController : Character
 
     void PlayerInput()
     {
+        if (canInput == false)
+            return;
+
         if(anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
         {
             
@@ -104,6 +108,14 @@ public class PlayerController : Character
 
         // 디버그 확인용
         //Debug.Log($"[Debug] Combo: {canCombo}, isAttacking: {anim.GetBool("isAttacking")}, isReAttack: {anim.GetBool("isReAttack")}");
+    }
+
+    public override void TakeDamage(int amount)
+    {
+        base.TakeDamage(amount);
+        Debug.Log("플레이어 피해 받음");
+        canInput = false;
+        anim.SetTrigger("Hit");
     }
 
     void CheckGround()
@@ -153,8 +165,15 @@ public class PlayerController : Character
         canCombo = false;
     }
 
+    
+
     public void EnableHitbox() => weapon.GetComponent<BoxCollider>().enabled = true;
     public void DisableHitbox() => weapon.GetComponent<BoxCollider>().enabled = false;
+    public void TransIdleState()
+    {
+        anim.SetBool("isAttacking", false);
+        canInput = true;
+    }
 
     public void EscapeAttackAnim() => isEscapeAttackAnim = true;
 
