@@ -6,7 +6,6 @@ public class PlayerController : Character
 {
     [Header("Character default info")]
     [HideInInspector]
-    public Animator anim;
     private Rigidbody rb;
     private Vector3 moveVector;
 
@@ -39,7 +38,6 @@ public class PlayerController : Character
     protected override void Init()
     {
         base.Init();
-        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         weaponTransform = FindTransformAtChild("Weapon");
         weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
@@ -105,9 +103,6 @@ public class PlayerController : Character
                 anim.SetBool("isReAttack", true);
             }
         }
-
-        // 디버그 확인용
-        //Debug.Log($"[Debug] Combo: {canCombo}, isAttacking: {anim.GetBool("isAttacking")}, isReAttack: {anim.GetBool("isReAttack")}");
     }
 
     public override void TakeDamage(int amount)
@@ -150,13 +145,6 @@ public class PlayerController : Character
     }
 
     public void DisableCombo() => canCombo = false;
-
-    /*IEnumerator ComboResetTimer()
-    {
-        yield return new WaitForSeconds(0.5f);
-        canCombo = false;
-        anim.SetBool("isReAttack", false); // 안전하게 리셋
-    }*/
 
     public void InterruptCombo()
     {

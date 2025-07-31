@@ -1,14 +1,11 @@
-using UnityEngine;
-
-public abstract class Tree : Character
+public abstract class Tree : Enemy
 {
     Node rootNode;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        rootNode = SetupBehaviorTree();
-
+        Init();
     }
 
     // Update is called once per frame
@@ -18,6 +15,13 @@ public abstract class Tree : Character
         if (rootNode is null)
             return;
         rootNode.Evaluate();
+    }
+
+    protected override void Init()
+    {
+        base.Init();
+        rootNode = SetupBehaviorTree();
+
     }
 
     protected abstract Node SetupBehaviorTree();

@@ -20,6 +20,7 @@ public class GoToPlayerNode : Node
         if(Vector3.Distance(transform.position, player.transform.position) < 2f)
         {
             anim.SetBool("GoToPlayer", false);
+            //anim.SetBool("GoToPlayer", false);
             return state = NodeState.Success;
         }
         transform.position = Vector3.Lerp(transform.position, player.position, Time.deltaTime);

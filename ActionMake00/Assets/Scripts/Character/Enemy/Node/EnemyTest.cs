@@ -17,6 +17,11 @@ public class EnemyTest : FollwingPlayerEnemyBT
         base.Update();
     }
 
+    protected override void Init()
+    {
+        base.Init();
+    }
+
     /// <summary>
     /// 일반 몬스터의 일반 공격
     /// </summary>
@@ -56,5 +61,21 @@ public class EnemyTest : FollwingPlayerEnemyBT
         }
         Debug.LogWarning("Child transform not found: " + name);
         return null;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "PlayerAttack")
+        {
+            if(anim != null)
+            {
+                anim.SetTrigger("Hit");
+
+            }
+            else
+            {
+                Debug.Log("애니메이터 미할당..?");
+            }
+        }
     }
 }

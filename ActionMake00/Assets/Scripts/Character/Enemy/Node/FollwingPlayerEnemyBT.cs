@@ -13,13 +13,24 @@ public abstract class FollwingPlayerEnemyBT : Tree
     protected override void Start()
     {
         base.Start();
-        
+        Init();
+        /*if (root.anim == null)
+        {
+            
+            Debug.Log("애니메이션 넣었을까요??");
+            Debug.Log(root.anim);
+        }*/
     }
 
     protected override void Update()
     {
         base.Update();
 
+    }
+
+    protected override void Init()
+    {
+        base.Init();
     }
 
 

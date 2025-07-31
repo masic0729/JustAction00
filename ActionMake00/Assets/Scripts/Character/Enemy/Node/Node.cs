@@ -26,12 +26,10 @@ public abstract class Node
 
     }
     public Node(Transform transform)
-    {
-        if(anim == null)
-        {
-            anim = transform.gameObject.GetComponent<Animator>();
-        }
+    {        
         thisObject = transform;
+        anim = transform.GetComponent<Character>().anim;
+
     }
 
     /// <summary>
