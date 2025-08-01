@@ -18,7 +18,7 @@ public class CheckPlayerInNearNode : Node
 
     public override NodeState Evaluate()
     {
-        Collider[] collider = Physics.OverlapSphere(transform.position, 2.0f, playerLayerMask);
+        Collider[] collider = Physics.OverlapSphere(transform.position, 4.0f, playerLayerMask);
         if(collider.Length <= 0)
         {
             //못찾았으니 실패
@@ -28,3 +28,4 @@ public class CheckPlayerInNearNode : Node
         return state = NodeState.Success;
     }
 }
+    
