@@ -2,14 +2,10 @@ using UnityEngine;
 
 public class EnemyTest : FollwingPlayerEnemyBT
 {
-    int playerLayerMask = 1 << 6;
-
-    public ParticleSystem pEffect;
-    //private int aiStateIndex = 0; // 0: 추적, 1: 대기
-
     protected override void Start()
     {
         base.Start();
+        Init();
     }
 
     protected override void Update()
@@ -22,6 +18,8 @@ public class EnemyTest : FollwingPlayerEnemyBT
         base.Init();
     }
 
+    
+
     /// <summary>
     /// 일반 몬스터의 일반 공격
     /// </summary>
@@ -33,13 +31,13 @@ public class EnemyTest : FollwingPlayerEnemyBT
             Debug.Log("데이터 없음");
             return;
         }
-        ParticleSystem ps = Instantiate(pEffect, attackTrans.position, attackTrans.rotation);
+        ParticleSystem ps = Instantiate(pEffectDic["CommonEnemyAttack"], attackTrans.position, attackTrans.rotation);
         ps.Play();
         Destroy(ps.gameObject, ps.main.duration);
         Collider playerCol = CheckPlayerAttackAround(attackTrans);
         if (playerCol != null)
         {
-            playerCol.GetComponent<Character>().TakeDamage(damage);
+            playerCol.GetComponent<Character>().TakeDamage(commonDamage);
         }
     }
 
@@ -63,19 +61,10 @@ public class EnemyTest : FollwingPlayerEnemyBT
         return null;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "PlayerAttack")
-        {
-            if(anim != null)
-            {
-                anim.SetTrigger("Hit");
-
-            }
-            else
-            {
-                Debug.Log("애니메이터 미할당..?");
-            }
-        }
+        base.OnTriggerEnter(other);
     }
+
+    
 }

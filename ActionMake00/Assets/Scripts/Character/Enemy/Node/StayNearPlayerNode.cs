@@ -13,7 +13,9 @@ public class StayNearPlayerNode : Node
 
     public override NodeState Evaluate()
     {
-        
+        if (enemy.isDefault == false)
+            return state = NodeState.Success;
+
         if(isAttacked == false)
         {
             anim.SetTrigger("Attack");

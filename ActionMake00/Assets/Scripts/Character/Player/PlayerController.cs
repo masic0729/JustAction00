@@ -18,7 +18,6 @@ public class PlayerController : Character
     public LayerMask groundMask;
 
     float h, v;
-    float moveSpeed = 5f;
     float rotateSpeed = 20f;
     float jumpPower = 5f;
     
@@ -44,7 +43,7 @@ public class PlayerController : Character
         weapon.transform.parent = weaponTransform;
 
         hp = 100;
-        damage = 10;
+        commonDamage = 10;
 
         // 기본 무기 히트박스는 비활성화
         BoxCollider col = weapon.GetComponent<BoxCollider>();
@@ -153,10 +152,18 @@ public class PlayerController : Character
         canCombo = false;
     }
 
-    
 
-    public void EnableHitbox() => weapon.GetComponent<BoxCollider>().enabled = true;
-    public void DisableHitbox() => weapon.GetComponent<BoxCollider>().enabled = false;
+
+    public void EnableHitbox()
+    { 
+        weapon.GetComponent<BoxCollider>().enabled = true;
+        weapon.GetComponent<Weapon>().SetDamage(commonDamage);
+    }
+    public void DisableHitbox()
+    {
+        weapon.GetComponent<BoxCollider>().enabled = false;
+    } 
+
     public void TransIdleState()
     {
         anim.SetBool("isAttacking", false);

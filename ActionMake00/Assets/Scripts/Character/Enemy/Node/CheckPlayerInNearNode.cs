@@ -11,7 +11,7 @@ public class CheckPlayerInNearNode : Node
     /// enemy의 애니메이터를 노드의 transform 및 animator에 설정한다
     /// </summary>
     /// <param name="transform"></param>
-    public CheckPlayerInNearNode(Transform transform)
+    public CheckPlayerInNearNode(Transform transform) : base(transform)
     {
         this.transform = transform;
     }
@@ -19,12 +19,13 @@ public class CheckPlayerInNearNode : Node
     public override NodeState Evaluate()
     {
         Collider[] collider = Physics.OverlapSphere(transform.position, 4.0f, playerLayerMask);
-        if(collider.Length <= 0)
+        if(collider.Length <= 0 && enemy.isPlayerFound == false)
         {
             //못찾았으니 실패
-            return state = NodeState.Failure;
+            return state = NodeState.Running;
         }
         Debug.Log("플레이어가 근처에 있음");
+        enemy.isPlayerFound = true;
         return state = NodeState.Success;
     }
 }

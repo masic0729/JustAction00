@@ -18,6 +18,8 @@ public abstract class Node
     public Node parentNode;                                                     //부모 노드
     protected List<Node> childrenNode = new List<Node>();                       //자식 노드 리스트
     public Animator anim;
+    protected Enemy enemy;
+
     protected Transform thisObject;
     public Node()
     {
@@ -29,6 +31,7 @@ public abstract class Node
     {        
         thisObject = transform;
         anim = transform.GetComponent<Character>().anim;
+        enemy = transform.GetComponent<Enemy>();
 
     }
 

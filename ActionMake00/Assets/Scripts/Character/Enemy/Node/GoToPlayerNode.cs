@@ -15,17 +15,16 @@ public class GoToPlayerNode : Node
     public override NodeState Evaluate()
     {
         transform.LookAt(player);
-        Debug.Log("플레이어 쫒아가는중");
-
-        if(Vector3.Distance(transform.position, player.transform.position) < 2f)
+        enemy.MoveForward();
+        if (Vector3.Distance(transform.position, player.transform.position) < 2f || enemy.isDefault == false)
         {
-            anim.SetBool("GoToPlayer", false);
+            anim.SetBool("Move", false);
             //anim.SetBool("GoToPlayer", false);
             return state = NodeState.Success;
         }
-        transform.position = Vector3.Lerp(transform.position, player.position, Time.deltaTime);
-
-        anim.SetBool("GoToPlayer", true);
+        
+        
+        anim.SetBool("Move", true);
         return state = NodeState.Running;
     }
 }

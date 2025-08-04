@@ -6,13 +6,11 @@ public interface ICharacterDamageable
 {
     
     abstract void TakeDamage(int amount);
-    abstract void Dead();
+    abstract void Dead(float animationTime);
 }
 
-/// <summary>
-/// just Test
-/// </summary>
-public interface ITest
+public interface IWeapon
 {
-    void Test();
+    abstract int GetDamage();
+    abstract void SetDamage(int value);
 }
