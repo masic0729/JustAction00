@@ -6,8 +6,7 @@ using UnityEngine.UIElements;
 
 public abstract class FollwingPlayerEnemyBT : Tree
 {
-    protected Node root;
-    public Transform thisObject;
+    
 
     protected override void Start()
     {
@@ -42,13 +41,14 @@ public abstract class FollwingPlayerEnemyBT : Tree
             //우선 플레이어가 올 때까지 대기한다
             new CheckPlayerInNearNode(thisObject),
 
-            
-            new SequenceNode(new List<Node>
-            {
             new GoToPlayerNode(player, thisObject),
+            
+            new SelecterNode(new List<Node>
+            {
+            //new GoToPlayerNode(player, thisObject),
             //여기에 공격을 하는데, 패턴1을 할 수도 있고, 2를 할 수도 있다. 말이 Stay인거지, 현재는 공격이나 다름 없음
             //또한 공격하면서 몬스터의 영역을 벗어나지 않는 선에서 
-            new StayNearPlayerNode(player, thisObject)
+            new CommonEnemyAttackNode(player, thisObject)
             }),
 
             new DecoratorNode(new EnemyReturnPositionNode(spawnPosition, thisObject),

@@ -1,21 +1,17 @@
 using UnityEngine;
 
-public class Sword : Weapon
+public class EnemyPunch : Weapon
 {
-    private Collider col;
-    private int damage = 1;
 
+    // Start is called before the first frame update
     private void Start()
     {
         Init();
     }
 
-
     protected override void Init()
     {
         base.Init();
     }
-
-    
 
 }

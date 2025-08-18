@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Sword;
 
 public class Character : MonoBehaviour, ICharacterDamageable
 {
@@ -8,6 +9,10 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [SerializeField]
     public ParticleSystem[] pEffect;
     protected Dictionary<string, ParticleSystem> pEffectDic;
+    CapsuleCollider col;
+    protected Rigidbody rb;
+    public Weapon weapon;
+
     protected int hp { get; set; }
     protected int commonDamage;
     protected int skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음
@@ -33,7 +38,10 @@ public class Character : MonoBehaviour, ICharacterDamageable
         hp = 10;
         commonDamage = 1;
         anim = GetComponent<Animator>();
-
+        col = GetComponent<CapsuleCollider>();
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        col.enabled = true;
         pEffectDic = new Dictionary<string, ParticleSystem>();
         for(int i = 0; i < pEffect.Length; i++)
         {
@@ -69,7 +77,25 @@ public class Character : MonoBehaviour, ICharacterDamageable
     /// void
     /// </summary>
     public virtual void Dead(float animationTime) {
+        rb.useGravity = false;
+        col.enabled = false;
         Destroy(this.gameObject, animationTime);
+    }
+
+    public void TransHitBox(int state)
+    {
+        //weapon.GetComponent<BoxCollider>().enabled = true;
+        weapon.ColliderEnable(state);
+    }
+
+    protected Transform FindTransformAtChild(string name)
+    {
+        foreach (Transform t in GetComponentsInChildren<Transform>())
+        {
+            if (t.name == name) return t;
+        }
+        Debug.LogWarning("Child transform not found: " + name);
+        return null;
     }
 
     public void SetMoveSpeed(float value) => moveSpeed = value;

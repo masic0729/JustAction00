@@ -5,7 +5,7 @@ using UnityEngine;
 public class CheckPlayerInNearNode : Node
 {
     int playerLayerMask = 1 << 6;
-    Transform transform;
+    //Transform transform;
 
     /// <summary>
     /// enemy의 애니메이터를 노드의 transform 및 animator에 설정한다
@@ -13,12 +13,12 @@ public class CheckPlayerInNearNode : Node
     /// <param name="transform"></param>
     public CheckPlayerInNearNode(Transform transform) : base(transform)
     {
-        this.transform = transform;
+        //this.transform = transform;
     }
 
     public override NodeState Evaluate()
     {
-        Collider[] collider = Physics.OverlapSphere(transform.position, 4.0f, playerLayerMask);
+        Collider[] collider = Physics.OverlapSphere(transform.position, enemy.GetPlayerFindDistance(), playerLayerMask);
         if(collider.Length <= 0 && enemy.isPlayerFound == false)
         {
             //못찾았으니 실패

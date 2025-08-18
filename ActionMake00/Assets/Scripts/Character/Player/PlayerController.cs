@@ -6,10 +6,8 @@ public class PlayerController : Character
 {
     [Header("Character default info")]
     [HideInInspector]
-    private Rigidbody rb;
     private Vector3 moveVector;
 
-    public GameObject weapon;
     private Transform weaponTransform;
 
     [Header("Physics check info")]
@@ -37,17 +35,14 @@ public class PlayerController : Character
     protected override void Init()
     {
         base.Init();
-        rb = GetComponent<Rigidbody>();
-        weaponTransform = FindTransformAtChild("Weapon");
-        weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
-        weapon.transform.parent = weaponTransform;
-
+       
         hp = 100;
-        commonDamage = 10;
+
+        WeaponInit();
 
         // 기본 무기 히트박스는 비활성화
-        BoxCollider col = weapon.GetComponent<BoxCollider>();
-        if (col != null) col.enabled = false;
+        /*BoxCollider col = weapon.gameObject.GetComponent<BoxCollider>();
+        if (col != null) col.enabled = false;*/
     }
 
     protected override void Update()
@@ -55,6 +50,16 @@ public class PlayerController : Character
         base.Update();
         PlayerInput();
         CheckGround();
+    }
+
+    void WeaponInit()
+    {
+        weaponTransform = FindTransformAtChild("Weapon");
+        weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
+        weapon.transform.parent = weaponTransform;
+        commonDamage = 10;
+
+        weapon.GetComponent<Weapon>().SetDamage(commonDamage);
     }
 
     void PlayerInput()
@@ -124,15 +129,7 @@ public class PlayerController : Character
         anim.SetTrigger("Jump");
     }
 
-    Transform FindTransformAtChild(string name)
-    {
-        foreach (Transform t in GetComponentsInChildren<Transform>())
-        {
-            if (t.name == name) return t;
-        }
-        Debug.LogWarning("Child transform not found: " + name);
-        return null;
-    }
+    
 
     /// <summary>
     /// 콤보 타이밍 허용 (애니메이션 이벤트에서 호출)
@@ -154,15 +151,11 @@ public class PlayerController : Character
 
 
 
-    public void EnableHitbox()
-    { 
-        weapon.GetComponent<BoxCollider>().enabled = true;
-        weapon.GetComponent<Weapon>().SetDamage(commonDamage);
-    }
-    public void DisableHitbox()
+    
+    /*public void DisableHitbox()
     {
         weapon.GetComponent<BoxCollider>().enabled = false;
-    } 
+    } */
 
     public void TransIdleState()
     {

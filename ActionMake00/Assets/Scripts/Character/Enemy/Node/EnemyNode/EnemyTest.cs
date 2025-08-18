@@ -16,6 +16,10 @@ public class EnemyTest : FollwingPlayerEnemyBT
     protected override void Init()
     {
         base.Init();
+
+        playerFindDistance = 5f;
+        activityAllowValue = 10f;
+        attackReadyDistance = 2f;
     }
 
     
@@ -51,7 +55,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
         return collider[0];
     }
 
-    Transform FindTransformAtChild(string name)
+    /*Transform FindTransformAtChild(string name)
     {
         foreach (Transform t in GetComponentsInChildren<Transform>())
         {
@@ -59,7 +63,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
         }
         Debug.LogWarning("Child transform not found: " + name);
         return null;
-    }
+    }*/
 
     protected override void OnTriggerEnter(Collider other)
     {

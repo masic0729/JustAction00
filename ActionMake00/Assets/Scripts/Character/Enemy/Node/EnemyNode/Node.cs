@@ -20,6 +20,8 @@ public abstract class Node
     public Animator anim;
     protected Enemy enemy;
 
+    protected Transform transform;
+
     protected Transform thisObject;
     public Node()
     {
@@ -33,6 +35,7 @@ public abstract class Node
         anim = transform.GetComponent<Character>().anim;
         enemy = transform.GetComponent<Enemy>();
 
+        this.transform = transform;
     }
 
     /// <summary>
