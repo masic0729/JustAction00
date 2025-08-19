@@ -17,7 +17,8 @@ public class GoToPlayerNode : Node
         {
             anim.SetBool("Move", false);
             enemy.MoveTarget(null);
-
+            int rand = Random.Range(0, enemy.GetMaxAttackIndex());
+            enemy.anim.SetInteger("PattenIndex", rand);
             return state = NodeState.Success;
         }
         enemy.MoveTarget(player);

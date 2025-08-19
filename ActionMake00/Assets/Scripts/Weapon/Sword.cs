@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
-    private Collider col;
-    private int damage = 1;
 
     private void Start()
     {

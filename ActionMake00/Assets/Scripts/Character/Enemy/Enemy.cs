@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
 public class Enemy : Character
 {
     protected Node root;
@@ -21,6 +23,8 @@ public class Enemy : Character
     protected float attackRotateSpeed = 7.5f;
 
     private int enemyIndex = -1;
+    private const int maxAttackIndex = 2;
+    private int attackIndex = -1;
     public bool isPlayerFound = false;
     public bool isDefault = true;
     public bool isAttacked = false;                                    //몬스터의 공격중인 지 확인하는 용도
@@ -31,6 +35,7 @@ public class Enemy : Character
     protected override void Start()
     {
         base.Start();
+
     }
 
     // Update is called once per frame
@@ -45,9 +50,11 @@ public class Enemy : Character
     {
         base.Init();
         player = GameObject.Find("Player").transform;
-        nav = GetComponent<NavMeshAgent>();
         spawnPosition = this.transform.position;
         thisObject = this.gameObject.transform;
+        nav = GetComponent<NavMeshAgent>();
+        pEffectDic["pDeath"] = pEffect[1];
+
     }
 
     void CheckCharacterActivityZone()
@@ -105,12 +112,11 @@ public class Enemy : Character
         nav.SetDestination(target.position);
     }
 
-    public override void Dead(float animationTime)
+    /*public override void Dead(float animationTime)
     {
         base.Dead(animationTime);
-        ParticleManager.instance.PlayParticle(pEffectDic["pEnemyDeath0"], this.transform);
-        SpawnManager.instance.DestroyCommonEnemy(this.gameObject.GetComponent<Enemy>());
-    }
+        
+    }*/
 
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -130,4 +136,6 @@ public class Enemy : Character
     public float GetAttackReadyDistance() => attackReadyDistance;
     public void SetIsCanTurn(bool state) => isCanTurn = state;
     public bool GetIsCanTurn() => isCanTurn;
+
+    public int GetMaxAttackIndex() => maxAttackIndex;
 }

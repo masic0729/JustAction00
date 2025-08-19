@@ -19,11 +19,16 @@ public class BossGolem : BossEnemyBT
     protected override void Init()
     {
         base.Init();
+
+        weaponDic["PunchWeapon"] = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
+        weaponDic["HookWeapon"] = FindTransformAtChild("HookWeapon").GetComponent<Weapon>();
+        
         playerFindDistance = 10f;
         activityAllowValue = 20f;
         attackReadyDistance = 8f;
         punchDistance = 3.5f;
-        weapon = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
+        //weapon = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
+        
     }
 
 
@@ -34,8 +39,8 @@ public class BossGolem : BossEnemyBT
 
     public void SpawnStone()
     {
-        Transform stoneSpawn = FindTransformAtChild("StoneSpawner");
-
+        //Transform stoneSpawn = FindTransformAtChild("StoneSpawner");
+        Debug.Log("À¸¾Ç");
     }
 
     public void TurnOff()

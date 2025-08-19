@@ -16,7 +16,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
     protected override void Init()
     {
         base.Init();
-
+        pEffectDic["CommonEnemyAttack"] = pEffect[0];
         playerFindDistance = 5f;
         activityAllowValue = 10f;
         attackReadyDistance = 2f;
@@ -29,7 +29,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
     /// </summary>
     void Attack01()
     {
-        Transform attackTrans = FindTransformAtChild("B-toe.L");
+        Transform attackTrans = FindTransformAtChild("mixamorig1:LeftToeBase");
         if(attackTrans == null)
         {
             Debug.Log("데이터 없음");

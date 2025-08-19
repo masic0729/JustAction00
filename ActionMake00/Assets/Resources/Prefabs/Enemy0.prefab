@@ -233,6 +233,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: aac783a706f9ea245970452e74ece35e, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1b1595a3eddd7394f8dff33a9b282ac0, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'B-upperArm.L'\n\tTransform 'B-hand.L'\n\tTransform
+        'B-shin.L'\n\tTransform 'B-middleFinger01.L'\n\tTransform 'B-thumb02.L'\n\tTransform
+        'B-foot.R'\n\tTransform 'B-ringFinger01.L'\n\tTransform 'B-indexFinger01.R'\n\tTransform
+        'B-thumb01.L'\n\tTransform 'B-upperArm.R'\n\tand more ...\n\tFrom animation
+        clip 'Dying'"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -324,8 +334,9 @@ MonoBehaviour:
   pEffect:
   - {fileID: 7177991128484655658, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
+  weapon: []
   moveSpeed: 5
-  thisObject: {fileID: 6514175284997113349}
+  thisObject: {fileID: 0}
   player: {fileID: 0}
   activityAllowValue: 10
   playerFindDistance: 10

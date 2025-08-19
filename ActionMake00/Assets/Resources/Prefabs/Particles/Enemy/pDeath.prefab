@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 2433282508523890284}
   - component: {fileID: 2433282508523921356}
   m_Layer: 0
-  m_Name: pEnemyDeath0
+  m_Name: pDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

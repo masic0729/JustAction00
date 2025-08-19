@@ -18868,7 +18868,7 @@ GameObject:
   - component: {fileID: 8194992990867289332}
   - component: {fileID: 1347780276449787774}
   m_Layer: 0
-  m_Name: pPlayerDeath
+  m_Name: pDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

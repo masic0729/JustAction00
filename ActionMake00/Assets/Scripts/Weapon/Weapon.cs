@@ -11,15 +11,22 @@ public class Weapon : MonoBehaviour, IWeapon
     {
         col = GetComponent<Collider>();
         if (col == null)
+        {
             Debug.LogError($"{name} Weapon에 Collider가 없음!");
-        else
-            col.enabled = false; // 시작은 꺼두기
+            return;
+        }
+        col.enabled = false; // 시작은 꺼두기
     }
 
-    public void ColliderEnable(int state)
+    public void ColliderTransEnable()
     {
         if (col == null) return;
-        col.enabled = (state == 1);
+        if (col.enabled == true)
+        {
+            col.enabled = false;
+        }
+        else
+            col.enabled = true;
     }
 
     public int GetDamage() => damage;

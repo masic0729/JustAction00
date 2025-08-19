@@ -9,9 +9,10 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [SerializeField]
     public ParticleSystem[] pEffect;
     protected Dictionary<string, ParticleSystem> pEffectDic;
-    CapsuleCollider col;
+    Collider hitCol;
     protected Rigidbody rb;
-    public Weapon weapon;
+    public Weapon[] weapon;
+    protected Dictionary<string, Weapon> weaponDic;
 
     protected int hp { get; set; }
     protected int commonDamage;
@@ -23,7 +24,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        Init();
+        //Init();
     }
 
     // Update is called once per frame
@@ -38,15 +39,22 @@ public class Character : MonoBehaviour, ICharacterDamageable
         hp = 10;
         commonDamage = 1;
         anim = GetComponent<Animator>();
-        col = GetComponent<CapsuleCollider>();
+        hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        DictionaryInit();
+
         rb.useGravity = true;
-        col.enabled = true;
+        hitCol.enabled = true;
         pEffectDic = new Dictionary<string, ParticleSystem>();
-        for(int i = 0; i < pEffect.Length; i++)
+    }
+
+    void DictionaryInit()
+    {
+        weaponDic = new Dictionary<string, Weapon>();
+/*        for(int i = 0; i < weapon.Length; i++)
         {
-            pEffectDic[pEffect[i].gameObject.name] = pEffect[i];
-        }
+            weaponDic[weapon[i].name] = weapon[i];
+        }*/
     }
 
     public float GetHp() => hp;
@@ -77,15 +85,17 @@ public class Character : MonoBehaviour, ICharacterDamageable
     /// void
     /// </summary>
     public virtual void Dead(float animationTime) {
+        ParticleManager.instance.PlayParticle(pEffectDic["pDeath"], this.transform);
+        SpawnManager.instance.DestroyCommonEnemy(this.gameObject.GetComponent<Enemy>());
         rb.useGravity = false;
-        col.enabled = false;
+        hitCol.enabled = false;
         Destroy(this.gameObject, animationTime);
     }
 
-    public void TransHitBox(int state)
+    public void TransHitBox(string name)
     {
         //weapon.GetComponent<BoxCollider>().enabled = true;
-        weapon.ColliderEnable(state);
+        weaponDic[name].ColliderTransEnable();
     }
 
     protected Transform FindTransformAtChild(string name)

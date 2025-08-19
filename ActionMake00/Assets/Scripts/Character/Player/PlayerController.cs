@@ -41,8 +41,8 @@ public class PlayerController : Character
         WeaponInit();
 
         // 기본 무기 히트박스는 비활성화
-        /*BoxCollider col = weapon.gameObject.GetComponent<BoxCollider>();
-        if (col != null) col.enabled = false;*/
+        /*BoxCollider hitCol = weapon.gameObject.GetComponent<BoxCollider>();
+        if (hitCol != null) hitCol.enabled = false;*/
     }
 
     protected override void Update()
@@ -54,12 +54,12 @@ public class PlayerController : Character
 
     void WeaponInit()
     {
-        weaponTransform = FindTransformAtChild("Weapon");
-        weapon = Instantiate(weapon, weaponTransform.position, weaponTransform.rotation);
-        weapon.transform.parent = weaponTransform;
         commonDamage = 10;
 
-        weapon.GetComponent<Weapon>().SetDamage(commonDamage);
+        weaponTransform = FindTransformAtChild("PlayerWeapon");
+        weaponDic["PlayerWeapon"] = Instantiate(weapon[0], weaponTransform.position, weaponTransform.rotation);
+        weaponDic["PlayerWeapon"].transform.parent = weaponTransform;
+        weaponDic["PlayerWeapon"].SetDamage(commonDamage);
     }
 
     void PlayerInput()
