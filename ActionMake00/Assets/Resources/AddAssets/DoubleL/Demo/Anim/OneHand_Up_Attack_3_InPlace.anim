@@ -81884,14 +81884,14 @@ AnimationClip:
   m_Events:
   - time: 0.33333334
     functionName: TransHitBox
-    data: 
+    data: PlayerWeapon
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1
+    intParameter: 0
     messageOptions: 0
   - time: 0.8
     functionName: TransHitBox
-    data: 
+    data: PlayerWeapon
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
