@@ -24,7 +24,7 @@ public class Enemy : Character
 
     private int enemyIndex = -1;
     private const int maxAttackIndex = 2;
-    private int attackIndex = -1;
+    //private int attackIndex = -1;
     public bool isPlayerFound = false;
     public bool isDefault = true;
     public bool isAttacked = false;                                    //몬스터의 공격중인 지 확인하는 용도
@@ -123,7 +123,7 @@ public class Enemy : Character
         if (other.transform.tag == "PlayerAttack")
         {
             //기본적으로 피해를 받는다
-            TakeDamage(other.GetComponent<Sword>().GetDamage());
+            TakeDamage(other.GetComponent<PlayerSword>().GetDamage());
         }
     }
 

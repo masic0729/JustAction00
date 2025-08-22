@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public abstract class FollwingPlayerEnemyBT : Tree
+public abstract class FollwingPlayerEnemyBT : TreeCtrl
 {
     
 
@@ -45,7 +45,7 @@ public abstract class FollwingPlayerEnemyBT : Tree
             
             new SelecterNode(new List<Node>
             {
-            //new GoToPlayerNode(player, thisObject),
+            //new GoToPlayerNode(mainCamera, thisObject),
             //여기에 공격을 하는데, 패턴1을 할 수도 있고, 2를 할 수도 있다. 말이 Stay인거지, 현재는 공격이나 다름 없음
             //또한 공격하면서 몬스터의 영역을 벗어나지 않는 선에서 
             new CommonEnemyAttackNode(player, thisObject)

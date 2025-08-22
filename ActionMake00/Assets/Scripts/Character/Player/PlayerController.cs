@@ -18,7 +18,8 @@ public class PlayerController : Character
     float h, v;
     float rotateSpeed = 20f;
     float jumpPower = 5f;
-    
+
+    int comboAttackIndex = 0;
 
     bool isGround = true;
     bool canCombo = false;
@@ -87,10 +88,10 @@ public class PlayerController : Character
             }
 
             // 점프
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            /*if (Input.GetKeyDown(KeyCode.Space) && isGround)
             {
                 CharacterJump();
-            }
+            }*/
         }
 
         // 공격
@@ -109,12 +110,12 @@ public class PlayerController : Character
         }
     }
 
-    public override void TakeDamage(int amount)
+    public override void TakeDamage(int amount, int hitMultify = 0)
     {
         base.TakeDamage(amount);
-        Debug.Log("플레이어 피해 받음");
+        CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
         canInput = false;
-        anim.SetTrigger("Hit");
+        //anim.SetTrigger("Hit");
     }
 
     void CheckGround()
@@ -171,4 +172,8 @@ public class PlayerController : Character
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
     }
+
+    public void SetComboAttackIndex(int value) => comboAttackIndex = value;
+
+    public int GetComboAttackIndex() => comboAttackIndex;
 }

@@ -11,7 +11,7 @@ public class GoToPlayerNode : Node
     }
     public override NodeState Evaluate()
     {
-        //transform.LookAt(player);
+        //transform.LookAt(mainCamera);
         //enemy.MoveForward();
         if (Vector3.Distance(transform.position, player.transform.position) < enemy.GetAttackReadyDistance() || enemy.isDefault == false)
         {

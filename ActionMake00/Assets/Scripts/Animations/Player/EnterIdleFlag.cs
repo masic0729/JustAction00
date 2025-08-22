@@ -6,5 +6,6 @@ public class EnterIdleFlag : PlayerState
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         player.TransIdleState();
+        player.SetComboAttackIndex(0);
     }
 }

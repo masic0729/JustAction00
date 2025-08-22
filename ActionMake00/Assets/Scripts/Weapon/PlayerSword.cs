@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Sword : Weapon
+public class PlayerSword : Weapon
 {
 
     private void Start()

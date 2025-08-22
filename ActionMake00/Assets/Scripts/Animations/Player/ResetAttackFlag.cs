@@ -19,6 +19,7 @@ public class ResetAttackFlag : PlayerState
         {
         }*/
         player.DisableCombo();
+        player.SetComboAttackIndex(player.GetComboAttackIndex() + 1);
 
     }
 

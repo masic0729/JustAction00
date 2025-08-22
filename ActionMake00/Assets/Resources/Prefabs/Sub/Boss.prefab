@@ -409,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6480657346396362976
 Transform:
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ Animator:
     by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Lower_Arm_L'\n\tTransform
     'Upper_Arm_R'\n\tTransform 'Lower_Reg_R'\n\tTransform 'Lower_Leg_L'\n\tTransform
     'Foot_R'\n\tTransform 'Head'\n\tTransform 'Spine'\n\tTransform 'Upper_Leg_L'\n\tTransform
-    'Lower_Arm_R'\n\tand more ...\n\tFrom animation clip 'Hook'"
+    'Lower_Arm_R'\n\tand more ...\n\tFrom animation clip 'Hook 1'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5326701689094171366}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aa69e61e1f892f4e8d89382ef8a1614, type: 3}
   m_Name: 
@@ -519,7 +519,8 @@ MonoBehaviour:
   pEffect:
   - {fileID: 7177991128484655658, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
-  weapon: {fileID: 0}
+  weapon:
+  - {fileID: 0}
   moveSpeed: 5
   thisObject: {fileID: 0}
   player: {fileID: 0}

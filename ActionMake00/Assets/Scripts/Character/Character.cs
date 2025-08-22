@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Sword;
+using static PlayerSword;
 
 public class Character : MonoBehaviour, ICharacterDamageable
 {
@@ -51,7 +51,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     void DictionaryInit()
     {
         weaponDic = new Dictionary<string, Weapon>();
-/*        for(int i = 0; i < weapon.Length; i++)
+        /*for(int i = 0; i < weapon.Length; i++)
         {
             weaponDic[weapon[i].name] = weapon[i];
         }*/
@@ -60,7 +60,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public float GetHp() => hp;
     public void SetHp(int value) => hp = value;
 
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount, int hitLevel = 0)
     {
         if (hp - amount < 0)
             hp = 0;
@@ -71,6 +71,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             //이곳에 일반 피격 효과 처리
             anim.SetTrigger("Hit");
+            anim.SetInteger("HitLevel", hitLevel);
 
         }
         else if ( hp <= 0)
