@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2517,7 +2517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2020015190
 Transform:
   m_ObjectHideFlags: 0
@@ -2768,11 +2768,11 @@ PrefabInstance:
       objectReference: {fileID: 8813943827028823035, guid: cc55066516194454998fc3663ef503e2, type: 3}
     - target: {fileID: 1579601885581336737, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: sprintTime
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1579601885581336737, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: sprintSpeed
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1579601885581336737, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: sprintCoolTime

@@ -19,6 +19,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     protected int skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음
 
     protected bool isSuperArmor = false;
+    protected bool isIgnoreDamage = false;
 
 
     [SerializeField] protected float moveSpeed = 5f;
@@ -64,6 +65,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public virtual void TakeDamage(int amount, int hitLevel = -1)
     {
+        if (isIgnoreDamage == false)
+        {
+            return;
+        }
+
         if (hp - amount < 0)
             hp = 0;
         else
@@ -74,13 +80,13 @@ public class Character : MonoBehaviour, ICharacterDamageable
         if (hp > 0)
         {
             //이곳에 일반 피격 효과 처리
-            if(isSuperArmor == false)
+            if (isSuperArmor == false || hitLevel != -1)
             {
                 anim.SetInteger("HitLevel", hitLevel);
                 anim.SetTrigger("Hit");
             }
 
-
+            
         }
         else if (hp <= 0)
         {
@@ -88,6 +94,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
             anim.SetTrigger("Death");
 
         }
+
+        
     }
 
     /// <summary>

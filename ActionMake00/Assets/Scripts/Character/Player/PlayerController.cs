@@ -165,9 +165,15 @@ public class PlayerController : Character
         }
     }
 
-    public override void TakeDamage(int amount, int hitMultify = 0)
+    public override void TakeDamage(int amount, int hitLevel = -1)
     {
-        base.TakeDamage(amount);
+        if (isIgnoreDamage == true)
+        {
+            Debug.Log("이건 무적 : " + transform.name);
+            return;
+        }
+        base.TakeDamage(amount, hitLevel);
+        
         CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
         canInput = false;
         //anim.SetTrigger("Hit");
@@ -182,7 +188,9 @@ public class PlayerController : Character
     {
         anim.SetTrigger("Sprint");
         anim.SetBool("isSprint", true);
+        isIgnoreDamage = true;
         yield return new WaitForSeconds(sprintTime);
+        isIgnoreDamage = false;
         anim.SetBool("isSprint", false);
 
     }
