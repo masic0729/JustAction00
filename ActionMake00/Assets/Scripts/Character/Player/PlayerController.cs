@@ -19,6 +19,11 @@ public class PlayerController : Character
     float rotateSpeed = 20f;
     float jumpPower = 5f;
 
+    public IEnumerator sprintCoroutine;
+    [SerializeField]float sprintTime;
+    [SerializeField]float sprintSpeed;
+    [SerializeField] float sprintCoolTime, sprintCoolTimer;
+
     int comboAttackIndex = 0;
 
     bool isGround = true;
@@ -40,7 +45,6 @@ public class PlayerController : Character
         hp = 100;
 
         WeaponInit();
-
         // 기본 무기 히트박스는 비활성화
         /*BoxCollider hitCol = weapon.gameObject.GetComponent<BoxCollider>();
         if (hitCol != null) hitCol.enabled = false;*/
@@ -49,7 +53,9 @@ public class PlayerController : Character
     protected override void Update()
     {
         base.Update();
-        PlayerInput();
+        PlayerMove();
+        PlayerAttack();
+        ActionCoolTimer();
         CheckGround();
     }
 
@@ -63,29 +69,53 @@ public class PlayerController : Character
         weaponDic["PlayerWeapon"].SetDamage(commonDamage);
     }
 
-    void PlayerInput()
+    
+
+    void PlayerMove()
     {
+        PlayerEscape();
+
         if (canInput == false)
             return;
 
-        if(anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+
+        moveVector = new Vector3(h, 0, v);
+
+        if (anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
         {
             
             if (anim.GetBool("isAttacking") == true)
                 anim.SetBool("isAttacking", false);
-            h = Input.GetAxis("Horizontal");
-            v = Input.GetAxis("Vertical");
-            moveVector = new Vector3(h, 0, v);
 
+            
             anim.SetFloat("moveValue", moveVector.magnitude);
-
             // 이동 처리 (중복 제거)
             if (moveVector.magnitude > 0.1f)
             {
                 Quaternion targetRot = Quaternion.LookRotation(moveVector);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-                transform.position += moveVector.normalized * moveSpeed * Time.deltaTime;
+                anim.SetBool("Move", true);
+
             }
+            else
+            {
+                anim.SetBool("Move", false);
+
+            }
+
+            if (anim.GetBool("isSprint") == true)
+            {
+                transform.position += moveVector.normalized * sprintSpeed * Time.deltaTime;
+                transform.Translate(0, 0, sprintSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transform.position += moveVector.normalized * moveSpeed * Time.deltaTime;
+
+            }
+
 
             // 점프
             /*if (Input.GetKeyDown(KeyCode.Space) && isGround)
@@ -93,6 +123,14 @@ public class PlayerController : Character
                 CharacterJump();
             }*/
         }
+
+        
+    }
+
+    void PlayerAttack()
+    {
+        if (canInput == false)
+            return;
 
         // 공격
         if (Input.GetMouseButtonDown(0))
@@ -110,6 +148,23 @@ public class PlayerController : Character
         }
     }
 
+    void ActionCoolTimer()
+    {
+        sprintCoolTimer -= Time.deltaTime;
+    }
+
+    void PlayerEscape()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && sprintCoolTimer <= 0)
+        {
+            sprintCoroutine = Sprint();
+
+            sprintCoolTimer = sprintCoolTime;
+            StopCoroutine(sprintCoroutine);
+            StartCoroutine(sprintCoroutine);
+        }
+    }
+
     public override void TakeDamage(int amount, int hitMultify = 0)
     {
         base.TakeDamage(amount);
@@ -122,6 +177,16 @@ public class PlayerController : Character
     {
         isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
+
+    IEnumerator Sprint()
+    {
+        anim.SetTrigger("Sprint");
+        anim.SetBool("isSprint", true);
+        yield return new WaitForSeconds(sprintTime);
+        anim.SetBool("isSprint", false);
+
+    }
+
 
     void CharacterJump()
     {
