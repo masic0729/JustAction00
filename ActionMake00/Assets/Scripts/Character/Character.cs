@@ -14,7 +14,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public Weapon[] weapon;
     protected Dictionary<string, Weapon> weaponDic;
 
-    protected int hp { get; set; }
+    [SerializeField] protected int hp;
     protected int commonDamage;
     protected int skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음
 
@@ -39,7 +39,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     virtual protected void Init()
     {
         //base Init
-        hp = 10;
+        hp = 20;
         commonDamage = 1;
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
@@ -65,7 +65,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public virtual void TakeDamage(int amount, int hitLevel = -1)
     {
-        if (isIgnoreDamage == false)
+        if (isIgnoreDamage == true)
         {
             return;
         }
@@ -75,26 +75,21 @@ public class Character : MonoBehaviour, ICharacterDamageable
         else
             hp -= amount;
 
-
-
-        if (hp > 0)
-        {
-            //이곳에 일반 피격 효과 처리
-            if (isSuperArmor == false || hitLevel != -1)
-            {
-                anim.SetInteger("HitLevel", hitLevel);
-                anim.SetTrigger("Hit");
-            }
-
-            
-        }
-        else if (hp <= 0)
+        if (hp <= 0)
         {
             //Dead();                         //이 부분은 이벤트/액션 처리할 것
             anim.SetTrigger("Death");
 
         }
 
+        if (hp > 0 && isSuperArmor == false || hitLevel != -1)
+        {
+            anim.SetInteger("HitLevel", hitLevel);
+            anim.SetTrigger("Hit");
+
+            
+        }
+        
         
     }
 

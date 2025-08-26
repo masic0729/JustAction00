@@ -172,8 +172,10 @@ public class PlayerController : Character
             Debug.Log("이건 무적 : " + transform.name);
             return;
         }
-        base.TakeDamage(amount, hitLevel);
         
+        base.TakeDamage(amount, hitLevel);
+        if (hitLevel == -1)
+            return;
         CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
         canInput = false;
         //anim.SetTrigger("Hit");
