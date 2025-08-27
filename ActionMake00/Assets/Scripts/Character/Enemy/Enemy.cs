@@ -49,6 +49,7 @@ public class Enemy : Character
     protected override void Init()
     {
         base.Init();
+        transform.tag = "Enemy";
         player = GameObject.Find("Player").transform;
         spawnPosition = this.transform.position;
         thisObject = this.gameObject.transform;

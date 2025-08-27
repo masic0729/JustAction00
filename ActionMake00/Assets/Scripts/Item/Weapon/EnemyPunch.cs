@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyPunch : Weapon
+public class EnemyPunch : EnemyWeapon
 {
 
     // Start is called before the first frame update
@@ -12,6 +12,8 @@ public class EnemyPunch : Weapon
     protected override void Init()
     {
         base.Init();
+        hitLevel = 0;
+
     }
 
 }

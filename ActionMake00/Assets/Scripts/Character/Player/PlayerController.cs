@@ -41,7 +41,7 @@ public class PlayerController : Character
     protected override void Init()
     {
         base.Init();
-       
+        transform.tag = "Player";
         hp = 100;
 
         WeaponInit();

@@ -18,8 +18,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     protected int commonDamage;
     protected int skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음
 
-    protected bool isSuperArmor = false;
-    protected bool isIgnoreDamage = false;
+    [SerializeField]protected bool isSuperArmor = false;
+    [SerializeField]protected bool isIgnoreDamage = false;
 
 
     [SerializeField] protected float moveSpeed = 5f;
@@ -82,7 +82,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
         }
 
-        if (hp > 0 && isSuperArmor == false || hitLevel != -1)
+        if (isSuperArmor == false || hitLevel != -1)
         {
             anim.SetInteger("HitLevel", hitLevel);
             anim.SetTrigger("Hit");
@@ -98,7 +98,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     /// </summary>
     public virtual void Dead(float animationTime) {
         ParticleManager.instance.PlayParticle(pEffectDic["pDeath"], this.transform);
-        SpawnManager.instance.DestroyCommonEnemy(this.gameObject.GetComponent<Enemy>());
+        //SpawnManager.instance.DestroyCommonEnemy(this.gameObject.GetComponent<Enemy>());
         rb.useGravity = false;
         hitCol.enabled = false;
         Destroy(this.gameObject, animationTime);

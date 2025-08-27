@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1039,6 +1039,8 @@ MonoBehaviour:
   weapon:
   - {fileID: 0}
   hp: 0
+  isSuperArmor: 0
+  isIgnoreDamage: 0
   moveSpeed: 5
   thisObject: {fileID: 0}
   player: {fileID: 0}
@@ -1495,7 +1497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: df366321887a8674b9ba8d109f5755b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1189529853000058984, guid: df366321887a8674b9ba8d109f5755b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1776,7 +1778,9 @@ MonoBehaviour:
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
   weapon:
   - {fileID: 0}
-  hp: 0
+  hp: 100
+  isSuperArmor: 1
+  isIgnoreDamage: 0
   moveSpeed: 5
   thisObject: {fileID: 0}
   player: {fileID: 0}
@@ -2035,7 +2039,7 @@ GameObject:
   - component: {fileID: 1135570777}
   - component: {fileID: 1135570778}
   m_Layer: 0
-  m_Name: PunchWeapon
+  m_Name: HookWeapon
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2088,7 +2092,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1135570775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e391adcbb6bd3d64290fb28e5a7d2dc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 003a3d0f76a6e5f43a32987ab032ffbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1156485373
@@ -2440,7 +2444,7 @@ GameObject:
   - component: {fileID: 1862849635}
   - component: {fileID: 1862849636}
   m_Layer: 0
-  m_Name: HookWeapon
+  m_Name: PunchWeapon
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2620,7 +2624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2020015190
 Transform:
   m_ObjectHideFlags: 0
@@ -2806,7 +2810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 92006596297286257, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724251812097079499, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2904,6 +2908,10 @@ PrefabInstance:
     - target: {fileID: 2465190459339069364, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465190459339069364, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2989771153199205646, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalPosition.x
