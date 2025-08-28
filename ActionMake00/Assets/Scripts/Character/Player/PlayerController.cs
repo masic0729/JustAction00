@@ -38,6 +38,9 @@ public class PlayerController : Character
         Init();
     }
 
+
+    
+
     protected override void Init()
     {
         base.Init();
@@ -62,14 +65,14 @@ public class PlayerController : Character
     void WeaponInit()
     {
         commonDamage = 10;
-
         weaponTransform = FindTransformAtChild("PlayerWeapon");
-        weaponDic["PlayerWeapon"] = Instantiate(weapon[0], weaponTransform.position, weaponTransform.rotation);
-        weaponDic["PlayerWeapon"].transform.parent = weaponTransform;
-        weaponDic["PlayerWeapon"].SetDamage(commonDamage);
+        currentWeapon = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
+        //weaponDic["PlayerWeapon"] = Instantiate(weapon[0], weaponTransform.position, weaponTransform.rotation);
+        currentWeapon.transform.parent = weaponTransform;
+        currentWeapon.SetDamage(commonDamage);
     }
 
-    
+
 
     void PlayerMove()
     {

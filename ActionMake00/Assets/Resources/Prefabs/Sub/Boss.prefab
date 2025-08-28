@@ -521,6 +521,9 @@ MonoBehaviour:
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
   weapon:
   - {fileID: 0}
+  hp: 0
+  isSuperArmor: 0
+  isIgnoreDamage: 0
   moveSpeed: 5
   thisObject: {fileID: 0}
   player: {fileID: 0}

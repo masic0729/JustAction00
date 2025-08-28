@@ -16,6 +16,7 @@ public class BossThrowStone : EnemyAttackTree
 
         if (enemy.isAttacked == false)
         {
+            
             anim.SetTrigger("Cast");
             anim.SetBool("isAttacking", true);
             enemy.isAttacked = true;

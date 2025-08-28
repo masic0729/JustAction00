@@ -12,7 +12,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
     Collider hitCol;
     protected Rigidbody rb;
     public Weapon[] weapon;
+    protected Weapon currentWeapon;
     protected Dictionary<string, Weapon> weaponDic;
+
+    [Header("캐릭터 스킬 발사체")]
+    public GameObject[] skillProjectiles;                   
 
     [SerializeField] protected int hp;
     protected int commonDamage;
@@ -27,7 +31,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        //Init();
+        Init();
     }
 
     // Update is called once per frame
@@ -54,10 +58,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
     void DictionaryInit()
     {
         weaponDic = new Dictionary<string, Weapon>();
-        /*for(int i = 0; i < weapon.Length; i++)
+        for (int i = 0; i < weapon.Length; i++)
         {
             weaponDic[weapon[i].name] = weapon[i];
-        }*/
+
+        }
     }
 
     public float GetHp() => hp;
