@@ -48,11 +48,12 @@ public class Character : MonoBehaviour, ICharacterDamageable
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
-        DictionaryInit();
 
         rb.useGravity = true;
         hitCol.enabled = true;
         pEffectDic = new Dictionary<string, ParticleSystem>();
+        DictionaryInit();
+
     }
 
     void DictionaryInit()
@@ -62,6 +63,10 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             weaponDic[weapon[i].name] = weapon[i];
 
+        }
+        for(int i = 0; i < pEffect.Length; i++)
+        {
+            pEffectDic[pEffect[i].name] = pEffect[i];
         }
     }
 

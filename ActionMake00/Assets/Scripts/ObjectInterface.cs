@@ -9,7 +9,7 @@ public interface ICharacterDamageable
     abstract void Dead(float animationTime);
 }
 
-public interface IWeapon
+public interface IAttacker
 {
     abstract int GetDamage();
     abstract void SetDamage(int value);

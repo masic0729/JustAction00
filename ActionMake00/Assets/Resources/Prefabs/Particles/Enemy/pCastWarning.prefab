@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9186446616439801708}
   - component: {fileID: 4636239176762039874}
   m_Layer: 0
-  m_Name: CFXR3 LightGlow A (Loop)
+  m_Name: pCastWarning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

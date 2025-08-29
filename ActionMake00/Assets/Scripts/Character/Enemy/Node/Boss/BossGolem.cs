@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BossGolem : BossEnemyBT
 {
-    Weapon Stone;
+    GameObject pattenEffect;
+    Transform spawnProjectileTransform;
     protected override void Start()
     {
         base.Start();
@@ -25,8 +26,8 @@ public class BossGolem : BossEnemyBT
         
         playerFindDistance = 10f;
         activityAllowValue = 20f;
-        attackReadyDistance = 8f;
-        punchDistance = 3.5f;
+        attackReadyDistance = 3f;
+        punchDistance = 2.5f;
         //weapon = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
         
     }
@@ -37,10 +38,35 @@ public class BossGolem : BossEnemyBT
         base.OnTriggerEnter(other);
     }
 
-    public void SpawnStone()
+    public void CastWarning(int pattenIndex)
     {
-        //Transform stoneSpawn = FindTransformAtChild("StoneSpawner");
-        Debug.Log("¿∏æ«");
+        spawnProjectileTransform = FindTransformAtChild("CastShooter").GetComponent<Transform>();
+        if(pattenIndex != 0)
+        {
+            pattenEffect = Instantiate(pEffectDic["pCastWarning"], spawnProjectileTransform.position, spawnProjectileTransform.rotation).gameObject;
+            pattenEffect.transform.parent = spawnProjectileTransform;
+        }
+        
+    }
+
+    public void SpawnStone(int pattenIndex)
+    {
+        Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
+        Debug.Log("º“»Øµ ");
+        if(pattenEffect != null)
+        {
+            Destroy(pattenEffect);
+            pattenEffect = null;
+        }
+        else
+        {
+
+        }
+
+
+        spawnProjectileTransform = null;
+
+
     }
 
     public void TurnOff()

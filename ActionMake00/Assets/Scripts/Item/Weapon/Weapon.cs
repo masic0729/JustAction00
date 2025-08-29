@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour, IWeapon
+public class Weapon : Attacker, IAttacker
 {
-    private Collider col;
+    /*private Collider col;
     protected int damage = 1;
     protected string target;
-    protected int hitLevel = -1;
+    protected int hitLevel = -1;*/
 
     private void Start()
     {
@@ -13,13 +13,7 @@ public class Weapon : MonoBehaviour, IWeapon
     }
     protected virtual void Init()
     {
-        col = GetComponent<Collider>();
-        if (col == null)
-        {
-            Debug.LogError($"{name} Weapon에 Collider가 없음");
-            return;
-        }
-        col.enabled = false; // 시작은 꺼두기
+        base.Init();
     }
 
     public void ColliderTransEnable()
@@ -33,7 +27,7 @@ public class Weapon : MonoBehaviour, IWeapon
             col.enabled = true;
     }
 
-    virtual protected void OnTriggerEnter(Collider other)
+    /*virtual protected void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == target)
         {
@@ -42,5 +36,5 @@ public class Weapon : MonoBehaviour, IWeapon
     }
 
     public int GetDamage() => damage;
-    public void SetDamage(int value) => damage = value;
+    public void SetDamage(int value) => damage = value;*/
 }
