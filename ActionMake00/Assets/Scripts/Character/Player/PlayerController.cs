@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerController : Character
 {
+    //input - 공격,점프 등등
+    //animation
+
+
+
     [Header("Character default info")]
     [HideInInspector]
     private Vector3 moveVector;
