@@ -20,7 +20,6 @@ public class Enemy : Character
     protected float playerFindDistance = 10f;                     //플레이어가 본인 영역에 왔는 지 확인하는 범위
     [SerializeField]
     protected float attackReadyDistance = 1f;                       //플레이어를 추격 후 다음 행동을 하기 위한 요구 거리
-    protected float attackRotateSpeed = 7.5f;
 
     private int enemyIndex = -1;
     private const int maxAttackIndex = 2;
@@ -49,6 +48,7 @@ public class Enemy : Character
     protected override void Init()
     {
         base.Init();
+        rotateSpeed = 7.5f;
         transform.tag = "Enemy";
         player = GameObject.Find("Player").transform;
         spawnPosition = this.transform.position;
@@ -84,7 +84,7 @@ public class Enemy : Character
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             lookRot,
-            attackRotateSpeed * Time.deltaTime
+            rotateSpeed * Time.deltaTime
         );
     }
 

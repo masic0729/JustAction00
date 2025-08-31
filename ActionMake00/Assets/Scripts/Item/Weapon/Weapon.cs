@@ -2,29 +2,26 @@ using UnityEngine;
 
 public class Weapon : Attacker, IAttacker
 {
-    /*private Collider col;
-    protected int damage = 1;
-    protected string target;
-    protected int hitLevel = -1;*/
+    
 
     private void Start()
     {
         Init();
     }
-    protected virtual void Init()
+    protected override void Init()
     {
         base.Init();
     }
 
     public void ColliderTransEnable()
     {
-        if (col == null) return;
-        if (col.enabled == true)
+        if (weaponcol == null) return;
+        if (weaponcol.enabled == true)
         {
-            col.enabled = false;
+            weaponcol.enabled = false;
         }
         else
-            col.enabled = true;
+            weaponcol.enabled = true;
     }
 
     /*virtual protected void OnTriggerEnter(Collider other)

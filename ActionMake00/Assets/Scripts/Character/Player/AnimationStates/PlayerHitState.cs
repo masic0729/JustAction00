@@ -8,7 +8,7 @@ public class PlayerHitState : PlayerState
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        player.SetComboAttackIndex(0);
+        playerCtrl.SetComboAttackIndex(0);
         player.SetIsSuperArmor(true);
 
     }

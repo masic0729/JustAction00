@@ -11,7 +11,7 @@ public enum AttackerType
 public class Attacker : MonoBehaviour, IAttacker
 {
     [SerializeField] protected AttackerType type;
-    protected Collider col;
+    protected Collider weaponcol;
     protected int damage = 1;
     protected string target;
     protected int hitLevel = -1;
@@ -23,12 +23,14 @@ public class Attacker : MonoBehaviour, IAttacker
 
     protected virtual void Init()
     {
-        col = GetComponent<Collider>();
-        if (col == null || type == AttackerType.Projectile)
+        weaponcol = GetComponent<Collider>();
+        if (weaponcol == null || type == AttackerType.Projectile)
         {
             return;
         }
-        col.enabled = false; // 시작은 꺼두기
+        Debug.Log(weaponcol);
+
+        weaponcol.enabled = false; // 시작은 꺼두기
     }
 
     

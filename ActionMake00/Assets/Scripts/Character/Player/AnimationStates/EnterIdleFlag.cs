@@ -5,7 +5,7 @@ public class EnterIdleFlag : PlayerState
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        player.TransIdleState();
-        player.SetComboAttackIndex(0);
+        playerCtrl.TransIdleState();
+        playerCtrl.SetComboAttackIndex(0);
     }
 }

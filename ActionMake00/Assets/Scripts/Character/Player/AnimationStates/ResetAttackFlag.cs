@@ -14,17 +14,11 @@ public class ResetAttackFlag : PlayerState
 
         //base.OnStateEnter(animator, stateInfo, layerIndex);
         animator.SetBool("isReAttack", false);
-        PlayerController instance = animator.GetComponent<PlayerController>();
         /*if(instance != null)
         {
         }*/
-        player.DisableCombo();
-        player.SetComboAttackIndex(player.GetComboAttackIndex() + 1);
-
+        playerCtrl.DisableCombo();
+        playerCtrl.SetComboAttackIndex(playerCtrl.GetComboAttackIndex() + 1);
     }
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        
-    }
 }

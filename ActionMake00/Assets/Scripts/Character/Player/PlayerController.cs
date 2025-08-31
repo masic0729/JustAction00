@@ -1,87 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : Character
+public class PlayerController : MonoBehaviour
 {
-    //input - 공격,점프 등등
-    //animation
-
-
-
+    Player player;
     [Header("Character default info")]
     [HideInInspector]
     private Vector3 moveVector;
 
-    private Transform weaponTransform;
-
-    [Header("Physics check info")]
-    public Transform groundCheck;
-    public float groundDistance = 0.2f;
-    public LayerMask groundMask;
-
     float h, v;
-    float rotateSpeed = 20f;
-    float jumpPower = 5f;
 
     public IEnumerator sprintCoroutine;
     [SerializeField]float sprintTime;
     [SerializeField]float sprintSpeed;
-    [SerializeField] float sprintCoolTime, sprintCoolTimer;
+    [SerializeField]float sprintCoolTime, sprintCoolTimer;
 
     int comboAttackIndex = 0;
 
-    bool isGround = true;
+    //bool isGround = true;
     bool canCombo = false;
     public bool isEscapeAttackAnim = false;
+    [SerializeField]
     bool canInput = true;
 
     // 초기화
-    protected override void Start()
+    void Start()
     {
-        base.Start();
+        player = GetComponent<Player>();
         Init();
     }
 
 
-    
-
-    protected override void Init()
+    void Init()
     {
-        base.Init();
         transform.tag = "Player";
-        hp = 100;
 
-        WeaponInit();
-        // 기본 무기 히트박스는 비활성화
-        /*BoxCollider hitCol = weapon.gameObject.GetComponent<BoxCollider>();
-        if (hitCol != null) hitCol.enabled = false;*/
     }
 
-    protected override void Update()
+
+    private void Update()
     {
-        base.Update();
-        PlayerMove();
         PlayerAttack();
-        ActionCoolTimer();
-        CheckGround();
-    }
-
-    void WeaponInit()
-    {
-        commonDamage = 10;
-        weaponTransform = FindTransformAtChild("PlayerWeapon");
-        currentWeapon = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
-        //weaponDic["PlayerWeapon"] = Instantiate(weapon[0], weaponTransform.position, weaponTransform.rotation);
-        currentWeapon.transform.parent = weaponTransform;
-        currentWeapon.SetDamage(commonDamage);
-    }
-
-
-
-    void PlayerMove()
-    {
         PlayerEscape();
+
+        MoveInput();
+        ActionCoolTimer();
+        //CheckGround();
+
+    }
+
+
+
+    void MoveInput()
+    {
 
         if (canInput == false)
             return;
@@ -91,45 +64,39 @@ public class PlayerController : Character
 
         moveVector = new Vector3(h, 0, v);
 
-        if (anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
+        if (player.anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
         {
             
-            if (anim.GetBool("isAttacking") == true)
-                anim.SetBool("isAttacking", false);
+            if (player.anim.GetBool("isAttacking") == true)
+                player.anim.SetBool("isAttacking", false);
 
-            
-            anim.SetFloat("moveValue", moveVector.magnitude);
+
+            player.anim.SetFloat("moveValue", moveVector.magnitude);
             // 이동 처리 (중복 제거)
             if (moveVector.magnitude > 0.1f)
             {
                 Quaternion targetRot = Quaternion.LookRotation(moveVector);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-                anim.SetBool("Move", true);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, player.GetRotateSpeed() * Time.deltaTime);
+                player.anim.SetBool("Move", true);
 
             }
             else
             {
-                anim.SetBool("Move", false);
+                player.anim.SetBool("Move", false);
 
             }
 
-            if (anim.GetBool("isSprint") == true)
+            if (player.anim.GetBool("isSprint") == true)
             {
                 transform.position += moveVector.normalized * sprintSpeed * Time.deltaTime;
                 transform.Translate(0, 0, sprintSpeed * Time.deltaTime);
             }
             else
             {
-                transform.position += moveVector.normalized * moveSpeed * Time.deltaTime;
+                transform.position += moveVector.normalized * player.GetMoveSpeed() * Time.deltaTime;
 
             }
 
-
-            // 점프
-            /*if (Input.GetKeyDown(KeyCode.Space) && isGround)
-            {
-                CharacterJump();
-            }*/
         }
 
         
@@ -139,19 +106,19 @@ public class PlayerController : Character
     {
         if (canInput == false)
             return;
-
         // 공격
         if (Input.GetMouseButtonDown(0))
         {
-            if (!anim.GetBool("isAttacking"))
+            if (player.anim.GetBool("isAttacking") == false)
             {
-                anim.SetTrigger("Attack");
-                anim.SetBool("isAttacking", true);
+                player.anim.SetTrigger("Attack");
+                player.anim.SetBool("isAttacking", true);
                 isEscapeAttackAnim = false;
             }
-            else if (canCombo && anim.GetBool("isAttacking"))                       //if(canCombo)
+
+            if (canCombo && player.anim.GetBool("isAttacking"))                       //if(canCombo)
             {
-                anim.SetBool("isReAttack", true);
+                player.anim.SetBool("isReAttack", true);
             }
         }
     }
@@ -165,55 +132,31 @@ public class PlayerController : Character
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && sprintCoolTimer <= 0)
         {
+            
             sprintCoroutine = Sprint();
-
             sprintCoolTimer = sprintCoolTime;
             StopCoroutine(sprintCoroutine);
             StartCoroutine(sprintCoroutine);
         }
     }
 
-    public override void TakeDamage(int amount, int hitLevel = -1)
-    {
-        if (isIgnoreDamage == true)
-        {
-            Debug.Log("이건 무적 : " + transform.name);
-            return;
-        }
-        
-        base.TakeDamage(amount, hitLevel);
-        if (hitLevel == -1)
-            return;
-        CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
-        canInput = false;
-        //anim.SetTrigger("Hit");
-    }
 
-    void CheckGround()
-    {
-        isGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-    }
 
     IEnumerator Sprint()
     {
-        anim.SetTrigger("Sprint");
-        anim.SetBool("isSprint", true);
-        isIgnoreDamage = true;
+        canInput = true;
+        player.anim.SetTrigger("Sprint");
+        player.anim.SetBool("isSprint", true);
+        player.SetIsIgnoreDamage(true);
         yield return new WaitForSeconds(sprintTime);
-        isIgnoreDamage = false;
-        anim.SetBool("isSprint", false);
+        player.SetIsIgnoreDamage(false);
+        player.anim.SetBool("isSprint", false);
 
     }
 
+    public void DisableCombo() => canCombo = false;
 
-    void CharacterJump()
-    {
-        isGround = false;
-        rb.AddForce(Vector3.up * jumpPower * 2, ForceMode.Impulse);
-        anim.SetTrigger("Jump");
-    }
 
-    
 
     /// <summary>
     /// 콤보 타이밍 허용 (애니메이션 이벤트에서 호출)
@@ -221,42 +164,30 @@ public class PlayerController : Character
     public void EnableCombo()
     {
         canCombo = true;
-        //StartCoroutine(ComboResetTimer());
     }
 
-    public void DisableCombo() => canCombo = false;
 
     public void InterruptCombo()
     {
-        anim.SetBool("isAttacking", false);
-        anim.SetBool("isReAttack", false);
+        player.anim.SetBool("isAttacking", false);
+        player.anim.SetBool("isReAttack", false);
         canCombo = false;
     }
 
-
-
-    
-    /*public void DisableHitbox()
-    {
-        weapon.GetComponent<BoxCollider>().enabled = false;
-    } */
-
     public void TransIdleState()
     {
-        anim.SetBool("isAttacking", false);
+        player.anim.SetBool("isAttacking", false);
         canInput = true;
     }
 
+
     public void EscapeAttackAnim() => isEscapeAttackAnim = true;
 
-    void OnDrawGizmosSelected()
-    {
-        if (groundCheck == null) return;
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
-    }
 
     public void SetComboAttackIndex(int value) => comboAttackIndex = value;
 
     public int GetComboAttackIndex() => comboAttackIndex;
+
+    public void SetCanInput(bool state) => canInput = state;
+    public bool GetConInput() => canInput;
 }

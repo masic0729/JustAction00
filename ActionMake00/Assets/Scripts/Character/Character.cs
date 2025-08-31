@@ -5,7 +5,7 @@ using static PlayerSword;
 
 public class Character : MonoBehaviour, ICharacterDamageable
 {
-    public Animator anim;
+    [HideInInspector]public Animator anim;
     [SerializeField]
     public ParticleSystem[] pEffect;
     protected Dictionary<string, ParticleSystem> pEffectDic;
@@ -16,7 +16,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     protected Dictionary<string, Weapon> weaponDic;
 
     [Header("캐릭터 스킬 발사체")]
-    public GameObject[] skillProjectiles;                   
+    public GameObject[] skillProjectiles;
+    protected float rotateSpeed;
 
     [SerializeField] protected int hp;
     protected int commonDamage;
@@ -31,7 +32,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        Init();
+        //Init();
     }
 
     // Update is called once per frame
@@ -118,6 +119,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     {
         //weapon.GetComponent<BoxCollider>().enabled = true;
         weaponDic[name].ColliderTransEnable();
+        
     }
 
     protected Transform FindTransformAtChild(string name)
@@ -144,4 +146,13 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public void SetIsSuperArmor(bool state) => isSuperArmor = state;
     public bool GetIsSuperArmor() => isSuperArmor;
+
+    public void SetIsIgnoreDamage(bool state) => isIgnoreDamage = state;
+    public bool GetIsIgnoreDamage() => isIgnoreDamage;
+
+    public float GetRotateSpeed() => rotateSpeed;
+    public void SetRotateSpeed(float value) => rotateSpeed = value;
+
+
+
 }
