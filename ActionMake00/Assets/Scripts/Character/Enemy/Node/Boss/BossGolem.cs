@@ -57,12 +57,10 @@ public class BossGolem : BossEnemyBT
         {
             Destroy(pattenEffect);
             pattenEffect = null;
+        }
+        else
+        {
 
-            float rotateValue = 25f;
-            GameObject instance = Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
-            instance.transform.Rotate(0, rotateValue, 0);
-            instance = Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
-            instance.transform.Rotate(0, -rotateValue, 0);
         }
 
 
