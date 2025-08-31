@@ -7,8 +7,9 @@ public class Projectile : Attacker
     [SerializeField]protected float moveSpeed;
     [SerializeField] protected float destroyTime = 5f;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         Init();
     }
 

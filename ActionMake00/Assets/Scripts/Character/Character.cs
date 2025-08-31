@@ -52,13 +52,13 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
         rb.useGravity = true;
         hitCol.enabled = true;
-        pEffectDic = new Dictionary<string, ParticleSystem>();
         DictionaryInit();
 
     }
 
     void DictionaryInit()
     {
+        pEffectDic = new Dictionary<string, ParticleSystem>();
         weaponDic = new Dictionary<string, Weapon>();
         for (int i = 0; i < weapon.Length; i++)
         {

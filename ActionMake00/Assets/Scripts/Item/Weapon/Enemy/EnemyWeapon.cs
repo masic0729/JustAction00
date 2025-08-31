@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class EnemyWeapon : Weapon
 {
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Init()
     {
         base.Init();
         target = "Player";
         damage = 5;
+        tagName = "EnemyAttack";
+
     }
 
-    
+
 }

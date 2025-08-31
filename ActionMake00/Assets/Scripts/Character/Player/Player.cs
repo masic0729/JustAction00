@@ -45,9 +45,13 @@ public class Player : Character
     {
         commonDamage = 10;
         weaponTransform = FindTransformAtChild("PlayerWeapon");
-        currentWeapon = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
+        /*currentWeapon = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
         currentWeapon.transform.parent = weaponTransform;
-        currentWeapon.SetDamage(commonDamage);
+        currentWeapon.SetDamage(commonDamage);*/
+
+        weaponDic["PlayerWeapon"] = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
+        weaponDic["PlayerWeapon"].transform.parent = weaponTransform;
+        weaponDic["PlayerWeapon"].SetDamage(commonDamage);
     }
 
     public override void TakeDamage(int amount, int hitLevel = -1)

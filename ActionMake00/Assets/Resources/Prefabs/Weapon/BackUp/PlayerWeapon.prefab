@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &621245595914444118
+--- !u!1001 &5615482129613064152
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -62,23 +62,23 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a095f798aba8f2946b3a23de742b2fb8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 321394242497285778}
+      addedObject: {fileID: 5869666581512546014}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a095f798aba8f2946b3a23de742b2fb8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2548763761762157146}
+      addedObject: {fileID: 8990763633844014477}
   m_SourcePrefab: {fileID: 100100000, guid: a095f798aba8f2946b3a23de742b2fb8, type: 3}
---- !u!1 &314814652071321607 stripped
+--- !u!1 &4697072920225725065 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a095f798aba8f2946b3a23de742b2fb8, type: 3}
-  m_PrefabInstance: {fileID: 621245595914444118}
+  m_PrefabInstance: {fileID: 5615482129613064152}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &321394242497285778
+--- !u!65 &5869666581512546014
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314814652071321607}
+  m_GameObject: {fileID: 4697072920225725065}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -93,13 +93,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06, y: 1.5, z: 0.3}
   m_Center: {x: 0, y: 0.6, z: 0}
---- !u!114 &2548763761762157146
+--- !u!114 &8990763633844014477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314814652071321607}
+  m_GameObject: {fileID: 4697072920225725065}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75f21114456db0f488924bb1d27845eb, type: 3}

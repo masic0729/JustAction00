@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class PlayerSword : Weapon
+public class PlayerSword : PlayerWeapon
 {
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         Init();
     }
 
@@ -12,6 +13,11 @@ public class PlayerSword : Weapon
     protected override void Init()
     {
         base.Init();
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
     }
 
     

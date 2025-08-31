@@ -11,33 +11,58 @@ public enum AttackerType
 public class Attacker : MonoBehaviour, IAttacker
 {
     [SerializeField] protected AttackerType type;
-    protected Collider weaponcol;
+    [SerializeField]protected Collider weaponCol;
     protected int damage = 1;
     protected string target;
     protected int hitLevel = -1;
+    protected string tagName;
 
-    private void Start()
+    protected virtual void Start()
     {
-        Init();
+        //Init();
     }
 
     protected virtual void Init()
     {
-        weaponcol = GetComponent<Collider>();
-        if (weaponcol == null || type == AttackerType.Projectile)
+        weaponCol = GetComponent<Collider>();
+        if (weaponCol == null || type == AttackerType.Projectile)
         {
             return;
         }
-        Debug.Log(weaponcol);
-
-        weaponcol.enabled = false; // Ω√¿€¿∫ ≤®µŒ±‚
+        //transform.tag = "WeaponOff";
+        ColliderTransEnable();
+        weaponCol.enabled = false; // Ω√¿€¿∫ ≤®µŒ±‚
     }
 
-    
+    public void ColliderTransEnable()
+    {
+        /*if(gameObject.transform.tag != "WeaponOff")
+        {
+            transform.tag = tagName;
+        }
+        else
+        {
+            this.gameObject.transform.tag = "WeaponOff";
+        }*/
+        if (weaponCol == null)
+        {
+            Debug.Log("∞¡ æ¯¿Ω");
+            return;
+        }
+        if (weaponCol.enabled == true)
+        {
+            weaponCol.enabled = false;
+        }
+        else if (weaponCol.enabled == false)
+        {
+            weaponCol.enabled = true;
+        }
+        Debug.Log("Collider Transed");
+    }
 
     virtual protected void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == target)
+        if (other.transform.tag == target && this.gameObject.tag != "WeaponOff")
         {
             other.GetComponent<Character>().TakeDamage(damage, hitLevel);
             if (type == AttackerType.Projectile)

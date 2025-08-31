@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class EnemyHook : EnemyWeapon
 {
+    protected override void Start()
+    {
+        base.Start();
+        Init();
+    }
     protected override void Init()
     {
         base.Init();
