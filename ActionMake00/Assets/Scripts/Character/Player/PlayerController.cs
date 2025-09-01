@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -108,6 +109,9 @@ public class PlayerController : MonoBehaviour
         // АјАн
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             if (player.anim.GetBool("isAttacking") == false)
             {
                 player.anim.SetTrigger("Attack");
