@@ -94,7 +94,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 transform.position += moveVector.normalized * player.GetMoveSpeed() * Time.deltaTime;
-
             }
 
         }
