@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 18
+  controlID: 150
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 19
+  controlID: 27
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -217,8 +217,8 @@ MonoBehaviour:
     y: 0
     width: 308
     height: 626
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -521,23 +521,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c6420100
-      m_LastClickedID: 0
-      m_ExpandedIDs: 2064feff5265feff7a2201004023010050230100
+      m_SelectedIDs: 86220100
+      m_LastClickedID: 74374
+      m_ExpandedIDs: 2263feff2065feff9c220100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: SocketBasket
-        m_OriginalName: SocketBasket
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 74560
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -639,7 +639,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Managers
+    - Assets/Scripts/Character/Player
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -647,16 +647,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Managers
+  - Assets/Scripts/Character/Player
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\304ST\Desktop\JustAction00\ActionMake00
+  m_LastProjectPath: C:\Program Files (x86)\Masic\Private\JustAction00\ActionMake00
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 96070000
-    m_LastClickedID: 1942
-    m_ExpandedIDs: 00000000fa05000076060000be0600009a07000000ca9a3b
+    m_SelectedIDs: 8a430000
+    m_LastClickedID: 17290
+    m_ExpandedIDs: 00000000e24000005e4100008242000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

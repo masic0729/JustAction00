@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public GameObject slot;
     Transform inventoryTransform;
     const int slotCount = 40;
-
+    List<GameObject> lSlot;
     private void Awake()
     {
         Init();
@@ -22,9 +22,11 @@ public class Inventory : MonoBehaviour
     void Init()
     {
         inventoryTransform = this.gameObject.transform.GetComponentInChildren<GridLayoutGroup>().transform;
+        lSlot = new List<GameObject>();
         for (int i = 0; i < slotCount; i++)
         {
             GameObject instance = Instantiate(slot);
+            lSlot.Add(instance);
             instance.transform.parent = inventoryTransform;
         }
         this.gameObject.SetActive(false);
