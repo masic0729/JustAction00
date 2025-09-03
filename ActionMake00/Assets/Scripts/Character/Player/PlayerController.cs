@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
         sprintCoolTimer -= Time.deltaTime;
     }
 
+    
     void PlayerEscape()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && sprintCoolTimer <= 0)
