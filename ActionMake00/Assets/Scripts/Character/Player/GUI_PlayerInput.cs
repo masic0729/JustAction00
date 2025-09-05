@@ -39,7 +39,7 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             target.SetActive(true);
         }
-        else
+        else if(target.activeSelf == true)
         {
             target.SetActive(false);
         }

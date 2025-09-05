@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);
         }
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 
     public void AddItemInList(Item item)
@@ -38,13 +38,6 @@ public class Inventory : MonoBehaviour
                 lSlot[i].AddItem(item);
                 break;
             }
-
-            /*if (lSlot[i].AddItem(item))
-            {
-                Debug.Log(slot.gameObject.name + " itemSet complete");
-                break;
-            }*/
-            
         }
     }
 }
