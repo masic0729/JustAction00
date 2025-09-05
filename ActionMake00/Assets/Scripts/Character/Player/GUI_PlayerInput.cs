@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GUI_PlayerInput : MonoBehaviour
 {
-    public GameObject inventory;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Inventory inventory;
+    //public GameObject testItem;
+    public Item testitem;
+
+
 
     // Update is called once per frame
     void Update()
@@ -21,8 +20,12 @@ public class GUI_PlayerInput : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            EnableGameObject(inventory);
+            EnableGameObject(inventory.gameObject);
             
+        }
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            TestInputItem();
         }
     }
     
@@ -40,5 +43,10 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             target.SetActive(false);
         }
+    }
+
+    void TestInputItem()
+    {
+        inventory.AddItemInList(testitem);
     }
 }

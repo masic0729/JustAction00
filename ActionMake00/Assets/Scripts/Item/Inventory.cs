@@ -8,33 +8,43 @@ public class Inventory : MonoBehaviour
     public GameObject slot;
     Transform inventoryTransform;
     const int slotCount = 40;
-    List<GameObject> lSlot;
+    List<ItemSlot> lSlot;
     private void Awake()
     {
         Init();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     void Init()
     {
         inventoryTransform = this.gameObject.transform.GetComponentInChildren<GridLayoutGroup>().transform;
-        lSlot = new List<GameObject>();
+        lSlot = new List<ItemSlot>();
         for (int i = 0; i < slotCount; i++)
         {
-            GameObject instance = Instantiate(slot);
+            ItemSlot instance = Instantiate(slot).GetComponent<ItemSlot>();
             lSlot.Add(instance);
-            instance.transform.parent = inventoryTransform;
+            instance.transform.SetParent(inventoryTransform, false);
         }
         this.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddItemInList(Item item)
     {
         
+        for(int i = 0; i < lSlot.Count; i++)
+        {
+            if (item.data.type == ItemType.Equitment && lSlot[i].CanAddItem() == true)
+            {
+                lSlot[i].AddItem(item);
+                break;
+            }
+
+            /*if (lSlot[i].AddItem(item))
+            {
+                Debug.Log(slot.gameObject.name + " itemSet complete");
+                break;
+            }*/
+            
+        }
     }
 }
