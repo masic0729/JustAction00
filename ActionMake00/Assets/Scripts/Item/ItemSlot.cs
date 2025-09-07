@@ -9,17 +9,21 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]private Item currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
+    private int currentCount = 0, maxCount = 0;
 
     public bool AddItem(Item item)
     {
 
-        if (item != null && (currentItem == null || currentItem.GetType() == item.GetType()))
+        if (item != null)
         {
             currentItem = item;
             icon.sprite = item.data.icon;
             icon.enabled = true;
             icon.color = new Vector4(1,1,1,1);
-            countText.text = item.count > 1 ? item.count.ToString() : "";
+            currentCount = item.count;
+            maxCount = item.data.maxCount;
+
+            countText.text = currentCount > 1 ? currentCount.ToString() : "";
             Debug.Log("성공");
             return true;
         }
@@ -28,6 +32,16 @@ public class ItemSlot : MonoBehaviour
             Debug.Log("아이템을 저장하지 못했습니다.");
             return false;
         }
+    }
+
+    public void SumItem(Item item)
+    {
+        if (item == null)
+            return;
+
+        currentCount += item.count;
+        countText.text = currentCount > 1 ? currentCount.ToString() : "";
+        Debug.Log("합체 성공");
     }
 
     /// <summary>
@@ -52,15 +66,28 @@ public class ItemSlot : MonoBehaviour
         currentItem = null;
         icon.enabled = false;
         countText.text = "";
+        maxCount = 0;
+
     }
 
     public bool CanAddItem()
     {
-        if(currentItem.data == null)
+        if (currentCount == 0)
+            return true;
+
+        return false;
+    }
+
+    public bool CanSumItem(Item item)
+    {
+        if (currentCount == 0)
+            return false;
+
+        if(currentItem.data.itemName == item.data.itemName && currentCount + item.count <= maxCount)
         {
             return true;
         }
-
+            
         return false;
     }
 }

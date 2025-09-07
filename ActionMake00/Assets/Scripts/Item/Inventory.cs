@@ -25,19 +25,40 @@ public class Inventory : MonoBehaviour
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);
         }
-        //this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     public void AddItemInList(Item item)
     {
-        
-        for(int i = 0; i < lSlot.Count; i++)
+        bool isConsumableItemSum = false;
+        ItemSlot voidSlot = null;
+        for (int i = 0; i < lSlot.Count; i++)
         {
-            if (item.data.type == ItemType.Equitment && lSlot[i].CanAddItem() == true)
+            if (item.data.itemType == ItemType.Equitment && lSlot[i].CanAddItem() == true)
             {
                 lSlot[i].AddItem(item);
                 break;
             }
+            
+
+            if (item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(item))
+            {
+                Debug.Log("°¡´É");
+                isConsumableItemSum = true;
+                lSlot[i].SumItem(item);
+                break;
+            }
+            else if (voidSlot == null && lSlot[i].CanAddItem() == true)
+            {
+                voidSlot = lSlot[i];
+            }
+
         }
+        if (isConsumableItemSum == false && voidSlot != null)
+        {
+            voidSlot.AddItem(item);
+        }
+
+
     }
 }

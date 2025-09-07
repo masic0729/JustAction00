@@ -15,6 +15,6 @@ public class ItemData : ScriptableObject
     [Header("아이템 기본 정보")]
     public string itemName;
     public Sprite icon;
-    public ItemType type;
-    public int count, maxCount;
+    public ItemType itemType;
+    public int maxCount;
 }

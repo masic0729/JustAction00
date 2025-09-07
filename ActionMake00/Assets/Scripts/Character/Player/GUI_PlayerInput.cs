@@ -6,7 +6,8 @@ public class GUI_PlayerInput : MonoBehaviour
 {
     public Inventory inventory;
     //public GameObject testItem;
-    public Item testitem;
+    public Item testitem1;
+    public Item testitem2;
 
 
 
@@ -25,7 +26,11 @@ public class GUI_PlayerInput : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.U))
         {
-            TestInputItem();
+            TestInputItem1();
+        }
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            TestInputItem2();
         }
     }
     
@@ -45,8 +50,13 @@ public class GUI_PlayerInput : MonoBehaviour
         }
     }
 
-    void TestInputItem()
+    void TestInputItem1()
     {
-        inventory.AddItemInList(testitem);
+        inventory.AddItemInList(testitem1);
+    }
+
+    void TestInputItem2()
+    {
+        inventory.AddItemInList(testitem2);
     }
 }
