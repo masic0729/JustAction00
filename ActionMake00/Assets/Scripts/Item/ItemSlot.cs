@@ -20,10 +20,9 @@ public class ItemSlot : MonoBehaviour
             icon.sprite = item.data.icon;
             icon.enabled = true;
             icon.color = new Vector4(1,1,1,1);
-            currentCount = item.count;
+            currentCount += currentItem.addCount;
             maxCount = item.data.maxCount;
-
-            countText.text = currentCount > 1 ? currentCount.ToString() : "";
+            UpdateUI();
             Debug.Log("성공");
             return true;
         }
@@ -39,8 +38,8 @@ public class ItemSlot : MonoBehaviour
         if (item == null)
             return;
 
-        currentCount += item.count;
-        countText.text = currentCount > 1 ? currentCount.ToString() : "";
+        currentCount += item.addCount;
+        UpdateUI();
         Debug.Log("합체 성공");
     }
 
@@ -52,6 +51,15 @@ public class ItemSlot : MonoBehaviour
 
     }
 
+    void UpdateUI()
+    {
+        if (currentCount == 0)
+            return;
+
+        //currentCount = currentItem.currentCount;
+        countText.text = currentCount > 1 ? currentCount.ToString() : "";
+
+    }
 
     /// <summary>
     /// 특정 조건에 의해 인벤토리의 두 데이터가 교환을 할 때 실행한다
@@ -64,8 +72,10 @@ public class ItemSlot : MonoBehaviour
     public void ClearSlot()
     {
         currentItem = null;
+        icon.sprite = null;
         icon.enabled = false;
         countText.text = "";
+        currentCount = 0;
         maxCount = 0;
 
     }
@@ -83,7 +93,7 @@ public class ItemSlot : MonoBehaviour
         if (currentCount == 0)
             return false;
 
-        if(currentItem.data.itemName == item.data.itemName && currentCount + item.count <= maxCount)
+        if(currentItem.data.itemName == item.data.itemName && currentCount + item.addCount <= maxCount)
         {
             return true;
         }

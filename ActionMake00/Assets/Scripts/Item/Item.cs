@@ -2,5 +2,7 @@
 public class Item
 {
     public ItemData data;
-    public int count;
+    public int addCount;
+    //public int currentCount, maxCount;
+
 }
