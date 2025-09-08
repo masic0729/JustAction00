@@ -6,7 +6,8 @@ public enum ItemType
 {
     Equitment,                      //장비
     Consumable,                     //소비
-    Miscellaneous                   //기타
+    Miscellaneous,                  //기타
+    nullItem                        //정렬용 타입
 }
 
 [CreateAssetMenu(fileName = "ItemConfig", menuName ="GameData/ItemConfig")]

@@ -32,6 +32,11 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             TestInputItem2();
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            inventory.SortInventoryTest();
+        }
     }
     
     /// <summary>
