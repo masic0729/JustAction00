@@ -24,7 +24,7 @@ public class ItemSlot : MonoBehaviour
             icon.enabled = true;
             icon.color = new Vector4(1,1,1,1);
 
-            currentCount = currentItem.addCount;
+            currentCount = item.addCount;
             maxCount = item.data.maxCount;
             type = item.data.itemType;
 
@@ -47,6 +47,26 @@ public class ItemSlot : MonoBehaviour
         currentCount += item.addCount;
         UpdateUI();
         Debug.Log("합체 성공");
+    }
+
+    /// <summary>
+    /// 정렬/재배치 때 쓰는 "직접 세팅" API (스냅샷을 그대로 주입)
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="count"></param>
+    public void SetItemDirect(ItemData data, int count)
+    {
+        if (data == null || count <= 0) { ClearSlot(); return; }
+
+        currentItem = new Item { data = data, addCount = count }; // 독립 인스턴스
+        maxCount = data.maxCount;
+        currentCount = count;
+
+        icon.sprite = data.icon;
+        icon.enabled = true;
+        icon.color = Color.white;
+
+        UpdateUI();
     }
 
     /// <summary>
@@ -77,7 +97,8 @@ public class ItemSlot : MonoBehaviour
         // 참조를 공유해도 된다면 아래처럼:
         currentItem = itemData.currentItem;
         currentCount = itemData.currentCount;
-        maxCount = (itemData.maxCount > 0) ? itemData.maxCount : itemData.currentItem.data.maxCount;
+        //maxCount = (itemData.maxCount > 0) ? itemData.maxCount : itemData.currentItem.data.maxCount;
+        maxCount = itemData.maxCount;
         type = itemData.currentItem.data.itemType;
 
         // 2) UI 갱신

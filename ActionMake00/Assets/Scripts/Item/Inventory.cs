@@ -18,6 +18,10 @@ public class Inventory : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 초기에 인벤토리의 슬롯은 40칸으로 정해져 있으며,
+    /// 미리 생성 후 인벤토리 슬롯을 상자에 할당
+    /// </summary>
     void Init()
     {
         inventoryTransform = this.gameObject.transform.GetComponentInChildren<GridLayoutGroup>().transform;
@@ -32,29 +36,34 @@ public class Inventory : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// 인벤토리 내 빈 슬롯을 기준으로 새 아이템 데이터를 넣는다
+    /// 획득을 할 때 추가되는 값을 그대로 정의를 한다
+    /// </summary>
+    /// <param name="item">인벤토리에 삽입할 아이템 정보</param>
     public void AddItemInList(Item item)
     {
         bool isConsumableItemSum = false;
         ItemSlot voidSlot = null;
         for (int i = 0; i < lSlot.Count; i++)
         {
+            if (voidSlot == null && lSlot[i].CanAddItem() == true)
+            {
+                voidSlot = lSlot[i];
+            }
+
             if (item.data.itemType == ItemType.Equitment && lSlot[i].CanAddItem() == true)
             {
                 lSlot[i].AddItem(item);
-                break;
+                return;
             }
             
 
             if (item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(item))
             {
-                Debug.Log("가능");
                 isConsumableItemSum = true;
                 lSlot[i].SumItem(item);
-                break;
-            }
-            else if (voidSlot == null && lSlot[i].CanAddItem() == true)
-            {
-                voidSlot = lSlot[i];
+                return;
             }
 
         }
@@ -66,64 +75,76 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// 인벤토리를 정렬한다
-    /// 정렬 기준은 아이템 타입에 따라 다르며, 이후 아이템의 묶음 수량이 많은 순으로 정렬된다
+    /// 인벤토리 내 모든 아이템을 정렬한다.
+    /// 장비, 소비아이템, 기타아이템(이러한 종류는 없어질 수 있음)으로 구분되며,
+    /// 장비 소비 아이템 순으로 정렬된다.
+    /// 소비 아이템의 경우 묶음 개념이기 때문에 묶음 값이 큰 순으로 정렬된다.
     /// </summary>
     public void SortInventoryTest()
     {
-        //Inventory inven = this.gameObject.transform.parent.GetComponent<Inventory>();
-        Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
-
-        if (inven == null)
+        // 1) 현재 슬롯에서 (아이템 데이터, 개수) 스냅샷 수집
+        List<(ItemData data, int count)> snaps = new List<(ItemData data, int count)>();
+        for (int i = 0; i < lSlot.Count; i++)
         {
-            Debug.Log("inventory is not found");
-            return;
+            ItemSlot s = lSlot[i];
+            bool hasItem = (s != null &&
+                            s.currentItem != null &&
+                            s.currentItem.data != null &&
+                            s.currentCount > 0);
+
+            if (hasItem)
+            {
+                ItemData data = s.currentItem.data;
+                int count = s.currentCount;
+                snaps.Add((data, count));
+            }
         }
 
-        List<ItemSlot> list = inven.lSlot.ToList();
-
-        list.Sort((a, b) => a.type.CompareTo(b.type));
-        for(int i = 0; i < list.Count; i++)
+        
+        snaps.Sort(delegate ((ItemData data, int count) x, (ItemData data, int count) y)
         {
-            Debug.Log(list[i].currentCount + " " + i.ToString());
+            // 타입을 기준으로 정렬할 것
+            int typeCompare = x.data.itemType.CompareTo(y.data.itemType);
+            if (typeCompare != 0)
+                return typeCompare;
+
+            //소비 아이템은 묶음 값이 큰 순서대로 정렬한다
+            if (x.data.itemType == ItemType.Consumable)
+            {
+                int stackCompare = y.count.CompareTo(x.count); // 방향은 내림차순
+                if (stackCompare != 0)
+                    return stackCompare;
+            }
+
+            //이름 오름차순 정렬
+            return string.Compare(x.data.itemName, y.data.itemName, System.StringComparison.Ordinal);
+        });
+
+        // 3) 기존 슬롯 모두 비우기
+        for (int i = 0; i < lSlot.Count; i++)
+        {
+            lSlot[i].ClearSlot();
         }
 
-        /*foreach(ItemSlot item in inven.lSlot)
+        // 4) 정렬된 순서대로 다시 채우기
+        //    (AddItem은 count를 '대입'하도록 동작해야 함)
+        int index = 0;
+        while (index < snaps.Count && index < lSlot.Count)
         {
-            item.ClearSlot();
-            //item.UpdateSlot();
-            item.UpdateSlot(list[]);
-        }*/
-
-        /*for (int i = 0; i < list.Count; i++)
-        {
-            inven.lSlot[i].ClearSlot();
-            inven.lSlot[i].SortSlot(list[i]);
-        }*/
-
-
-
-        /*list.Sort((a, b) => a.type.CompareTo(b.type));
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i].currentCount == 0)
-                continue;
-
-            Debug.Log(list[i].currentItem.data.itemName + " 인덱스는 " + i.ToString());
+            (ItemData data, int count) snap = snaps[index];
+            Item item = new Item { data = snap.data, addCount = snap.count };
+            lSlot[index].AddItem(item);
+            index++;
         }
 
-        for (int i = 0; i < inven.lSlot.Count; i++)
-        {
-            inven.lSlot[i].ClearSlot();
-        }
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            inven.lSlot[i] = list[i];
-            inven.lSlot[i].UpdateSlot();
-        }*/
+        // (선택) 필요하면 여기서 디버그 로그로 결과 확인
+        // for (int i = 0; i < snaps.Count; i++)
+        // {
+        //     Debug.Log($"[{i}] {snaps[i].data.itemType} {snaps[i].data.itemName} x{snaps[i].count}");
+        // }
     }
+
+    
 
     void OtherCodeBox()
     {
@@ -147,5 +168,37 @@ public class Inventory : MonoBehaviour
         // 4) 앞에서부터 다시 채우기
         for (int i = 0; i < items.Count && i < lSlot.Count; i++)
             lSlot[i].AddItem(items[i]);
+
+
+        /*
+        /// <summary>
+        /// 인벤토리를 정렬한다
+        /// 정렬 기준은 아이템 타입에 따라 다르며, 이후 아이템의 묶음 수량이 많은 순으로 정렬된다
+        /// </summary>
+        public void SortInventoryTest()
+        {
+            //Inventory inven = this.gameObject.transform.parent.GetComponent<Inventory>();
+            Inventory inven = GameObject.Find("Inventory").GetComponent<Inventory>();
+
+            if (inven == null)
+            {
+                Debug.Log("inventory is not found");
+                return;
+            }
+
+            List<ItemSlot> list = inven.lSlot.ToList();
+
+            list.Sort((a, b) => a.type.CompareTo(b.type));
+            for(int i = 0; i < list.Count; i++)
+            {
+                Debug.Log(list[i].currentCount + " " + list[i].maxCount + " " + i.ToString());
+            }
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                inven.lSlot[i].ClearSlot();
+                inven.lSlot[i].SortSlot(list[i]);
+            }
+        }*/
     }
 }
