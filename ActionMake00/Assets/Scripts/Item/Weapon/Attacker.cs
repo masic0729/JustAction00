@@ -10,7 +10,7 @@ public enum AttackerType
 
 public class Attacker : MonoBehaviour, IAttacker
 {
-    [SerializeField] protected AttackerType type;
+    [SerializeField] protected AttackerType attackType;
     [SerializeField]protected Collider weaponCol;
     protected int damage = 1;
     protected string target;
@@ -25,7 +25,7 @@ public class Attacker : MonoBehaviour, IAttacker
     protected virtual void Init()
     {
         weaponCol = GetComponent<Collider>();
-        if (weaponCol == null || type == AttackerType.Projectile)
+        if (weaponCol == null || attackType == AttackerType.Projectile)
         {
             return;
         }
@@ -65,7 +65,7 @@ public class Attacker : MonoBehaviour, IAttacker
         if (other.transform.tag == target && this.gameObject.tag != "WeaponOff")
         {
             other.GetComponent<Character>().TakeDamage(damage, hitLevel);
-            if (type == AttackerType.Projectile)
+            if (attackType == AttackerType.Projectile)
             {
                 Destroy(this.gameObject);
             }

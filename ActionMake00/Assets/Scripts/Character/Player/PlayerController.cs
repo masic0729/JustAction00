@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    SkillManager skillManager;
     Player player;
     [Header("Character default info")]
     [HideInInspector]
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     void Init()
     {
         transform.tag = "Player";
-
+        skillManager = GetComponent<SkillManager>();
     }
 
 
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerAttack();
         PlayerEscape();
-
+        PlayerSkillInput();
         MoveInput();
         ActionCoolTimer();
         //CheckGround();
@@ -123,6 +124,14 @@ public class PlayerController : MonoBehaviour
             {
                 player.anim.SetBool("isReAttack", true);
             }
+        }
+    }
+
+    void PlayerSkillInput()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            skillManager.swordSkillDic["Skill0"]();
         }
     }
 

@@ -97,8 +97,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             anim.SetInteger("HitLevel", hitLevel);
             anim.SetTrigger("Hit");
-
-            
         }
         
         

@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType
+{
+    Sword,
+    Staff,
+}
+
 public class PlayerWeapon : Weapon
 {
+    public WeaponType weaponType;
     protected override void Start()
     {
         base.Start();
-        //Init();
     }
 
     protected override void Init()

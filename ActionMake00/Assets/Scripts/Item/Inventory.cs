@@ -188,7 +188,7 @@ public class Inventory : MonoBehaviour
 
             List<ItemSlot> list = inven.lSlot.ToList();
 
-            list.Sort((a, b) => a.type.CompareTo(b.type));
+            list.Sort((a, b) => a.attackType.CompareTo(b.attackType));
             for(int i = 0; i < list.Count; i++)
             {
                 Debug.Log(list[i].currentCount + " " + list[i].maxCount + " " + i.ToString());
