@@ -7,7 +7,9 @@ using UnityEngine;
 public class PlayerSwordSkill : MonoBehaviour
 {
     SkillManager skillManager;
-    List<Action> skill;
+    public GameObject testObject;
+    Player player;
+    protected Weapon weapon;
 
     private void Start()
     {
@@ -17,14 +19,17 @@ public class PlayerSwordSkill : MonoBehaviour
     void Init()
     {
         skillManager = gameObject.GetComponent<SkillManager>();
-        skill = new List<Action>();
+        player = GetComponent<Player>();
 
-        skill.Add(Skill0);
-        skillManager.SetSkillDic(WeaponType.Sword, skill);
+        skillManager.SetSkillDic(WeaponType.Sword, new List<Action>() { Skill0 });
+        
     }
 
     public void Skill0()
     {
         Debug.Log("SwordSkill0");
+
+        Instantiate(testObject, player.weaponDic["PlayerWeapon"].transform.position, player.weaponDic["PlayerWeapon"].transform.rotation);
+        
     }
 }

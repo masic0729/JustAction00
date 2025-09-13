@@ -1,11 +1,15 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using static PlayerSword;
 
 public class Character : MonoBehaviour, ICharacterDamageable
 {
     [HideInInspector]public Animator anim;
+
+    //피격 및 사망 시 발생하는 액션류
+    public Action hitAction;
+    public Action deathAction;
+
     [SerializeField]
     public ParticleSystem[] pEffect;
     protected Dictionary<string, ParticleSystem> pEffectDic;
@@ -13,7 +17,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     protected Rigidbody rb;
     public Weapon[] weapon;
     protected Weapon currentWeapon;
-    protected Dictionary<string, Weapon> weaponDic;
+    public Dictionary<string, Weapon> weaponDic;
 
     [Header("캐릭터 스킬 발사체")]
     public GameObject[] skillProjectiles;
@@ -49,7 +53,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
-
         rb.useGravity = true;
         hitCol.enabled = true;
         DictionaryInit();
@@ -100,6 +103,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
         }
         
         
+    }
+
+    public void WeaponColDisable()
+    {
+        weaponDic["PlayerWeapon"].ResetColiderDisnable();
     }
 
     /// <summary>

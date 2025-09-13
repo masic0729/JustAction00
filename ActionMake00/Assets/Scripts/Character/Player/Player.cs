@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Character
 {
     PlayerController playerCtrl;
+    SkillManager skillManager;
     Vector3 moveVector;
 
 
@@ -27,7 +28,10 @@ public class Player : Character
     protected override void Init()
     {
         base.Init();
+        hitAction += WeaponColDisable;
+
         playerCtrl = GetComponent<PlayerController>();
+        skillManager = GetComponent<SkillManager>();
         transform.tag = "Player";
         hp = 100;
         rotateSpeed = 20f;
@@ -43,11 +47,9 @@ public class Player : Character
 
     void WeaponInit()
     {
+        skillManager.SetCurrentWeaponType("Sword");
         commonDamage = 10;
         weaponTransform = FindTransformAtChild("PlayerWeapon");
-        /*currentWeapon = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
-        currentWeapon.transform.parent = weaponTransform;
-        currentWeapon.SetDamage(commonDamage);*/
 
         weaponDic["PlayerWeapon"] = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
         weaponDic["PlayerWeapon"].transform.parent = weaponTransform;
@@ -56,6 +58,8 @@ public class Player : Character
 
     public override void TakeDamage(int amount, int hitLevel = -1)
     {
+        hitAction();
+
         if (isIgnoreDamage == true)
         {
             Debug.Log(this.gameObject.name + " ¹«Àû : " + transform.name);
@@ -69,5 +73,5 @@ public class Player : Character
         playerCtrl.SetCanInput(false);
     }
 
-
+    
 }

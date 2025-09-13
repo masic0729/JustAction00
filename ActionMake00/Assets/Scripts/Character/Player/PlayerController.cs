@@ -44,22 +44,28 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        PlayerAttack();
         PlayerEscape();
+
+
+
+        if (canInput == false)
+            return;
+        PlayerAttack();
         PlayerSkillInput();
         MoveInput();
-        ActionCoolTimer();
         //CheckGround();
 
     }
+    void FixedUpdate()
+    {
+        ActionCoolTimer();
 
+    }
 
 
     void MoveInput()
     {
 
-        if (canInput == false)
-            return;
 
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
@@ -105,8 +111,8 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAttack()
     {
-        if (canInput == false)
-            return;
+        /*if (canInput == false)
+            return;*/
         // АјАн
         if (Input.GetMouseButtonDown(0))
         {
@@ -131,7 +137,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            skillManager.swordSkillDic["Skill0"]();
+            player.anim.SetTrigger("Skill0");
         }
     }
 
@@ -157,6 +163,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Sprint()
     {
+        player.hitAction();
+
         canInput = true;
         player.anim.SetTrigger("Sprint");
         player.anim.SetBool("isSprint", true);

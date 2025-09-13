@@ -5,17 +5,4 @@ using UnityEngine;
 public class PlayerTestSkill : MonoBehaviour
 {
     public PlayerSkillData weaponTest;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

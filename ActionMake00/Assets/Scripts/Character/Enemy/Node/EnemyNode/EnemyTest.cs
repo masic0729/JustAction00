@@ -48,6 +48,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
     Collider CheckPlayerAttackAround(Transform trans)
     {
         Collider[] collider = Physics.OverlapSphere(trans.position, 2.0f, playerLayerMask);
+        
         if (collider.Length <= 0)
         {
             return null;

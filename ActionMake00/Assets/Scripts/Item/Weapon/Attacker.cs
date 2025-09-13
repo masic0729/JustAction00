@@ -1,3 +1,4 @@
+using Drakkar.GameUtils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,8 @@ public enum AttackerType
 public class Attacker : MonoBehaviour, IAttacker
 {
     [SerializeField] protected AttackerType attackType;
-    [SerializeField]protected Collider weaponCol;
+    [SerializeField] protected Collider weaponCol;
+
     protected int damage = 1;
     protected string target;
     protected int hitLevel = -1;
@@ -29,34 +31,43 @@ public class Attacker : MonoBehaviour, IAttacker
         {
             return;
         }
-        //transform.tag = "WeaponOff";
         ColliderTransEnable();
         weaponCol.enabled = false; // 시작은 꺼두기
     }
 
+    /// <summary>
+    /// 특정 조건(피격, 사망, 스킬 등등)에 의해 애니메이션 변경 시, 무기 콜라이더가 정상적으로 비활성화가 안된다.
+    /// 이를 대응하기 위한 함수
+    /// </summary>
+    public void ResetColiderDisnable()
+    {
+        if (weaponCol != null)
+            weaponCol.enabled = false;
+    }
+
+    /// <summary>
+    /// 기본적으로 보든 캐릭터의 물리공격은 콜라이더로 관리한다.
+    /// 현재 콜라이더 상태에 따라 활성화를 관리한다
+    /// </summary>
     public void ColliderTransEnable()
     {
-        /*if(gameObject.transform.tag != "WeaponOff")
-        {
-            transform.tag = tagName;
-        }
-        else
-        {
-            this.gameObject.transform.tag = "WeaponOff";
-        }*/
         if (weaponCol == null)
         {
             Debug.Log("걍 없음");
             return;
         }
+
         if (weaponCol.enabled == true)
         {
             weaponCol.enabled = false;
+
         }
         else if (weaponCol.enabled == false)
         {
             weaponCol.enabled = true;
+
         }
+
         Debug.Log("Collider Transed");
     }
 
