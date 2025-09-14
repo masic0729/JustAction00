@@ -1358,25 +1358,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &761644913 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 901580267813144908, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
-  m_PrefabInstance: {fileID: 8610385282719232980}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &761644917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761644913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 003a3d0f76a6e5f43a32987ab032ffbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackType: 0
-  weaponCol: {fileID: 0}
 --- !u!1 &804175602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2630,11 @@ PrefabInstance:
     - target: {fileID: 1801321592399160821, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: 99bdc7e5054d4c34cba297839b52e063, type: 2}
+      objectReference: {fileID: 9000000, guid: 3955de6a24970f840996fe77051507ee, type: 3}
+    - target: {fileID: 1801321592399160821, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2568580624046679621, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -2735,10 +2720,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_Main
       objectReference: {fileID: 0}
-    - target: {fileID: 347906078160315764, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1125849400195792846, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
@@ -2779,17 +2760,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4782938410450974498, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
-      propertyPath: m_BaseOffset
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 901580267813144908, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 761644917}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

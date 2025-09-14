@@ -11,6 +11,7 @@ public enum WeaponType
 public class PlayerWeapon : Weapon
 {
     public WeaponType weaponType;
+    protected LayerMask enemyMask = 1 << 7;
     protected override void Start()
     {
         base.Start();

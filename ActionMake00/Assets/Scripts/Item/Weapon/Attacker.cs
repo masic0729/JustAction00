@@ -6,7 +6,8 @@ using UnityEngine;
 public enum AttackerType
 {
     Weapon = 0,
-    Projectile
+    Projectile,
+    Wave
 }
 
 public class Attacker : MonoBehaviour, IAttacker
@@ -27,12 +28,12 @@ public class Attacker : MonoBehaviour, IAttacker
     protected virtual void Init()
     {
         weaponCol = GetComponent<Collider>();
-        if (weaponCol == null || attackType == AttackerType.Projectile)
+        if (weaponCol == null || attackType == AttackerType.Projectile || attackType == AttackerType.Wave)
         {
             return;
         }
         ColliderTransEnable();
-        weaponCol.enabled = false; // 시작은 꺼두기
+        //weaponCol.enabled = false; // 시작은 꺼두기
     }
 
     /// <summary>
@@ -73,7 +74,7 @@ public class Attacker : MonoBehaviour, IAttacker
 
     virtual protected void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == target && this.gameObject.tag != "WeaponOff")
+        if (other.transform.tag == target)
         {
             other.GetComponent<Character>().TakeDamage(damage, hitLevel);
             if (attackType == AttackerType.Projectile)

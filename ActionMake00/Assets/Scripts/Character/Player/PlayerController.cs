@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             player.anim.SetTrigger("Skill0");
+            canInput = false;
         }
     }
 

@@ -9790,6 +9790,7 @@ GameObject:
   - component: {fileID: 7364936370289906279}
   - component: {fileID: 4752034024110402706}
   - component: {fileID: 2844265683993722619}
+  - component: {fileID: 8359826843555578673}
   m_Layer: 0
   m_Name: Skill0
   m_TagString: Untagged
@@ -9896,7 +9897,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 0.15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -14688,8 +14689,23 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.5, y: 5, z: 5.5}
+  m_Size: {x: 5, y: 6, z: 8}
   m_Center: {x: -0.000007390976, y: -1.5809576e-12, z: -0.000028371811}
+--- !u!114 &8359826843555578673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5503505460791601945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da2bfa07ec6337418e27a2bba40fae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 2
+  weaponCol: {fileID: 0}
+  weaponType: 0
 --- !u!1 &8373613166400002822
 GameObject:
   m_ObjectHideFlags: 0
