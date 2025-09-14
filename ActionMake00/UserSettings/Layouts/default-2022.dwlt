@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Hierarchy
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 492}
   m_MaxSize: {x: 10000, y: 10000}
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 172
+  controlID: 175
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -540,21 +540,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: f258fffffe58ffff7cf8ffffd0f8ffffd4f8ffffd8f8ffffdcf8ffff58f9ffff5cf9ffff60f9ffff8cf9ffff90f9fffffafaffff9c730000
+      m_ExpandedIDs: 38f9ffff8cf9ffff90f9ffff94f9ffff98f9ffff14faffff18faffff1cfaffff48faffff4cfafffffafaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Enemy
-        m_OriginalName: Enemy
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 29488
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -605,7 +605,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 378
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -670,10 +670,10 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b69c0000
-    m_LastClickedID: 40118
-    m_ExpandedIDs: 00000000d87b0000ee800000f4800000f8800000fa800000fc8000003e81000040810000b89c0000ba9c000000ca9a3b
+    scrollPos: {x: 0, y: 54}
+    m_SelectedIDs: f8800000
+    m_LastClickedID: 33016
+    m_ExpandedIDs: 00000000d87b0000ea800000ec800000ee800000f4800000fa800000fc80000002810000088100004a8100004c810000588100007081000082810000f2840000628500006a8500008a8500002a8a0000ec99000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1211,9 +1211,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -6.1265054, y: -1.0239803, z: -3.8769205}
+    m_Target: {x: -0.59116375, y: -3.7312458, z: -8.841779}
     speed: 2
-    m_Value: {x: -6.1265054, y: -1.0239803, z: -3.8769205}
+    m_Value: {x: 9.240215, y: -2.8489447, z: -4.9051867}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1259,13 +1259,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.08861467, y: 0.7587302, z: -0.10561537, w: -0.63664114}
+    m_Target: {x: 0.017825989, y: 0.97412837, z: -0.20946926, w: 0.08287813}
     speed: 2
-    m_Value: {x: -0.08861509, y: 0.75873375, z: -0.10561587, w: -0.6366441}
+    m_Value: {x: -0.0782227, y: -0.81561345, z: 0.11352795, w: -0.5619317}
   m_Size:
     m_Target: 8.885384
     speed: 2
-    m_Value: 8.885384
+    m_Value: 9.149084
   m_Ortho:
     m_Target: 0
     speed: 2

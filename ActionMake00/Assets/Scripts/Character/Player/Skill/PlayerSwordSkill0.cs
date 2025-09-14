@@ -16,12 +16,12 @@ public class PlayerSwordSkill0 : PlayerWeapon
         ParticleSystem ps = GetComponent<ParticleSystem>();
         ps.Play();
         Destroy(ps.gameObject, ps.main.duration);
-        Collider enemyCol = CheckPlayerAttackAround(this.gameObject.transform);
+        /*Collider enemyCol = CheckPlayerAttackAround(this.gameObject.transform);
         if (enemyCol != null)
         {
             enemyCol.GetComponent<Character>().TakeDamage(damage);
         }
-        weaponCol.enabled = false;
+        weaponCol.enabled = false;*/
     }
 
 
@@ -38,8 +38,8 @@ public class PlayerSwordSkill0 : PlayerWeapon
         return collider[0];
     }
 
-    /*protected override void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-    }*/
+    }
 }

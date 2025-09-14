@@ -124,7 +124,7 @@ public class Enemy : Character
         if (other.transform.tag == "PlayerAttack")
         {
             //기본적으로 피해를 받는다
-            TakeDamage(other.GetComponent<PlayerSword>().GetDamage());
+            //TakeDamage(other.GetComponent<PlayerSword>().GetDamage());
         }
     }
 

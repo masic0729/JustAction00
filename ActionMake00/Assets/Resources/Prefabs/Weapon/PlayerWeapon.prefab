@@ -85,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a095f798aba8f2946b3a23de742b2fb8, type: 3}
       propertyPath: m_TagString
-      value: PlayerAttack
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -141,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   weaponCol: {fileID: 0}
+  hitEffect: {fileID: 1429954232896169632, guid: 68529e36d5702f64e9c06c41ac91be17, type: 3}
+  damage: 1
   weaponType: 0
 --- !u!4 &1086954030455651005 stripped
 Transform:
