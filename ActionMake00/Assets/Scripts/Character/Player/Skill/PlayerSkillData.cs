@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSkillData : ScriptableObject
 {
-    public PlayerSkillBase[] swordSkillBase;
+    public string weaponType;
+    public PlayerSkillBase[] weaponSkillBase;
     
 }

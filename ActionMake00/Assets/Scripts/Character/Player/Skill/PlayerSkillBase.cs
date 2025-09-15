@@ -9,6 +9,6 @@ public class PlayerSkillBase
     public string skillName;                    //스킬명
 
     public string description;                  //스킬 설명
-    public int cooldown;                        //스킬 쿨
+    public int coolTime;                        //스킬 쿨
     public string triggerName;                  //애니메이션 및 함수 트리거명
 }

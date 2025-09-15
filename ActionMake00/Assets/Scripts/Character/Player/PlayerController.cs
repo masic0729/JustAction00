@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
         PlayerAttack();
         PlayerSkillInput();
         MoveInput();
-        //CheckGround();
 
     }
     void FixedUpdate()
@@ -135,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerSkillInput()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.E) && skillManager.isSkillCanUse("Skill0"))
         {
             player.anim.SetTrigger("Skill0");
             canInput = false;
