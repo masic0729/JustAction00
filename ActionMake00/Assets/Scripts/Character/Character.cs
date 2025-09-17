@@ -99,7 +99,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
         if (isSuperArmor == false || hitLevel != -1)
         {
             anim.SetInteger("HitLevel", hitLevel);
-            anim.SetTrigger("Hit");
         }
         
         

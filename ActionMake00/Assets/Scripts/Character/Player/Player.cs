@@ -66,6 +66,11 @@ public class Player : Character
             return;
         }
 
+        if (isSuperArmor == false || hitLevel != -1)
+        {
+            anim.SetTrigger("Hit");
+        }
+
         base.TakeDamage(amount, hitLevel);
         if (hitLevel == -1)
             return;

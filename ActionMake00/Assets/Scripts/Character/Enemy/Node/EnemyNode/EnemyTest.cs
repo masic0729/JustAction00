@@ -45,6 +45,14 @@ public class EnemyTest : FollwingPlayerEnemyBT
         }
     }
 
+    public override void TakeDamage(int amount, int hitLevel = -1)
+    {
+        base.TakeDamage(amount, hitLevel);
+        if (isSuperArmor == false || hitLevel != -1)
+        {
+            anim.SetTrigger("Hit");
+        }
+    }
     Collider CheckPlayerAttackAround(Transform trans)
     {
         Collider[] collider = Physics.OverlapSphere(trans.position, 2.0f, playerLayerMask);
