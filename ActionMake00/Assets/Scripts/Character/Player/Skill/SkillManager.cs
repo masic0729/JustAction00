@@ -7,7 +7,9 @@ public class SkillManager : MonoBehaviour
     Animator anim;
     public Dictionary<string, Action> swordSkillDic;
     public Dictionary<string, Action> staffSkillDic;
+
     [SerializeField] PlayerSkillData[] weaponData;
+    
     Dictionary<string, float> swordSkillCooltimeDic;
     Dictionary<string, float> staffSkillCooltimeDic;
 
