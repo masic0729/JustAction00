@@ -9792,7 +9792,7 @@ GameObject:
   - component: {fileID: 2844265683993722619}
   - component: {fileID: 8359826843555578673}
   m_Layer: 0
-  m_Name: Skill0
+  m_Name: SkillSwordSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14706,7 +14706,7 @@ MonoBehaviour:
   attackType: 2
   weaponCol: {fileID: 0}
   hitEffect: {fileID: 8525990746615576122, guid: 47ae35711cf7e2742afb5003843bd0ef, type: 3}
-  damage: 1
+  damage: 10
   weaponType: 0
 --- !u!1 &8373613166400002822
 GameObject:

@@ -88,9 +88,9 @@ public class SkillManager : MonoBehaviour
     /// </summary>
     /// <param name="type">스킬을 저장하려는 플레이어 무기 따입</param>
     /// <param name="data">각 스킬 명령에 저장할 기능들</param>
-    public void SetSkillDic(WeaponType type, List<Action> data)
+    public void SetSkillDic(WeaponType type, Action data, int index)
     {
-        Debug.Log(data.Count + "리스트 개수");
+        /*Debug.Log(data.Count + "리스트 개수");
         for(int i = 0; i < data.Count; i++)
         {
             string skillKey = "Skill" + i.ToString();
@@ -104,6 +104,18 @@ public class SkillManager : MonoBehaviour
                 staffSkillDic[skillKey] = data[i];
                 staffSkillDic[skillKey] += character.WeaponColDisable;
             }
+        }*/
+
+        string skillKey = "Skill" + index.ToString();
+        if(type == WeaponType.Sword)
+        {
+            swordSkillDic[skillKey] = data;
+            swordSkillDic[skillKey] += character.WeaponColDisable;
+        }
+        else
+        {
+            staffSkillDic[skillKey] = data;
+            staffSkillDic[skillKey] += character.WeaponColDisable;
         }
     }
 

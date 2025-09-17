@@ -22,12 +22,21 @@ public class Attacker : MonoBehaviour, IAttacker
 
     protected virtual void Start()
     {
-        //Init();
+
     }
 
+    /// <summary>
+    /// WeaponCol같은 경우 스킬스크립트부분에서는 반.드.시. 물리적으로 할당한다(인스펙터 드래그)
+    /// 
+    /// </summary>
     protected virtual void Init()
     {
-        weaponCol = GetComponent<Collider>();
+        
+        if(weaponCol == null)
+        {
+            weaponCol = GetComponent<Collider>();
+        }
+
         if (weaponCol == null || attackType == AttackerType.Projectile || attackType == AttackerType.Wave)
         {
             return;
