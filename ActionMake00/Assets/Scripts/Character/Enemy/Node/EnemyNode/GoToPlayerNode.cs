@@ -11,17 +11,18 @@ public class GoToPlayerNode : Node
     }
     public override NodeState Evaluate()
     {
-        //transform.LookAt(mainCamera);
-        //enemy.MoveForward();
-        if (Vector3.Distance(transform.position, player.transform.position) < enemy.GetAttackReadyDistance() || enemy.isDefault == false)
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        if (distance < enemy.GetAttackReadyDistance() || enemy.isDefault == false &&
+            enemy.GetIsAttack() == false)
         {
             anim.SetBool("Move", false);
-            enemy.MoveTarget(null);
+            enemy.MoveTarget(this.transform.position);
             int rand = Random.Range(0, enemy.GetMaxAttackIndex());
             enemy.anim.SetInteger("PattenIndex", rand);
             return state = NodeState.Success;
         }
-        enemy.MoveTarget(player);
+        enemy.MoveTarget(player.position);
 
         anim.SetBool("Move", true);
         return state = NodeState.Running;

@@ -26,8 +26,9 @@ public class Enemy : Character
     //private int attackIndex = -1;
     public bool isPlayerFound = false;
     public bool isDefault = true;
-    public bool isAttacked = false;                                    //몬스터의 공격중인 지 확인하는 용도
+    public bool isAttack = false;                                    //몬스터의 공격중인 지 확인하는 용도
     protected bool isCanTurn = false;
+    
 
 
     // Start is called before the first frame update
@@ -98,7 +99,7 @@ public class Enemy : Character
     /// 목표 위치로 이동한다. 플레이어든 복귀 위치든 특정 위치든
     /// </summary>
     /// <param name="target"></param>
-    public void MoveTarget(Transform target)
+    public void MoveTarget(Vector3 target)
     {
         if (target == null)
         {
@@ -106,11 +107,12 @@ public class Enemy : Character
             nav.ResetPath();                      // 안전하게 경로 초기화
             nav.SetDestination(transform.position);
             nav.velocity = Vector3.zero;
+            Debug.Log("버그 또는 플레이어 사망 추정");
             return;                               
         }
 
         nav.isStopped = false;
-        nav.SetDestination(target.position);
+        nav.SetDestination(target);
     }
 
     /*public override void Dead(float animationTime)
@@ -139,4 +141,10 @@ public class Enemy : Character
     public bool GetIsCanTurn() => isCanTurn;
 
     public int GetMaxAttackIndex() => maxAttackIndex;
+
+    public Vector3 GetSpawnPosition() => spawnPosition;
+
+    public bool GetIsAttack() => isAttack;
+
+    public void SetIsAttack(bool state) => isAttack = state;
 }

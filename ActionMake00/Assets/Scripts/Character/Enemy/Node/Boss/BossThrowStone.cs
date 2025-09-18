@@ -14,22 +14,22 @@ public class BossThrowStone : EnemyAttackTree
         if (enemy.isDefault == false)
             return state = NodeState.Success;
 
-        if (enemy.isAttacked == false)
+        if (enemy.isAttack == false)
         {
             anim.SetTrigger("Cast");
             anim.SetBool("isAttacking", true);
-            enemy.isAttacked = true;
+            enemy.isAttack = true;
             return state = NodeState.Running;
         }
 
-        if (enemy.isAttacked == true && anim.GetBool("isAttacking") == true)
+        if (enemy.isAttack == true && anim.GetBool("isAttacking") == true)
         {
             return state = NodeState.Running;
 
         }
         else
         {
-            enemy.isAttacked = false;
+            enemy.isAttack = false;
             return state = NodeState.Success;
         }
     }
