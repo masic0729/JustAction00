@@ -12,6 +12,7 @@ public class PlayerSwordSlash : PlayerBaseSkill
 
     public override void SkillUse()
     {
-        Instantiate(skillPrefab, player.weaponDic["PlayerWeapon"].transform.position, player.weaponDic["PlayerWeapon"].transform.rotation);
+        //Instantiate(skillPrefab, player.weaponDic["PlayerWeapon"].transform.position, player.weaponDic["PlayerWeapon"].transform.rotation);
+        PoolManager.instance.Spawn("SkillSwordSlash", player.weaponDic["PlayerWeapon"].transform.position, player.weaponDic["PlayerWeapon"].transform.rotation);
     }
 }

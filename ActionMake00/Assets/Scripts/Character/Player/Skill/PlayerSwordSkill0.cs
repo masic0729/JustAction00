@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSwordSkill0 : PlayerWeapon
+public class PlayerSwordSkill0 : Skill
 {
+    
     protected override void Start()
     {
         base.Start();
         Init();
     }
+    private void OnEnable()
+    {
+        
+
+    }
 
     protected override void Init()
     {
         base.Init();
-        ParticleSystem ps = GetComponent<ParticleSystem>();
-        ps.Play();
-        Destroy(ps.gameObject, ps.main.duration);
+
         /*Collider enemyCol = CheckPlayerAttackAround(this.gameObject.transform);
         if (enemyCol != null)
         {
@@ -24,8 +28,9 @@ public class PlayerSwordSkill0 : PlayerWeapon
         weaponCol.enabled = false;*/
     }
 
+    
 
-    Collider CheckPlayerAttackAround(Transform trans)
+    /*Collider CheckPlayerAttackAround(Transform trans)
     {
         BoxCollider boxCol = weaponCol.GetComponent<BoxCollider>();
         Collider[] collider = Physics.OverlapBox(trans.position, boxCol.size, trans.rotation, enemyMask);
@@ -36,7 +41,7 @@ public class PlayerSwordSkill0 : PlayerWeapon
         }
         Debug.Log("나 된거 맞아");
         return collider[0];
-    }
+    }*/
 
     protected override void OnTriggerEnter(Collider other)
     {
