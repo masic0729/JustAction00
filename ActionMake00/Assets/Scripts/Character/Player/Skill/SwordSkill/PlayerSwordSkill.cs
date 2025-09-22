@@ -11,12 +11,12 @@ public class PlayerSwordSkill : PlayerSkillProcessor
 
     private void Start()
     {
-        Init();
+        //Init();
     }
 
-    protected override void Init()
+    public override void InitSkill()
     {
-        base.Init();
+        base.InitSkill();
         
 
     }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerStaffSkill : PlayerSkillProcessor
 {
-    protected override void Init()
+    
+    public override void InitSkill()
     {
-        base.Init();
+        base.InitSkill();
     }
 
 

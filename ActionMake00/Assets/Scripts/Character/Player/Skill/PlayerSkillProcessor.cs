@@ -20,7 +20,7 @@ public class PlayerSkillProcessor : MonoBehaviour
         
     }
 
-    protected virtual void Init()
+    public virtual void InitSkill()
     {
         skillManager = transform.parent.GetComponent<SkillManager>();
 

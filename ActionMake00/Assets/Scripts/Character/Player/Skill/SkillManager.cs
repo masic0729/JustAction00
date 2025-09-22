@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    Animator anim;
     /*public Dictionary<string, Action> swordSkillDic;
     public Dictionary<string, Action> staffSkillDic;*/
     public Dictionary<string, Action> weaponSkillDic;
@@ -55,7 +54,6 @@ public class SkillManager : MonoBehaviour
 
     void Init()
     {
-        anim = GetComponent<Animator>();
         
         //초기 모든 스킬의 쿨타임 값을 0으로 초기화한다.
         for(int i = 0; i < weaponData.Length;i++)
@@ -134,6 +132,16 @@ public class SkillManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 웨폰타입을 기반으로 스킬 데이터를 불러오는 것
+    /// 불러올 때 PlayerSword, PlayerStaff
+    /// </summary>
+    /// <param name="weaponType">플레이어 무기 타입명</param>
+    public void SkillDataInit(string weaponType)
+    {
+        transform.Find(weaponType).GetComponent<PlayerSkillProcessor>().InitSkill();
+    }
+
+    /// <summary>
     /// 기본적으로 현재 무기타입 내에 스킬을 사용하기 때문에
     /// 현재 무기 타입의 해당 딕셔너리인덱스 스킬 쿨타임 설정 및 
     /// 시작을 한다
@@ -185,7 +193,7 @@ public class SkillManager : MonoBehaviour
 
     }
 
-    void SkillCoolTimeStart(int key)
+    void SetSkillCoolTime(int key)
     {
         string skillKey = "Skill" + key.ToString();
         /*switch (currentWeaponType)
@@ -214,7 +222,7 @@ public class SkillManager : MonoBehaviour
                 if (swordSkillCooltimeDic[skillKey] > 0)
                     return false;
                 break;
-
+        _graphics->GetDevice()
             case "Staff":
                 if (staffSkillCooltimeDic[skillKey] > 0)
                     return false;
@@ -259,7 +267,7 @@ public class SkillManager : MonoBehaviour
 
         //new
         weaponSkillDic[skillKey]();
-        SkillCoolTimeStart(key);
+        SetSkillCoolTime(key);
     }
 
     public void SetCurrentWeaponType(string typeName) => currentWeaponType = typeName;
