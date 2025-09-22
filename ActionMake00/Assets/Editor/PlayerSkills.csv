@@ -1,0 +1,3 @@
+﻿WeaponType,SkillName,Description,CoolTime,TriggerName,IconPath
+Sword,전방 강타,검을 내리친다,7,Skill0,Icons/09_Melee_slash
+Sword,패링,공격을 반격한다,12,Skill1,Icons/10_Melee_AOE
