@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSwordSkill0 : Skill
+public class PlayerSwordSkill0 : PlayerSkillInfo
 {
     
     protected override void Start()

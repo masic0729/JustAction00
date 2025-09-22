@@ -100,21 +100,15 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             anim.SetInteger("HitLevel", hitLevel);
         }
-        
-        
     }
 
-    public void WeaponColDisable()
-    {
-        weaponDic["PlayerWeapon"].ResetColiderDisnable();
-    }
+        
 
     /// <summary>
     /// void
     /// </summary>
     public virtual void Dead(float animationTime) {
         ParticleManager.instance.PlayParticle(pEffectDic["pDeath"], this.transform);
-        //SpawnManager.instance.DestroyCommonEnemy(this.gameObject.GetComponent<Enemy>());
         rb.useGravity = false;
         hitCol.enabled = false;
         Destroy(this.gameObject, animationTime);
@@ -122,7 +116,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public void TransHitBox(string name)
     {
-        //weapon.GetComponent<BoxCollider>().enabled = true;
         weaponDic[name].ColliderTransEnable();
         
     }

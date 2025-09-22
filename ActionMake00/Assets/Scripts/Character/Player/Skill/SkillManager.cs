@@ -19,7 +19,7 @@ public class SkillManager : MonoBehaviour
     Dictionary<string, float> staffSkillCoolListDic;*/
     Dictionary<string, float> weaponSkillCoolListDic;
 
-    Character character;
+    Player player;
 
     string currentWeaponType;
 
@@ -39,7 +39,7 @@ public class SkillManager : MonoBehaviour
         
         
 
-        character = GetComponent<Character>();
+        player = GetComponent<Player>();
     }
 
     private void Start()
@@ -130,7 +130,7 @@ public class SkillManager : MonoBehaviour
 
         //new
         weaponSkillDic[skillKey] = data;
-        weaponSkillDic[skillKey] += character.WeaponColDisable;
+        weaponSkillDic[skillKey] += player.WeaponColDisable;
     }
 
     /// <summary>

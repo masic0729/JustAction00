@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Player : Character
 {
     PlayerController playerCtrl;
     SkillManager skillManager;
     Vector3 moveVector;
-
+    //public Dictionary<string, GameObject> weaponsDic;
 
     private Transform weaponTransform;
 
@@ -15,7 +17,7 @@ public class Player : Character
     public Transform groundCheck;
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
-
+    string weaponType;
 
     // √ ±‚»≠
     protected override void Start()
@@ -47,13 +49,39 @@ public class Player : Character
 
     void WeaponInit()
     {
-        skillManager.SetCurrentWeaponType("Sword");
-        commonDamage = 10;
         weaponTransform = FindTransformAtChild("PlayerWeapon");
+        commonDamage = 10;
 
-        weaponDic["PlayerWeapon"] = Instantiate(weaponDic["PlayerWeapon"], weaponTransform.position, weaponTransform.rotation);
-        weaponDic["PlayerWeapon"].transform.parent = weaponTransform;
-        weaponDic["PlayerWeapon"].SetDamage(commonDamage);
+        //weaponsDic = new Dictionary<string, GameObject>();
+        for (int i = 0; i < weapon.Length; i++)
+        {
+            weaponDic[weapon[i].gameObject.name] = Instantiate(weapon[i].gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<Weapon>();
+            weaponDic[weapon[i].gameObject.name].gameObject.SetActive(false);
+            weaponDic[weapon[i].gameObject.name].transform.parent = weaponTransform;
+            weaponDic[weapon[i].gameObject.name].SetDamage(commonDamage);
+        }
+        weaponType = "PlayerSword";
+        skillManager.SetCurrentWeaponType(weaponType);
+
+        weaponDic[weaponType].gameObject.SetActive(true);
+
+    }
+
+    public void WeaponColDisable()
+    {
+        if (weaponType != "PlayerSword")
+            return;
+
+        weaponDic[weaponType].ResetColiderDisnable();
+    }
+
+    public void TransWeapon(string weaponName)
+    {
+        weaponType = weaponName;
+        skillManager.SetCurrentWeaponType(weaponType);
+
+        weaponDic[weaponType].gameObject.SetActive(true);
+        
     }
 
     public override void TakeDamage(int amount, int hitLevel = -1)
@@ -78,5 +106,7 @@ public class Player : Character
         playerCtrl.SetCanInput(false);
     }
 
-    
+    public void SetWeaponType(string typeName) => weaponType = typeName;
+
+    public string GetWeaponType() => weaponType;
 }

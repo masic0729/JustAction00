@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerSwordSlash : PlayerBaseSkill
@@ -11,8 +10,10 @@ public class PlayerSwordSlash : PlayerBaseSkill
     }
 
     public override void SkillUse()
-    {
-        //Instantiate(skillPrefab, player.weaponDic["PlayerWeapon"].transform.position, player.weaponDic["PlayerWeapon"].transform.rotation);
-        PoolManager.instance.Spawn("SkillSwordSlash", player.weaponDic["PlayerWeapon"].transform.position, player.weaponDic["PlayerWeapon"].transform.rotation);
+    { 
+        base.SkillUse();
+        PoolManager.instance.Spawn(skillPrefab.name, player.weaponDic["PlayerSword"].transform.position , player.weaponDic["PlayerSword"].transform.rotation);
     }
+
+    
 }

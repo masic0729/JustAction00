@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         PlayerEscape();
-
+        WeapontestSwap();
 
 
         if (canInput == false)
@@ -107,6 +107,22 @@ public class PlayerController : MonoBehaviour
 
         
     }
+    void WeapontestSwap()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            if (player.GetWeaponType() == "PlayerSword")
+            {
+                player.TransWeapon("PlayerStaff");
+            }
+            else if (player.GetWeaponType() == "PlayerStaff")
+            {
+                player.TransWeapon("PlayerSword");
+            }
+        }
+    }
+
+
 
     void PlayerAttack()
     {

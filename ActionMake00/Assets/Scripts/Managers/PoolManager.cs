@@ -32,7 +32,7 @@ public class PoolManager : MonoBehaviour
                     actionOnGet: pool => pool.SetActive(true),
                     actionOnRelease: pool => pool.SetActive(false),
                     actionOnDestroy: pool => Destroy(pool),
-                    maxSize: 32
+                    maxSize: 5
                 );
             }
         }
