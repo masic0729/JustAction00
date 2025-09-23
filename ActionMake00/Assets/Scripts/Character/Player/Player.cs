@@ -63,7 +63,8 @@ public class Player : Character
         weaponType = "PlayerSword";
         //skillManager.SkillDataInit();
         skillManager.SetCurrentWeaponType(weaponType);
-        
+        skillManager.WeaponSkillLoad(weaponType);
+
         weaponDic[weaponType].gameObject.SetActive(true);
 
     }
@@ -78,18 +79,23 @@ public class Player : Character
 
     public void TransWeapon(string weaponName)
     {
-        string transWeaponName = weaponName;
+        string weaponType = weaponName;
         //같은 무기 타입이면 그냥 반환한다. 바꿀 이유가 없기 때문이다.
-        if (weaponType == transWeaponName)
+        if (this.weaponType == weaponType)
             return;
         //기존에 쓰던 무기는 비활성화
-        weaponDic[transWeaponName].gameObject.SetActive(false);
+        if (weaponDic[this.weaponType] != null)
+        {
+            weaponDic[this.weaponType].gameObject.SetActive(false);
+        }
 
-        //무기 타입에 맞는 데이터 설정
-        weaponType = weaponName;
-        skillManager.SetCurrentWeaponType(transWeaponName);
+        this.weaponType = weaponName;
 
-        weaponDic[transWeaponName].gameObject.SetActive(true);
+        //무기 타입에 맞는 스킬데이터 설정
+        skillManager.SetCurrentWeaponType(weaponType);
+        skillManager.WeaponSkillLoad(weaponType);
+
+        weaponDic[weaponType].gameObject.SetActive(true);
         
     }
 

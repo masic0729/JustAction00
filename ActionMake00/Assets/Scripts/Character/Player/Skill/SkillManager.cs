@@ -237,6 +237,25 @@ public class SkillManager : MonoBehaviour
         return true;
     }
 
+    
+    public void WeaponSkillLoad(string weaponType)
+    {
+        PlayerSkillProcessor skillBase = null;
+        if (weaponType == "PlayerSword")
+        {
+            skillBase = transform.Find("SwordSkill").GetComponent<PlayerSwordSkill>();
+        }   
+        if(weaponType == "PlayerStaff")
+        {
+            skillBase = transform.Find("StaffSkill").GetComponent<PlayerStaffSkill>();
+
+        }
+        if (skillBase != null)
+        {
+            skillBase.InitSkill();
+        }
+    }
+
     /// <summary>
     /// 저장된 스킬을 기반으로 플레이어가 스킬을 사용한다
     /// </summary>
