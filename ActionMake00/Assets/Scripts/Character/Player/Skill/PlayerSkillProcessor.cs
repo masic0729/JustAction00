@@ -6,7 +6,7 @@ public class PlayerSkillProcessor : MonoBehaviour
 {
     protected SkillManager skillManager;
 
-    public PlayerBaseSkill[] skills;
+    public PlayerWeaponSkill[] skills;
 
     // Start is called before the first frame update
     void Start()

@@ -46,8 +46,24 @@ public class PoolManager : MonoBehaviour
         pool.transform.name = effectName;
 
         ParticleSystem ps = pool.GetComponent<ParticleSystem>();
+        ps.Play();
     }
 
-
+    /// <summary>
+    /// 해당 함수의 경우 특정 파티클 오브젝트의 회전값이 예민한 경우
+    /// 이를 고려하여 해당 파티클 오브젝트를  반환 후 파티클에 맞는 위치 및 회전값을 조정한다
+    /// </summary>
+    /// <param name="effectName"></param>
+    /// <returns></returns>
+    public GameObject Spawn(string effectName, Vector3 pos)
+    {
+        GameObject pool = skillPrefabs[effectName].Get();
+        Debug.Log("풀 성공" + pool.name);
+        pool.transform.name = effectName;
+        pool.transform.position = pos;
+        ParticleSystem ps = pool.GetComponent<ParticleSystem>();
+        ps.Play();
+        return pool;
+    }
 }
      

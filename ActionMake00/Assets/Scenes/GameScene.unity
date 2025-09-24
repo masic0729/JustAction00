@@ -1959,7 +1959,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9fe4d7bdb45c404cb688ad9453c1e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skills: []
+  skills:
+  - {fileID: 1277994289}
+--- !u!114 &1277994289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277994285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abd8dbf332531245be8f94de220bb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPrefab: {fileID: 3432958286849152088, guid: 80b6eef834c82e14a92d70dc5f2409ee, type: 3}
 --- !u!1 &1288821027
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,6 +2544,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4267466520987023535, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1277994287}
+    - targetCorrespondingSourceObject: {fileID: 4267466520987023535, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1277994289}
   m_SourcePrefab: {fileID: 100100000, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
 --- !u!1001 &8610385282719232980
 PrefabInstance:

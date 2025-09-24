@@ -1,5 +1,4 @@
 using UnityEngine;
-using Drakkar.GameUtils;
 
 
 public class PlayerSword : PlayerWeapon
