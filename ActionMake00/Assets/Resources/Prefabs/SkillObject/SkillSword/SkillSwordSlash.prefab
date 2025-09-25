@@ -14704,10 +14704,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 2
-  weaponCol: {fileID: 0}
-  hitEffect: {fileID: 8525990746615576122, guid: 47ae35711cf7e2742afb5003843bd0ef, type: 3}
+  objectCol: {fileID: 0}
+  hitEffect:
+  - {fileID: 8525990746615576122, guid: 47ae35711cf7e2742afb5003843bd0ef, type: 3}
+  - {fileID: 6263782476919498311, guid: d47bf649651af9f4fbb6401bc6c0fa1b, type: 3}
   damage: 10
-  weaponType: 0
 --- !u!1 &8373613166400002822
 GameObject:
   m_ObjectHideFlags: 0

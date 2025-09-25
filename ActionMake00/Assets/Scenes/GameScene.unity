@@ -205,8 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0
-  weaponCol: {fileID: 0}
-  hitEffect: {fileID: 0}
+  objectCol: {fileID: 0}
+  hitEffect: []
   damage: 1
 --- !u!136 &221992842
 CapsuleCollider:
@@ -619,8 +619,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0
-  weaponCol: {fileID: 0}
-  hitEffect: {fileID: 0}
+  objectCol: {fileID: 0}
+  hitEffect: []
   damage: 1
 --- !u!135 &668728213
 SphereCollider:
@@ -1488,7 +1488,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1864,6 +1864,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a7d3c76bc4b081647bb4a395a75c82b8, type: 2}
   - {fileID: 11400000, guid: 7df1d1c644155464f929cbe72195251f, type: 2}
   - {fileID: 11400000, guid: 81637de4761fbef4e9a81ee9dc190a1e, type: 2}
+  - {fileID: 11400000, guid: 65c3ff14bf9466548adbc5bd4dac3b0d, type: 2}
 --- !u!1 &1276891791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,50 +2037,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 714015774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1629997696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1629997697}
-  - component: {fileID: 1629997698}
-  m_Layer: 0
-  m_Name: ParticleManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1629997697
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629997696}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1629997698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629997696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7330e2de895d227448e4b47f1f6961e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1683330728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,6 +2557,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2806915460544298901, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
+      propertyPath: weapon.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2616,7 +2577,6 @@ SceneRoots:
   - {fileID: 2020015190}
   - {fileID: 829931066}
   - {fileID: 1276891794}
-  - {fileID: 1629997697}
   - {fileID: 2125269828}
   - {fileID: 1251965341}
   - {fileID: 8610385282719232980}

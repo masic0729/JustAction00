@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Character : MonoBehaviour, ICharacterDamageable
@@ -108,7 +109,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     /// void
     /// </summary>
     public virtual void Dead(float animationTime) {
-        ParticleManager.instance.PlayParticle(pEffectDic["pDeath"], this.transform);
+        //ParticleManager.instance.PlayParticle(pEffectDic["pDeath"], this.transform);
+        PoolManager.instance.Spawn("pDeath", this.transform.position, transform.rotation);
         rb.useGravity = false;
         hitCol.enabled = false;
         Destroy(this.gameObject, animationTime);

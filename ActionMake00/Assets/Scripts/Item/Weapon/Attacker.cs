@@ -6,14 +6,14 @@ public enum AttackerType
 {
     Weapon = 0,
     Projectile,
-    Wave
+    Skill
 }
 
 public class Attacker : MonoBehaviour, IAttacker
 {
     [SerializeField] protected AttackerType attackType;
-    [SerializeField] protected Collider weaponCol;
-    [SerializeField] protected ParticleSystem hitEffect;
+    [SerializeField] protected Collider objectCol;
+    [SerializeField] protected ParticleSystem[] hitEffect;
     [SerializeField] protected int damage = 1;
     protected string target;
     protected int hitLevel = -1;
@@ -31,12 +31,12 @@ public class Attacker : MonoBehaviour, IAttacker
     protected virtual void Init()
     {
         
-        if(weaponCol == null)
+        if(objectCol == null)
         {
-            weaponCol = GetComponent<Collider>();
+            objectCol = GetComponent<Collider>();
         }
 
-        if (weaponCol == null || attackType == AttackerType.Projectile || attackType == AttackerType.Wave)
+        if (objectCol == null || attackType == AttackerType.Projectile || attackType == AttackerType.Skill)
         {
             return;
         }
@@ -50,8 +50,8 @@ public class Attacker : MonoBehaviour, IAttacker
     /// </summary>
     public void ResetColiderDisnable()
     {
-        if (weaponCol != null)
-            weaponCol.enabled = false;
+        if (objectCol != null)
+            objectCol.enabled = false;
     }
 
     /// <summary>
@@ -60,20 +60,20 @@ public class Attacker : MonoBehaviour, IAttacker
     /// </summary>
     public void ColliderTransEnable()
     {
-        if (weaponCol == null)
+        if (objectCol == null)
         {
             Debug.Log("걍 없음");
             return;
         }
 
-        if (weaponCol.enabled == true)
+        if (objectCol.enabled == true)
         {
-            weaponCol.enabled = false;
+            objectCol.enabled = false;
 
         }
-        else if (weaponCol.enabled == false)
+        else if (objectCol.enabled == false)
         {
-            weaponCol.enabled = true;
+            objectCol.enabled = true;
 
         }
 
@@ -85,7 +85,7 @@ public class Attacker : MonoBehaviour, IAttacker
         if (other.transform.tag == target)
         {
             other.GetComponent<Character>().TakeDamage(damage, hitLevel);
-            if(hitEffect != null)
+            if(hitEffect.Length != 0)
             {
                 PlayEffect(other);
             }
@@ -98,7 +98,7 @@ public class Attacker : MonoBehaviour, IAttacker
 
     void PlayEffect(Collider other)
     {
-        Vector3 weaponColPoint = weaponCol.ClosestPoint(other.bounds.center);
+        Vector3 weaponColPoint = objectCol.ClosestPoint(other.bounds.center);
         Vector3 targetColPoint = other.ClosestPoint(weaponColPoint);
         Vector3 contactPoint = (weaponColPoint + targetColPoint) * 0.5f;
 
@@ -106,11 +106,11 @@ public class Attacker : MonoBehaviour, IAttacker
         float dist;
 
         //충돌 위치 결과
-        Vector3 normal = (contactPoint - weaponCol.bounds.center).normalized;
+        Vector3 normal = (contactPoint - objectCol.bounds.center).normalized;
 
 
         if (Physics.ComputePenetration(
-            weaponCol, weaponCol.transform.position, weaponCol.transform.rotation,
+            objectCol, objectCol.transform.position, objectCol.transform.rotation,
             other, other.transform.position, other.transform.rotation,
             out dir, out dist))
         {
@@ -121,9 +121,12 @@ public class Attacker : MonoBehaviour, IAttacker
 
         //파티클 생성 및 삭제 명령
         Quaternion particleRotate = Quaternion.LookRotation(normal);
-        ParticleSystem ps = Instantiate(hitEffect, contactPoint, particleRotate);
-        ps.Play();
-        Destroy(ps, ps.main.duration);
+
+        int psDataIndex = Random.Range(0, hitEffect.Length);
+        //ParticleSystem ps = Instantiate(hitEffect[psDataIndex], contactPoint, particleRotate);
+        //ps.Play();
+        PoolManager.instance.Spawn(hitEffect[psDataIndex].name, contactPoint, particleRotate);
+        //Destroy(ps, ps.main.duration);
     }
 
     public int GetDamage() => damage;
