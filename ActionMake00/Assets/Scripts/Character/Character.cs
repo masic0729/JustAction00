@@ -12,8 +12,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public Action deathAction;
 
     [SerializeField]
-    public ParticleSystem[] pEffect;
-    protected Dictionary<string, ParticleSystem> pEffectDic;
+    public ParticleSystem[] pEffect;                                        //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
+    protected Dictionary<string, ParticleSystem> pEffectDic;                //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
     Collider hitCol;
     protected Rigidbody rb;
     public Weapon[] weapon;
@@ -22,17 +22,21 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     [Header("캐릭터 스킬 발사체")]
     public GameObject[] skillProjectiles;
-    protected float rotateSpeed;
 
+
+    //캐릭터 능력치 관련 데이터
+    #region
     [SerializeField] protected int hp;
-    protected int commonDamage;
+    protected int damage;                                                   //기본 데미지 데이터
     protected int skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음
+    protected float rotateSpeed;                                            //회전 속도
 
-    [SerializeField]protected bool isSuperArmor = false;
-    [SerializeField]protected bool isIgnoreDamage = false;
+    [SerializeField]protected bool isSuperArmor = false;                    //피격이상 면역 유무. 활성화 시 경직이 없다.
+    [SerializeField]protected bool isIgnoreDamage = false;                  //무적 유무. 활성화 시 피해를 입지 않는다.
 
 
     [SerializeField] protected float moveSpeed = 5f;
+    #endregion
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -50,7 +54,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     {
         //base Init
         hp = 20;
-        commonDamage = 1;
+        damage = 1;
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
@@ -136,9 +140,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public float GetMoveSpeed() => moveSpeed;
 
-    public int GetCommonDamage() => commonDamage;
+    public int GetCommonDamage() => damage;
 
-    public void SetCommondamage(int value) => commonDamage = value;
+    public void SetCommondamage(int value) => damage = value;
 
     public int GetSkillDamage() => skillDamage;
 

@@ -47,7 +47,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
         {
             for (int i = 0; i < playerCol.Length; i++)
             {
-                playerCol[i].GetComponent<Character>().TakeDamage(commonDamage);
+                playerCol[i].GetComponent<Character>().TakeDamage(damage);
 
             }
         }

@@ -50,7 +50,7 @@ public class Player : Character
     void WeaponInit()
     {
         weaponTransform = FindTransformAtChild("PlayerWeapon");
-        commonDamage = 10;
+        damage = 10;
 
         //weaponsDic = new Dictionary<string, GameObject>();
         for (int i = 0; i < weapon.Length; i++)
@@ -58,7 +58,7 @@ public class Player : Character
             weaponDic[weapon[i].gameObject.name] = Instantiate(weapon[i].gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<Weapon>();
             weaponDic[weapon[i].gameObject.name].gameObject.SetActive(false);
             weaponDic[weapon[i].gameObject.name].transform.parent = weaponTransform;
-            weaponDic[weapon[i].gameObject.name].SetDamage(commonDamage);
+            weaponDic[weapon[i].gameObject.name].SetDamage(damage);
         }
         weaponType = "PlayerSword";
         //skillManager.SkillDataInit();
