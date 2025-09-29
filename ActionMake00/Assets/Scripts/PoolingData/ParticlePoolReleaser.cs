@@ -25,8 +25,12 @@ public class ParticlePoolReleaser : MonoBehaviour
 
     protected void OnParticleSystemStopped()
     {
-        Debug.Log("³­ µÆÀ½" + this.gameObject.name);
+        PoolReleaser();
+    }
 
+    public void PoolReleaser()
+    {
         PoolManager.instance.skillPrefabs[this.gameObject.name].Release(this.gameObject);
+
     }
 }

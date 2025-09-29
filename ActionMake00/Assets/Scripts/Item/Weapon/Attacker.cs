@@ -77,7 +77,6 @@ public class Attacker : MonoBehaviour, IAttacker
 
         }
 
-        Debug.Log("Collider Transed");
     }
 
     virtual protected void OnTriggerEnter(Collider other)
@@ -119,14 +118,11 @@ public class Attacker : MonoBehaviour, IAttacker
             contactPoint = contactPoint + normal * (dist * 0.5f);
         }
 
-        //파티클 생성 및 삭제 명령
         Quaternion particleRotate = Quaternion.LookRotation(normal);
 
         int psDataIndex = Random.Range(0, hitEffect.Length);
-        //ParticleSystem ps = Instantiate(hitEffect[psDataIndex], contactPoint, particleRotate);
-        //ps.Play();
+
         PoolManager.instance.Spawn(hitEffect[psDataIndex].name, contactPoint, particleRotate);
-        //Destroy(ps, ps.main.duration);
     }
 
     public int GetDamage() => damage;

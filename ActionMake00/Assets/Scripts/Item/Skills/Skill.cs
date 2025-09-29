@@ -24,7 +24,6 @@ public class Skill : Attacker
 
     protected void OnParticleSystemStopped()
     {
-        Debug.Log("³­ µÆÀ½" + this.gameObject.name);
 
         PoolManager.instance.skillPrefabs[this.gameObject.name].Release(this.gameObject);
     }

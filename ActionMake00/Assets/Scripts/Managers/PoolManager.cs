@@ -38,7 +38,7 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    public void Spawn(string effectName, Vector3 pos, Quaternion rot)
+    public GameObject Spawn(string effectName, Vector3 pos, Quaternion rot)
     {
         GameObject pool = skillPrefabs[effectName].Get();
         Debug.Log("풀 성공" + pool.name);
@@ -47,6 +47,7 @@ public class PoolManager : MonoBehaviour
 
         ParticleSystem ps = pool.GetComponent<ParticleSystem>();
         ps.Play();
+        return pool;
     }
 
     /// <summary>

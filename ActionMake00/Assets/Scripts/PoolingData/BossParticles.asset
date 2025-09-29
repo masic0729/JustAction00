@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BossParticles
   m_EditorClassIdentifier: 
   GameObjects:
-  - {fileID: 5503505460791601945, guid: 694f37b5f19bd75448c4c15eafa2c312, type: 3}
+  - {fileID: 1590415177872986601, guid: 3cca8ff5b07f7d74f99c42d348d62e6a, type: 3}

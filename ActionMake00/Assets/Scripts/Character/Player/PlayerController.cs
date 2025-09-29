@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     SkillManager skillManager;
     Player player;
     [Header("Character default info")]
-    [HideInInspector]
     private Vector3 moveVector;
 
     float h, v;
@@ -141,7 +140,7 @@ public class PlayerController : MonoBehaviour
                 isEscapeAttackAnim = false;
             }
 
-            if (canCombo && player.anim.GetBool("isAttacking"))                       //if(canCombo)
+            if (canCombo && player.anim.GetBool("isAttacking") && player.GetWeaponType() == "PlayerSword")                       //if(canCombo)
             {
                 player.anim.SetBool("isReAttack", true);
             }

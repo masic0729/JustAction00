@@ -31,6 +31,16 @@ public class BossGolem : BossEnemyBT
         
     }
 
+    public override void Dead(float animationTime)
+    {
+        base.Dead(animationTime);
+        if(pattenEffect != null)
+        {
+            //보스가 사망할 때 바로 삭제해버릴 것
+            pattenEffect.GetComponent<ParticlePoolReleaser>().PoolReleaser();
+        }
+    }
+
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -42,7 +52,7 @@ public class BossGolem : BossEnemyBT
         spawnProjectileTransform = FindTransformAtChild("CastShooter").GetComponent<Transform>();
         if(pattenIndex != 0)
         {
-            pattenEffect = Instantiate(pEffectDic["pCastWarning"], spawnProjectileTransform.position, spawnProjectileTransform.rotation).gameObject;
+            pattenEffect = PoolManager.instance.Spawn("pCastWarning", spawnProjectileTransform.position, spawnProjectileTransform.rotation);
             pattenEffect.transform.parent = spawnProjectileTransform;
         }
         

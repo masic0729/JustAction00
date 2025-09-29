@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyTest : FollwingPlayerEnemyBT
 {
+    AttackColManager attackmanage;
     protected override void Start()
     {
         base.Start();
@@ -16,6 +17,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
     protected override void Init()
     {
         base.Init();
+        attackmanage = new AttackColManager();
         pEffectDic["CommonEnemyAttack"] = pEffect[0];
         playerFindDistance = 5f;
         activityAllowValue = 10f;
@@ -38,10 +40,16 @@ public class EnemyTest : FollwingPlayerEnemyBT
         ParticleSystem ps = Instantiate(pEffectDic["CommonEnemyAttack"], attackTrans.position, attackTrans.rotation);
         ps.Play();
         Destroy(ps.gameObject, ps.main.duration);
-        Collider playerCol = CheckPlayerAttackAround(attackTrans);
+        //Collider playerCol = CheckPlayerAttackAround(attackTrans);
+        Collider[] playerCol = attackmanage.CheckPlayerAttackAround(attackTrans, 2f, playerLayerMask);
+
         if (playerCol != null)
         {
-            playerCol.GetComponent<Character>().TakeDamage(commonDamage);
+            for (int i = 0; i < playerCol.Length; i++)
+            {
+                playerCol[i].GetComponent<Character>().TakeDamage(commonDamage);
+
+            }
         }
     }
 
@@ -64,15 +72,6 @@ public class EnemyTest : FollwingPlayerEnemyBT
         return collider[0];
     }
 
-    /*Transform FindTransformAtChild(string name)
-    {
-        foreach (Transform t in GetComponentsInChildren<Transform>())
-        {
-            if (t.name == name) return t;
-        }
-        Debug.LogWarning("Child transform not found: " + name);
-        return null;
-    }*/
 
     protected override void OnTriggerEnter(Collider other)
     {

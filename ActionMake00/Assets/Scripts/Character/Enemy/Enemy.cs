@@ -74,7 +74,7 @@ public class Enemy : Character
     /// </summary>
     void RotateByAttack()
     {
-        if (isCanTurn == false || player == null)
+        if (isCanTurn == false || player == null || this.hp <= 0)
             return;
 
         // Update에서 회전
