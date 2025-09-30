@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum BuffType
+{
+    Buff,
+    Debuff
+}
+
 public class CharacterBuff : MonoBehaviour
 {
     List<BuffBase> buffs = new List<BuffBase>();
@@ -18,4 +24,11 @@ public class CharacterBuff : MonoBehaviour
     {
         
     }
+
+    public void AddBuff(BuffBase buff)
+    {
+
+    }
+
+
 }
