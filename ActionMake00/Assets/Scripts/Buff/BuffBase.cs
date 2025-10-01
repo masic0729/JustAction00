@@ -36,9 +36,9 @@ public class BuffBase : MonoBehaviour
     }
 
     // 컨테이너가 매 프레임 호출
-    public void UpdateTime(float dt)
+    public void UpdateTime(float deltaTime)
     {
-        buffTimer += Time.deltaTime;
+        buffTimer += deltaTime;
         onUpdate?.Invoke();
         Deactivate();
 
