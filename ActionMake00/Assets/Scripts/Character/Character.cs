@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public struct BuffStatData
+{
+    public int damage;
+    public float moveSpeed;
+
+}
+
+
 public class Character : MonoBehaviour, ICharacterDamageable
 {
+    public BuffStatData buffStat;
     [HideInInspector]public Animator anim;
 
     //피격 및 사망 시 발생하는 액션류
@@ -62,6 +71,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
         hitCol.enabled = true;
         DictionaryInit();
 
+        buffStat.damage = 0;
+        buffStat.moveSpeed = 0f;
     }
 
     void DictionaryInit()
@@ -135,6 +146,27 @@ public class Character : MonoBehaviour, ICharacterDamageable
         Debug.LogWarning("Child transform not found: " + name);
         return null;
     }
+
+    protected int CalResultDamage()
+    {
+        if(damage + buffStat.damage <= 0)
+        {
+            return 1;
+        }
+
+        return damage + buffStat.damage;
+    }
+
+    protected float CalResultMoveSpeed()
+    {
+        if(moveSpeed + buffStat.moveSpeed <= 0)
+        {
+            return 1f;
+        }
+
+        return moveSpeed + buffStat.moveSpeed;
+    }
+
 
     public void SetMoveSpeed(float value) => moveSpeed = value;
 

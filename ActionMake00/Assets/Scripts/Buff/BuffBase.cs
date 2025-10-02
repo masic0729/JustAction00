@@ -1,46 +1,65 @@
-using System;
+ï»¿using System;
 using UnityEngine;
-using UnityEngine.Timeline;
 
-
-public class BuffBase : MonoBehaviour
+public abstract class BuffBase : MonoBehaviour
 {
-    public string buffName;          // µğ¹ö±ë¿ë(¼±ÅÃ)
-    public float remainTime;         // Áö¼Ó ½Ã°£ °ª
+    protected Character character;                      // ìºì‹œ
 
-    // ³»ºÎ »óÅÂ
-    float buffTimer;                //¹öÇÁ Å¸ÀÌ¸Ó
-    //bool _active = false;
+    public Action onApply;
+    public Action onUpdate;
 
-    // Äİ¹é(¾×¼ÇÇü)
-    public Action onApply;                 // µî·Ï ½Ã 1È¸
-    public Action onExit;                  // ¸¸·á/ÇØÁ¦ ½Ã 1È¸(¸èµî)
-    public Action onUpdate;                // UpdateTime¸¶´Ù ½ÇÇà
+    public Action onExit;
 
-    public BuffBase(float duration, float tick = 10f)
+    float buffTimer;
+    float buffTime;
+
+
+    /// <summary>
+    /// ì§€ì†ì‹œê°„ ë° ê° ë²„í”„ë“¤ì— ëŒ€í•œ ìˆ˜ì¹˜ê°’ì„ objectë¥¼ í†µí•´ ì¶”ìƒì ìœ¼ë¡œ ë°›ì•„ ì“´ë‹¤
+    /// ê° ê¸°ëŠ¥ë“¤ì€ í•˜ìœ„ í´ë˜ìŠ¤ì˜ í•¨ìˆ˜ë¥¼ ë°›ì•„ ì“°ëŠ” ê²ƒì´ë‹¤.
+    /// </summary>
+    /// <param name="duration"></param>
+    public void Init(float duration, Action apply, Action update, Action exit)
     {
-        remainTime = duration;
-        buffTimer = tick;
+        buffTime = duration;
+        buffTimer = buffTime;
+        onApply = apply;
+        onUpdate = update;
+        onExit = exit;
     }
 
-    // ÄÁÅ×ÀÌ³Ê°¡ È£Ãâ
     public void Activate()
     {
-        onApply?.Invoke();
+
+        onApply?.Invoke();   // ë¶€ê°€ í›…
     }
 
-    // ÄÁÅ×ÀÌ³Ê°¡ È£Ãâ
     public void Deactivate()
     {
-        onExit?.Invoke();
+
+        onExit?.Invoke();    // ë¶€ê°€ í›…
     }
 
-    // ÄÁÅ×ÀÌ³Ê°¡ ¸Å ÇÁ·¹ÀÓ È£Ãâ
-    public void UpdateTime(float deltaTime)
+    public bool UpdateTime()
     {
-        buffTimer += deltaTime;
-        onUpdate?.Invoke();
-        Deactivate();
 
+        buffTimer -= Time.deltaTime;
+        onUpdate?.Invoke();
+
+        if (buffTimer <= 0f)
+        {
+            Deactivate();
+            return true;     // ë§Œë£Œë¨
+        }
+        return false;
     }
+
+    public float GetBuffTimePercent()
+    {
+        return (buffTime > 0f) ? (buffTimer / buffTime) : 0f;
+    }
+
+    protected abstract void ApplyBuff();
+    protected abstract void UpdateBuff();
+    protected abstract void ExitBuff();
 }
