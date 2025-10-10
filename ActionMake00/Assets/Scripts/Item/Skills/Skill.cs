@@ -8,7 +8,16 @@ public class Skill : Attacker
     protected override void Start()
     {
         base.Start();
+
+
     }
+
+    protected virtual void OnEnable()
+    {
+        objectCol.enabled = true;
+        Invoke("ResetColiderDisable", Time.deltaTime * 10f);
+    }
+
 
     protected override void Init()
     {
@@ -20,6 +29,10 @@ public class Skill : Attacker
         ps.Play();
         var main = ps.main;
         main.stopAction = ParticleSystemStopAction.Callback;
+
+        objectCol.enabled = true;
+        Invoke("ResetColiderDisable", Time.deltaTime * 10f);
+
     }
 
     protected void OnParticleSystemStopped()

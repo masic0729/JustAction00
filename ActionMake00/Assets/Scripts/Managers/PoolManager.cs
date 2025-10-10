@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.TextCore.Text;
 
 public class PoolManager : MonoBehaviour
 {
@@ -42,11 +43,12 @@ public class PoolManager : MonoBehaviour
     {
         GameObject pool = skillPrefabs[effectName].Get();
         Debug.Log("풀 성공" + pool.name);
+
         pool.transform.SetPositionAndRotation(pos, rot);
         pool.transform.name = effectName;
 
-        ParticleSystem ps = pool.GetComponent<ParticleSystem>();
-        ps.Play();
+        /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
+        ps.Play();*/
         return pool;
     }
 
@@ -60,10 +62,55 @@ public class PoolManager : MonoBehaviour
     {
         GameObject pool = skillPrefabs[effectName].Get();
         Debug.Log("풀 성공" + pool.name);
+
         pool.transform.name = effectName;
+
         pool.transform.position = pos;
-        ParticleSystem ps = pool.GetComponent<ParticleSystem>();
-        ps.Play();
+        /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
+
+        ps.Play();*/
+        return pool;
+    }
+
+    /// <summary>
+    /// 캐릭터 공격을 위한 풀링의 경우, 시전자의 데이터도 최신화한다
+    /// </summary>
+    /// <param name="effectName"></param>
+    /// <param name="pos"></param>
+    /// <param name="rot"></param>
+    /// <param name="character"></param>
+    /// <returns></returns>
+    public GameObject Spawn(string effectName, Vector3 pos, Quaternion rot, Character character)
+    {
+        GameObject pool = skillPrefabs[effectName].Get();
+        Debug.Log("풀 성공" + pool.name);
+
+        pool.transform.SetPositionAndRotation(pos, rot);
+        pool.transform.name = effectName;
+        pool.GetComponent<Attacker>().SetOwner(character);
+
+        return pool;
+    }
+
+    /// <summary>
+    /// 이하 동일
+    /// </summary>
+    /// <param name="effectName"></param>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public GameObject Spawn(string effectName, Vector3 pos, Character character)
+    {
+        GameObject pool = skillPrefabs[effectName].Get();
+        Debug.Log("풀 성공" + pool.name);
+
+        pool.transform.name = effectName;
+
+        pool.transform.position = pos;
+        pool.GetComponent<Attacker>().SetOwner(character);
+
+        /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
+
+        ps.Play();*/
         return pool;
     }
 }

@@ -12,7 +12,7 @@ public class PlayerStaffSkillExplosion : PlayerWeaponSkill
     public override void SkillUse()
     {
         base.SkillUse();
-        GameObject instance = PoolManager.instance.Spawn(skillPrefab.name, player.transform.position);
+        GameObject instance = PoolManager.instance.Spawn(skillPrefab.name, player.transform.position, player);
         instance.transform.Rotate(0, player.transform.rotation.y, 0);
     }
 }

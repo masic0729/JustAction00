@@ -8,7 +8,6 @@ public class BossCastState : EnemyAttackState
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        enemy.GetComponent<BossGolem>().CastWarning(animator.GetInteger("PattenIndex"));
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

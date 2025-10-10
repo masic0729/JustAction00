@@ -11,13 +11,23 @@ public enum AttackerType
 
 public class Attacker : MonoBehaviour, IAttacker
 {
+    [SerializeField] protected Character owner;                                                        //공격수단의 사용자
     [SerializeField] protected AttackerType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
-    [SerializeField] protected int damage = 1;
+    [SerializeField] protected float damage = 1;
     protected string target;
     protected int hitLevel = -1;
     protected string tagName;
+
+    protected virtual void Awake()
+    {
+        if (objectCol == null)
+        {
+            objectCol = GetComponent<Collider>();
+        }
+        
+    }
 
     protected virtual void Start()
     {
@@ -30,12 +40,6 @@ public class Attacker : MonoBehaviour, IAttacker
     /// </summary>
     protected virtual void Init()
     {
-        
-        if(objectCol == null)
-        {
-            objectCol = GetComponent<Collider>();
-        }
-
         if (objectCol == null || attackType == AttackerType.Projectile || attackType == AttackerType.Skill)
         {
             return;
@@ -45,10 +49,20 @@ public class Attacker : MonoBehaviour, IAttacker
     }
 
     /// <summary>
+    /// 시전자의 정보를 불러온다.
+    /// 보통 해당 시전자의 공격력을 참조하거나, 대상이 사망한 이후엔 공격처리가 되지 않기 위함이기도 하다.
+    /// </summary>
+    /// <param name="character"></param>
+    public void SetOwner(Character character)
+    {
+        owner = character;
+    }
+
+    /// <summary>
     /// 특정 조건(피격, 사망, 스킬 등등)에 의해 애니메이션 변경 시, 무기 콜라이더가 정상적으로 비활성화가 안된다.
     /// 이를 대응하기 위한 함수
     /// </summary>
-    public void ResetColiderDisnable()
+    public void ResetColiderDisable()
     {
         if (objectCol != null)
             objectCol.enabled = false;
@@ -83,10 +97,15 @@ public class Attacker : MonoBehaviour, IAttacker
     {
         if (other.transform.tag == target)
         {
-            other.GetComponent<Character>().TakeDamage(damage, hitLevel);
-            if(hitEffect.Length != 0)
+            //시전자가 안죽어야 공격처리가 된다.
+            if(owner.GetIsDead() == false && owner != null)
             {
-                PlayEffect(other);
+
+                other.GetComponent<Character>().TakeDamage(damage, hitLevel);
+                if (hitEffect.Length != 0)
+                {
+                    PlayEffect(other);
+                }
             }
             if (attackType == AttackerType.Projectile)
             {
@@ -125,6 +144,6 @@ public class Attacker : MonoBehaviour, IAttacker
         PoolManager.instance.Spawn(hitEffect[psDataIndex].name, contactPoint, particleRotate);
     }
 
-    public int GetDamage() => damage;
-    public void SetDamage(int value) => damage = value;
+    public float GetDamage() => damage;
+    public void SetDamage(float value) => damage = value;
 }

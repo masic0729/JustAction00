@@ -22,7 +22,7 @@ public class PlayerWeapon : Weapon
         base.Init();
         tagName = "PlayerAttack";
         target = "Enemy";
-        damage = 10;
+        
         hitLevel = 0;
     }
     protected override void OnTriggerEnter(Collider other)

@@ -5,7 +5,13 @@ using UnityEngine;
 public class BossGolem : BossEnemyBT
 {
     GameObject pattenEffect;
+
+    [SerializeField] GameObject GroundAttackGuide;                          //보통 해당 데이터를 확장하여 다양한 텔레그래피의 기능을 똑같이 수행할 수 있다. 현재는 하나만 할 것이므로 여기까지
+    GameObject currentTeleObject;                                           //현재 시전 중인 텔레그래피 오브젝트
+
     Transform spawnProjectileTransform;
+
+
     protected override void Start()
     {
         base.Start();
@@ -60,23 +66,50 @@ public class BossGolem : BossEnemyBT
 
     public void SpawnStone(int pattenIndex)
     {
-        Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
+        GameObject instance;
+        //instance = Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
+        instance = PoolManager.instance.Spawn(skillProjectiles[0].name, spawnProjectileTransform.position, spawnProjectileTransform.rotation, this);
         Debug.Log("소환됨");
+
+        //이펙트가 있으면 상대적으로 강한 패턴이므로 더 많은 발사체를 소환한다 
         if(pattenEffect != null)
         {
             Destroy(pattenEffect);
             pattenEffect = null;
 
             float rotateValue = 25f;
-            GameObject instance = Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
+            instance = PoolManager.instance.Spawn(skillProjectiles[0].name, spawnProjectileTransform.position, spawnProjectileTransform.rotation, this);
             instance.transform.Rotate(0, rotateValue, 0);
-            instance = Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
+            instance = PoolManager.instance.Spawn(skillProjectiles[0].name, spawnProjectileTransform.position, spawnProjectileTransform.rotation, this);
             instance.transform.Rotate(0, -rotateValue, 0);
         }
 
         spawnProjectileTransform = null;
+    }
 
 
+
+    /// <summary>
+    /// 패턴에 맞는 텔레그래피를 생성한다
+    /// </summary>
+    public void SpawnTeleGuide()
+    {
+        currentTeleObject = Instantiate(GroundAttackGuide,transform.position, transform.rotation);
+        currentTeleObject.transform.parent = this.transform;
+    }
+
+    public void ClearParent()
+    {
+        currentTeleObject.transform.parent = null;
+    }
+
+    /// <summary>
+    /// 해당 텔레그래피 오브젝트 내 공격하는 기능을 사용한다
+    /// </summary>
+    public void AttackOfTele()
+    {
+        currentTeleObject.GetComponent<GroundAttack>().AttackTelePatten();
+        currentTeleObject = null;
     }
 
     public void TurnOff()

@@ -17,6 +17,8 @@ public class PlayerSwordSlash : PlayerSkillInfo
         base.Init();
     }
 
+    
+
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);

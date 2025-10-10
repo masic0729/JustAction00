@@ -5,12 +5,12 @@
 public interface ICharacterDamageable
 {
     
-    abstract void TakeDamage(int amount, int hitLevel = 0);
+    abstract void TakeDamage(float amount, int hitLevel = 0);
     abstract void Dead(float animationTime);
 }
 
 public interface IAttacker
 {
-    abstract int GetDamage();
-    abstract void SetDamage(int value);
+    abstract float GetDamage();
+    abstract void SetDamage(float value);
 }

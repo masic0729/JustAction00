@@ -50,7 +50,7 @@ public class Player : Character
     void WeaponInit()
     {
         weaponTransform = FindTransformAtChild("PlayerWeapon");
-        damage = 10;
+
 
         //weaponsDic = new Dictionary<string, GameObject>();
         for (int i = 0; i < weapon.Length; i++)
@@ -74,7 +74,7 @@ public class Player : Character
         if (weaponType != "PlayerSword")
             return;
 
-        weaponDic[weaponType].ResetColiderDisnable();
+        weaponDic[weaponType].ResetColiderDisable();
     }
 
     public void TransWeapon(string weaponName)
@@ -99,7 +99,7 @@ public class Player : Character
         
     }
 
-    public override void TakeDamage(int amount, int hitLevel = -1)
+    public override void TakeDamage(float amount, int hitLevel = -1)
     {
         hitAction();
 

@@ -12,7 +12,8 @@ public class Weapon : Attacker, IAttacker
     protected override void Init()
     {
         base.Init();
-
+        owner = GetComponentInParent<Character>();
+        damage = owner.GetResultDamage();
     }
 
 

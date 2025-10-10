@@ -16,6 +16,9 @@ public class BossThrowStone : EnemyAttackTree
 
         if (enemy.isAttack == false)
         {
+            int pattenIndex = enemy.anim.GetInteger("PattenIndex");
+            enemy.GetComponent<BossGolem>().CastWarning(pattenIndex);
+
             anim.SetTrigger("Cast");
             anim.SetBool("isAttacking", true);
             enemy.isAttack = true;

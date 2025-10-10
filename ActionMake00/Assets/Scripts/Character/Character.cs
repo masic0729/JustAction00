@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public struct BuffStatData
+
+/// <summary>
+/// 버프 및 장비에 의한 스탯 변화에 대한 능력치 조정을 해당 데이터로 관리한다
+/// </summary>
+public struct AddStatData
 {
     public int damage;
     public float moveSpeed;
@@ -13,7 +17,9 @@ public struct BuffStatData
 
 public class Character : MonoBehaviour, ICharacterDamageable
 {
-    public BuffStatData buffStat;
+    public AddStatData AddStat;
+    [SerializeField] CharacterStatData characterStatData;
+
     [HideInInspector]public Animator anim;
 
     //피격 및 사망 시 발생하는 액션류
@@ -35,16 +41,22 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     //캐릭터 능력치 관련 데이터
     #region
-    [SerializeField] protected int hp;
-    protected int damage;                                                   //기본 데미지 데이터
-    protected int skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음
-    protected float rotateSpeed;                                            //회전 속도
+    protected float skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음. 정작 안썼음 ㅋ
 
-    [SerializeField]protected bool isSuperArmor = false;                    //피격이상 면역 유무. 활성화 시 경직이 없다.
-    [SerializeField]protected bool isIgnoreDamage = false;                  //무적 유무. 활성화 시 피해를 입지 않는다.
+    [SerializeField] protected float hp;                                     //체력
+    [SerializeField] protected float damage;                                 //공격력
+    [SerializeField] protected float moveSpeed = 5f;                         //이동속도
+    [SerializeField] protected float def;                                    //방어력
+    
+
+    protected float rotateSpeed;                                             //회전 속도
+                                                                             
+    [SerializeField]protected bool isSuperArmor = false;                     //피격이상 면역 유무. 활성화 시 경직이 없다.
+    [SerializeField]protected bool isIgnoreDamage = false;                   //무적 유무. 활성화 시 피해를 입지 않는다.
+
+    protected bool isDead = false;
 
 
-    [SerializeField] protected float moveSpeed = 5f;
     #endregion
 
     // Start is called before the first frame update
@@ -61,9 +73,19 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     virtual protected void Init()
     {
-        //base Init
-        hp = 20;
-        damage = 1;
+        //캐릭터 스텟 설정
+        hp = characterStatData.GetHp();
+        damage = characterStatData.GetDamage();
+        moveSpeed = characterStatData.GetMoveSpeed();
+        def = characterStatData.GetDef();
+        
+
+        //버프 스텟 초기화
+        AddStat.damage = 0;
+        AddStat.moveSpeed = 0f;
+
+
+
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
@@ -71,8 +93,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
         hitCol.enabled = true;
         DictionaryInit();
 
-        buffStat.damage = 0;
-        buffStat.moveSpeed = 0f;
     }
 
     void DictionaryInit()
@@ -93,7 +113,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public float GetHp() => hp;
     public void SetHp(int value) => hp = value;
 
-    public virtual void TakeDamage(int amount, int hitLevel = -1)
+    public virtual void TakeDamage(float amount, int hitLevel = -1)
     {
         if (isIgnoreDamage == true)
         {
@@ -109,7 +129,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             //Dead();                         //이 부분은 이벤트/액션 처리할 것
             anim.SetTrigger("Death");
-
+            isDead = true;
         }
 
         if (isSuperArmor == false || hitLevel != -1)
@@ -147,24 +167,29 @@ public class Character : MonoBehaviour, ICharacterDamageable
         return null;
     }
 
-    protected int CalResultDamage()
+    /// <summary>
+    /// 공격력 및 하단 함수의 이동속도를 버프를 기반으로 최종 값을 산출한다.
+    /// 추후 장비 시스템이 추가되면, 장비도 공식에 추가 정리한다
+    /// </summary>
+    /// <returns></returns>
+    public float GetResultDamage()
     {
-        if(damage + buffStat.damage <= 0)
+        if(damage + AddStat.damage <= 0)
         {
             return 1;
         }
 
-        return damage + buffStat.damage;
+        return damage + AddStat.damage;
     }
 
-    protected float CalResultMoveSpeed()
+    public float GetResultMoveSpeed()
     {
-        if(moveSpeed + buffStat.moveSpeed <= 0)
+        if(moveSpeed + AddStat.moveSpeed <= 1f)
         {
             return 1f;
         }
 
-        return moveSpeed + buffStat.moveSpeed;
+        return moveSpeed + AddStat.moveSpeed;
     }
 
 
@@ -172,11 +197,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public float GetMoveSpeed() => moveSpeed;
 
-    public int GetCommonDamage() => damage;
+    public float GetCommonDamage() => damage;
 
     public void SetCommondamage(int value) => damage = value;
 
-    public int GetSkillDamage() => skillDamage;
+    public float GetSkillDamage() => skillDamage;
 
     public void SetSkillDamage(int value) => skillDamage = value;
 
@@ -189,6 +214,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public float GetRotateSpeed() => rotateSpeed;
     public void SetRotateSpeed(float value) => rotateSpeed = value;
 
-
+    public bool GetIsDead() => isDead;
 
 }

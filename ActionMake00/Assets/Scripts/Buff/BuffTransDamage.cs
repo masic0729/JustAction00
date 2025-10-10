@@ -17,7 +17,7 @@ public class BuffTransDamage : BuffBase
         if (character == null) character = GetComponent<Character>();
         if (character != null)
         {
-            character.buffStat.damage += amount;
+            character.AddStat.damage += amount;
             Debug.Log("캐릭터 버프시작 테스트");
         }
     }
@@ -31,7 +31,7 @@ public class BuffTransDamage : BuffBase
     {
         if (character != null)
         {
-            character.buffStat.damage -= amount;
+            character.AddStat.damage -= amount;
 
             Debug.Log("캐릭터 버프종료 테스트");
 

@@ -53,7 +53,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
         }
     }
 
-    public override void TakeDamage(int amount, int hitLevel = -1)
+    public override void TakeDamage(float amount, int hitLevel = -1)
     {
         base.TakeDamage(amount, hitLevel);
         if (isSuperArmor == false || hitLevel != -1)
