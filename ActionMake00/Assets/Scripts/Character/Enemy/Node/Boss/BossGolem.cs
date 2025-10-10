@@ -33,7 +33,7 @@ public class BossGolem : BossEnemyBT
         playerFindDistance = 10f;
         activityAllowValue = 20f;
         attackReadyDistance = 3f;
-        punchDistance = 2.5f;
+        punchDistance = 2.0f;
         
     }
 

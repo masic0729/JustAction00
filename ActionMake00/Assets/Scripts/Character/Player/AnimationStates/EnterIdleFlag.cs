@@ -7,5 +7,6 @@ public class EnterIdleFlag : PlayerState
         base.OnStateEnter(animator, stateInfo, layerIndex);
         playerCtrl.TransIdleState();
         playerCtrl.SetComboAttackIndex(0);
+        player.WeaponColDisable();
     }
 }

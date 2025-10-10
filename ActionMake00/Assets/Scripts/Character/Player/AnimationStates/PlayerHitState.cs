@@ -10,6 +10,7 @@ public class PlayerHitState : PlayerState
         base.OnStateEnter(animator, stateInfo, layerIndex);
         playerCtrl.SetComboAttackIndex(0);
         player.SetIsSuperArmor(true);
+        player.WeaponColDisable();
 
     }
 
