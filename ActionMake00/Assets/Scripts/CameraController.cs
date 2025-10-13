@@ -5,9 +5,11 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
-
+    [SerializeField] Transform cameraPivot;
     [SerializeField] CameraShake mainCamera;
-    public float transPosY, transPosZ;
+
+    float currentCameraRotateY;
+    float rotateSpeed = 180f;
 
     private void Awake()
     {
@@ -30,11 +32,15 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         FollowCamera();
+        RotateCameraPivot();
     }
 
     void Init()
     {
+        if (mainCamera != null)
+            return;
         mainCamera = GameObject.Find("Main Camera").GetComponent<CameraShake>();
+        currentCameraRotateY = mainCamera.transform.rotation.y;
     }
 
     /// <summary>
@@ -42,10 +48,19 @@ public class CameraController : MonoBehaviour
     /// </summary>
     void FollowCamera()
     {
-        Vector3 cameraPosition = new Vector3(transform.position.x, transform.position.y + transPosY, transform.position.z + transPosZ);
-        mainCamera.transform.position = cameraPosition;
+        Vector3 cameraPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        cameraPivot.transform.position = cameraPosition;
     }
 
+    public void RotateCameraPivot()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X");
+
+        currentCameraRotateY += mouseX * rotateSpeed * Time.deltaTime;
+        cameraPivot.rotation = Quaternion.Euler(0f, currentCameraRotateY, 0f);
+
+        mainCamera.transform.localPosition = new Vector3(0, 2, -3);
+    }
     public void PlayCameraShake(float multify = 1f)
     {
         mainCamera.PlayCameraShake(multify);

@@ -14,11 +14,10 @@ public class ResetAttackFlag : PlayerState
 
         //base.OnStateEnter(animator, stateInfo, layerIndex);
         animator.SetBool("isReAttack", false);
-        /*if(instance != null)
-        {
-        }*/
         playerCtrl.DisableCombo();
         playerCtrl.SetComboAttackIndex(playerCtrl.GetComboAttackIndex() + 1);
+        player.SetParringAction(false);
+
     }
 
 }

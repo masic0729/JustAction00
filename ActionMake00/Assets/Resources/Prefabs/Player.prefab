@@ -107,7 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30244cc9e351676469f99c7fd44f4057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testObject: {fileID: 5503505460791601945, guid: 694f37b5f19bd75448c4c15eafa2c312, type: 3}
   skills:
   - {fileID: 977591709778655613}
 --- !u!114 &977591709778655613
@@ -184,11 +183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalRotation.x
@@ -196,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalRotation.z
@@ -208,7 +207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3955de6a24970f840996fe77051507ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -630,6 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa44175419f1c234aaa40a3be359deb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterStatData: {fileID: 0}
   anim: {fileID: 0}
   pEffect:
   - {fileID: 8194992990867289333, guid: 9b5160f861d30dd429a98e5069c765a0, type: 3}
@@ -637,9 +637,11 @@ MonoBehaviour:
   - {fileID: 2548763761762157146, guid: 8f92e1c83cb3f9546a0b0183d008c14c, type: 3}
   skillProjectiles: []
   hp: 30
+  damage: 0
+  moveSpeed: 5
+  def: 0
   isSuperArmor: 0
   isIgnoreDamage: 0
-  moveSpeed: 5
   groundCheck: {fileID: 6412138478009549581}
   groundDistance: 0.2
   groundMask:

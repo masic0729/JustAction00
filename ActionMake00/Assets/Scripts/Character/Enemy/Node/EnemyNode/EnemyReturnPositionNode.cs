@@ -27,6 +27,7 @@ public class EnemyReturnPositionNode : Node
             anim.SetBool("Move", false);
             enemy.isDefault = true;
             enemy.isPlayerFound = false;
+            
             return state = NodeState.Success;
 
         }

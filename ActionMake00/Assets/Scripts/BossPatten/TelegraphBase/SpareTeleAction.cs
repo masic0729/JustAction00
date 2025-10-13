@@ -14,7 +14,9 @@ public class SpareTeleAction : MonoBehaviour
     void Start()
     {
         targetScale = ob.transform.localScale.x;
+        ob.transform.localScale = new Vector3(0, ob.transform.localScale.y, 0);
     }
+
 
     // Update is called once per frame
     void Update()

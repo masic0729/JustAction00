@@ -26,9 +26,12 @@ public class BossGolem : BossEnemyBT
     protected override void Init()
     {
         base.Init();
-
-        weaponDic["PunchWeapon"] = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
-        weaponDic["HookWeapon"] = FindTransformAtChild("HookWeapon").GetComponent<Weapon>();
+        for(int i = 0; i < weapon.Length; i++)
+        {
+            weaponDic[weapon[i].name] = weapon[i];
+        }
+        /*weaponDic["PunchWeapon"] = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
+        weaponDic["HookWeapon"] = FindTransformAtChild("HookWeapon").GetComponent<Weapon>();*/
         
         playerFindDistance = 10f;
         activityAllowValue = 20f;
@@ -95,6 +98,7 @@ public class BossGolem : BossEnemyBT
     public void SpawnTeleGuide()
     {
         currentTeleObject = Instantiate(GroundAttackGuide,transform.position, transform.rotation);
+        currentTeleObject.GetComponent<GroundAttack>().SetOwner(this);
         currentTeleObject.transform.parent = this.transform;
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject mainCamera;
     SkillManager skillManager;
     Player player;
     [Header("Character default info")]
@@ -63,33 +64,34 @@ public class PlayerController : MonoBehaviour
 
     void MoveInput()
     {
-
+        Vector3 cameraVec = mainCamera.transform.position;
 
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
-        moveVector = new Vector3(h, 0, v);
+        // ▼▼ 여기만 카메라 기준으로 수정 ▼▼
+        Transform camT = mainCamera.transform;
+        Vector3 camFwd = Vector3.ProjectOnPlane(camT.forward, Vector3.up).normalized; // 카메라 전방(수평)
+        Vector3 camRight = Vector3.ProjectOnPlane(camT.right, Vector3.up).normalized; // 카메라 우측(수평)
+        moveVector = (camRight * h + camFwd * v); // WASD를 카메라 기준으로 환산
+                                                  // ▲▲ 여기만 카메라 기준으로 수정 ▲▲
 
         if (player.anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
         {
-            
             if (player.anim.GetBool("isAttacking") == true)
                 player.anim.SetBool("isAttacking", false);
 
-
             player.anim.SetFloat("moveValue", moveVector.magnitude);
-            // 이동 처리 (중복 제거)
+
             if (moveVector.magnitude > 0.1f)
             {
                 Quaternion targetRot = Quaternion.LookRotation(moveVector);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, player.GetRotateSpeed() * Time.deltaTime);
                 player.anim.SetBool("Move", true);
-
             }
             else
             {
                 player.anim.SetBool("Move", false);
-
             }
 
             if (player.anim.GetBool("isSprint") == true)
@@ -101,11 +103,9 @@ public class PlayerController : MonoBehaviour
             {
                 transform.position += moveVector.normalized * player.GetMoveSpeed() * Time.deltaTime;
             }
-
         }
-
-        
     }
+
     void WeapontestSwap()
     {
         if(Input.GetKeyDown(KeyCode.L))
@@ -152,6 +152,17 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && skillManager.isSkillCanUse("Skill0"))
         {
             player.anim.SetTrigger("Skill0");
+            canInput = false;
+        }
+
+        /*if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill0"))
+        {
+            player.anim.SetTrigger("Skill0");
+            canInput = false;
+        }*/
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            player.anim.SetTrigger("Skill1");
             canInput = false;
         }
     }

@@ -28,7 +28,7 @@ public class Enemy : Character
     public bool isDefault = true;
     public bool isAttack = false;                                    //몬스터의 공격중인 지 확인하는 용도
     protected bool isCanTurn = false;
-    
+    bool isWasParried = false;
 
 
     // Start is called before the first frame update
@@ -57,6 +57,26 @@ public class Enemy : Character
         nav = GetComponent<NavMeshAgent>();
         pEffectDic["pDeath"] = pEffect[1];
 
+    }
+
+    /// <summary>
+    /// 유저의 반격에 의한 경직 및 전투 시스템 초기화
+    /// 초기화의 경우 무기 콜라이더 정리 및 상태 변수를 최신화하여
+    /// 비에이비어 트리를 버그 없이 구동할 수 있게 한다
+    /// </summary>
+    public void GetParringAction()
+    {
+        isWasParried = true;
+        EnemyWeaponColDisable();
+    }
+
+    public void EnemyWeaponColDisable()
+    {
+        Debug.Log("무기 초기화 시작");
+        for(int i = 0; i < weapon.Length; i++)
+        {
+            weapon[i].ResetColiderDisable();
+        }
     }
 
     void CheckCharacterActivityZone()
@@ -147,4 +167,8 @@ public class Enemy : Character
     public bool GetIsAttack() => isAttack;
 
     public void SetIsAttack(bool state) => isAttack = state;
+
+    public bool GetIsWasParried() => isWasParried;
+
+    public void SetIsWasParried(bool state) => isWasParried = state;
 }

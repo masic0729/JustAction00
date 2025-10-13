@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GroundAttack : MonoBehaviour
 {
+    Character owner;
     [SerializeField] GameObject[] teles;
     [SerializeField] string bossGroundAttackName;
 
@@ -13,6 +15,7 @@ public class GroundAttack : MonoBehaviour
         StartCoroutine(EnableTeles());
         Destroy(this.gameObject, 3f);
     }
+
 
     IEnumerator EnableTeles()
     {
@@ -46,11 +49,13 @@ public class GroundAttack : MonoBehaviour
             teles[i].SetActive(false);
             teles[i - 1].SetActive(false);
 
-            PoolManager.instance.Spawn(bossGroundAttackName, teles[i].transform.position);
-            PoolManager.instance.Spawn(bossGroundAttackName, teles[i - 1].transform.position);
+            PoolManager.instance.Spawn(bossGroundAttackName, teles[i].transform.position, owner);
+            PoolManager.instance.Spawn(bossGroundAttackName, teles[i - 1].transform.position, owner);
             yield return new WaitForSeconds(0.3f);
 
         }
         
     }
+
+    public void SetOwner(Character owner) => this.owner = owner;
 }

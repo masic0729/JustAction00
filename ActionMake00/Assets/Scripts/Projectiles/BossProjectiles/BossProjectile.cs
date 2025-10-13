@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossCastProjectile : Projectile
+public class BossProjectile : Projectile
 {
+    protected int playerLayer = 1 << 6;
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     protected override void Start()
     {
         base.Start();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     protected override void Init()
     {
         base.Init();
+        attackType = AttackType.Projectile;
         target = "Player";
     }
 

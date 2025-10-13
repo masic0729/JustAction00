@@ -10,6 +10,7 @@ public class EnemyAttackResetState : EnemyBaseState
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
         animator.SetBool("isAttacking", false);
+        enemy.SetIsWasParried(false);
 
     }
 

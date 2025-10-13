@@ -8,5 +8,7 @@ public class EnterIdleFlag : PlayerState
         playerCtrl.TransIdleState();
         playerCtrl.SetComboAttackIndex(0);
         player.WeaponColDisable();
+        player.SetIsParring(false);
+        player.SetParringAction(false);
     }
 }

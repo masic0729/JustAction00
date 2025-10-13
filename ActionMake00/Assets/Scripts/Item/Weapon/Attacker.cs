@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public enum AttackerType
+public enum AttackType
 {
     Weapon = 0,
     Projectile,
@@ -12,7 +13,7 @@ public enum AttackerType
 public class Attacker : MonoBehaviour, IAttacker
 {
     [SerializeField] protected Character owner;                                                        //공격수단의 사용자
-    [SerializeField] protected AttackerType attackType;
+    [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
     [SerializeField] protected float damage = 1;
@@ -40,7 +41,7 @@ public class Attacker : MonoBehaviour, IAttacker
     /// </summary>
     protected virtual void Init()
     {
-        if (objectCol == null || attackType == AttackerType.Projectile || attackType == AttackerType.Skill)
+        if (objectCol == null || attackType == AttackType.Projectile || attackType == AttackType.Skill)
         {
             return;
         }
@@ -66,6 +67,7 @@ public class Attacker : MonoBehaviour, IAttacker
     {
         if (objectCol != null)
             objectCol.enabled = false;
+        Debug.Log(this.gameObject.name + "콜라이더 초기화됨");
     }
 
     /// <summary>
@@ -95,19 +97,38 @@ public class Attacker : MonoBehaviour, IAttacker
 
     virtual protected void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == target)
-        {
-            //시전자가 안죽어야 공격처리가 된다.
-            if(owner.GetIsDead() == false && owner != null)
-            {
+        //시전자가 미등록 시 미실행
+        if (owner == null)
+            return;
 
-                other.GetComponent<Character>().TakeDamage(damage, hitLevel);
-                if (hitEffect.Length != 0)
-                {
-                    PlayEffect(other);
-                }
+        if (other.GetComponent<Character>() != null && target == other.transform.tag)
+        {
+            Character hitTarget = other.GetComponent<Character>();
+
+            //시전자가 안죽어야 공격처리가 된다.
+            if (owner.GetIsDead() == true)
+                return;
+
+
+
+            if (hitTarget.GetIsParring() == true &&
+                this.attackType == AttackType.Weapon)
+            {
+                //대상이 패링상태이면서, 현재 공격타입의 무기라면(물리공격), 패링 효과가 발생한다
+                hitTarget.anim.SetTrigger("ParringAttack");
+                hitTarget.SetIsParring(false);
+                hitTarget.SetParringAction(true);
+                return;
             }
-            if (attackType == AttackerType.Projectile)
+
+            hitTarget.TakeDamage(damage, hitLevel);
+
+            if (hitEffect.Length != 0)
+            {
+                PlayEffect(other);
+            }
+
+            if (attackType == AttackType.Projectile)
             {
                 Destroy(this.gameObject);
             }

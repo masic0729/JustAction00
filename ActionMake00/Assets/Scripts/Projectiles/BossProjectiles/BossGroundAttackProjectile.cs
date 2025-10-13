@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStaffExplosion : PlayerSkillInfo
+public class BossGroundAttackProjectile : BossProjectile
 {
     AttackColManager attackManager;
     protected override void Start()
@@ -10,26 +10,26 @@ public class PlayerStaffExplosion : PlayerSkillInfo
         base.Start();
         Init();
     }
-    
+
 
     protected override void Init()
     {
         base.Init();
+        hitLevel = 1;
         attackManager = new AttackColManager();
         CheckEnemyHitBySphere();
     }
 
     void CheckEnemyHitBySphere()
     {
-        Collider[] enemy = attackManager.CheckPlayerAttackAround(transform, 2.5f, enemyLayer);
-        if(enemy != null)
+        Collider[] player = attackManager.CheckPlayerAttackAround(transform, 2.0f, playerLayer);
+        if (player != null)
         {
-            for(int i = 0; i < enemy.Length; i++)
+            for (int i = 0; i < player.Length; i++)
             {
-                enemy[i].GetComponent<Character>().TakeDamage(damage);
+                player[i].GetComponent<Character>().TakeDamage(damage, hitLevel);
 
             }
         }
     }
-
 }

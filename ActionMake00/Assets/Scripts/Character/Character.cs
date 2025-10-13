@@ -55,7 +55,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [SerializeField]protected bool isIgnoreDamage = false;                   //무적 유무. 활성화 시 피해를 입지 않는다.
 
     protected bool isDead = false;
-
+    protected bool isParring = false;
 
     #endregion
 
@@ -138,13 +138,23 @@ public class Character : MonoBehaviour, ICharacterDamageable
         }
     }
 
-        
+    /// <summary>
+    /// 패링 관련 처리할 때, 기본적으로 함께 적용이된다.
+    /// 추후 스태프 무기로 수비 스킬을 구현할 때 활용할 수도 있다
+    /// </summary>
+    /// <param name="state"></param>
+    public void SetParringAction(bool state)
+    {
+        isSuperArmor = state;
+        isIgnoreDamage = state;
+    }
+
+
 
     /// <summary>
     /// void
     /// </summary>
     public virtual void Dead(float animationTime) {
-        //ParticleManager.instance.PlayParticle(pEffectDic["pDeath"], this.transform);
         PoolManager.instance.Spawn("pDeath", this.transform.position, transform.rotation);
         rb.useGravity = false;
         hitCol.enabled = false;
@@ -216,4 +226,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public bool GetIsDead() => isDead;
 
+    public bool GetIsParring() => isParring;
+
+    public void SetIsParring(bool state) => isParring = state;
 }
