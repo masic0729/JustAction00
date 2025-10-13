@@ -66,8 +66,11 @@ public class Attacker : MonoBehaviour, IAttacker
     public void ResetColiderDisable()
     {
         if (objectCol != null)
+        {
             objectCol.enabled = false;
-        Debug.Log(this.gameObject.name + "콜라이더 초기화됨");
+            Debug.Log(this.gameObject.name + "콜라이더 초기화됨");
+        }
+            
     }
 
     /// <summary>
@@ -112,20 +115,24 @@ public class Attacker : MonoBehaviour, IAttacker
 
 
             if (hitTarget.GetIsParring() == true &&
+                hitTarget.GetIsIgnoreDamage() == false &&
                 this.attackType == AttackType.Weapon)
             {
                 //대상이 패링상태이면서, 현재 공격타입의 무기라면(물리공격), 패링 효과가 발생한다
                 hitTarget.anim.SetTrigger("ParringAttack");
                 hitTarget.SetIsParring(false);
                 hitTarget.SetParringAction(true);
-                return;
+                Debug.Log("패링 시작됐음");
             }
-
-            hitTarget.TakeDamage(damage, hitLevel);
-
-            if (hitEffect.Length != 0)
+            else
             {
-                PlayEffect(other);
+                Debug.Log(this.gameObject.name + "가 때림");
+                hitTarget.TakeDamage(damage, hitLevel);
+
+                if (hitEffect.Length != 0)
+                {
+                    PlayEffect(other);
+                }
             }
 
             if (attackType == AttackType.Projectile)

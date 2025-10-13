@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X");
 
         currentCameraRotateY += mouseX * rotateSpeed * Time.deltaTime;
-        cameraPivot.rotation = Quaternion.Euler(0f, currentCameraRotateY, 0f);
+        cameraPivot.rotation = Quaternion.Euler(15f, currentCameraRotateY, 0f);
 
         mainCamera.transform.localPosition = new Vector3(0, 2, -3);
     }

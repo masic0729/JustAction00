@@ -31,8 +31,10 @@ public class PlayerSwordParring : PlayerSkillInfo
         base.OnTriggerEnter(other);
         if (!other.TryGetComponent<Character>(out Character hitTarget))
             return;
+        if(hitTarget.transform.tag == target)
+        {
+            hitTarget.anim.SetTrigger("GetParring");
+        }
 
-        hitTarget.anim.SetTrigger("GetParring");
-     
     }
 }

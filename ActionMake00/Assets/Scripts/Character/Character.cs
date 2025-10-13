@@ -62,7 +62,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        //Init();
     }
 
     // Update is called once per frame

@@ -67,7 +67,7 @@ public class Enemy : Character
     public void GetParringAction()
     {
         isWasParried = true;
-        EnemyWeaponColDisable();
+        //EnemyWeaponColDisable();
     }
 
     public void EnemyWeaponColDisable()

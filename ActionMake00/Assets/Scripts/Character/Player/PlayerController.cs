@@ -73,8 +73,8 @@ public class PlayerController : MonoBehaviour
         Transform camT = mainCamera.transform;
         Vector3 camFwd = Vector3.ProjectOnPlane(camT.forward, Vector3.up).normalized; // 카메라 전방(수평)
         Vector3 camRight = Vector3.ProjectOnPlane(camT.right, Vector3.up).normalized; // 카메라 우측(수평)
-        moveVector = (camRight * h + camFwd * v); // WASD를 카메라 기준으로 환산
-                                                  // ▲▲ 여기만 카메라 기준으로 수정 ▲▲
+        moveVector = (camRight * h + camFwd * v);
+                                                  
 
         if (player.anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
         {
