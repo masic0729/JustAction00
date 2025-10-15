@@ -15,6 +15,7 @@ public class PlayerSwordSlash : PlayerSkillInfo
     protected override void Init()
     {
         base.Init();
+        hitLevel = 1;
     }
 
     

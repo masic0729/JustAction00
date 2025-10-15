@@ -15,7 +15,7 @@ public class Skill : Attacker
     protected virtual void OnEnable()
     {
         objectCol.enabled = true;
-        Invoke("ResetColiderDisable", Time.deltaTime * 10f);
+        Invoke("ResetColiderDisable", Time.deltaTime * 20f);
     }
 
 
@@ -31,7 +31,7 @@ public class Skill : Attacker
         main.stopAction = ParticleSystemStopAction.Callback;
 
         objectCol.enabled = true;
-        Invoke("ResetColiderDisable", Time.deltaTime * 10f);
+        Invoke("ResetColiderDisable", Time.deltaTime * 20f);
 
     }
 

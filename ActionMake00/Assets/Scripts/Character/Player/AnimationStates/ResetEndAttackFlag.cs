@@ -12,6 +12,7 @@ public class ResetEndAttackFlag : PlayerState
         //player.isEscapeAttackAnim = false;
         playerCtrl.isEscapeAttackAnim = false;
         playerCtrl.DisableCombo();
+        
         //playerCtrl.DisableCombo();
 
 

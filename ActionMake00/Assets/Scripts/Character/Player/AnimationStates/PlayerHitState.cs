@@ -12,6 +12,7 @@ public class PlayerHitState : PlayerState
         player.SetIsSuperArmor(true);
         player.WeaponColDisable();
         player.SetIsParring(false);
+        playerCtrl.SetCanInput(false);
 
     }
 
@@ -25,6 +26,7 @@ public class PlayerHitState : PlayerState
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player.SetIsSuperArmor(false);
+        playerCtrl.SetCanInput(true);
 
     }
 

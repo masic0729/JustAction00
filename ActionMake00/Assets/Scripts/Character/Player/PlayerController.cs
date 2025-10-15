@@ -66,8 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 cameraVec = mainCamera.transform.position;
 
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
+        
 
         // ▼▼ 여기만 카메라 기준으로 수정 ▼▼
         Transform camT = mainCamera.transform;
@@ -76,8 +75,10 @@ public class PlayerController : MonoBehaviour
         moveVector = (camRight * h + camFwd * v);
                                                   
 
-        if (player.anim.GetBool("isAttacking") == false || isEscapeAttackAnim)
+        if (player.anim.GetBool("isAttacking") == false)
         {
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
             if (player.anim.GetBool("isAttacking") == true)
                 player.anim.SetBool("isAttacking", false);
 
@@ -236,5 +237,5 @@ public class PlayerController : MonoBehaviour
     public int GetComboAttackIndex() => comboAttackIndex;
 
     public void SetCanInput(bool state) => canInput = state;
-    public bool GetConInput() => canInput;
+    public bool GetCanInput() => canInput;
 }
