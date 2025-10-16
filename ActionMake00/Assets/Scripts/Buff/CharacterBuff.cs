@@ -14,9 +14,10 @@ public class CharacterBuff : MonoBehaviour
 
     private void Start()
     {
-        BuffTransDamage testBuff = GetComponent<BuffTransDamage>();
+        //스킬 또는 상호작용을 통해 버프를 실행한다. 이때 버프를 리스트 기반으로 관리하여 실행 및 관리한다.
+        /*BuffBase testBuff = new BuffTransDamage();
         testBuff.Setup(this.gameObject.transform.parent.GetComponent<Character>(), 10, 10f);
-        AddBuff(testBuff, BuffType.Buff);
+        AddBuff(testBuff, BuffType.Buff);*/
     }
 
     void Update()

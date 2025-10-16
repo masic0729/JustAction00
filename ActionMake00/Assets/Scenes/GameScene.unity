@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338704, g: 0.216739, b: 0.2988083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -234,7 +234,6 @@ GameObject:
   m_Component:
   - component: {fileID: 141098386}
   - component: {fileID: 141098387}
-  - component: {fileID: 141098388}
   m_Layer: 6
   m_Name: Buffs
   m_TagString: Untagged
@@ -269,19 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cc9d292f9d0244ea9560c2633caf93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &141098388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141098385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eee543bc619a5524985d86a9ecb04420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amount: 0
 --- !u!1 &221992839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,6 +2858,10 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 618963147}
+    - target: {fileID: 2568580624046679621, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7070799
@@ -3202,6 +3192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 164.16107
       objectReference: {fileID: 0}
+    - target: {fileID: 3708054658743379287, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
+      propertyPath: m_Radius
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4321991980292005934, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 8.417384
@@ -3249,6 +3243,14 @@ PrefabInstance:
     - target: {fileID: 4906584548195358463, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -9.68129
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053257208090231906, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053257208090231906, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5163228586542738633, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

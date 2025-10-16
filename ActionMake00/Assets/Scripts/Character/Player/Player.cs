@@ -71,9 +71,6 @@ public class Player : Character
 
     public void WeaponColDisable()
     {
-        if (weaponType != "PlayerSword")
-            return;
-
         weaponDic[weaponType].ResetColiderDisable();
     }
 
@@ -109,14 +106,17 @@ public class Player : Character
             return;
         }
 
-        if (isSuperArmor == false || hitLevel != -1)
-        {
-            anim.SetTrigger("Hit");
-        }
+        
 
         base.TakeDamage(amount, hitLevel);
         if (hitLevel == -1)
             return;
+
+        if (isSuperArmor == false || hitLevel != -1)
+        {
+            anim.SetTrigger("Hit");
+            WeaponColDisable();
+        }
 
         CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
         playerCtrl.SetCanInput(false);

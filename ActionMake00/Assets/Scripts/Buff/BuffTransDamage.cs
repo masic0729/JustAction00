@@ -3,22 +3,24 @@ using UnityEngine;
 
 public class BuffTransDamage : BuffBase
 {
-    [SerializeField] int amount;        // 에디터 셋업 혹은 런타임 주입
+    [SerializeField] int damageAmount;        // 에디터 셋업 혹은 런타임 주입
 
-    public void Setup(Character target, int dmgAmount, float duration)
+    public override void Setup(Character target, int dmgAmount, float duration)
     {
-        character = target;
-        amount = dmgAmount;
-        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+        base.Setup(target, dmgAmount, duration);
+        damageAmount = dmgAmount;
     }
 
     protected override void ApplyBuff()
     {
-        if (character == null) character = GetComponent<Character>();
         if (character != null)
         {
-            character.AddStat.damage += amount;
-            Debug.Log("캐릭터 버프시작 테스트");
+            character.AddStat.damage += damageAmount;
+            Debug.Log("캐릭터 공벞 시작. 공격력 추가 계수는" + damageAmount + ", 현재 공격력 계수 : " + character.GetResultDamage());
+        }
+        else
+        {
+            Debug.Log("버프 줄려 했는데 대상이 없음");
         }
     }
 
@@ -31,9 +33,9 @@ public class BuffTransDamage : BuffBase
     {
         if (character != null)
         {
-            character.AddStat.damage -= amount;
+            character.AddStat.damage -= damageAmount;
 
-            Debug.Log("캐릭터 버프종료 테스트");
+            Debug.Log("캐릭터 공벞 종료. 공격력 삭제 계수는" + damageAmount + ", 현재 공격력 계수 : " + character.GetResultDamage());
 
         }
     }

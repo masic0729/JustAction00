@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerSwordParring : PlayerSkillInfo
 {
+
     protected override void Start()
     {
         base.Start();
@@ -24,6 +25,12 @@ public class PlayerSwordParring : PlayerSkillInfo
     {
         base.Init();
         hitLevel = 1;
+
+        BuffBase addDamageBuff = new BuffTransDamage();
+        addDamageBuff.Setup(owner, 10, 10f);
+        buffs.Add(addDamageBuff);
+
+
     }
 
     protected override void OnTriggerEnter(Collider other)

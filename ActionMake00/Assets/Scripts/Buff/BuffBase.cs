@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class BuffBase : MonoBehaviour
+public abstract class BuffBase
 {
     protected Character character;                      // 캐시
 
@@ -13,6 +13,11 @@ public abstract class BuffBase : MonoBehaviour
     float buffTimer;
     float buffTime;
 
+    public virtual void Setup(Character target, int dmgAmount, float duration)
+    {
+        character = target;
+        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+    }
 
     /// <summary>
     /// 지속시간 및 각 버프들에 대한 수치값을 object를 통해 추상적으로 받아 쓴다

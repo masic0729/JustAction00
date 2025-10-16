@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
 public enum AttackType
 {
@@ -12,11 +12,13 @@ public enum AttackType
 
 public class Attacker : MonoBehaviour, IAttacker
 {
-    [SerializeField] protected Character owner;                                                        //공격수단의 사용자
+    [SerializeField] protected Character owner;                                                        //공격체의 출처
+    protected List<BuffBase> buffs;                                                                    //각 공격에 사용되는 버프구조 
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
     [SerializeField] protected float damage = 1;
+
     protected string target;
     protected int hitLevel = -1;
     protected string tagName;
@@ -27,7 +29,7 @@ public class Attacker : MonoBehaviour, IAttacker
         {
             objectCol = GetComponent<Collider>();
         }
-        
+        buffs = new List<BuffBase>();
     }
 
     protected virtual void Start()
@@ -98,6 +100,17 @@ public class Attacker : MonoBehaviour, IAttacker
 
     }
 
+    /// <summary>
+    /// 리스트 내 존재하는 모든 버프 효과들을 실행한다
+    /// </summary>
+    void UseBuffs()
+    {
+        /*foreach(BuffBase buff in buffs)
+        {
+            buff.
+        }*/
+    }
+
     virtual protected void OnTriggerEnter(Collider other)
     {
         //시전자가 미등록 시 미실행
@@ -112,7 +125,7 @@ public class Attacker : MonoBehaviour, IAttacker
             if (owner.GetIsDead() == true)
                 return;
 
-
+            
 
             if (hitTarget.GetIsParring() == true &&
                 hitTarget.GetIsIgnoreDamage() == false &&
@@ -133,6 +146,11 @@ public class Attacker : MonoBehaviour, IAttacker
                 {
                     PlayEffect(other);
                 }
+            }
+                
+            foreach (BuffBase buff in buffs)
+            {
+                buff.Activate();
             }
 
             if (attackType == AttackType.Projectile)
