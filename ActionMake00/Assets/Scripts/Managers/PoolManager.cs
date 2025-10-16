@@ -78,16 +78,16 @@ public class PoolManager : MonoBehaviour
     /// <param name="effectName"></param>
     /// <param name="pos"></param>
     /// <param name="rot"></param>
-    /// <param name="character"></param>
+    /// <param name="owner"></param>
     /// <returns></returns>
-    public GameObject Spawn(string effectName, Vector3 pos, Quaternion rot, Character character)
+    public GameObject Spawn(string effectName, Vector3 pos, Quaternion rot, Character owner)
     {
         GameObject pool = skillPrefabs[effectName].Get();
         Debug.Log("풀 성공" + pool.name);
 
         pool.transform.SetPositionAndRotation(pos, rot);
         pool.transform.name = effectName;
-        pool.GetComponent<Attacker>().SetOwner(character);
+        pool.GetComponent<Attacker>().SetOwner(owner);
 
         return pool;
     }
@@ -97,8 +97,9 @@ public class PoolManager : MonoBehaviour
     /// </summary>
     /// <param name="effectName"></param>
     /// <param name="pos"></param>
+    /// <param name="owner"></param>
     /// <returns></returns>
-    public GameObject Spawn(string effectName, Vector3 pos, Character character)
+    public GameObject Spawn(string effectName, Vector3 pos, Character owner)
     {
         GameObject pool = skillPrefabs[effectName].Get();
         Debug.Log("풀 성공" + pool.name);
@@ -106,7 +107,7 @@ public class PoolManager : MonoBehaviour
         pool.transform.name = effectName;
 
         pool.transform.position = pos;
-        pool.GetComponent<Attacker>().SetOwner(character);
+        pool.GetComponent<Attacker>().SetOwner(owner);
 
         /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
 

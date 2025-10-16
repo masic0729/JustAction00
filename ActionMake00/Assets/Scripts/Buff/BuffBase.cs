@@ -13,7 +13,47 @@ public abstract class BuffBase
     float buffTimer;
     float buffTime;
 
-    public virtual void Setup(Character target, int dmgAmount, float duration)
+    /// <summary>
+    /// 버프류 실행할 때, 만약 버프 이펙트 표시 시 파티클로 보여줄 수 있다.
+    /// 하지만 플레이어를 부모로 할 수도 있지만, 특정 파츠에 부모로 설정해 쓸수 있으니
+    /// 고려해서 만들고 있음.
+    /// 대신 UI 확장까지 하면 코드를 변경할 수도 있음
+    /// 
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="dmgAmount"></param>
+    /// <param name="duration">기본적인 버프 지속시간 및 버프 관련 파티클 유지 시간</param>
+    /// <param name="spawnParticleName"></param>
+    /// <param name="spawnParentName"></param>
+    public virtual GameObject ObjectSetup(Character target, int dmgAmount, float duration, string spawnParticleName, string spawnParentName)
+    {
+        character = target;
+        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+
+        
+
+        GameObject instance = PoolManager.instance.Spawn(spawnParticleName, target.transform.position, target.transform.rotation);
+
+        if(spawnParentName != null)
+        {
+            instance.transform.parent = target.gameObject.transform.Find(spawnParentName);
+        }
+        else
+        {
+            instance.transform.parent = target.transform;
+        }
+
+        instance.GetComponent<ParticlePoolReleaser>().SetReleaseTime(duration);
+        return instance;
+    }
+
+    /// <summary>
+    /// 이하 동일
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="dmgAmount"></param>
+    /// <param name="duration"></param>
+    public virtual void ObjectSetup(Character target, int dmgAmount, float duration)
     {
         character = target;
         Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
