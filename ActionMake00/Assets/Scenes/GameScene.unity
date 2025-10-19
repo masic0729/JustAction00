@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17338704, g: 0.216739, b: 0.2988083, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -626,7 +626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &618963144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -644,9 +644,9 @@ RectTransform:
   - {fileID: 1141842135}
   m_Father: {fileID: 1179473758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 430, y: -180}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -530, y: 360}
   m_SizeDelta: {x: 1000, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618963145
@@ -2864,19 +2864,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7070799
+      value: 0.5075104
       objectReference: {fileID: 0}
     - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7070799
+      value: -0.858463
       objectReference: {fileID: 0}
     - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0061705485
+      value: -0.057938695
       objectReference: {fileID: 0}
     - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0061705485
+      value: 0.046018124
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 3528469670309162733, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
