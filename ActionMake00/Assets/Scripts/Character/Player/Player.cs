@@ -119,7 +119,7 @@ public class Player : Character
         }
 
         CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
-        playerCtrl.SetCanInput(false);
+        playerCtrl.SetCanAttackInput(false);
     }
 
     public void SetWeaponType(string typeName) => weaponType = typeName;

@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     bool canCombo = false;
     public bool isEscapeAttackAnim = false;
     [SerializeField]
-    bool canInput = true;
+    bool canAttackInput = true;
+    bool canAnyInput = true;
 
     // ÃÊ±âÈ­
     void Start()
@@ -44,11 +45,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (canAnyInput == false)
+            return;
         PlayerEscape();
         WeapontestSwap();
 
 
-        if (canInput == false)
+        if (canAttackInput == false)
             return;
         PlayerAttack();
         PlayerSkillInput();
@@ -153,7 +156,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && skillManager.isSkillCanUse("Skill0"))
         {
             player.anim.SetTrigger("Skill0");
-            canInput = false;
+            canAttackInput = false;
         }
 
         /*if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill0"))
@@ -164,7 +167,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             player.anim.SetTrigger("Skill1");
-            canInput = false;
+            canAttackInput = false;
         }
     }
 
@@ -192,7 +195,7 @@ public class PlayerController : MonoBehaviour
     {
         player.hitAction();
 
-        canInput = true;
+        canAttackInput = true;
         player.anim.SetTrigger("Sprint");
         player.anim.SetBool("isSprint", true);
         player.SetIsIgnoreDamage(true);
@@ -225,7 +228,7 @@ public class PlayerController : MonoBehaviour
     public void TransIdleState()
     {
         player.anim.SetBool("isAttacking", false);
-        canInput = true;
+        canAttackInput = true;
     }
 
 
@@ -236,6 +239,10 @@ public class PlayerController : MonoBehaviour
 
     public int GetComboAttackIndex() => comboAttackIndex;
 
-    public void SetCanInput(bool state) => canInput = state;
-    public bool GetCanInput() => canInput;
+    public void SetCanAttackInput(bool state) => canAttackInput = state;
+    public bool GetCanAttackInput() => canAttackInput;
+
+    public void SetCanAnyInput(bool state) => canAnyInput = state;
+
+    public bool GetCanAnyInput() => canAnyInput;
 }

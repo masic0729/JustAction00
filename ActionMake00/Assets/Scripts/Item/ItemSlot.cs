@@ -11,7 +11,7 @@ public class ItemSlot : MonoBehaviour
     public Item currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
-    public int currentCount = 0, maxCount = 0;
+    public int currentCount = 0, maxCount = 1;
     public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입.
 
     public bool AddItem(Item item)
@@ -115,6 +115,12 @@ public class ItemSlot : MonoBehaviour
 
         countText.text = currentCount > 1 ? currentCount.ToString() : "";
 
+    }
+
+    public void TestInteraction()
+    {
+        currentItem.OnTest = () => Debug.Log("테스트");
+        currentItem.OnTest();
     }
 
 

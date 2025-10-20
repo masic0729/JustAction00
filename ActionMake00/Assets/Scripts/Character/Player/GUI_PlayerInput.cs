@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class GUI_PlayerInput : MonoBehaviour
 {
+    private PlayerController playerCtrl;
     public Inventory inventory;
     //public GameObject testItem;
     public Item testitem1;
     public Item testitem2;
 
-
+    private void Start()
+    {
+        playerCtrl = GetComponent<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -45,13 +49,19 @@ public class GUI_PlayerInput : MonoBehaviour
     /// <param name="target">활성화/비활성화 하려는 오브젝트 대상</param>
     void EnableGameObject(GameObject target)
     {
+        MouseControl mouseCtrl = GetComponent<MouseControl>();
         if (target.activeSelf == false)
         {
+            playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
+            mouseCtrl.Apply(MouseControl.AimCursorMode.Free);
         }
         else if(target.activeSelf == true)
         {
+            playerCtrl.SetCanAnyInput(true);
             target.SetActive(false);
+            mouseCtrl.Apply(MouseControl.AimCursorMode.LockedCenter);
+
         }
     }
 
