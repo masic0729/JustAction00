@@ -25,7 +25,7 @@ public class GUI_PlayerInput : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            EnableGameObject(inventory.gameObject);
+            EnableUI(inventory.gameObject);
             
         }
         if(Input.GetKeyDown(KeyCode.U))
@@ -47,21 +47,24 @@ public class GUI_PlayerInput : MonoBehaviour
     /// 원하는 오브젝트의 활성화 여부를 확인하여 상태를 항상 반대로 전환한다
     /// </summary>
     /// <param name="target">활성화/비활성화 하려는 오브젝트 대상</param>
-    void EnableGameObject(GameObject target)
+    void EnableUI(GameObject target)
     {
         MouseControl mouseCtrl = GetComponent<MouseControl>();
+        /*CameraController cameraCtrl = GetComponent<CameraController>();*/
         if (target.activeSelf == false)
         {
-            playerCtrl.SetCanAnyInput(false);
+            //playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
             mouseCtrl.Apply(MouseControl.AimCursorMode.Free);
+            /*cameraCtrl.SetCanRotate(false);*/
+
         }
         else if(target.activeSelf == true)
         {
-            playerCtrl.SetCanAnyInput(true);
+            //playerCtrl.SetCanAnyInput(true);
             target.SetActive(false);
             mouseCtrl.Apply(MouseControl.AimCursorMode.LockedCenter);
-
+            /*cameraCtrl.SetCanRotate(true);*/
         }
     }
 
@@ -69,7 +72,7 @@ public class GUI_PlayerInput : MonoBehaviour
     {
         inventory.AddItemInList(testitem1);
     }
-
+    
     void TestInputItem2()
     {
         inventory.AddItemInList(testitem2);

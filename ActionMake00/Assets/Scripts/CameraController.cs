@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     float currentCameraRotateY;
     float rotateSpeed = 180f;
 
+    bool canRotate = true;
+
     private void Awake()
     {
         if(instance == null)
@@ -31,6 +33,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canRotate == false)
+            return;
         FollowCamera();
         RotateCameraPivot();
     }
@@ -65,4 +69,9 @@ public class CameraController : MonoBehaviour
     {
         mainCamera.PlayCameraShake(multify);
     }
+
+    public void SetCanRotate(bool state) => canRotate = state;
+
+    public bool GetCanRotate() => canRotate;
+
 }

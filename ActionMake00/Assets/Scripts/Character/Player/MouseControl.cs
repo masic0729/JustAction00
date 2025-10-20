@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MouseControl : MonoBehaviour
 {
@@ -30,11 +31,17 @@ public class MouseControl : MonoBehaviour
     {
         modeAtStart = mode;
 
+        CameraController cameraCtrl = GetComponent<CameraController>();
+        PlayerController playerCtrl = GetComponent<PlayerController>();
         switch (mode)
         {
+
             case AimCursorMode.LockedCenter:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                playerCtrl.SetCanAnyInput(true);
+                //Apply(MouseControl.AimCursorMode.LockedCenter);
+                cameraCtrl.SetCanRotate(true);
                 break;
 
             case AimCursorMode.ConfinedWindow:
@@ -46,6 +53,11 @@ public class MouseControl : MonoBehaviour
             default:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                playerCtrl.SetCanAnyInput(false);
+                //Apply(MouseControl.AimCursorMode.Free);
+                cameraCtrl.SetCanRotate(false);
+
+                
                 break;
         }
     }

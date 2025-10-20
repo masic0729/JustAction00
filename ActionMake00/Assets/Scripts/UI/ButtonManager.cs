@@ -11,4 +11,6 @@ public class ButtonManager : MonoBehaviour
         GameObject UI = this.gameObject.transform.parent.gameObject;
         UI.SetActive(false);
     }
+
+    
 }
