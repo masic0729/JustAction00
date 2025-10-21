@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        MoveInput();
         if (canAnyInput == false)
             return;
         PlayerEscape();
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
             return;
         PlayerAttack();
         PlayerSkillInput();
-        MoveInput();
+        
 
     }
     void FixedUpdate()
@@ -69,23 +70,36 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 cameraVec = mainCamera.transform.position;
 
-        
-
-        // ▼▼ 여기만 카메라 기준으로 수정 ▼▼
         Transform camT = mainCamera.transform;
         Vector3 camFwd = Vector3.ProjectOnPlane(camT.forward, Vector3.up).normalized; // 카메라 전방(수평)
         Vector3 camRight = Vector3.ProjectOnPlane(camT.right, Vector3.up).normalized; // 카메라 우측(수평)
-        moveVector = (camRight * h + camFwd * v);
                                                   
 
         if (player.anim.GetBool("isAttacking") == false)
         {
-            h = Input.GetAxis("Horizontal");
-            v = Input.GetAxis("Vertical");
+            moveVector = (camRight * h + camFwd * v);
+
+
+
+
             if (player.anim.GetBool("isAttacking") == true)
                 player.anim.SetBool("isAttacking", false);
 
             player.anim.SetFloat("moveValue", moveVector.magnitude);
+
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
+
+            if (canAnyInput == false)   //여기 부분이 통제구역
+            {
+                player.anim.SetFloat("moveValue", 0f);
+
+                return;
+
+            }
+
+
+
 
             if (moveVector.magnitude > 0.1f)
             {

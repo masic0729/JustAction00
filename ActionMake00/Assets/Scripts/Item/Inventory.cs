@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public ItemSlot slot;
+    public GameObject slot;
     [SerializeField] Character inventoryOwner;                   //인벤토리 소유자. 현재는 플레이어 밖에 없음
     Transform inventoryTransform;
     const int slotCount = 40;
@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
         lSlot = new List<ItemSlot>();
         for (int i = 0; i < slotCount; i++)
         {
-            ItemSlot instance = Instantiate(slot);
+            ItemSlot instance = Instantiate(slot).GetComponent<ItemSlot>();
             instance.gameObject.name += i;
             instance.SetTarget(inventoryOwner);
             lSlot.Add(instance);

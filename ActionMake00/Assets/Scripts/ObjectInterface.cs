@@ -17,8 +17,8 @@ public interface IAttacker
 
 public interface ItemInteration
 {
-    void UseItem(Character character);
-    void UpdateInventory(Character character);
+    abstract void UseItem(Character character);
+    abstract void UpdateInventory(ItemSlot character);
 }
 
 public interface ItemUseChecker

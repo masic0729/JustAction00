@@ -8,11 +8,12 @@ public class ItemSlot : MonoBehaviour
 {
     //[SerializeField]private ItemBase currentItem;
     Character target;
+    public Sprite baseSlotImage;                                                             //비어있을 때 쓰는 이미지
     public ItemBase currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
     public int currentCount = 0, maxCount = 1;
-    public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입.
+    public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
 
     public bool AddItem(ItemBase item)
     {
@@ -119,15 +120,20 @@ public class ItemSlot : MonoBehaviour
 
     public void TestInteraction()
     {
+        if (currentItem == null)
+        {
+            return;
+        }
         currentItem.OnItemUse(target);
+        currentItem.OnItemUpdate(this);
     }
 
 
     public void ClearSlot()
     {
         currentItem = null;
-        icon.sprite = null;
-        icon.enabled = false;
+        icon.sprite = baseSlotImage;
+        //icon.enabled = false;
         countText.text = "";
         currentCount = 0;
         maxCount = 0;
