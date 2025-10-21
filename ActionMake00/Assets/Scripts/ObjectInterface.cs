@@ -14,3 +14,9 @@ public interface IAttacker
     abstract float GetDamage();
     abstract void SetDamage(float value);
 }
+
+public interface ItemInteration
+{
+    void UseItem(Character character);
+    void UpdateInventory(Character character);
+}

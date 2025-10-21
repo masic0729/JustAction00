@@ -43,6 +43,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     #region
     protected float skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음. 정작 안썼음 ㅋ
 
+    protected float maxHp;                                                   //최대 체력
     [SerializeField] protected float hp;                                     //체력
     [SerializeField] protected float damage;                                 //공격력
     [SerializeField] protected float moveSpeed = 5f;                         //이동속도
@@ -74,6 +75,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     {
         //캐릭터 스텟 설정
         hp = characterStatData.GetHp();
+        maxHp = hp;
         damage = characterStatData.GetDamage();
         moveSpeed = characterStatData.GetMoveSpeed();
         def = characterStatData.GetDef();
@@ -109,6 +111,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
         }
     }
 
+    public float GetMaxHp() => maxHp;
     public float GetHp() => hp;
     public void SetHp(int value) => hp = value;
 
@@ -200,6 +203,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
         return moveSpeed + AddStat.moveSpeed;
     }
+
+    
 
 
     public void SetMoveSpeed(float value) => moveSpeed = value;

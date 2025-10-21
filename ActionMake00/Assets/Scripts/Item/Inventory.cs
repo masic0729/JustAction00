@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour
     /// 획득을 할 때 추가되는 값을 그대로 정의를 한다
     /// </summary>
     /// <param name="item">인벤토리에 삽입할 아이템 정보</param>
-    public void AddItemInList(Item item)
+    public void AddItemInList(ItemBase item)
     {
         bool isConsumableItemSum = false;
         ItemSlot voidSlot = null;
@@ -132,7 +132,7 @@ public class Inventory : MonoBehaviour
         while (index < snaps.Count && index < lSlot.Count)
         {
             (ItemData data, int count) snap = snaps[index];
-            Item item = new Item { data = snap.data, addCount = snap.count };
+            ItemBase item = new ItemBase { data = snap.data, addCount = snap.count };
             lSlot[index].AddItem(item);
             index++;
         }
@@ -149,10 +149,10 @@ public class Inventory : MonoBehaviour
     void OtherCodeBox()
     {
         // 1) 아이템만 모으기
-        var items = new List<Item>();
+        var items = new List<ItemBase>();
         foreach (var slot in lSlot)
             if (slot != null && slot.currentItem != null && slot.currentItem.data != null)
-                items.Add(new Item { data = slot.currentItem.data, addCount = slot.currentItem.addCount });
+                items.Add(new ItemBase { data = slot.currentItem.data, addCount = slot.currentItem.addCount });
 
         // 2) 정렬 (예: 타입 → 이름)
         items.Sort((a, b) =>

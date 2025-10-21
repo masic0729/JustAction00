@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Progress;
 
 public class ItemSlot : MonoBehaviour
 {
-    //[SerializeField]private Item currentItem;
-    public Item currentItem;
+    //[SerializeField]private ItemBase currentItem;
+    public ItemBase currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
     public int currentCount = 0, maxCount = 1;
     public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입.
 
-    public bool AddItem(Item item)
+    public bool AddItem(ItemBase item)
     {
 
         if (item != null)
@@ -39,7 +38,7 @@ public class ItemSlot : MonoBehaviour
         }
     }
 
-    public void SumItem(Item item)
+    public void SumItem(ItemBase item)
     {
         if (item == null)
             return;
@@ -58,7 +57,7 @@ public class ItemSlot : MonoBehaviour
     {
         if (data == null || count <= 0) { ClearSlot(); return; }
 
-        currentItem = new Item { data = data, addCount = count }; // 독립 인스턴스
+        currentItem = new ItemBase { data = data, addCount = count }; // 독립 인스턴스
         maxCount = data.maxCount;
         currentCount = count;
 
@@ -119,8 +118,8 @@ public class ItemSlot : MonoBehaviour
 
     public void TestInteraction()
     {
-        currentItem.OnTest = () => Debug.Log("테스트");
-        currentItem.OnTest();
+        /*currentItem.OnCheckUse = () => Debug.Log("테스트");
+        currentItem.OnCheckUse();*/
     }
 
 
@@ -143,7 +142,7 @@ public class ItemSlot : MonoBehaviour
         return false;
     }
 
-    public bool CanSumItem(Item item)
+    public bool CanSumItem(ItemBase item)
     {
         if (currentCount == 0)
             return false;

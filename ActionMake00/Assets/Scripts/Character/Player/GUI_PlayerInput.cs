@@ -7,8 +7,8 @@ public class GUI_PlayerInput : MonoBehaviour
     private PlayerController playerCtrl;
     public Inventory inventory;
     //public GameObject testItem;
-    public Item testitem1;
-    public Item testitem2;
+    public ItemBase testitem1;
+    public ItemBase testitem2;
 
     private void Start()
     {
