@@ -9,6 +9,7 @@ public class GUI_PlayerInput : MonoBehaviour
     //public GameObject testItem;
     public ItemBase testitem1;
     public ItemBase testitem2;
+    public ItemObject testItem;
 
     private void Start()
     {
@@ -70,11 +71,12 @@ public class GUI_PlayerInput : MonoBehaviour
 
     void TestInputItem1()
     {
-        inventory.AddItemInList(testitem1);
+        //inventory.AddItemInList(testitem1);
+        inventory.AddItemInList(testItem);
     }
     
     void TestInputItem2()
     {
-        inventory.AddItemInList(testitem2);
+        //inventory.AddItemInList(testitem2);
     }
 }

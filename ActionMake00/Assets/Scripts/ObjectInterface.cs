@@ -20,3 +20,9 @@ public interface ItemInteration
     void UseItem(Character character);
     void UpdateInventory(Character character);
 }
+
+public interface ItemUseChecker
+{
+    abstract bool ItemUseCheck(Character character);
+}
+

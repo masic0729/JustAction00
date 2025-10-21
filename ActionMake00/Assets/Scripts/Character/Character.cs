@@ -141,6 +141,28 @@ public class Character : MonoBehaviour, ICharacterDamageable
     }
 
     /// <summary>
+    /// 전투에 의한 변환이 아닌 아이템 및 버프에 의한 체력 변환에 사용
+    /// </summary>
+    /// <param name="value"></param>
+    public void HpTransfer(float value)
+    {
+        if(hp + value >= maxHp)
+        {
+            hp = maxHp;
+        }
+        else if(hp + value <= 0)
+        {
+            hp = 0;
+            anim.SetTrigger("Death");
+            isDead = true;
+        }
+        else
+        {
+            hp += value;
+        }
+    }
+
+    /// <summary>
     /// 패링 관련 처리할 때, 기본적으로 함께 적용이된다.
     /// 추후 스태프 무기로 수비 스킬을 구현할 때 활용할 수도 있다
     /// </summary>

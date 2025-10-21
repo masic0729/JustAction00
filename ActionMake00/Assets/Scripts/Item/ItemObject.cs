@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemObject : MonoBehaviour, ItemInteration
+public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
     Character test;
-    [SerializeField]protected ItemBase item;
+    [SerializeField]public ItemBase item;
 
     // Start is called before the first frame update
     virtual protected void Start()
     {
         /*item.OnCheckUse += CheckUseItem;*/
         item.OnItemUse += UseItem;
-        item.OnItemUpdate += UpdateInventory;
+        //item.OnItemUpdate += UpdateInventory;
     }
 
 
     virtual public void UseItem(Character character)
     {
+        UpdateInventory(character);
 
     }
 
@@ -25,4 +26,7 @@ public class ItemObject : MonoBehaviour, ItemInteration
     {
 
     }
+
+    public abstract bool ItemUseCheck(Character character);
+
 }

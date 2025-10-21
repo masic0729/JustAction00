@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject slot;
+    public ItemSlot slot;
+    [SerializeField] Character inventoryOwner;                   //인벤토리 소유자. 현재는 플레이어 밖에 없음
     Transform inventoryTransform;
     const int slotCount = 40;
     List<ItemSlot> lSlot;
@@ -28,8 +26,9 @@ public class Inventory : MonoBehaviour
         lSlot = new List<ItemSlot>();
         for (int i = 0; i < slotCount; i++)
         {
-            ItemSlot instance = Instantiate(slot).GetComponent<ItemSlot>();
+            ItemSlot instance = Instantiate(slot);
             instance.gameObject.name += i;
+            instance.SetTarget(inventoryOwner);
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);
         }
@@ -40,8 +39,8 @@ public class Inventory : MonoBehaviour
     /// 인벤토리 내 빈 슬롯을 기준으로 새 아이템 데이터를 넣는다
     /// 획득을 할 때 추가되는 값을 그대로 정의를 한다
     /// </summary>
-    /// <param name="item">인벤토리에 삽입할 아이템 정보</param>
-    public void AddItemInList(ItemBase item)
+    /// <param name="itemObject">인벤토리에 삽입할 아이템 정보</param>
+    public void AddItemInList(ItemObject itemObject)
     {
         bool isConsumableItemSum = false;
         ItemSlot voidSlot = null;
@@ -52,24 +51,24 @@ public class Inventory : MonoBehaviour
                 voidSlot = lSlot[i];
             }
 
-            if (item.data.itemType == ItemType.Equitment && lSlot[i].CanAddItem() == true)
+            if (itemObject.item.data.itemType == ItemType.Equitment && lSlot[i].CanAddItem() == true)
             {
-                lSlot[i].AddItem(item);
+                lSlot[i].AddItem(itemObject.item);
                 return;
             }
             
 
-            if (item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(item))
+            if (itemObject.item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(itemObject.item))
             {
                 isConsumableItemSum = true;
-                lSlot[i].SumItem(item);
+                lSlot[i].SumItem(itemObject.item);
                 return;
             }
 
         }
         if (isConsumableItemSum == false && voidSlot != null)
         {
-            voidSlot.AddItem(item);
+            voidSlot.AddItem(itemObject.item);
         }
 
     }

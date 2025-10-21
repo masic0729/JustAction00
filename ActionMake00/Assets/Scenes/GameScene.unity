@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338704, g: 0.216739, b: 0.2988083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -686,6 +686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot: {fileID: 4246578042527753104, guid: 9d426a8064536564f953909f8e492055, type: 3}
+  inventoryOwner: {fileID: 0}
 --- !u!1 &632306598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2905,6 +2906,10 @@ PrefabInstance:
       propertyPath: weapon.Array.data[1]
       value: 
       objectReference: {fileID: 8924246067352728424, guid: a7dd1f61e15c55f4eab277704c6d5f33, type: 3}
+    - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: testItem
+      value: 
+      objectReference: {fileID: 1786218402}
     - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: inventory
       value: 

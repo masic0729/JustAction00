@@ -7,6 +7,7 @@ using TMPro;
 public class ItemSlot : MonoBehaviour
 {
     //[SerializeField]private ItemBase currentItem;
+    Character target;
     public ItemBase currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
@@ -118,8 +119,7 @@ public class ItemSlot : MonoBehaviour
 
     public void TestInteraction()
     {
-        /*currentItem.OnCheckUse = () => Debug.Log("Å×½ºÆ®");
-        currentItem.OnCheckUse();*/
+        currentItem.OnItemUse(target);
     }
 
 
@@ -153,5 +153,10 @@ public class ItemSlot : MonoBehaviour
         }
             
         return false;
+    }
+
+    public void SetTarget(Character character)
+    {
+        target = character;
     }
 }
