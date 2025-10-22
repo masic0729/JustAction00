@@ -29,6 +29,8 @@ public class Inventory : MonoBehaviour
             ItemSlot instance = Instantiate(slot).GetComponent<ItemSlot>();
             instance.gameObject.name += i;
             instance.SetTarget(inventoryOwner);
+            instance.SetInventory(this);
+
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);
         }

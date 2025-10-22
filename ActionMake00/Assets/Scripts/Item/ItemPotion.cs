@@ -21,7 +21,7 @@ public class ItemPotion : ItemObject
         //포션 역할 실행 및 인벤토리 최신화
         character.HpTransfer(transHpValue);
         Debug.Log("회복됨 : " + character.GetHp());
-
+        //UpdateInventory()
     }
 
     public override void UpdateInventory(ItemSlot slot)

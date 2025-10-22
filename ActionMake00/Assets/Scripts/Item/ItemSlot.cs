@@ -1,19 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
-    //[SerializeField]private ItemBase currentItem;
+
     Character target;
+    Inventory inventory;                                                                    //슬롯의 인벤토리 주체. 아이템 간 이동 시 활용함
     public Sprite baseSlotImage;                                                             //비어있을 때 쓰는 이미지
     public ItemBase currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
     public int currentCount = 0, maxCount = 1;
     public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
+
+
 
     public bool AddItem(ItemBase item)
     {
@@ -125,9 +127,21 @@ public class ItemSlot : MonoBehaviour
             return;
         }
         currentItem.OnItemUse(target);
-        currentItem.OnItemUpdate(this);
+        //currentItem.OnItemUpdate(this);
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // 우클릭인 경우에만 실행
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+
+        if (currentItem == null)
+        {
+            return;
+        }
+        currentItem.OnItemUse(target);
+        currentItem.OnItemUpdate(this);
+    }
 
     public void ClearSlot()
     {
@@ -165,4 +179,8 @@ public class ItemSlot : MonoBehaviour
     {
         target = character;
     }
+
+    public Inventory GetInventory() => inventory;
+
+    public void SetInventory(Inventory inven) => inventory = inven;
 }
