@@ -1,21 +1,24 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
 
     Character target;
     Inventory inventory;                                                                    //슬롯의 인벤토리 주체. 아이템 간 이동 시 활용함
-    public Sprite baseSlotImage;                                                             //비어있을 때 쓰는 이미지
+    public Sprite baseSlotImage;                                                            //비어있을 때 쓰는 이미지
     public ItemBase currentItem;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
     public int currentCount = 0, maxCount = 1;
     public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
 
-
+    public Action<Character> OnItemUse;                              //아이템을 사용할 때 발생하는 상호작용
+    public Action<ItemSlot> OnItemUpdate;                            //아이템 사용 후 처리에 대한 부분. 예시로 슬롯 데이터 삭제, 카운트 및 차감 등등 기본적인 상호작용 이후의 처리를 뜻한다
 
     public bool AddItem(ItemBase item)
     {
@@ -26,11 +29,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             icon.sprite = item.data.icon;
             icon.enabled = true;
             icon.color = new Vector4(1,1,1,1);
-
+            currentItem.slotData = this;
             currentCount = item.addCount;
             maxCount = item.data.maxCount;
             type = item.data.itemType;
-
+            OnItemUse = item.OnItemUse;
+            OnItemUpdate = item.OnItemUpdate;
             UpdateUI();
             Debug.Log("성공");
             return true;
@@ -62,9 +66,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (data == null || count <= 0) { ClearSlot(); return; }
 
         currentItem = new ItemBase { data = data, addCount = count }; // 독립 인스턴스
+        currentItem.slotData = this;
         maxCount = data.maxCount;
         currentCount = count;
-
         icon.sprite = data.icon;
         icon.enabled = true;
         icon.color = Color.white;
@@ -91,18 +95,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         UpdateUI();
     }
 
-    public void SortSlot(ItemSlot itemData)
+    public void SortSlot(ItemBase itemData)
     {
         if (itemData.currentCount == 0)
             return;
 
         // 1) 아이템/수치 세팅 (필요시 깊은 복사)
         // 참조를 공유해도 된다면 아래처럼:
-        currentItem = itemData.currentItem;
+        currentItem = itemData.slotData.currentItem;
+        currentItem.slotData = this;
         currentCount = itemData.currentCount;
+        
         //maxCount = (itemData.maxCount > 0) ? itemData.maxCount : itemData.currentItem.data.maxCount;
-        maxCount = itemData.maxCount;
-        type = itemData.currentItem.data.itemType;
+
+        maxCount = itemData.slotData.maxCount;
+        type = itemData.slotData.currentItem.data.itemType;
 
         // 2) UI 갱신
         icon.sprite = currentItem.data.icon;
@@ -126,7 +133,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             return;
         }
-        currentItem.OnItemUse(target);
+        OnItemUse(target);
         //currentItem.OnItemUpdate(this);
     }
 
@@ -139,8 +146,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             return;
         }
-        currentItem.OnItemUse(target);
-        currentItem.OnItemUpdate(this);
+        OnItemUse(target);
+        OnItemUpdate(this);
     }
 
     public void ClearSlot()
@@ -152,6 +159,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         currentCount = 0;
         maxCount = 0;
         type = ItemType.nullItem;
+        OnItemUse = null;
+        OnItemUpdate = null;
     }
 
     public bool CanAddItem()

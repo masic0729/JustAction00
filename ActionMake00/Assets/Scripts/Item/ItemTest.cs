@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPotion : ItemObject
+public class ItemTest : ItemObject
 {
     float transHpValue = 5f;
 
@@ -26,7 +28,7 @@ public class ItemPotion : ItemObject
     public override void UpdateInventory(ItemSlot slot)
     {
         slot.currentCount--;
-        if(slot.currentCount == 0)
+        if (slot.currentCount == 0)
         {
             slot.ClearSlot();
         }
@@ -34,17 +36,16 @@ public class ItemPotion : ItemObject
 
     public override bool ItemUseCheck(Character character)
     {
-        
+
         if (character.GetHp() >= character.GetMaxHp())
         {
 
             Debug.Log("사용 불가. 현재 최대 체력");
             return false;
         }
-            
+
 
         return true;
     }
 
-    
 }

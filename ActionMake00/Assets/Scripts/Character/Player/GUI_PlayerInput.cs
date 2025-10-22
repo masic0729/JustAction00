@@ -10,6 +10,7 @@ public class GUI_PlayerInput : MonoBehaviour
     public ItemBase testitem1;
     public ItemBase testitem2;
     public ItemObject testItem;
+    public ItemObject testItem2;
 
     private void Start()
     {
@@ -77,6 +78,6 @@ public class GUI_PlayerInput : MonoBehaviour
     
     void TestInputItem2()
     {
-        //inventory.AddItemInList(testitem2);
+        inventory.AddItemInList(testItem2);
     }
 }

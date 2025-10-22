@@ -2300,6 +2300,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+--- !u!1 &1430822374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430822377}
+  - component: {fileID: 1430822376}
+  - component: {fileID: 1430822375}
+  m_Layer: 0
+  m_Name: ItemManager2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1430822375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430822374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94818be40b2de8d4e851a82452295f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    data: {fileID: 11400000, guid: 0d0394f0892848048b1a3063f0f865b3, type: 2}
+    slotData: {fileID: 0}
+    addCount: 1
+    currentCount: 0
+--- !u!114 &1430822376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430822374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4173572c60342654ebcbe820dc720c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1430822377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430822374}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1606823406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,9 +2499,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1683330730}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: CloseUI
+      - m_Target: {fileID: 618963147}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: SortInventoryTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2498,6 +2560,7 @@ GameObject:
   - component: {fileID: 1786218400}
   - component: {fileID: 1786218401}
   - component: {fileID: 1786218402}
+  - component: {fileID: 1786218403}
   m_Layer: 0
   m_Name: ItemManager
   m_TagString: Untagged
@@ -2546,9 +2609,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
     data: {fileID: 11400000, guid: fbab075d4e55cd04a83eeb4d835b11c2, type: 2}
+    slotData: {fileID: 0}
     addCount: 1
     currentCount: 0
-    maxCount: 10
+--- !u!114 &1786218403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786218399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94818be40b2de8d4e851a82452295f9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    data: {fileID: 11400000, guid: 0d0394f0892848048b1a3063f0f865b3, type: 2}
+    slotData: {fileID: 0}
+    addCount: 1
+    currentCount: 0
 --- !u!1 &2020015189
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,6 +2996,10 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 618963147}
+    - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: testItem2
+      value: 
+      objectReference: {fileID: 1430822375}
     - target: {fileID: 2568580624046679621, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_Constraints
       value: 116
@@ -3536,3 +3620,4 @@ SceneRoots:
   - {fileID: 1104759327}
   - {fileID: 1179473758}
   - {fileID: 1786218400}
+  - {fileID: 1430822377}

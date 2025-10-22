@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
     public GameObject slot;
-    [SerializeField] Character inventoryOwner;                   //ÀÎº¥Åä¸® ¼ÒÀ¯ÀÚ. ÇöÀç´Â ÇÃ·¹ÀÌ¾î ¹Û¿¡ ¾øÀ½
+    [SerializeField] Character inventoryOwner;                   //ì¸ë²¤í† ë¦¬ ì†Œìœ ì. í˜„ì¬ëŠ” í”Œë ˆì´ì–´ ë°–ì— ì—†ìŒ
     Transform inventoryTransform;
     const int slotCount = 40;
     List<ItemSlot> lSlot;
@@ -17,8 +17,8 @@ public class Inventory : MonoBehaviour
 
 
     /// <summary>
-    /// ÃÊ±â¿¡ ÀÎº¥Åä¸®ÀÇ ½½·ÔÀº 40Ä­À¸·Î Á¤ÇØÁ® ÀÖÀ¸¸ç,
-    /// ¹Ì¸® »ı¼º ÈÄ ÀÎº¥Åä¸® ½½·ÔÀ» »óÀÚ¿¡ ÇÒ´ç
+    /// ì´ˆê¸°ì— ì¸ë²¤í† ë¦¬ì˜ ìŠ¬ë¡¯ì€ 40ì¹¸ìœ¼ë¡œ ì •í•´ì ¸ ìˆìœ¼ë©°,
+    /// ë¯¸ë¦¬ ìƒì„± í›„ ì¸ë²¤í† ë¦¬ ìŠ¬ë¡¯ì„ ìƒìì— í• ë‹¹
     /// </summary>
     void Init()
     {
@@ -38,10 +38,10 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸® ³» ºó ½½·ÔÀ» ±âÁØÀ¸·Î »õ ¾ÆÀÌÅÛ µ¥ÀÌÅÍ¸¦ ³Ö´Â´Ù
-    /// È¹µæÀ» ÇÒ ¶§ Ãß°¡µÇ´Â °ªÀ» ±×´ë·Î Á¤ÀÇ¸¦ ÇÑ´Ù
+    /// ì¸ë²¤í† ë¦¬ ë‚´ ë¹ˆ ìŠ¬ë¡¯ì„ ê¸°ì¤€ìœ¼ë¡œ ìƒˆ ì•„ì´í…œ ë°ì´í„°ë¥¼ ë„£ëŠ”ë‹¤
+    /// íšë“ì„ í•  ë•Œ ì¶”ê°€ë˜ëŠ” ê°’ì„ ê·¸ëŒ€ë¡œ ì •ì˜ë¥¼ í•œë‹¤
     /// </summary>
-    /// <param name="itemObject">ÀÎº¥Åä¸®¿¡ »ğÀÔÇÒ ¾ÆÀÌÅÛ Á¤º¸</param>
+    /// <param name="itemObject">ì¸ë²¤í† ë¦¬ì— ì‚½ì…í•  ì•„ì´í…œ ì •ë³´</param>
     public void AddItemInList(ItemObject itemObject)
     {
         bool isConsumableItemSum = false;
@@ -76,14 +76,14 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸® ³» ¸ğµç ¾ÆÀÌÅÛÀ» Á¤·ÄÇÑ´Ù.
-    /// Àåºñ, ¼Òºñ¾ÆÀÌÅÛ, ±âÅ¸¾ÆÀÌÅÛ(ÀÌ·¯ÇÑ Á¾·ù´Â ¾ø¾îÁú ¼ö ÀÖÀ½)À¸·Î ±¸ºĞµÇ¸ç,
-    /// Àåºñ ¼Òºñ ¾ÆÀÌÅÛ ¼øÀ¸·Î Á¤·ÄµÈ´Ù.
-    /// ¼Òºñ ¾ÆÀÌÅÛÀÇ °æ¿ì ¹­À½ °³³äÀÌ±â ¶§¹®¿¡ ¹­À½ °ªÀÌ Å« ¼øÀ¸·Î Á¤·ÄµÈ´Ù.
+    /// ì¸ë²¤í† ë¦¬ ë‚´ ëª¨ë“  ì•„ì´í…œì„ ì •ë ¬í•œë‹¤.
+    /// ì¥ë¹„, ì†Œë¹„ì•„ì´í…œ, ê¸°íƒ€ì•„ì´í…œ(ì´ëŸ¬í•œ ì¢…ë¥˜ëŠ” ì—†ì–´ì§ˆ ìˆ˜ ìˆìŒ)ìœ¼ë¡œ êµ¬ë¶„ë˜ë©°,
+    /// ì¥ë¹„ ì†Œë¹„ ì•„ì´í…œ ìˆœìœ¼ë¡œ ì •ë ¬ëœë‹¤.
+    /// ì†Œë¹„ ì•„ì´í…œì˜ ê²½ìš° ë¬¶ìŒ ê°œë…ì´ê¸° ë•Œë¬¸ì— ë¬¶ìŒ ê°’ì´ í° ìˆœìœ¼ë¡œ ì •ë ¬ëœë‹¤.
     /// </summary>
-    public void SortInventoryTest()
+    /*public void SortInventoryTest()
     {
-        // 1) ÇöÀç ½½·Ô¿¡¼­ (¾ÆÀÌÅÛ µ¥ÀÌÅÍ, °³¼ö) ½º³À¼¦ ¼öÁı
+        // 1) í˜„ì¬ ìŠ¬ë¡¯ì—ì„œ (ì•„ì´í…œ ë°ì´í„°, ê°œìˆ˜) ìŠ¤ëƒ…ìƒ· ìˆ˜ì§‘
         List<(ItemData data, int count)> snaps = new List<(ItemData data, int count)>();
         for (int i = 0; i < lSlot.Count; i++)
         {
@@ -104,58 +104,110 @@ public class Inventory : MonoBehaviour
         
         snaps.Sort(delegate ((ItemData data, int count) x, (ItemData data, int count) y)
         {
-            // Å¸ÀÔÀ» ±âÁØÀ¸·Î Á¤·ÄÇÒ °Í
+            // íƒ€ì…ì„ ê¸°ì¤€ìœ¼ë¡œ ì •ë ¬í•  ê²ƒ
             int typeCompare = x.data.itemType.CompareTo(y.data.itemType);
             if (typeCompare != 0)
                 return typeCompare;
 
-            //¼Òºñ ¾ÆÀÌÅÛÀº ¹­À½ °ªÀÌ Å« ¼ø¼­´ë·Î Á¤·ÄÇÑ´Ù
+            //ì†Œë¹„ ì•„ì´í…œì€ ë¬¶ìŒ ê°’ì´ í° ìˆœì„œëŒ€ë¡œ ì •ë ¬í•œë‹¤
             if (x.data.itemType == ItemType.Consumable)
             {
-                int stackCompare = y.count.CompareTo(x.count); // ¹æÇâÀº ³»¸²Â÷¼ø
+                int stackCompare = y.count.CompareTo(x.count); // ë°©í–¥ì€ ë‚´ë¦¼ì°¨ìˆœ
                 if (stackCompare != 0)
                     return stackCompare;
             }
 
-            //ÀÌ¸§ ¿À¸§Â÷¼ø Á¤·Ä
+            //ì´ë¦„ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬
             return string.Compare(x.data.itemName, y.data.itemName, System.StringComparison.Ordinal);
         });
 
-        // 3) ±âÁ¸ ½½·Ô ¸ğµÎ ºñ¿ì±â
+        // 3) ê¸°ì¡´ ìŠ¬ë¡¯ ëª¨ë‘ ë¹„ìš°ê¸°
         for (int i = 0; i < lSlot.Count; i++)
         {
             lSlot[i].ClearSlot();
         }
 
-        // 4) Á¤·ÄµÈ ¼ø¼­´ë·Î ´Ù½Ã Ã¤¿ì±â
-        //    (AddItemÀº count¸¦ '´ëÀÔ'ÇÏµµ·Ï µ¿ÀÛÇØ¾ß ÇÔ)
+        // 4) ì •ë ¬ëœ ìˆœì„œëŒ€ë¡œ ë‹¤ì‹œ ì±„ìš°ê¸°
+        //    (AddItemì€ countë¥¼ 'ëŒ€ì…'í•˜ë„ë¡ ë™ì‘í•´ì•¼ í•¨)
         int index = 0;
         while (index < snaps.Count && index < lSlot.Count)
         {
             (ItemData data, int count) snap = snaps[index];
+            //ItemBase item = new ItemBase { data = snap.data, addCount = snap.count };
             ItemBase item = new ItemBase { data = snap.data, addCount = snap.count };
             lSlot[index].AddItem(item);
+            item.slotData = lSlot[index];
             index++;
         }
 
-        // (¼±ÅÃ) ÇÊ¿äÇÏ¸é ¿©±â¼­ µğ¹ö±× ·Î±×·Î °á°ú È®ÀÎ
+        // (ì„ íƒ) í•„ìš”í•˜ë©´ ì—¬ê¸°ì„œ ë””ë²„ê·¸ ë¡œê·¸ë¡œ ê²°ê³¼ í™•ì¸
         // for (int i = 0; i < snaps.Count; i++)
         // {
         //     Debug.Log($"[{i}] {snaps[i].data.itemType} {snaps[i].data.itemName} x{snaps[i].count}");
         // }
+    }*/
+
+    public void SortInventoryTest()
+    {
+        var snaps = new List<(ItemBase item, int count)>();
+        for (int i = 0; i < lSlot.Count; i++)
+        {
+            var s = lSlot[i];
+            bool hasItem = (s != null &&
+                            s.currentItem != null &&
+                            s.currentItem.data != null &&
+                            s.currentCount > 0);
+            if (hasItem)
+            {
+                snaps.Add((s.currentItem, s.currentCount));
+            }
+        }
+
+        snaps.Sort((x, y) =>
+        {
+            int typeCompare = x.item.data.itemType.CompareTo(y.item.data.itemType);
+            if (typeCompare != 0) return typeCompare;
+
+            if (x.item.data.itemType == ItemType.Consumable)
+            {
+                int stackCompare = y.count.CompareTo(x.count);
+                if (stackCompare != 0) return stackCompare;
+            }
+
+            return string.Compare(x.item.data.itemName, y.item.data.itemName, System.StringComparison.Ordinal);
+        });
+
+        for (int i = 0; i < lSlot.Count; i++)
+            lSlot[i].ClearSlot();
+
+        int idx = 0;
+        while (idx < snaps.Count && idx < lSlot.Count)
+        {
+            var snap = snaps[idx];
+
+            // ì•„ì´í…œì˜ í˜„ì¬ ìˆ˜ëŸ‰ì„ ìŠ¤ëƒ…ìƒ· ê°’ìœ¼ë¡œ ë§ì¶¤
+            snap.item.addCount = snap.count;
+
+            lSlot[idx].AddItem(snap.item);
+
+            snap.item.slotData = lSlot[idx];
+
+            idx++;
+        }
     }
 
-    
+
+
 
     void OtherCodeBox()
     {
-        // 1) ¾ÆÀÌÅÛ¸¸ ¸ğÀ¸±â
+        // 1) ì•„ì´í…œë§Œ ëª¨ìœ¼ê¸°
         var items = new List<ItemBase>();
         foreach (var slot in lSlot)
             if (slot != null && slot.currentItem != null && slot.currentItem.data != null)
                 items.Add(new ItemBase { data = slot.currentItem.data, addCount = slot.currentItem.addCount });
 
-        // 2) Á¤·Ä (¿¹: Å¸ÀÔ ¡æ ÀÌ¸§)
+        // 2) ì •ë ¬ (ì˜ˆ: íƒ€ì… â†’ ì´ë¦„)
         items.Sort((a, b) =>
         {
             int t = a.data.itemType.CompareTo(b.data.itemType);
@@ -163,18 +215,18 @@ public class Inventory : MonoBehaviour
             return string.Compare(a.data.itemName, b.data.itemName, System.StringComparison.Ordinal);
         });
 
-        // 3) ½½·Ô ºñ¿ì°í
+        // 3) ìŠ¬ë¡¯ ë¹„ìš°ê³ 
         foreach (var slot in lSlot) slot.ClearSlot();
 
-        // 4) ¾Õ¿¡¼­ºÎÅÍ ´Ù½Ã Ã¤¿ì±â
+        // 4) ì•ì—ì„œë¶€í„° ë‹¤ì‹œ ì±„ìš°ê¸°
         for (int i = 0; i < items.Count && i < lSlot.Count; i++)
             lSlot[i].AddItem(items[i]);
 
 
         /*
         /// <summary>
-        /// ÀÎº¥Åä¸®¸¦ Á¤·ÄÇÑ´Ù
-        /// Á¤·Ä ±âÁØÀº ¾ÆÀÌÅÛ Å¸ÀÔ¿¡ µû¶ó ´Ù¸£¸ç, ÀÌÈÄ ¾ÆÀÌÅÛÀÇ ¹­À½ ¼ö·®ÀÌ ¸¹Àº ¼øÀ¸·Î Á¤·ÄµÈ´Ù
+        /// ì¸ë²¤í† ë¦¬ë¥¼ ì •ë ¬í•œë‹¤
+        /// ì •ë ¬ ê¸°ì¤€ì€ ì•„ì´í…œ íƒ€ì…ì— ë”°ë¼ ë‹¤ë¥´ë©°, ì´í›„ ì•„ì´í…œì˜ ë¬¶ìŒ ìˆ˜ëŸ‰ì´ ë§ì€ ìˆœìœ¼ë¡œ ì •ë ¬ëœë‹¤
         /// </summary>
         public void SortInventoryTest()
         {
