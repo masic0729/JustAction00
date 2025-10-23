@@ -3,10 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler,
-    IBeginDragHandler, IDragHandler,IEndDragHandler,IDropHandler, IPointerEnterHandler, IPointerExitHandler
+    IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
     Character target;
@@ -17,9 +16,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     [SerializeField] private TextMeshProUGUI countText;
     public int currentCount = 0, maxCount = 1;
     public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
-    int slotIndex = -1;                                                                        //슬롯의 인덱스 정보
+    int slotIndex = -1;                                                                     //슬롯의 인덱스 정보
 
-    public Action<Character> OnItemUse;                              //아이템을 사용할 때 발생하는 상호작용
+    public Action<Character, ItemSlot> OnItemUse;                              //아이템을 사용할 때 발생하는 상호작용
     public Action<ItemSlot> OnItemUpdate;                            //아이템 사용 후 처리에 대한 부분. 예시로 슬롯 데이터 삭제, 카운트 및 차감 등등 기본적인 상호작용 이후의 처리를 뜻한다
 
     public bool AddItem(ItemBase item)
@@ -30,7 +29,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
             currentItem = item;
             icon.sprite = item.data.icon;
             icon.enabled = true;
-            icon.color = new Vector4(1,1,1,1);
+            icon.color = new Vector4(1, 1, 1, 1);
             currentItem.slotData = this;
             currentCount = item.addCount;
             maxCount = item.data.maxCount;
@@ -50,10 +49,59 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
 
     void SwapItem(ItemSlot slot)
     {
-        if (slot == null)
+        if (slot == null || slot == this)
             return;
 
+        // 현재 슬롯 데이터 보관
+        ItemBase t_item = currentItem;
+        int t_count = currentCount;
+        int t_max = maxCount;
+        ItemType t_type = type;
+        var t_use = OnItemUse;
+        var t_update = OnItemUpdate;
 
+        // this <- slot
+        currentItem = slot.currentItem;
+        currentCount = slot.currentCount;
+        maxCount = slot.maxCount;
+        type = slot.type;
+        OnItemUse = slot.OnItemUse;
+        OnItemUpdate = slot.OnItemUpdate;
+        if (currentItem != null) currentItem.slotData = this;
+
+        // slot <- temp
+        slot.currentItem = t_item;
+        slot.currentCount = t_count;
+        slot.maxCount = t_max;
+        slot.type = t_type;
+        slot.OnItemUse = t_use;
+        slot.OnItemUpdate = t_update;
+        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+
+        // 각자 UI 갱신
+        if (currentItem != null)
+        {
+            icon.sprite = currentItem.data.icon;
+            icon.enabled = true;
+            icon.color = Color.white;
+            countText.text = currentCount > 1 ? currentCount.ToString() : "";
+        }
+        else
+        {
+            ClearSlot();
+        }
+
+        if (slot.currentItem != null)
+        {
+            slot.icon.sprite = slot.currentItem.data.icon;
+            slot.icon.enabled = true;
+            slot.icon.color = Color.white;
+            slot.countText.text = slot.currentCount > 1 ? slot.currentCount.ToString() : "";
+        }
+        else
+        {
+            slot.ClearSlot();
+        }
     }
 
     public void SumItem(ItemBase item)
@@ -111,12 +159,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
             return;
 
         // 1) 아이템/수치 세팅 (필요시 깊은 복사)
-        // 참조를 공유해도 된다면 아래처럼:
         currentItem = itemData.slotData.currentItem;
         currentItem.slotData = this;
         currentCount = itemData.currentCount;
-        
-        //maxCount = (itemData.maxCount > 0) ? itemData.maxCount : itemData.currentItem.data.maxCount;
 
         maxCount = itemData.slotData.maxCount;
         type = itemData.slotData.currentItem.data.itemType;
@@ -143,11 +188,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         {
             return;
         }
-        OnItemUse(target);
+        OnItemUse?.Invoke(target, this);
         //currentItem.OnItemUpdate(this);
     }
-
-    
 
     public void ClearSlot()
     {
@@ -175,11 +218,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         if (currentCount == 0)
             return false;
 
-        if(currentItem.data.itemName == item.data.itemName && currentCount + item.addCount <= maxCount)
+        if (currentItem.data.itemName == item.data.itemName && currentCount + item.addCount <= maxCount)
         {
             return true;
         }
-            
+
         return false;
     }
 
@@ -204,8 +247,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         if (currentCount == 0)
             return;
 
-        OnItemUse(target);
-        OnItemUpdate(this);
+        OnItemUse?.Invoke(target, this);
+        OnItemUpdate?.Invoke(this);
     }
 
     /// <summary>
@@ -215,28 +258,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     /// <param name="eventData"></param>
     public void OnDrop(PointerEventData eventData)
     {
-        //마우스가 들고 있는 아이템이 비어있거나, 제대로 좌클릭을 한게 아니면 처리하지 말것
-        if (eventData.button != PointerEventData.InputButton.Left &&
-            inventory.GetDragSlot() != null) return;
+        // 마우스 좌클릭 드롭 + 드래그 중이어야만
+        if (eventData.button != PointerEventData.InputButton.Left || inventory.GetDragSlot() == null) return;
 
         Debug.Log("OnDrop");
-        //이게 여기에서 스왑 처리
 
-        inventory.lSlot[inventory.GetDragSlot().slotIndex] = this;
-        //this = inventory.GetDragSlot();
+        ItemSlot dragSlot = inventory.GetDragSlot();
+        if (dragSlot == this) return;
 
-        //드래그 중인 슬롯 데이터를 기반으로 데이터 교환
-        SetSlotData(inventory.GetDragSlot());
+        // 단 한 번의 스왑으로 끝낸다
+        dragSlot.SwapItem(this);
     }
 
-    /// <summary>
-    /// 해당 함수는 현재까지 드래그에 의한 슬롯 데이터 스왑을 처리한다
-    /// 추후 같은 기능이 존재하면 로직이 변경될 수 있음
-    /// </summary>
-    void SetSlotData(ItemSlot dragItem)
-    {
-        
-    }
 
     /// <summary>
     /// 드래그를 끝낼 때 사용하는데, 이건 보류
@@ -268,9 +301,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // 좌클릭인 경우에만 실행
-        if (eventData.button != PointerEventData.InputButton.Left && 
-            this.currentItem != null) return;
+        // 좌클릭 + 아이템이 있어야 드래그 시작
+        if (eventData.button != PointerEventData.InputButton.Left || this.currentItem == null) return;
 
         Debug.Log("OnBeginDrag");
         inventory.SetDragSlot(this);

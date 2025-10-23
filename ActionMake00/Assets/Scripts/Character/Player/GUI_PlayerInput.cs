@@ -51,13 +51,12 @@ public class GUI_PlayerInput : MonoBehaviour
     /// <param name="target">활성화/비활성화 하려는 오브젝트 대상</param>
     void EnableUI(GameObject target)
     {
-        MouseControl mouseCtrl = GetComponent<MouseControl>();
         /*CameraController cameraCtrl = GetComponent<CameraController>();*/
         if (target.activeSelf == false)
         {
             //playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
-            mouseCtrl.Apply(MouseControl.AimCursorMode.Free);
+            MouseControl.instance.Apply(MouseControl.AimCursorMode.Free);
             /*cameraCtrl.SetCanRotate(false);*/
 
         }
@@ -65,7 +64,7 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             //playerCtrl.SetCanAnyInput(true);
             target.SetActive(false);
-            mouseCtrl.Apply(MouseControl.AimCursorMode.LockedCenter);
+            MouseControl.instance.Apply(MouseControl.AimCursorMode.LockedCenter);
             /*cameraCtrl.SetCanRotate(true);*/
         }
     }

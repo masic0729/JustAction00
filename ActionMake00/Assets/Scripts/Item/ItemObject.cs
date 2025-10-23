@@ -12,11 +12,15 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     {
         /*item.OnCheckUse += CheckUseItem;*/
         item.OnItemUse += UseItem;
-        item.OnItemUpdate += UpdateInventory;
+        //item.OnItemUpdate += UpdateInventory;
     }
 
 
-    abstract public void UseItem(Character character);
+    public virtual void UseItem(Character character, ItemSlot slot)
+    {
+        UpdateInventory(slot);
+    }
+
 
 
     abstract public void UpdateInventory(ItemSlot slot);

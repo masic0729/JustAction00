@@ -12,5 +12,10 @@ public class ButtonManager : MonoBehaviour
         UI.SetActive(false);
     }
 
-    
+    public void HideMousePoint()
+    {
+        MouseControl.instance.Apply(MouseControl.AimCursorMode.LockedCenter);
+
+    }
+
 }

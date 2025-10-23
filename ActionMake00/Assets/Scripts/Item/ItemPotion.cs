@@ -9,7 +9,7 @@ public class ItemPotion : ItemObject
         base.Start();
     }
 
-    public override void UseItem(Character character)
+    public override void UseItem(Character character, ItemSlot slot)
     {
         if (ItemUseCheck(character) == false)
         {
@@ -19,13 +19,15 @@ public class ItemPotion : ItemObject
         Debug.Log("회복 전 : " + character.GetHp());
         //포션 역할 실행 및 인벤토리 최신화
         character.HpTransfer(transHpValue);
+        base.UseItem(character, slot);
         Debug.Log("회복됨 : " + character.GetHp());
-        //UpdateInventory()
+        
     }
 
     public override void UpdateInventory(ItemSlot slot)
     {
         slot.currentCount--;
+        slot.UpdateSlot();
         if(slot.currentCount == 0)
         {
             slot.ClearSlot();

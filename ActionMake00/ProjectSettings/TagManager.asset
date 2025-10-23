@@ -9,6 +9,7 @@ TagManager:
   - EnemyAttack
   - Enemy
   - WeaponOff
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - 
+  - Prob
   - Ground
-  - 
+  - LevelObject
   - 
   - 
   - 

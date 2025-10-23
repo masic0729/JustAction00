@@ -11,7 +11,7 @@ public class ItemTest : ItemObject
         base.Start();
     }
 
-    public override void UseItem(Character character)
+    public override void UseItem(Character character, ItemSlot slot)
     {
         if (ItemUseCheck(character) == false)
         {
@@ -21,6 +21,7 @@ public class ItemTest : ItemObject
         Debug.Log("회복 전 : " + character.GetHp());
         //포션 역할 실행 및 인벤토리 최신화
         character.HpTransfer(transHpValue);
+        base.UseItem(character, slot);
         Debug.Log("회복됨 : " + character.GetHp());
         //UpdateInventory()
     }
@@ -36,11 +37,11 @@ public class ItemTest : ItemObject
 
     public override bool ItemUseCheck(Character character)
     {
+        Debug.Log("아이템 테스트");
 
         if (character.GetHp() >= character.GetMaxHp())
         {
 
-            Debug.Log("사용 불가. 현재 최대 체력");
             return false;
         }
 

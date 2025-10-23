@@ -5,6 +5,19 @@ using static UnityEngine.GraphicsBuffer;
 
 public class MouseControl : MonoBehaviour
 {
+    public static MouseControl instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     public enum AimCursorMode { LockedCenter, ConfinedWindow, Free }
 
     [Header("Start Mode")]
