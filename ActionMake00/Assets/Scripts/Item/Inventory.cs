@@ -8,7 +8,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] Character inventoryOwner;                   //인벤토리 소유자. 현재는 플레이어 밖에 없음
     Transform inventoryTransform;
     const int slotCount = 40;
-    List<ItemSlot> lSlot;
+    public List<ItemSlot> lSlot;
+    ItemSlot dragSlot = null;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class Inventory : MonoBehaviour
             instance.gameObject.name += i;
             instance.SetTarget(inventoryOwner);
             instance.SetInventory(this);
+            instance.SetSlotIndex(i);
 
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);
@@ -196,7 +198,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void SetDragSlot(ItemSlot slot) => dragSlot = slot;
 
+    public ItemSlot GetDragSlot() => dragSlot;
+
+    public void ResetDragSlot() => dragSlot = null;
 
 
     void OtherCodeBox()
