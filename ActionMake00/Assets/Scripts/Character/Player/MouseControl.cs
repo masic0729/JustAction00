@@ -50,27 +50,27 @@ public class MouseControl : MonoBehaviour
         {
 
             case AimCursorMode.LockedCenter:
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                playerCtrl.SetCanAnyInput(true);
+                //Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
+                //playerCtrl.SetCanAnyInput(true);
                 //Apply(MouseControl.AimCursorMode.LockedCenter);
                 cameraCtrl.SetCanRotate(true);
                 break;
 
             case AimCursorMode.ConfinedWindow:
                 Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = false;
+                //Cursor.visible = false;
                 break;
 
             case AimCursorMode.Free:
             default:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                playerCtrl.SetCanAnyInput(false);
+                //playerCtrl.SetCanAnyInput(false);
                 //Apply(MouseControl.AimCursorMode.Free);
                 cameraCtrl.SetCanRotate(false);
 
-                
+
                 break;
         }
     }

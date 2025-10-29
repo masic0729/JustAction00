@@ -16,10 +16,11 @@ public enum SlotType
 }
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler,
-    IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+    IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler,
+    IPointerEnterHandler, IPointerExitHandler
 {
     public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
-    public SlotType slotType;
+    public SlotType slotType;                                                               //장비 형태
     Character target;
     Inventory inventory;                                                                    //슬롯의 인벤토리 주체. 아이템 간 이동 시 활용함
     public Sprite baseSlotImage;                                                            //비어있을 때 쓰는 이미지
@@ -29,8 +30,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     public int currentCount = 0, maxCount = 1;
     int slotIndex = -1;                                                                     //슬롯의 인덱스 정보
 
-    public Action<Character, ItemSlot> OnItemUse;                              //아이템을 사용할 때 발생하는 상호작용
-    public Action<ItemSlot> OnItemUpdate;                            //아이템 사용 후 처리에 대한 부분. 예시로 슬롯 데이터 삭제, 카운트 및 차감 등등 기본적인 상호작용 이후의 처리를 뜻한다
+    public Action<Character, ItemSlot> OnItemUse;                                           //아이템을 사용할 때 발생하는 상호작용
+    public Action<ItemSlot> OnItemUpdate;                                                   //아이템 사용 후 처리에 대한 부분. 예시로 슬롯 데이터 삭제, 카운트 및 차감 등등 기본적인 상호작용 이후의 처리를 뜻한다
 
     public bool AddItem(ItemBase item)
     {
