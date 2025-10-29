@@ -33,7 +33,7 @@ public class GUI_PlayerInput : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.P))
         {
-            //EnableUI()
+            //todo
         }
         if(Input.GetKeyDown(KeyCode.U))
         {

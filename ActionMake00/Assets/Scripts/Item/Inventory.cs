@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : SlotManager
+public class Inventory : MonoBehaviour
 {
-    public GameObject slot;                                      //인벤토리 고유 게이터
+    public GameObject slot;
     [SerializeField] Character inventoryOwner;                   //인벤토리 소유자. 현재는 플레이어 밖에 없음
-    Transform inventoryTransform;                                //인벤토리 슬롯의 부모설정값
-    const int slotCount = 40;                                    //인벤토리 슬롯을 생성하려는 개수
-    public List<ItemSlot> lSlot;                                 //슬롯을 관리하는 유효 배열
+    Transform inventoryTransform;
+    const int slotCount = 40;
+    public List<ItemSlot> lSlot;
+    ItemSlot dragSlot = null;
 
     private void Awake()
     {
@@ -23,22 +23,15 @@ public class Inventory : SlotManager
     /// </summary>
     void Init()
     {
-        CreateSlot();
-    }
-
-    void CreateSlot()
-    {
-        inventoryTransform = this.gameObject.transform.
-            GetComponentInChildren<GridLayoutGroup>().transform;
+        inventoryTransform = this.gameObject.transform.GetComponentInChildren<GridLayoutGroup>().transform;
         lSlot = new List<ItemSlot>();
-
-        for (int index = 0; index < slotCount; index++)
+        for (int i = 0; i < slotCount; i++)
         {
             ItemSlot instance = Instantiate(slot).GetComponent<ItemSlot>();
-            instance.gameObject.name += index;
+            instance.gameObject.name += i;
             instance.SetTarget(inventoryOwner);
             instance.SetInventory(this);
-            instance.SetSlotIndex(index);
+            instance.SetSlotIndex(i);
             instance.slotType = SlotType.InventorySlot;
 
             lSlot.Add(instance);
@@ -76,8 +69,8 @@ public class Inventory : SlotManager
                 lSlot[i].SumItem(itemObject.item);
                 return;
             }
-        }
 
+        }
         if (isConsumableItemSum == false && voidSlot != null)
         {
             voidSlot.AddItem(itemObject.item);
@@ -211,6 +204,7 @@ public class Inventory : SlotManager
     public ItemSlot GetDragSlot() => dragSlot;
 
     public void ResetDragSlot() => dragSlot = null;
+
 
     void OtherCodeBox()
     {
