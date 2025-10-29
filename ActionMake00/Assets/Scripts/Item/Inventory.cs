@@ -32,6 +32,7 @@ public class Inventory : MonoBehaviour
             instance.SetTarget(inventoryOwner);
             instance.SetInventory(this);
             instance.SetSlotIndex(i);
+            instance.slotType = SlotType.InventorySlot;
 
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);

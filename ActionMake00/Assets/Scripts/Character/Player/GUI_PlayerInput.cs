@@ -6,6 +6,7 @@ public class GUI_PlayerInput : MonoBehaviour
 {
     private PlayerController playerCtrl;
     public Inventory inventory;
+    
     //public GameObject testItem;
     public ItemBase testitem1;
     public ItemBase testitem2;
@@ -29,6 +30,10 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             EnableUI(inventory.gameObject);
             
+        }
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            //todo
         }
         if(Input.GetKeyDown(KeyCode.U))
         {

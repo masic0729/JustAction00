@@ -4,10 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 슬롯 타입에 따라 장비칸인 지,
+/// 인벤토리 칸인 지 구분할 수 있다.
+/// 이에 따라서 캐릭터 정보 및 인벤토리를 일괄적으로 처리할 수 있을 것으로 판단
+/// </summary>
+public enum SlotType
+{
+    Equipment,
+    InventorySlot
+}
+
 public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
+    public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
+    public SlotType slotType;
     Character target;
     Inventory inventory;                                                                    //슬롯의 인벤토리 주체. 아이템 간 이동 시 활용함
     public Sprite baseSlotImage;                                                            //비어있을 때 쓰는 이미지
@@ -15,7 +27,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI countText;
     public int currentCount = 0, maxCount = 1;
-    public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
     int slotIndex = -1;                                                                     //슬롯의 인덱스 정보
 
     public Action<Character, ItemSlot> OnItemUse;                              //아이템을 사용할 때 발생하는 상호작용
