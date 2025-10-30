@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//[System.Serializable]
 public class ItemTest : ItemObject
 {
     float transHpValue = 5f;
 
     protected override void Start()
     {
-        base.Start();
+        //base.Start();
     }
 
     public override void UseItem(Character character, ItemSlot slot)
@@ -18,12 +19,7 @@ public class ItemTest : ItemObject
             //원래 이곳에 사용되지 않았다는 메세지 및 사운드 구현해야함
             return;
         }
-        Debug.Log("회복 전 : " + character.GetHp());
-        //포션 역할 실행 및 인벤토리 최신화
-        character.HpTransfer(transHpValue);
-        base.UseItem(character, slot);
-        Debug.Log("회복됨 : " + character.GetHp());
-        //UpdateInventory()
+        
     }
 
     public override void UpdateInventory(ItemSlot slot)
@@ -41,7 +37,6 @@ public class ItemTest : ItemObject
 
         if (character.GetHp() >= character.GetMaxHp())
         {
-
             return false;
         }
 

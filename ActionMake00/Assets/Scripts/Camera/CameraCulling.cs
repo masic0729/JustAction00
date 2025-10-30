@@ -12,14 +12,14 @@ public struct LayerData
 
 public class CameraCulling : MonoBehaviour
 {
-    Camera camera;
+    Camera currentcamera;
     [SerializeField] LayerData[] layerDatas;
 
 
     void Start()
     {
-        camera = GetComponent<Camera>();
-        if (camera == null)
+        currentcamera = GetComponent<Camera>();
+        if (currentcamera == null)
             return;
 
         //각 레이어 간의 식별 거리를 적용하기 위해 만든 배열
@@ -34,6 +34,6 @@ public class CameraCulling : MonoBehaviour
             distanceDatas[index] = layerDatas[i].distance;
         }
 
-        camera.layerCullDistances = distanceDatas;
+        currentcamera.layerCullDistances = distanceDatas;
     }
 }

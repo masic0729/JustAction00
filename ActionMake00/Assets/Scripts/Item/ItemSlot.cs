@@ -9,31 +9,44 @@ using UnityEngine.UI;
 /// 인벤토리 칸인 지 구분할 수 있다.
 /// 이에 따라서 캐릭터 정보 및 인벤토리를 일괄적으로 처리할 수 있을 것으로 판단
 /// </summary>
-public enum SlotType
-{
-    Equipment,
-    InventorySlot
-}
-
-public class ItemSlot : MonoBehaviour, IPointerClickHandler,
+public class ItemSlot : SlotBase, IPointerClickHandler,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler,
     IPointerEnterHandler, IPointerExitHandler
 {
-    public ItemType type = ItemType.nullItem;                                               //아이템 정렬을 위한 데이터 타입
-    public SlotType slotType;                                                               //장비 형태
-    Character target;
-    Inventory inventory;                                                                    //슬롯의 인벤토리 주체. 아이템 간 이동 시 활용함
-    public Sprite baseSlotImage;                                                            //비어있을 때 쓰는 이미지
-    public ItemBase currentItem;
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI countText;
-    public int currentCount = 0, maxCount = 1;
-    int slotIndex = -1;                                                                     //슬롯의 인덱스 정보
+    
+    private void Start()
+    {
+        slotType = SlotType.InventorySlot;
+    }
 
-    public Action<Character, ItemSlot> OnItemUse;                                           //아이템을 사용할 때 발생하는 상호작용
-    public Action<ItemSlot> OnItemUpdate;                                                   //아이템 사용 후 처리에 대한 부분. 예시로 슬롯 데이터 삭제, 카운트 및 차감 등등 기본적인 상호작용 이후의 처리를 뜻한다
+    public override bool AddItem(ItemObject itemObject)
+    {
 
-    public bool AddItem(ItemBase item)
+        if (itemObject != null)
+        {
+            currentItem = itemObject.item;
+            icon.sprite = itemObject.item.data.icon;
+            icon.enabled = true;
+            icon.color = new Vector4(1, 1, 1, 1);
+            currentItem.slotData = this;
+            currentCount = itemObject.item.addCount;
+            maxCount = itemObject.item.data.maxCount;
+            type = itemObject.item.data.itemType;
+            //OnItemUse = itemObject.item.OnItemUse;
+            OnItemUse = itemObject.UseItem;
+            //OnItemUpdate = item.OnItemUpdate;
+            UpdateUI();
+            Debug.Log("성공");
+            return true;
+        }
+        else
+        {
+            Debug.Log("아이템을 저장하지 못했습니다.");
+            return false;
+        }
+    }
+
+    public override bool AddItem(ItemBase item)
     {
 
         if (item != null)
@@ -46,8 +59,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
             currentCount = item.addCount;
             maxCount = item.data.maxCount;
             type = item.data.itemType;
+            //OnItemUse = itemObject.item.OnItemUse;
             OnItemUse = item.OnItemUse;
-            OnItemUpdate = item.OnItemUpdate;
+            //OnItemUpdate = item.OnItemUpdate;
             UpdateUI();
             Debug.Log("성공");
             return true;
@@ -59,7 +73,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         }
     }
 
-    void SwapItem(ItemSlot slot)
+    public override void SwapItem(ItemSlot slot)
     {
         if (slot == null || slot == this)
             return;
@@ -116,12 +130,69 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         }
     }
 
-    public void SumItem(ItemBase item)
+    public override void SwapItem(SlotBase slot)
     {
-        if (item == null)
+        if (slot == null)
             return;
 
-        currentCount += item.addCount;
+        // 현재 슬롯 데이터 보관
+        ItemBase t_item = currentItem;
+        int t_count = currentCount;
+        int t_max = maxCount;
+        ItemType t_type = type;
+        var t_use = OnItemUse;
+        var t_update = OnItemUpdate;
+
+        // this <- slot
+        currentItem = slot.currentItem;
+        currentCount = slot.currentCount;
+        maxCount = slot.maxCount;
+        type = slot.type;
+        OnItemUse = slot.OnItemUse;
+        OnItemUpdate = slot.OnItemUpdate;
+        if (currentItem != null) currentItem.slotData = this;
+
+        // slot <- temp
+        slot.currentItem = t_item;
+        slot.currentCount = t_count;
+        slot.maxCount = t_max;
+        slot.type = t_type;
+        slot.OnItemUse = t_use;
+        slot.OnItemUpdate = t_update;
+        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+
+        // 각자 UI 갱신
+        if (currentItem != null)
+        {
+            icon.sprite = currentItem.data.icon;
+            icon.enabled = true;
+            icon.color = Color.white;
+            countText.text = currentCount > 1 ? currentCount.ToString() : "";
+        }
+        else
+        {
+            ClearSlot();
+        }
+
+        if (slot.currentItem != null)
+        {
+            slot.icon.sprite = slot.currentItem.data.icon;
+            slot.icon.enabled = true;
+            slot.icon.color = Color.white;
+            slot.countText.text = slot.currentCount > 1 ? slot.currentCount.ToString() : "";
+        }
+        else
+        {
+            slot.ClearSlot();
+        }
+    }
+
+    public override void SumItem(ItemObject itemObject)
+    {
+        if (itemObject == null)
+            return;
+
+        currentCount += itemObject.item.addCount;
         UpdateUI();
         Debug.Log("합체 성공");
     }
@@ -131,7 +202,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     /// </summary>
     /// <param name="data"></param>
     /// <param name="count"></param>
-    public void SetItemDirect(ItemData data, int count)
+    public override void SetItemDirect(ItemData data, int count)
     {
         if (data == null || count <= 0) { ClearSlot(); return; }
 
@@ -149,7 +220,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
     /// <summary>
     /// 슬롯 내 데이터가 존재하나, 해당 데이터의 수치값이 변경될 때 실행한다
     /// </summary>
-    public void UpdateSlot()
+    public override void UpdateSlot()
     {
         if (currentCount == 0)
         {
@@ -165,7 +236,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         UpdateUI();
     }
 
-    public void SortSlot(ItemBase itemData)
+    public override void SortSlot(ItemBase itemData)
     {
         if (itemData.currentCount == 0)
             return;
@@ -185,7 +256,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         countText.text = currentCount > 1 ? currentCount.ToString() : "";
     }
 
-    void UpdateUI()
+    protected override void UpdateUI()
     {
         if (currentCount == 0)
             return;
@@ -194,21 +265,19 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
 
     }
 
-    public void TestInteraction()
+    public override void TestInteraction()
     {
         if (currentItem == null)
         {
             return;
         }
         OnItemUse?.Invoke(target, this);
-        //currentItem.OnItemUpdate(this);
     }
 
-    public void ClearSlot()
+    public override void ClearSlot()
     {
         currentItem = null;
         icon.sprite = baseSlotImage;
-        //icon.enabled = false;
         countText.text = "";
         currentCount = 0;
         maxCount = 0;
@@ -217,7 +286,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         OnItemUpdate = null;
     }
 
-    public bool CanAddItem()
+    public override bool CanAddItem()
     {
         if (currentCount == 0)
             return true;
@@ -225,7 +294,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         return false;
     }
 
-    public bool CanSumItem(ItemBase item)
+    public override bool CanSumItem(ItemBase item)
     {
         if (currentCount == 0)
             return false;
@@ -238,10 +307,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         return false;
     }
 
-    public void SetTarget(Character character)
-    {
-        target = character;
-    }
+    
 
     public Inventory GetInventory() => inventory;
 
@@ -276,7 +342,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler,
         Debug.Log("OnDrop");
 
         ItemSlot dragSlot = inventory.GetDragSlot();
-        if (dragSlot == this) return;
+        //if (dragSlot == this) return;
 
         // 단 한 번의 스왑으로 끝낸다
         dragSlot.SwapItem(this);

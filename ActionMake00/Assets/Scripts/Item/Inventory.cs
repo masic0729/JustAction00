@@ -58,7 +58,8 @@ public class Inventory : MonoBehaviour
 
             if (itemObject.item.data.itemType == ItemType.Equitment && lSlot[i].CanAddItem() == true)
             {
-                lSlot[i].AddItem(itemObject.item);
+                //lSlot[i].AddItem(itemObject.item);
+                lSlot[i].AddItem(itemObject);
                 return;
             }
             
@@ -66,14 +67,16 @@ public class Inventory : MonoBehaviour
             if (itemObject.item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(itemObject.item))
             {
                 isConsumableItemSum = true;
-                lSlot[i].SumItem(itemObject.item);
+                //lSlot[i].SumItem(itemObject.item);
+                lSlot[i].SumItem(itemObject);
                 return;
             }
 
         }
         if (isConsumableItemSum == false && voidSlot != null)
         {
-            voidSlot.AddItem(itemObject.item);
+            //voidSlot.AddItem(itemObject.item);
+            voidSlot.AddItem(itemObject);
         }
 
     }

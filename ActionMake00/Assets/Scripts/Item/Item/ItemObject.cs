@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
     Character test;
@@ -10,12 +11,18 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        /*item.OnCheckUse += CheckUseItem;*/
-        item.OnItemUse += UseItem;
+        //item.OnCheckUse += CheckUseItem;
+        //item.OnItemUse += UseItem;
         //item.OnItemUpdate += UpdateInventory;
     }
 
 
+    /// <summary>
+    /// 아이템 기능 실행은 슬롯 내 액션에 할당도었기에,
+    /// 이 스크립트에 관리되는 방식은 아니다.
+    /// </summary>
+    /// <param name="character"></param>
+    /// <param name="slot"></param>
     public virtual void UseItem(Character character, ItemSlot slot)
     {
         UpdateInventory(slot);
