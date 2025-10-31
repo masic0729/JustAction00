@@ -730,6 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slot: {fileID: 4246578042527753104, guid: 9d426a8064536564f953909f8e492055, type: 3}
   inventoryOwner: {fileID: 6251207807892908463}
+  equipManager: {fileID: 1103356013}
   lSlot: []
 --- !u!1 &632306598
 GameObject:
@@ -2868,7 +2869,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1786218400}
   - component: {fileID: 1786218402}
-  - component: {fileID: 1786218403}
   m_Layer: 0
   m_Name: ItemManager
   m_TagString: Untagged
@@ -2905,23 +2905,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
     data: {fileID: 11400000, guid: fbab075d4e55cd04a83eeb4d835b11c2, type: 2}
-    slotData: {fileID: 0}
-    addCount: 1
-    currentCount: 0
---- !u!114 &1786218403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786218399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94818be40b2de8d4e851a82452295f9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item:
-    data: {fileID: 11400000, guid: 0d0394f0892848048b1a3063f0f865b3, type: 2}
     slotData: {fileID: 0}
     addCount: 1
     currentCount: 0
@@ -4316,8 +4299,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5b1309b1199204a82d86b059ac6945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
+  target: {fileID: 6251207807892908463}
+  countText: {fileID: 0}
   slotType: 1
-  baseSlotImage: {fileID: 0}
+  baseSlotImage: {fileID: 21300000, guid: 9a6560e5bacb40847bb1b879ede354fb, type: 3}
+  icon: {fileID: 2987711504787933803}
+  currentItem:
+    data: {fileID: 0}
+    slotData: {fileID: 0}
+    addCount: 0
+    currentCount: 0
+  currentCount: 0
+  maxCount: 1
+  slotIndex: -1
   equipmentType: 0
 --- !u!222 &5815215448205093178
 CanvasRenderer:
@@ -4339,8 +4334,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5b1309b1199204a82d86b059ac6945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
+  target: {fileID: 6251207807892908463}
+  countText: {fileID: 0}
   slotType: 1
-  baseSlotImage: {fileID: 0}
+  baseSlotImage: {fileID: 21300000, guid: 9a6560e5bacb40847bb1b879ede354fb, type: 3}
+  icon: {fileID: 2987711505628973198}
+  currentItem:
+    data: {fileID: 0}
+    slotData: {fileID: 0}
+    addCount: 0
+    currentCount: 0
+  currentCount: 0
+  maxCount: 1
+  slotIndex: -1
   equipmentType: 2
 --- !u!222 &5815215448572908200
 CanvasRenderer:
@@ -4362,8 +4369,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5b1309b1199204a82d86b059ac6945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
+  target: {fileID: 6251207807892908463}
+  countText: {fileID: 0}
   slotType: 1
-  baseSlotImage: {fileID: 0}
+  baseSlotImage: {fileID: 21300000, guid: 9a6560e5bacb40847bb1b879ede354fb, type: 3}
+  icon: {fileID: 2987711504992793372}
+  currentItem:
+    data: {fileID: 0}
+    slotData: {fileID: 0}
+    addCount: 0
+    currentCount: 0
+  currentCount: 0
+  maxCount: 1
+  slotIndex: -1
   equipmentType: 3
 --- !u!222 &5815215448984002458
 CanvasRenderer:
@@ -4385,8 +4404,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5b1309b1199204a82d86b059ac6945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
+  target: {fileID: 6251207807892908463}
+  countText: {fileID: 0}
   slotType: 1
-  baseSlotImage: {fileID: 0}
+  baseSlotImage: {fileID: 21300000, guid: 9a6560e5bacb40847bb1b879ede354fb, type: 3}
+  icon: {fileID: 2987711505420664366}
+  currentItem:
+    data: {fileID: 0}
+    slotData: {fileID: 0}
+    addCount: 0
+    currentCount: 0
+  currentCount: 0
+  maxCount: 1
+  slotIndex: -1
   equipmentType: 1
 --- !u!1001 &6251207807892908439
 PrefabInstance:
@@ -4417,6 +4448,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8924246067352728424, guid: a7dd1f61e15c55f4eab277704c6d5f33, type: 3}
     - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: equip
+      value: 
+      objectReference: {fileID: 1103356013}
+    - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: testItem
       value: 
       objectReference: {fileID: 1786218402}
@@ -4436,6 +4471,10 @@ PrefabInstance:
       propertyPath: testitem2
       value: 
       objectReference: {fileID: 4488831371431100241, guid: 40823a576fe809e4ebe56ec3ad619dec, type: 3}
+    - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: testitem3
+      value: 
+      objectReference: {fileID: 4488831371431100241, guid: 0427dfed3d08f694c9a52a0d11ca61fd, type: 3}
     - target: {fileID: 2568580624046679621, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_Constraints
       value: 116

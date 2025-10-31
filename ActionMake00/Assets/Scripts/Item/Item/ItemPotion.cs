@@ -4,10 +4,7 @@ public class ItemPotion : ItemObject
 {
     float transHpValue = 5f;
 
-    protected override void Start()
-    {
-        base.Start();
-    }
+    
 
     public override void UseItem(Character character, ItemSlot slot)
     {

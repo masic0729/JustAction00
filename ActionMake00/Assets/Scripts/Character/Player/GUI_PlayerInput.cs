@@ -6,10 +6,16 @@ public class GUI_PlayerInput : MonoBehaviour
 {
     private PlayerController playerCtrl;
     public Inventory inventory;
+    public EquipmentManager equip;
     
     //public GameObject testItem;
     public ItemObject testitem1;
     public ItemObject testitem2;
+    public ItemObject testitem3;
+
+
+
+
     public ItemObject testItem;
     public ItemObject testItem2;
 
@@ -33,7 +39,7 @@ public class GUI_PlayerInput : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.P))
         {
-            //todo
+            EnableUI(equip.gameObject);
         }
         if(Input.GetKeyDown(KeyCode.U))
         {
@@ -42,6 +48,7 @@ public class GUI_PlayerInput : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Y))
         {
             TestInputItem2();
+            TestInputItem3();
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -84,5 +91,10 @@ public class GUI_PlayerInput : MonoBehaviour
     {
         inventory.AddItemInList(testitem2);
         //inventory.AddItemInList(testItem2);
+    }
+
+    void TestInputItem3()
+    {
+        inventory.AddItemInList(testitem3);
     }
 }

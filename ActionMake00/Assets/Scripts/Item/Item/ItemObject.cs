@@ -6,10 +6,10 @@ using UnityEngine;
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
     Character test;
-    [SerializeField]public ItemBase item;
+    [SerializeField] public ItemBase item;
 
     // Start is called before the first frame update
-    virtual protected void Start()
+    void Start()
     {
         //item.OnCheckUse += CheckUseItem;
         //item.OnItemUse += UseItem;
@@ -25,6 +25,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     /// <param name="slot"></param>
     public virtual void UseItem(Character character, ItemSlot slot)
     {
+
         UpdateInventory(slot);
     }
 

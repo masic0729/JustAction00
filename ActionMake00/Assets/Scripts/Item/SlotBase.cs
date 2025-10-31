@@ -36,6 +36,7 @@ public abstract class SlotBase : MonoBehaviour
     public int slotIndex = -1;                      //ΩΩ∑‘¿« ¿Œµ¶Ω∫ ¡§∫∏
 
     public abstract bool AddItem(ItemObject itemObject);
+
     public abstract bool AddItem(ItemBase item);
 
     public abstract void SwapItem(ItemSlot slot);

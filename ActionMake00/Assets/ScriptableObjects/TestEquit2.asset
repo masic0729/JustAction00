@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed3e89dffd43490458c905024632bcac, type: 3}
-  m_Name: TestItem
+  m_Name: TestEquit2
   m_EditorClassIdentifier: 
-  itemName: "\uC2E4\uD5D8\uD15C"
-  icon: {fileID: 21300000, guid: fb1e48043961d8f44948225f539a83bb, type: 3}
+  itemName: "\uD2B9\uC774\uD55C\uD22C\uAD6C"
+  icon: {fileID: 21300000, guid: 3253ad9deab97584d9f92d6a2fad17b4, type: 3}
   itemType: 0
+  equipmentType: 1
   maxCount: 1

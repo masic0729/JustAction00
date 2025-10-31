@@ -17,5 +17,9 @@ public class ItemData : ScriptableObject
     public string itemName;
     public Sprite icon;
     public ItemType itemType;
+
+    //장비 타입에 대한 정보. 기본값은 없음
+    [Header("장비 아이템 설정")]
+    public EquipmentType equipmentType = EquipmentType.None;                                       
     public int maxCount;
 }

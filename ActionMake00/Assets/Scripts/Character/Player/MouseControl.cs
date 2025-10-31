@@ -71,7 +71,7 @@ public class MouseControl : MonoBehaviour
                 cameraCtrl.SetCanRotate(false);
 
 
-                break;
+            break;
         }
     }
 }
