@@ -6,7 +6,7 @@ public class ItemPotion : ItemObject
 
     
 
-    public override void UseItem(Character character, ItemSlot slot)
+    public override void UseItem(Character character, SlotBase slot)
     {
         if (ItemUseCheck(character) == false)
         {
@@ -21,7 +21,7 @@ public class ItemPotion : ItemObject
         
     }
 
-    public override void UpdateInventory(ItemSlot slot)
+    public override void UpdateInventory(SlotBase slot)
     {
         slot.currentCount--;
         slot.UpdateSlot();

@@ -123,3 +123,8 @@ MonoBehaviour:
     slotData: {fileID: 0}
     addCount: 1
     currentCount: 0
+  statData:
+    maxHp: 30
+    damage: 0
+    defense: 30
+    moveSpeed: 0

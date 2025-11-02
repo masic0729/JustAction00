@@ -1,23 +1,39 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 
 /// <summary>
 /// 버프 및 장비에 의한 스탯 변화에 대한 능력치 조정을 해당 데이터로 관리한다
 /// </summary>
+
+[System.Serializable]
 public struct AddStatData
 {
-    public int damage;
+    public float maxHp;
+    public float damage;
+    public float defense;
     public float moveSpeed;
 
 }
 
 
+public enum AddStatName
+{
+    Buff = 0,
+    Equit = 1
+}
+
 public class Character : MonoBehaviour, ICharacterDamageable
 {
-    public AddStatData AddStat;
+    public AddStatData BuffStat;                                           //버프에 의한 추가 스탯
+    public List<AddStatData> statDatas = new List<AddStatData>();
+
+    public AddStatName statName;
+
     [SerializeField] CharacterStatData characterStatData;
 
     [HideInInspector]public Animator anim;
@@ -43,7 +59,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     #region
     protected float skillDamage;                                             //얘는 보스몬스터 한정으로 정의될 가능성이 높음. 정작 안썼음 ㅋ
 
-    protected float maxHp;                                                   //최대 체력
+    [SerializeField] protected float maxHp;                                  //최대 체력
     [SerializeField] protected float hp;                                     //체력
     [SerializeField] protected float damage;                                 //공격력
     [SerializeField] protected float moveSpeed = 5f;                         //이동속도
@@ -79,13 +95,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
         damage = characterStatData.GetDamage();
         moveSpeed = characterStatData.GetMoveSpeed();
         def = characterStatData.GetDef();
-        
-
-        //버프 스텟 초기화
-        AddStat.damage = 0;
-        AddStat.moveSpeed = 0f;
-
-
 
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
@@ -160,6 +169,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             hp += value;
         }
+
+
+        //예외적으로(그럴 일은 거의 없음), 현재 체력이 최대 체력이 넘을 경우, 최대체력으로 값을 조정(내린)한다.
+        if (hp > maxHp)
+            hp = maxHp;
     }
 
     /// <summary>
@@ -201,29 +215,84 @@ public class Character : MonoBehaviour, ICharacterDamageable
         return null;
     }
 
+    public int GetResultMaxHp()
+    {
+        float result = maxHp;
+        for (int i = 0; i < statDatas.Count; i++)
+        {
+            result += statDatas[i].maxHp;
+        }
+        if (result < 1)
+            return 1;
+
+        //산정할 때 최대 체력이 현재 체력보다 작으면, 현재 최대 체력으로 조정한다.
+        if (hp > maxHp)
+            hp = maxHp;
+
+        return (int)result;
+    }
+
     /// <summary>
     /// 공격력 및 하단 함수의 이동속도를 버프를 기반으로 최종 값을 산출한다.
     /// 추후 장비 시스템이 추가되면, 장비도 공식에 추가 정리한다
     /// </summary>
     /// <returns></returns>
-    public float GetResultDamage()
+    public int GetResultDamage()
     {
-        if(damage + AddStat.damage <= 0)
+        float result = damage;
+        for (int i = 0; i < statDatas.Count; i++)
+        {
+            result += statDatas[i].damage;
+        }
+
+        if (result <= 0)
+        {
+            return 0;
+        }
+
+        return (int)result;
+    }
+
+    /// <summary>
+    /// 캐릭터의 버프 및 기본 능력치 중 이동속도를 계산한 값.
+    /// 이동속도는 1이하로 내려갈 수 없다
+    /// </summary>
+    /// <returns></returns>
+    public int GetResultMoveSpeed()
+    {
+        float result = moveSpeed;
+        for (int i = 0; i < statDatas.Count; i++)
+        {
+            result += statDatas[i].moveSpeed;
+        }
+
+        if (result < 1f)
         {
             return 1;
         }
 
-        return damage + AddStat.damage;
+        return (int)result;
     }
 
-    public float GetResultMoveSpeed()
+    /// <summary>
+    /// 캐릭터의 현재 방어력을 계산하여 반환하는 방식.
+    /// 방어력 감소 또는 증가에 의한 계산을 하며
+    /// 방어력은 음수로 내려갈 수 없으며, 100이상으로 상승할 수 없다.
+    /// </summary>
+    /// <returns></returns>
+    public int GetResultDefense()
     {
-        if(moveSpeed + AddStat.moveSpeed <= 1f)
+        float result = def;
+        for(int i = 0; i < statDatas.Count; i++)
         {
-            return 1f;
+            result += statDatas[i].defense;
         }
+        if (result < 0)
+            return 0;
+        if (result >= 100)
+            return 100;
 
-        return moveSpeed + AddStat.moveSpeed;
+        return (int)result;
     }
 
     

@@ -309,7 +309,6 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     
 
-    public Inventory GetInventory() => inventory;
 
     public void SetInventory(Inventory inven) => inventory = inven;
 

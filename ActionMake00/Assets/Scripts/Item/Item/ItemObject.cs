@@ -23,7 +23,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     /// </summary>
     /// <param name="character"></param>
     /// <param name="slot"></param>
-    public virtual void UseItem(Character character, ItemSlot slot)
+    public virtual void UseItem(Character character, SlotBase slot)
     {
 
         UpdateInventory(slot);
@@ -31,7 +31,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
 
 
-    abstract public void UpdateInventory(ItemSlot slot);
+    abstract public void UpdateInventory(SlotBase slot);
 
 
     public abstract bool ItemUseCheck(Character character);

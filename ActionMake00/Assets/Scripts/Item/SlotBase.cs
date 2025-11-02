@@ -61,6 +61,8 @@ public abstract class SlotBase : MonoBehaviour
 
     public abstract bool CanSumItem(ItemBase item);
 
+    public Inventory GetInventory() => inventory;
+
     public void SetTarget(Character character)
     {
         target = character;

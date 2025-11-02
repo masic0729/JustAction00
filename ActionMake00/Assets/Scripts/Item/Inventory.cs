@@ -65,7 +65,6 @@ public class Inventory : MonoBehaviour
                 return;
             }
             
-
             if (itemObject.item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(itemObject.item))
             {
                 isConsumableItemSum = true;
@@ -73,8 +72,8 @@ public class Inventory : MonoBehaviour
                 lSlot[i].SumItem(itemObject);
                 return;
             }
-
         }
+
         if (isConsumableItemSum == false && voidSlot != null)
         {
             //voidSlot.AddItem(itemObject.item);

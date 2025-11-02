@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public enum EquipmentType
 {
@@ -20,6 +23,7 @@ public struct EquipmentStat
     public float addHp;                        //체력 조정값
     public float addDamage;                    //데미지 조정값
     public float addDefense;                   //방어력 조정값
+    public float addMoveSpeed;                 //이동속도 조정값
     //float defenseBreaking;                   //현재는 없지만, 방어력 무시 비율값
 }
 
@@ -28,7 +32,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     IPointerEnterHandler, IPointerExitHandler
 {
     public EquipmentType equipmentType;
-    public EquipmentStat equipmentStat;
+    public AddStatData equipmentStat;
 
     private void Start()
     {
@@ -99,7 +103,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         var t_use = OnItemUse;
         var t_update = OnItemUpdate;
 
-        // this <- slot
+        // this <- s
         currentItem = slot.currentItem;
         currentCount = slot.currentCount;
         maxCount = slot.maxCount;
@@ -108,7 +112,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         OnItemUpdate = slot.OnItemUpdate;
         if (currentItem != null) currentItem.slotData = this;
 
-        // slot <- temp
+        // s <- temp
         slot.currentItem = t_item;
         slot.currentCount = t_count;
         slot.maxCount = t_max;
@@ -135,7 +139,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
             slot.icon.sprite = slot.currentItem.data.icon;
             slot.icon.enabled = true;
             slot.icon.color = Color.white;
-            //slot.countText.text = slot.currentCount > 1 ? slot.currentCount.ToString() : "";
+            //s.countText.text = s.currentCount > 1 ? s.currentCount.ToString() : "";
         }
         else
         {
@@ -145,7 +149,59 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     public override void SwapItem(SlotBase slot)
     {
-        throw new System.NotImplementedException();
+        if (slot == null || slot == this)
+            return;
+
+        // 현재 슬롯 데이터 보관
+        ItemBase t_item = currentItem;
+        int t_count = currentCount;
+        int t_max = maxCount;
+        ItemType t_type = type;
+        var t_use = OnItemUse;
+        var t_update = OnItemUpdate;
+
+        // this <- s
+        currentItem = slot.currentItem;
+        currentCount = slot.currentCount;
+        maxCount = slot.maxCount;
+        type = slot.type;
+        OnItemUse = slot.OnItemUse;
+        OnItemUpdate = slot.OnItemUpdate;
+        if (currentItem != null) currentItem.slotData = this;
+
+        // s <- temp
+        slot.currentItem = t_item;
+        slot.currentCount = t_count;
+        slot.maxCount = t_max;
+        slot.type = t_type;
+        slot.OnItemUse = t_use;
+        slot.OnItemUpdate = t_update;
+        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+
+        // 각자 UI 갱신
+        if (currentItem != null)
+        {
+            icon.sprite = currentItem.data.icon;
+            icon.enabled = true;
+            icon.color = Color.white;
+            //countText.text = currentCount > 1 ? currentCount.ToString() : "";
+        }
+        else
+        {
+            ClearSlot();
+        }
+
+        if (slot.currentItem != null)
+        {
+            slot.icon.sprite = slot.currentItem.data.icon;
+            slot.icon.enabled = true;
+            slot.icon.color = Color.white;
+            //s.countText.text = s.currentCount > 1 ? s.currentCount.ToString() : "";
+        }
+        else
+        {
+            slot.ClearSlot();
+        }
     }
 
     public override void SumItem(ItemObject itemObject)
@@ -202,7 +258,14 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     /// </summary>
     public override void ClearSlot()
     {
-        
+        currentItem = null;
+        icon.sprite = baseSlotImage;
+        countText.text = "";
+        currentCount = 0;
+        maxCount = 0;
+        type = ItemType.nullItem;
+        OnItemUse = null;
+        OnItemUpdate = null;
     }
 
     /// <summary>
@@ -285,7 +348,25 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Inventory inven = transform.parent.GetComponent<EquipmentManager>().inven;
 
+        ItemSlot slot = inven.lSlot.Find(s => s.currentItem == null);
+        if(slot != null)
+        {
+            SwapItem(slot);
+            //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
+            equipmentStat = new AddStatData();
+
+
+            //저장 이후 장비 슬롯 매니저에 각 부위의 장비들의 스탯을 최신화해야한다
+            slot.GetInventory().equipManager.UpdateCharacterStatResult();
+        }
+        else
+        {
+            Debug.Log("해제 하기엔, 자리가 없음");
+        }
+
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
