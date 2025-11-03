@@ -13,13 +13,19 @@ using UnityEngine.Experimental.Rendering;
 [System.Serializable]
 public struct AddStatData
 {
-    public float maxHp;
-    public float damage;
-    public float defense;
-    public float moveSpeed;
+    public float MaxHp;
+    public float Damage;
+    public float Defense;
+    public float MoveSpeed;
 
 }
-
+public enum StatTypeToIndex
+{
+    MaxHP = 0,
+    Damage = 1,
+    Defense = 2,
+    MoveSpeed = 3
+}
 
 public enum AddStatName
 {
@@ -29,10 +35,8 @@ public enum AddStatName
 
 public class Character : MonoBehaviour, ICharacterDamageable
 {
-    public AddStatData BuffStat;                                           //버프에 의한 추가 스탯
-    public List<AddStatData> statDatas = new List<AddStatData>();
+    public AddStatData[] statDatas;
 
-    public AddStatName statName;
 
     [SerializeField] CharacterStatData characterStatData;
 
@@ -126,6 +130,14 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public virtual void TakeDamage(float amount, int hitLevel = -1)
     {
+        float defResult = 0f;
+
+        for(int i = 0; i < statDatas.Length; i++)
+        {
+            defResult += statDatas[i].MaxHp;
+        }
+        amount -= (int)(defResult * 0.3f);
+
         if (isIgnoreDamage == true)
         {
             return;
@@ -134,7 +146,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
         if (hp - amount < 0)
             hp = 0;
         else
-            hp -= amount;
+            hp -= (int)amount;
 
         if (hp <= 0)
         {
@@ -218,9 +230,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public int GetResultMaxHp()
     {
         float result = maxHp;
-        for (int i = 0; i < statDatas.Count; i++)
+        for (int i = 0; i < statDatas.Length; i++)
         {
-            result += statDatas[i].maxHp;
+            result += statDatas[i].MaxHp;
         }
         if (result < 1)
             return 1;
@@ -240,9 +252,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public int GetResultDamage()
     {
         float result = damage;
-        for (int i = 0; i < statDatas.Count; i++)
+        for (int i = 0; i < statDatas.Length; i++)
         {
-            result += statDatas[i].damage;
+            result += statDatas[i].Damage;
         }
 
         if (result <= 0)
@@ -261,9 +273,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public int GetResultMoveSpeed()
     {
         float result = moveSpeed;
-        for (int i = 0; i < statDatas.Count; i++)
+        for (int i = 0; i < statDatas.Length; i++)
         {
-            result += statDatas[i].moveSpeed;
+            result += statDatas[i].MoveSpeed;
         }
 
         if (result < 1f)
@@ -283,9 +295,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public int GetResultDefense()
     {
         float result = def;
-        for(int i = 0; i < statDatas.Count; i++)
+        for(int i = 0; i < statDatas.Length; i++)
         {
-            result += statDatas[i].defense;
+            result += statDatas[i].Defense;
         }
         if (result < 0)
             return 0;

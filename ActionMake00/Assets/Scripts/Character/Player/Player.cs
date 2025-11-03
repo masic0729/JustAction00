@@ -24,7 +24,6 @@ public class Player : Character
     {
         base.Start();
         Init();
-        
     }
 
     protected override void Init()

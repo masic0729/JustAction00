@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class BuffTransDamage : BuffBase
 {
-    [SerializeField] int damageAmount;        // 에디터 셋업 혹은 런타임 주입
+    [SerializeField] float damageAmount;        // 에디터 셋업 혹은 런타임 주입
 
-    public override void ObjectSetup(Character target, int dmgAmount, float duration)
+    public override void ObjectSetup(Character target, float dmgAmount, float duration)
     {
         base.ObjectSetup(target, dmgAmount, duration);
         damageAmount = dmgAmount;
@@ -15,7 +15,7 @@ public class BuffTransDamage : BuffBase
     {
         if (character != null)
         {
-            character.BuffStat.damage += damageAmount;
+            character.statDatas[(int)AddStatName.Buff].Damage += damageAmount;
             
             Debug.Log("캐릭터 공벞 시작. 공격력 추가 계수는" + damageAmount + ", 현재 공격력 계수 : " + character.GetResultDamage());
         }
@@ -34,7 +34,7 @@ public class BuffTransDamage : BuffBase
     {
         if (character != null)
         {
-            character.BuffStat.damage -= damageAmount;
+            character.statDatas[(int)AddStatName.Buff].Damage -= damageAmount;
 
             Debug.Log("캐릭터 공벞 종료. 공격력 삭제 계수는" + damageAmount + ", 현재 공격력 계수 : " + character.GetResultDamage());
 

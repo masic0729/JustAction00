@@ -53,7 +53,7 @@ public abstract class BuffBase
     /// <param name="target"></param>
     /// <param name="dmgAmount"></param>
     /// <param name="duration"></param>
-    public virtual void ObjectSetup(Character target, int dmgAmount, float duration)
+    public virtual void ObjectSetup(Character target, float dmgAmount, float duration)
     {
         character = target;
         Init(duration, ApplyBuff, UpdateBuff, ExitBuff);

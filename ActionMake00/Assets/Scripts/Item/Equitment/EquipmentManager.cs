@@ -5,6 +5,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+enum StatInfo
+{
+    MaxHP = 0,
+    Damage = 1,
+    Defense = 2,
+    MoveSpeed = 3
+}
+
 public class EquipmentManager : MonoBehaviour
 {
     public EquipmentSlot[] equipSlots;
@@ -26,10 +34,7 @@ public class EquipmentManager : MonoBehaviour
 
     private void OnEnable()
     {
-        statTexts[0].text = "MAXHP\n" + StatViewTarget.GetResultMaxHp().ToString();
-        statTexts[1].text = "DAMAGE\n" + StatViewTarget.GetResultDamage().ToString();
-        statTexts[2].text = "DEFENSE\n" + StatViewTarget.GetResultDefense().ToString();
-        statTexts[3].text = "SPEED\n" + StatViewTarget.GetResultMoveSpeed().ToString();
+        CharacterStatUpdateForInfo();
     }
 
     void Init()
@@ -39,8 +44,7 @@ public class EquipmentManager : MonoBehaviour
         {
             equipSlotDic[equipSlots[i].equipmentType.ToString()] = equipSlots[i];
         }
-
-        
+        CharacterStatUpdateForInfo();
     }
 
 
@@ -51,10 +55,10 @@ public class EquipmentManager : MonoBehaviour
 
         for (int i = 0; i < equipSlots.Length; i++)
         {
-            StatResult.maxHp += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.maxHp;
-            StatResult.damage += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.damage;
-            StatResult.defense += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.defense;
-            StatResult.moveSpeed += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.moveSpeed;
+            StatResult.MaxHp += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.MaxHp;
+            StatResult.Damage += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.Damage;
+            StatResult.Defense += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.Defense;
+            StatResult.MoveSpeed += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.MoveSpeed;
         }
         StatViewTarget.statDatas[(int)AddStatName.Equit] = StatResult;
         CharacterStatUpdateForInfo();
@@ -62,14 +66,11 @@ public class EquipmentManager : MonoBehaviour
 
     void CharacterStatUpdateForInfo()
     {
-        /*for (int i = 0; i < 4; i++)
-        {
-            statTexts[i].text = StatViewTarget.GetResultDamage().ToString();
-        }*/
-        statTexts[0].text = "MAXHP\n" + StatViewTarget.GetResultMaxHp().ToString();
-        statTexts[1].text = "DAMAGE\n" + StatViewTarget.GetResultDamage().ToString();
-        statTexts[2].text = "DEFENSE\n" + StatViewTarget.GetResultDefense().ToString();
-        statTexts[3].text = "SPEED\n" + StatViewTarget.GetResultMoveSpeed().ToString();
+        statTexts[(int)StatInfo.MaxHP].text = "MAXHP\n" + StatViewTarget.GetResultMaxHp().ToString();
+        statTexts[(int)StatInfo.Damage].text = "DAMAGE\n" + StatViewTarget.GetResultDamage().ToString();
+        statTexts[(int)StatInfo.Defense].text = "DEFENSE\n" + StatViewTarget.GetResultDefense().ToString();
+        statTexts[(int)StatInfo.MoveSpeed].text = "SPEED\n" + StatViewTarget.GetResultMoveSpeed().ToString();
     }
 
+    
 }

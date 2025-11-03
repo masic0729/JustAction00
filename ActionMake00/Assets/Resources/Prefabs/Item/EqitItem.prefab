@@ -124,7 +124,7 @@ MonoBehaviour:
     addCount: 1
     currentCount: 0
   statData:
-    maxHp: 30
-    damage: 0
-    defense: 30
-    moveSpeed: 0
+    MaxHp: 30
+    Damage: 0
+    Defense: 30
+    MoveSpeed: 0

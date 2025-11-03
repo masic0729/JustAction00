@@ -8,11 +8,11 @@ using static UnityEditor.Progress;
 
 public enum EquipmentType
 {
-    Weapon,
-    Head,
-    Top,
-    Bottom,
-    None
+    Weapon = 0,
+    Head = 1,
+    Top = 2,
+    Bottom = 3,
+    None = -1
 }
 
 /// <summary>
@@ -348,6 +348,17 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        // 우클릭인 경우에만 실행
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+
+        //무기 슬롯은 내가 만든 게임 상 우클릭 해제할 수는 없다.
+        //반드시 무기 교체만 이루어 진다.
+        if (equipmentType == EquipmentType.Weapon)
+        {
+            Debug.Log("무기는 해제되지 않는다.");
+            return;
+        }
+
         Inventory inven = transform.parent.GetComponent<EquipmentManager>().inven;
 
         ItemSlot slot = inven.lSlot.Find(s => s.currentItem == null);
