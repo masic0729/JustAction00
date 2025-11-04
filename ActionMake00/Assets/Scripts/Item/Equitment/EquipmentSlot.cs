@@ -131,7 +131,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         type = slot.type;
         OnItemUse = slot.OnItemUse;
         OnItemUpdate = slot.OnItemUpdate;
-        if (currentItem != null) currentItem.slotData = this;
+        if (slot.type != ItemType.nullItem) currentItem.slotData = this;
 
         // s <- temp
         slot.currentItem = t_item;
@@ -140,10 +140,10 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         slot.type = t_type;
         slot.OnItemUse = t_use;
         slot.OnItemUpdate = t_update;
-        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+        if (slot.type != ItemType.nullItem) slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신
-        if (currentItem != null)
+        if (slot.type != ItemType.nullItem)
         {
             icon.sprite = currentItem.data.icon;
             icon.enabled = true;
@@ -155,7 +155,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
             ClearSlot();
         }
 
-        if (slot.currentItem != null)
+        if (slot.type != ItemType.nullItem)
         {
             slot.icon.sprite = slot.currentItem.data.icon;
             slot.icon.enabled = true;
@@ -385,10 +385,25 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
         Inventory inven = transform.parent.GetComponent<EquipmentManager>().inven;
 
-        ItemSlot slot = inven.lSlot.Find(s => s.currentItem == null);
+        for(int i = 0; i < inven.lSlot.Count; i++)
+        {
+            if (inven.lSlot[i].type == ItemType.nullItem)
+            {
+                inven.lSlot[i].AddItem(currentItem);
+                //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
+                equipmentStat = new AddStatData();
+
+
+                //저장 이후 장비 슬롯 매니저에 각 부위의 장비들의 스탯을 최신화해야한다
+                GetInventory().equipManager.UpdateCharacterStatResult();
+                ClearSlot();
+                break;
+            }
+        }
+
+/*        ItemSlot slot = inven.lSlot.Find(s => s.currentItem == null);
         if(slot != null)
         {
-            SwapItem(slot);
             //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
             equipmentStat = new AddStatData();
 
@@ -399,7 +414,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         else
         {
             Debug.Log("해제 하기엔, 자리가 없음");
-        }
+        }*/
 
         
     }

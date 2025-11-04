@@ -105,7 +105,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         if (slot.currentItem != null) slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신
-        if (currentItem != null)
+        if (slot.type != ItemType.nullItem)
         {
             icon.sprite = currentItem.data.icon;
             icon.enabled = true;
@@ -117,7 +117,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             ClearSlot();
         }
 
-        if (slot.currentItem != null)
+        if (slot.type != ItemType.nullItem)
         {
             slot.icon.sprite = slot.currentItem.data.icon;
             slot.icon.enabled = true;
@@ -159,10 +159,10 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         slot.type = t_type;
         slot.OnItemUse = t_use;
         slot.OnItemUpdate = t_update;
-        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+        if (slot.type != ItemType.nullItem) slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신
-        if (currentItem.currentCount != 0)
+        if (type != ItemType.nullItem)
         {
             icon.sprite = currentItem.data.icon;
             icon.enabled = true;
@@ -174,7 +174,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             ClearSlot();
         }
 
-        if (slot.currentItem.currentCount != 0)
+        if (slot.type != ItemType.nullItem)
         {
             slot.icon.sprite = slot.currentItem.data.icon;
             slot.icon.enabled = true;
@@ -238,7 +238,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override void SortSlot(ItemBase itemData)
     {
-        if (itemData.currentCount == 0)
+        if (itemData.data.itemType == ItemType.nullItem)
             return;
 
         // 1) 아이템/수치 세팅 (필요시 깊은 복사)
@@ -267,7 +267,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override void TestInteraction()
     {
-        if (currentItem == null)
+        if (type  == ItemType.nullItem)
         {
             return;
         }
@@ -288,7 +288,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override bool CanAddItem()
     {
-        if (currentCount == 0)
+        if (type == ItemType.nullItem)
             return true;
 
         return false;

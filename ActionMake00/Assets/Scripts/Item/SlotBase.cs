@@ -18,7 +18,7 @@ public abstract class SlotBase : MonoBehaviour
 
     public TextMeshProUGUI countText;
 
-    protected Inventory inventory;      
+    [SerializeField] protected Inventory inventory;      
     //슬롯의 인벤토리 주체. 아이템 간 이동 시 활용함
 
     public SlotType slotType;                                                               //장비 형태
