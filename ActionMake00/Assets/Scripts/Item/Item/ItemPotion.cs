@@ -34,7 +34,7 @@ public class ItemPotion : ItemObject
     public override bool ItemUseCheck(Character character)
     {
         
-        if (character.GetHp() >= character.GetMaxHp())
+        if (character.GetHp() >= character.GetResultMaxHp())
         {
 
             Debug.Log("사용 불가. 현재 최대 체력");

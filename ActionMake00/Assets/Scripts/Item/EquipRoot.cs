@@ -9,6 +9,8 @@ public class EquipRoot : ItemObject
 {
     public AddStatData statData;
     public GameObject WeaponEquipment;
+    public WeaponType weaponType;
+
     /// <summary>
     /// 상호작용을 통해 해당 아이템에 설정된 기능들을 실행한다
     /// </summary>
@@ -16,9 +18,12 @@ public class EquipRoot : ItemObject
     /// <param name="slot">상호작용할 때 해당 아이템의 슬롯 정보</param>
     public override void UseItem(Character character, SlotBase slot)
     {
+        base.UseItem(character, slot);
+
         if (ItemUseCheck(character) == false || slot == null)
         {
             //원래 이곳에 사용되지 않았다는 메세지 및 사운드 구현해야함
+
             return;
         }
 
@@ -71,6 +76,9 @@ public class EquipRoot : ItemObject
 
     public override void UpdateInventory(SlotBase slot)
     {
+        if (slot == null)
+            return;
+
         slot.currentCount--;
         if (slot.currentCount == 0)
         {

@@ -4748,6 +4748,7 @@ GameObject:
   - component: {fileID: 5815215447301663711}
   - component: {fileID: 2987711504787933803}
   - component: {fileID: 5815215447301663712}
+  - component: {fileID: 5815215447301663713}
   m_Layer: 5
   m_Name: Weapon
   m_TagString: Untagged
@@ -4916,6 +4917,20 @@ MonoBehaviour:
     Damage: 0
     Defense: 0
     MoveSpeed: 0
+--- !u!114 &5815215447301663713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246578042616820169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18237382c062bb64696d5e7696ca2449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwordWeaponBasic: {fileID: 4488831371431100241, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  player: {fileID: 6251207807892908463}
 --- !u!222 &5815215448205093178
 CanvasRenderer:
   m_ObjectHideFlags: 0

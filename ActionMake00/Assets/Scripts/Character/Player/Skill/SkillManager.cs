@@ -241,11 +241,11 @@ public class SkillManager : MonoBehaviour
     public void WeaponSkillLoad(string weaponType)
     {
         PlayerSkillProcessor skillBase = null;
-        if (weaponType == "PlayerSword")
+        if (weaponType == "Sword")
         {
             skillBase = transform.Find("SwordSkill").GetComponent<PlayerSwordSkill>();
         }   
-        if(weaponType == "PlayerStaff")
+        if(weaponType == "Staff")
         {
             skillBase = transform.Find("StaffSkill").GetComponent<PlayerStaffSkill>();
 

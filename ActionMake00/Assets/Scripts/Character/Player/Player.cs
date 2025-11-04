@@ -36,7 +36,7 @@ public class Player : Character
         transform.tag = "Player";
         hp = 100;
         rotateSpeed = 20f;
-        WeaponInit("PlayerSword");
+        WeaponInit("Sword");
     }
 
     protected override void Update()
@@ -48,13 +48,14 @@ public class Player : Character
     public void WeaponInit(string weaponName)
     {
         weaponTransform = FindTransformAtChild("PlayerWeapon");
-
         for (int i = 0; i < weapon.Length; i++)
         {
-            weaponDic[weapon[i].gameObject.name] = Instantiate(weapon[i].gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<Weapon>();
-            weaponDic[weapon[i].gameObject.name].gameObject.SetActive(false);
-            weaponDic[weapon[i].gameObject.name].transform.parent = weaponTransform;
-            weaponDic[weapon[i].gameObject.name].SetDamage(damage);
+            PlayerWeapon playerWeapon = weapon[i].GetComponent<PlayerWeapon>();
+
+            weaponDic[playerWeapon.weaponType.ToString()] = Instantiate(weapon[i].gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<Weapon>();
+            weaponDic[playerWeapon.weaponType.ToString()].gameObject.SetActive(false);
+            weaponDic[playerWeapon.weaponType.ToString()].transform.parent = weaponTransform;
+            weaponDic[playerWeapon.weaponType.ToString()].SetDamage(damage);
         }
         weaponType = weaponName;
         skillManager.SetCurrentWeaponType(weaponType);

@@ -50,32 +50,26 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     /// <exception cref="System.NotImplementedException"></exception>
     public override bool AddItem(ItemBase item)
     {
-        if (item.data.itemType != ItemType.Equitment) return false;
-
-        if (item.data.equipmentType != equipmentType) return false;
-
-        if (item != null)
-        {
-            currentItem = item;
-            icon.sprite = item.data.icon;
-            icon.enabled = true;
-            icon.color = new Vector4(1, 1, 1, 1);
-            currentItem.slotData = this;
-            currentCount = item.addCount;
-            maxCount = item.data.maxCount;
-            type = item.data.itemType;
-            //OnItemUse = itemObject.item.OnItemUse;
-            OnItemUse = item.OnItemUse;
-            //OnItemUpdate = item.OnItemUpdate;
-            UpdateUI();
-            Debug.Log("성공");
-            return true;
-        }
-        else
+        if (item == null)
         {
             Debug.Log("아이템을 저장하지 못했습니다.");
             return false;
         }
+        currentItem = item;
+        icon.sprite = item.data.icon;
+        icon.enabled = true;
+        icon.color = new Vector4(1, 1, 1, 1);
+        currentItem.slotData = this;
+        currentCount = item.addCount;
+        maxCount = item.data.maxCount;
+        type = item.data.itemType;
+
+        // null 덮어쓰기 방지
+        if (item.OnItemUse != null) OnItemUse = item.OnItemUse;
+        if (item.OnItemUpdate != null) OnItemUpdate = item.OnItemUpdate;
+
+        UpdateUI();
+        return true;
 
     }
 

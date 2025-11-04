@@ -73,7 +73,6 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         if (item.OnItemUpdate != null) OnItemUpdate = item.OnItemUpdate;
 
         UpdateUI();
-        Debug.Log("성공");
         return true;
     }
 

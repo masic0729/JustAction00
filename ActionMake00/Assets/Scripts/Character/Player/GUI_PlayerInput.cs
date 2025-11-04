@@ -14,11 +14,6 @@ public class GUI_PlayerInput : MonoBehaviour
     public ItemObject testitem3;
 
 
-
-
-    public ItemObject testItem;
-    public ItemObject testItem2;
-
     private void Start()
     {
         playerCtrl = GetComponent<PlayerController>();
@@ -68,7 +63,7 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             //playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
-            MouseControl.instance.Apply(MouseControl.AimCursorMode.Free);
+            //MouseControl.instance.Apply(MouseControl.AimCursorMode.Free);
             /*cameraCtrl.SetCanRotate(false);*/
 
         }
@@ -84,13 +79,11 @@ public class GUI_PlayerInput : MonoBehaviour
     void TestInputItem1()
     {
         inventory.AddItemInList(testitem1);
-        //inventory.AddItemInList(testItem);
     }
     
     void TestInputItem2()
     {
         inventory.AddItemInList(testitem2);
-        //inventory.AddItemInList(testItem2);
     }
 
     void TestInputItem3()

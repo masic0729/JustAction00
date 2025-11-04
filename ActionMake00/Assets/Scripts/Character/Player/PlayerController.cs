@@ -129,13 +129,13 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
-            if (player.GetWeaponType() == "PlayerSword")
+            if (player.GetWeaponType() == "Sword")
             {
-                player.TransWeapon("PlayerStaff");
+                player.TransWeapon("Staff");
             }
-            else if (player.GetWeaponType() == "PlayerStaff")
+            else if (player.GetWeaponType() == "Staff")
             {
-                player.TransWeapon("PlayerSword");
+                player.TransWeapon("Sword");
             }
         }
     }
@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
                 isEscapeAttackAnim = false;
             }
 
-            if (canCombo && player.anim.GetBool("isAttacking") && player.GetWeaponType() == "PlayerSword")                       //if(canCombo)
+            if (canCombo && player.anim.GetBool("isAttacking") && player.GetWeaponType() == "Sword")                       //if(canCombo)
             {
                 player.anim.SetBool("isReAttack", true);
             }

@@ -16,7 +16,7 @@ enum StatInfo
 public class EquipmentManager : MonoBehaviour
 {
     public EquipmentSlot[] equipSlots;
-    [SerializeField] Character StatViewTarget;                                           //캐릭터 능력치를 노출하려는 대상
+    [SerializeField] Character StatViewTarget;              //캐릭터 능력치를 노출하려는 대상
     public TextMeshProUGUI[] statTexts;
     public Inventory inven;
 
@@ -25,16 +25,20 @@ public class EquipmentManager : MonoBehaviour
         new Dictionary<string, EquipmentSlot>();
 
     public AddStatData StatResult;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         Init();
+
+    }
+
+    void Start()
+    {
     }
 
     private void OnEnable()
     {
-        CharacterStatUpdateForInfo();
+        UpdateCharacterStatResult();
     }
 
     void Init()
@@ -44,7 +48,7 @@ public class EquipmentManager : MonoBehaviour
         {
             equipSlotDic[equipSlots[i].equipmentType.ToString()] = equipSlots[i];
         }
-        CharacterStatUpdateForInfo();
+        UpdateCharacterStatResult();
     }
 
 
