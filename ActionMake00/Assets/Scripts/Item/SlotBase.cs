@@ -26,13 +26,13 @@ public abstract class SlotBase : MonoBehaviour
     public Image icon;
     public ItemBase currentItem = null;
 
-    public Action<Character, ItemSlot> OnItemUse;   //아이템을 사용할 때 발생하는 상호작용
+    public Action<Character, SlotBase> OnItemUse;   //아이템을 사용할 때 발생하는 상호작용
     
     //아이템 사용 후 처리에 대한 부분. 예시로 슬롯 데이터 삭제,
     //카운트 및 차감 등등 기본적인 상호작용 이후의 처리를 뜻한다
-    public Action<ItemSlot> OnItemUpdate;
+    public Action<SlotBase> OnItemUpdate;
 
-    public int currentCount = 0, maxCount = 1;
+    public int currentCount = 0, maxCount = 0;
     public int slotIndex = -1;                      //슬롯의 인덱스 정보
 
     public abstract bool AddItem(ItemObject itemObject);

@@ -122,4 +122,4 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: fbab075d4e55cd04a83eeb4d835b11c2, type: 2}
     slotData: {fileID: 0}
     addCount: 1
-    currentCount: 1
+    currentCount: 0

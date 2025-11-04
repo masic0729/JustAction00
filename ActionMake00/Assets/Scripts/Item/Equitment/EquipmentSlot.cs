@@ -387,16 +387,16 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
         for(int i = 0; i < inven.lSlot.Count; i++)
         {
-            if (inven.lSlot[i].type == ItemType.nullItem)
+            if (inven.lSlot[i].currentCount == 0)
             {
-                inven.lSlot[i].AddItem(currentItem);
+                inven.lSlot[i].SwapItem(this);
                 //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
                 equipmentStat = new AddStatData();
 
 
                 //저장 이후 장비 슬롯 매니저에 각 부위의 장비들의 스탯을 최신화해야한다
                 GetInventory().equipManager.UpdateCharacterStatResult();
-                ClearSlot();
+                //ClearSlot();
                 break;
             }
         }

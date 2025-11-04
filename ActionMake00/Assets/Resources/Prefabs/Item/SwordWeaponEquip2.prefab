@@ -122,7 +122,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 84b07841606e8734d8c665cf9faad284, type: 2}
     slotData: {fileID: 0}
     addCount: 1
-    currentCount: 1
+    currentCount: 0
   statData:
     MaxHp: 0
     Damage: 30
