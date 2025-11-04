@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1828652746845502799}
   - component: {fileID: 4488831371431100241}
   m_Layer: 0
-  m_Name: EqitItem
+  m_Name: SwordWeaponEquip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,12 +119,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    data: {fileID: 11400000, guid: 0d0394f0892848048b1a3063f0f865b3, type: 2}
+    data: {fileID: 11400000, guid: 0be7f6d3bf09df646a7491a83c8f9b48, type: 2}
     slotData: {fileID: 0}
     addCount: 1
-    currentCount: 0
+    currentCount: 1
   statData:
-    MaxHp: 30
-    Damage: 0
-    Defense: 30
+    MaxHp: 0
+    Damage: 10
+    Defense: 0
     MoveSpeed: 0
+  WeaponEquipment: {fileID: 314814652071321607, guid: 8f92e1c83cb3f9546a0b0183d008c14c, type: 3}

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameStartWeapon : MonoBehaviour
 {
-    public ItemObject StartWeapon;
+    public EquipRoot StartWeapon;
 
     private void Awake()
     {
-        //GetComponent<Equit>
+        GetComponent<EquipmentSlot>().AddItem(StartWeapon);
     }
 
     // Start is called before the first frame update
@@ -17,9 +17,4 @@ public class GameStartWeapon : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

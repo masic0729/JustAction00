@@ -36,7 +36,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     private void Start()
     {
-        currentItem = null;
+        //currentItem = null;
         //SetTarget(inventory.inventoryOwner);
         //SetInventory(this);
     }
@@ -87,7 +87,28 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     /// <exception cref="System.NotImplementedException"></exception>
     public override bool AddItem(ItemObject itemObject)
     {
-        throw new System.NotImplementedException();
+        if (itemObject != null)
+        {
+            currentItem = itemObject.item;
+            icon.sprite = itemObject.item.data.icon;
+            icon.enabled = true;
+            icon.color = new Vector4(1, 1, 1, 1);
+            currentItem.slotData = this;
+            currentCount = itemObject.item.addCount;
+            maxCount = itemObject.item.data.maxCount;
+            type = itemObject.item.data.itemType;
+            //OnItemUse = itemObject.item.OnItemUse;
+            OnItemUse = itemObject.UseItem;
+            //OnItemUpdate = item.OnItemUpdate;
+            UpdateUI();
+            Debug.Log("성공");
+            return true;
+        }
+        else
+        {
+            Debug.Log("아이템을 저장하지 못했습니다.");
+            return false;
+        }
     }
 
     public override void SwapItem(ItemSlot slot)
@@ -149,7 +170,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     public override void SwapItem(SlotBase slot)
     {
-        if (slot == null || slot == this)
+        /*if (slot == null || slot == this)
             return;
 
         // 현재 슬롯 데이터 보관
@@ -201,7 +222,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         else
         {
             slot.ClearSlot();
-        }
+        }*/
     }
 
     public override void SumItem(ItemObject itemObject)
@@ -241,7 +262,10 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     /// <exception cref="System.NotImplementedException"></exception>
     protected override void UpdateUI()
     {
-        throw new System.NotImplementedException();
+        if (currentCount == 0)
+            return;
+
+        countText.text = currentCount > 1 ? currentCount.ToString() : "";
     }
 
     /// <summary>

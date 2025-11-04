@@ -162,7 +162,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         if (slot.currentItem != null) slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신
-        if (currentItem != null)
+        if (currentItem.currentCount != 0)
         {
             icon.sprite = currentItem.data.icon;
             icon.enabled = true;
@@ -174,7 +174,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             ClearSlot();
         }
 
-        if (slot.currentItem != null)
+        if (slot.currentItem.currentCount != 0)
         {
             slot.icon.sprite = slot.currentItem.data.icon;
             slot.icon.enabled = true;

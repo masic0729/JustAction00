@@ -24,7 +24,7 @@ public abstract class SlotBase : MonoBehaviour
     public SlotType slotType;                                                               //장비 형태
     public Sprite baseSlotImage;                    //비어있을 때 쓰는 이미지
     public Image icon;
-    public ItemBase currentItem;
+    public ItemBase currentItem = null;
 
     public Action<Character, ItemSlot> OnItemUse;   //아이템을 사용할 때 발생하는 상호작용
     

@@ -11,13 +11,13 @@ public class Player : Character
     Vector3 moveVector;
     //public Dictionary<string, GameObject> weaponsDic;
 
-    private Transform weaponTransform;
+    protected Transform weaponTransform;
 
     [Header("Physics check info")]
     public Transform groundCheck;
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
-    string weaponType;
+    protected string weaponType;
 
     // √ ±‚»≠
     protected override void Start()
@@ -36,8 +36,7 @@ public class Player : Character
         transform.tag = "Player";
         hp = 100;
         rotateSpeed = 20f;
-        WeaponInit();
-
+        WeaponInit("PlayerSword");
     }
 
     protected override void Update()
@@ -46,12 +45,10 @@ public class Player : Character
 
     }
 
-    void WeaponInit()
+    public void WeaponInit(string weaponName)
     {
         weaponTransform = FindTransformAtChild("PlayerWeapon");
 
-
-        //weaponsDic = new Dictionary<string, GameObject>();
         for (int i = 0; i < weapon.Length; i++)
         {
             weaponDic[weapon[i].gameObject.name] = Instantiate(weapon[i].gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<Weapon>();
@@ -59,8 +56,7 @@ public class Player : Character
             weaponDic[weapon[i].gameObject.name].transform.parent = weaponTransform;
             weaponDic[weapon[i].gameObject.name].SetDamage(damage);
         }
-        weaponType = "PlayerSword";
-        //skillManager.SkillDataInit();
+        weaponType = weaponName;
         skillManager.SetCurrentWeaponType(weaponType);
         skillManager.WeaponSkillLoad(weaponType);
 

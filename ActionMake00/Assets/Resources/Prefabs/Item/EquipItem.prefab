@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1828652746845502799}
   - component: {fileID: 4488831371431100241}
   m_Layer: 0
-  m_Name: EqitItem2
+  m_Name: EquipItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,12 +119,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    data: {fileID: 11400000, guid: 7d94cfd62f4317f4a9242bf3c5d8a218, type: 2}
+    data: {fileID: 11400000, guid: 0d0394f0892848048b1a3063f0f865b3, type: 2}
     slotData: {fileID: 0}
     addCount: 1
-    currentCount: 0
+    currentCount: 1
   statData:
-    MaxHp: 50
+    MaxHp: 30
     Damage: 0
-    Defense: 50
+    Defense: 30
     MoveSpeed: 0
+  WeaponEquipment: {fileID: 0}
