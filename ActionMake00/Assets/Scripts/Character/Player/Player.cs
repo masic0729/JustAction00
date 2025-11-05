@@ -17,7 +17,7 @@ public class Player : Character
     public Transform groundCheck;
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
-    protected string weaponType;
+    protected string weaponTypeString;
 
     // 초기화
     protected override void Start()
@@ -29,14 +29,15 @@ public class Player : Character
     protected override void Init()
     {
         base.Init();
-        hitAction += WeaponColDisable;
 
         playerCtrl = GetComponent<PlayerController>();
         skillManager = GetComponent<SkillManager>();
+        hitAction += WeaponColDisable;
+
         transform.tag = "Player";
         hp = 100;
         rotateSpeed = 20f;
-        WeaponInit("Sword");
+        //WeaponInit("Sword");
     }
 
     protected override void Update()
@@ -45,9 +46,10 @@ public class Player : Character
 
     }
 
-    public void WeaponInit(string weaponName)
+    /*public void WeaponInit(string weaponName)
     {
         weaponTransform = FindTransformAtChild("PlayerWeapon");
+
         for (int i = 0; i < weapon.Length; i++)
         {
             PlayerWeapon playerWeapon = weapon[i].GetComponent<PlayerWeapon>();
@@ -57,32 +59,55 @@ public class Player : Character
             weaponDic[playerWeapon.weaponType.ToString()].transform.parent = weaponTransform;
             weaponDic[playerWeapon.weaponType.ToString()].SetDamage(damage);
         }
-        weaponType = weaponName;
-        skillManager.SetCurrentWeaponType(weaponType);
-        skillManager.WeaponSkillLoad(weaponType);
+        weaponTypeString = weaponName;
+        skillManager.SetCurrentWeaponType(weaponTypeString);
+        skillManager.WeaponSkillLoad(weaponTypeString);
 
-        weaponDic[weaponType].gameObject.SetActive(true);
+        weaponDic[weaponTypeString].gameObject.SetActive(true);
 
+    }*/
+
+    /// <summary>
+    /// 새로 제작한 무기 초기화 함수로,
+    /// 해당 기능은 무기 공격력을 적용 직후에 실행해야 한다
+    /// </summary>
+    /// <param name="weapon"></param>
+    public void WeaponInit(PlayerWeapon weapon)
+    {
+        weaponTransform = FindTransformAtChild("PlayerWeapon");
+        weaponDic[weapon.weaponType.ToString()] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
+        //weaponDic[weapon.weaponType.ToString()].gameObject.SetActive(false);
+        weaponDic[weapon.weaponType.ToString()].transform.parent = weaponTransform;
+        weaponDic[weapon.weaponType.ToString()].SetDamage(GetResultDamage());
+        weaponTypeString = weapon.weaponType.ToString();
+
+        Invoke("WeaponInitDelay", 0.2f);
+    }
+
+    void WeaponInitDelay()
+    {
+        skillManager.SetCurrentWeaponType(weaponTypeString);
+        skillManager.WeaponSkillLoad(weaponTypeString);
     }
 
     public void WeaponColDisable()
     {
-        weaponDic[weaponType].ResetColiderDisable();
+        weaponDic[weaponTypeString].ResetColiderDisable();
     }
 
     public void TransWeapon(string weaponName)
     {
         string weaponType = weaponName;
         //같은 무기 타입이면 그냥 반환한다. 바꿀 이유가 없기 때문이다.
-        if (this.weaponType == weaponType)
+        if (this.weaponTypeString == weaponType)
             return;
         //기존에 쓰던 무기는 비활성화
-        if (weaponDic[this.weaponType] != null)
+        if (weaponDic[this.weaponTypeString] != null)
         {
-            weaponDic[this.weaponType].gameObject.SetActive(false);
+            weaponDic[this.weaponTypeString].gameObject.SetActive(false);
         }
 
-        this.weaponType = weaponName;
+        this.weaponTypeString = weaponName;
 
         //무기 타입에 맞는 스킬데이터 설정
         skillManager.SetCurrentWeaponType(weaponType);
@@ -118,7 +143,7 @@ public class Player : Character
         playerCtrl.SetCanAttackInput(false);
     }
 
-    public void SetWeaponType(string typeName) => weaponType = typeName;
+    public void SetWeaponType(string typeName) => weaponTypeString = typeName;
 
-    public string GetWeaponType() => weaponType;
+    public string GetWeaponType() => weaponTypeString;
 }

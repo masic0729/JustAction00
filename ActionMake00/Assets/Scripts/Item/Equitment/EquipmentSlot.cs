@@ -125,9 +125,48 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     public override bool AddItem(ItemObject itemObject)
     {
-        // 장비창은 ItemObject 경로를 쓰지 않아도 되지만, 안전하게 동일 처리
-        if (itemObject == null || itemObject.item == null) return false;
-        return AddItem(itemObject.item);
+        if (itemObject == null || itemObject.item == null || itemObject.item.data == null)
+        {
+            Debug.Log("아이템을 저장하지 못했습니다.");
+            return false;
+        }
+
+        var ib = itemObject.item;      // ItemBase
+        var data = ib.data;
+
+        // 1) 슬롯 기본 세팅
+        currentItem = ib;
+        currentItem.slotData = this;
+
+        icon.sprite = data.icon;
+        icon.enabled = true;
+        icon.color = Color.white;
+
+        type = data.itemType;
+        maxCount = data.maxCount;
+
+        // 2) 수량 결정: currentCount > 0 우선, 없으면 addCount, 장비면 1
+        int count = ib.currentCount;
+        if (count <= 0)
+        {
+            if (type == ItemType.Equitment)
+                count = 1;
+            else
+                count = ib.addCount; // 소비/기타는 획득 수량
+        }
+        currentCount = Mathf.Clamp(count, 0, maxCount);
+
+        // 3) 델리게이트 바인딩: 아이템 쪽이 우선, 없으면 ItemObject의 핸들러 사용
+        if (ib.OnItemUse != null) OnItemUse = ib.OnItemUse;
+        /*else if (itemObject.UseItem != null) */
+        OnItemUse = itemObject.UseItem;
+
+        if (ib.OnItemUpdate != null) OnItemUpdate = ib.OnItemUpdate;
+        // (itemObject에 업데이트 콜백이 따로 있다면 여기서 보강)
+
+        UpdateUI();
+        Debug.Log("성공");
+        return true;
     }
 
     public override void SwapItem(ItemSlot slot)

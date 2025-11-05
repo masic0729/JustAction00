@@ -8,7 +8,7 @@ using UnityEngine;
 public class EquipRoot : ItemObject
 {
     public AddStatData statData;
-    public GameObject WeaponEquipment;
+    public PlayerWeapon WeaponEquipment;
     public WeaponType weaponType;
 
     /// <summary>
@@ -50,14 +50,23 @@ public class EquipRoot : ItemObject
         /*slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]
                 .SwapItem(slot);*/
 
-        
-        slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);
+
+        //장비 슬롯이 아니라면,
+        if (slot.GetComponent<EquipmentSlot>() == null)
+        {
+            slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);   
+        }
+        else
+        {
+
+        }
 
         //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
         slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()].equipmentStat = statData;
 
         //저장 이후 장비 슬롯 매니저에 각 부위의 장비들의 스탯을 최신화해야한다
         slot.GetInventory().equipManager.UpdateCharacterStatResult();
+        //////////////////////////////////////////////////////////////
 
         /*if (slot.gameObject.TryGetComponent(out ItemSlot itemSlot))
         {

@@ -53,7 +53,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     protected Rigidbody rb;
     public Weapon[] weapon;
     protected Weapon currentWeapon;
-    public Dictionary<string, Weapon> weaponDic;
+    public Dictionary<string, Weapon> weaponDic = new Dictionary<string, Weapon>();
+
 
     [Header("캐릭터 스킬 발사체")]
     public GameObject[] skillProjectiles;
@@ -112,7 +113,6 @@ public class Character : MonoBehaviour, ICharacterDamageable
     void DictionaryInit()
     {
         pEffectDic = new Dictionary<string, ParticleSystem>();
-        weaponDic = new Dictionary<string, Weapon>();
         for (int i = 0; i < weapon.Length; i++)
         {
             weaponDic[weapon[i].name] = weapon[i];

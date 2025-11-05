@@ -9,12 +9,17 @@ public class StartSwordWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<EquipmentSlot>().AddItem(SwordWeaponBasic);
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void Init()
     {
-        
+        SlotBase slot = GetComponent<EquipmentSlot>();
+        //slot.AddItem(SwordWeaponBasic);
+        slot.OnItemUse?.Invoke(player, slot);
+        player.WeaponInit(SwordWeaponBasic.WeaponEquipment);
     }
+
+    
 }
