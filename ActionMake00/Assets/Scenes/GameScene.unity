@@ -2923,6 +2923,7 @@ MonoBehaviour:
     Defense: 0
     MoveSpeed: 0
   WeaponEquipment: {fileID: 0}
+  weaponType: 0
 --- !u!4 &1430822377
 Transform:
   m_ObjectHideFlags: 0
@@ -4924,7 +4925,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4246578042616820169}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18237382c062bb64696d5e7696ca2449, type: 3}
   m_Name: 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -154,9 +155,12 @@ public class Inventory : MonoBehaviour
         // }
     }*/
 
-    public void SortInventoryTest()
+    /*public void SortInventoryTest()
     {
         var snaps = new List<(ItemBase item, int count)>();
+
+        
+
         for (int i = 0; i < lSlot.Count; i++)
         {
             var s = lSlot[i];
@@ -201,7 +205,67 @@ public class Inventory : MonoBehaviour
 
             idx++;
         }
+    }*/
+
+    public void SortInventoryTest()
+    {
+        var snaps = new List<(ItemBase item, int count, Action<Character, SlotBase> onUse, Action<SlotBase> onUpdate)>();
+
+        for (int i = 0; i < lSlot.Count; i++)
+        {
+            var s = lSlot[i];
+            if (s == null || s.currentItem == null || s.currentItem.data == null) continue;
+
+            var it = s.currentItem;
+            var data = it.data;
+
+            // 슬롯/아이템 중 더 신뢰할 수 있는 수량(최대값)
+            int count = Mathf.Max(s.currentCount, it.currentCount, it.addCount);
+
+            // 장비는 비스택 → 최소 1로 간주
+            if (data.itemType == ItemType.Equitment) count = 1;
+
+            // 소비만 0 이하면 제외
+            if (data.itemType == ItemType.Consumable && count <= 0) continue;
+
+            snaps.Add((it, count, s.OnItemUse, s.OnItemUpdate));
+        }
+
+        // 타입 → (소비 수량 내림차순) → 이름
+        snaps.Sort((x, y) =>
+        {
+            int t = x.item.data.itemType.CompareTo(y.item.data.itemType);
+            if (t != 0) return t;
+
+            if (x.item.data.itemType == ItemType.Consumable)
+            {
+                int sc = y.count.CompareTo(x.count);
+                if (sc != 0) return sc;
+            }
+
+            return string.Compare(x.item.data.itemName, y.item.data.itemName, StringComparison.Ordinal);
+        });
+
+        // 비우고
+        for (int i = 0; i < lSlot.Count; i++) lSlot[i].ClearSlot();
+
+        // 슬롯에 직접 세팅 + 델리게이트 복원 (아이템 내부 수량은 변경하지 않음)
+        for (int i = 0; i < snaps.Count && i < lSlot.Count; i++)
+        {
+            var (item, count, onUse, onUpdate) = snaps[i];
+            var slot = lSlot[i];
+
+            slot.SetItemDirect(item.data, count);
+            slot.OnItemUse = onUse;
+            slot.OnItemUpdate = onUpdate;
+
+            if (slot.currentItem != null) slot.currentItem.slotData = slot;
+        }
     }
+
+
+
+
 
     public void SetDragSlot(ItemSlot slot) => dragSlot = slot;
 

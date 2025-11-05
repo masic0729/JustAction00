@@ -51,9 +51,9 @@ public abstract class SlotBase : MonoBehaviour
 
     public abstract void SortSlot(ItemBase itemData);
 
-    protected abstract void UpdateUI();
+    public abstract void UpdateUI();
 
-    public abstract void TestInteraction();
+    //public abstract void TestInteraction();
 
     public abstract void ClearSlot();
 

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
@@ -16,410 +16,298 @@ public enum EquipmentType
 }
 
 /// <summary>
-/// Àåºñ¿¡ ÀÇÇÑ Á¶Á¤µÇ´Â ½ºÅÈ
+/// ì¥ë¹„ì— ì˜í•œ ì¡°ì •ë˜ëŠ” ìŠ¤íƒ¯
 /// </summary>
 public struct EquipmentStat
 {
-    public float addHp;                        //Ã¼·Â Á¶Á¤°ª
-    public float addDamage;                    //µ¥¹ÌÁö Á¶Á¤°ª
-    public float addDefense;                   //¹æ¾î·Â Á¶Á¤°ª
-    public float addMoveSpeed;                 //ÀÌµ¿¼Óµµ Á¶Á¤°ª
-    //float defenseBreaking;                   //ÇöÀç´Â ¾øÁö¸¸, ¹æ¾î·Â ¹«½Ã ºñÀ²°ª
+    public float addHp;                        //ì²´ë ¥ ì¡°ì •ê°’
+    public float addDamage;                    //ë°ë¯¸ì§€ ì¡°ì •ê°’
+    public float addDefense;                   //ë°©ì–´ë ¥ ì¡°ì •ê°’
+    public float addMoveSpeed;                 //ì´ë™ì†ë„ ì¡°ì •ê°’
+    //float defenseBreaking;                   //í˜„ì¬ëŠ” ì—†ì§€ë§Œ, ë°©ì–´ë ¥ ë¬´ì‹œ ë¹„ìœ¨ê°’
 }
-
+/// <summary>
+/// ì¥ë¹„ ìŠ¬ë¡¯:
+/// - ì¸ë²¤í† ë¦¬ì—ì„œ ìš°í´ë¦­/ë“œë˜ê·¸-ë“œë¡­ ì‹œ, í•´ë‹¹ ì¥ë¹„ íƒ€ì… ìŠ¬ë¡¯ê³¼ "ìŠ¤ì™‘"ëœë‹¤.
+/// - ì¥ë¹„ ìŠ¬ë¡¯ì—ì„œ ìš°í´ë¦­ ì‹œ, ì¸ë²¤í† ë¦¬ ë¹„ì–´ìˆëŠ” ì¹¸ìœ¼ë¡œ "ë°˜ë‚©"ì„ ì‹œë„í•œë‹¤(ì„±ê³µ ì‹œ ì¥ë¹„ ìŠ¬ë¡¯ì€ Clear).
+/// - ì¥ë¹„ëŠ” ë¹„ìŠ¤íƒ(í•­ìƒ 1ê°œ)ìœ¼ë¡œ ì·¨ê¸‰í•˜ê³ , ItemUse ì•¡ì…˜ì„ í˜¸ì¶œí•˜ì§€ ì•ŠëŠ”ë‹¤.
+/// </summary>
 public class EquipmentSlot : SlotBase, IPointerClickHandler,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler,
     IPointerEnterHandler, IPointerExitHandler
 {
-    public EquipmentType equipmentType;
-    public AddStatData equipmentStat;
+    [Header("ì¥ë¹„ ìŠ¬ë¡¯ ë©”íƒ€")]
+    public EquipmentType equipmentType;     // ì´ ìŠ¬ë¡¯ì´ ë‹´ë‹¹í•˜ëŠ” ì¥ë¹„ íƒ€ì…(Weapon/Head/Top/Bottom...)
+    public AddStatData equipmentStat;       // ì´ ìŠ¬ë¡¯ì— ì¥ì°©ëœ ì•„ì´í…œì´ ì œê³µí•˜ëŠ” ìŠ¤íƒ¯(í•©ì‚°ì€ EquipmentManagerê°€ ì²˜ë¦¬)
 
-    private void Start()
+    /* ---------- ê³µí†µ ìœ í‹¸ ---------- */
+
+    /// <summary>
+    /// ì¥ë¹„ ì•„ì´í…œì¸ì§€(ë° ìŠ¬ë¡¯ íƒ€ì…ê³¼ í˜¸í™˜ë˜ëŠ”ì§€) íŒë‹¨.
+    /// ì‹¤ì œ í”„ë¡œì íŠ¸ì˜ ë°ì´í„° êµ¬ì¡°(ì˜ˆ: EquipmentItemData.equipType)ì— ë§ê²Œ í™•ì¥í•´ì„œ ì“°ë©´ ë¨.
+    /// ê¸°ë³¸ê°’ì€ 'ì¥ë¹„ íƒ€ì…ë§Œ ì¼ì¹˜í•˜ë©´ OK'ë¡œ ì²˜ë¦¬.
+    /// </summary>
+    private bool IsCompatibleEquipment(ItemBase item)
     {
-        //currentItem = null;
-        //SetTarget(inventory.inventoryOwner);
-        //SetInventory(this);
+        if (item == null || item.data == null) return false;
+        if (item.data.itemType != ItemType.Equitment) return false;
+
+        // â€» í•„ìš” ì‹œ ì—¬ê¸°ì„œ item.dataë¥¼ ìºìŠ¤íŒ…í•˜ì—¬ ì‹¤ì œ equipTypeì„ ë¹„êµí•˜ì„¸ìš”.
+        // ex) var equipData = item.data as EquipmentItemData;
+        //     return equipData != null && equipData.equipType == equipmentType;
+        return true; // ìµœì†Œ ë³´ì¥: ì¥ë¹„ ì•„ì´í…œì´ë©´ í—ˆìš© (íƒ€ì… ë¼ìš°íŒ…ì€ ì™¸ë¶€ì—ì„œ ë³´ì¥ëœë‹¤ê³  ê°€ì •)
     }
 
     /// <summary>
-    /// ÀåºñÃ¢ÀÇ ½½·ÔÀº ¾ÆÀÌÅÛ Á¤º¸¸¦ ±â¹İÀ¸·Î
-    /// µ¥ÀÌÅÍ¸¦ ¼öÁ¤ÇÑ´Ù
+    /// ì¥ë¹„ëŠ” ë¹„ìŠ¤íƒì´ë¯€ë¡œ í•­ìƒ 1ê°œë¡œ ê°•ì œí•œë‹¤.
+    /// ìŠ¬ë¡¯ ì „ìš© ëŸ°íƒ€ì„ ì¸ìŠ¤í„´ìŠ¤ë¡œ ë³µì œí•˜ì—¬ ì°¸ì¡° ê³µìœ  ë¬¸ì œë¥¼ ë°©ì§€í•œë‹¤.
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    /// <exception cref="System.NotImplementedException"></exception>
-    public override bool AddItem(ItemBase item)
+    private ItemBase MakeEquippedCopy(ItemBase src)
     {
-        if (item == null)
+        return new ItemBase
         {
-            Debug.Log("¾ÆÀÌÅÛÀ» ÀúÀåÇÏÁö ¸øÇß½À´Ï´Ù.");
-            return false;
-        }
-        currentItem = item;
-        icon.sprite = item.data.icon;
-        icon.enabled = true;
-        icon.color = new Vector4(1, 1, 1, 1);
-        currentItem.slotData = this;
-        currentCount = item.addCount;
-        maxCount = item.data.maxCount;
-        type = item.data.itemType;
-
-        // null µ¤¾î¾²±â ¹æÁö
-        if (item.OnItemUse != null) OnItemUse = item.OnItemUse;
-        if (item.OnItemUpdate != null) OnItemUpdate = item.OnItemUpdate;
-
-        UpdateUI();
-        return true;
-
+            data = src.data,
+            addCount = 1,
+            currentCount = 1,
+            OnItemUse = src.OnItemUse,     // ì¥ë¹„ì°½ì—ì„  ì“°ì§€ ì•Šì§€ë§Œ ë³´ì¡´
+            OnItemUpdate = src.OnItemUpdate
+        };
     }
 
-    /// <summary>
-    /// Àåºñ ½½·ÔÀÇ °æ¿ì ÇØ´ç ÇÔ¼ö´Â »ç¿ëÇÏÁö ¾Ê´Â´Ù.
-    /// </summary>
-    /// <param name="itemObject"></param>
-    /// <returns></returns>
-    /// <exception cref="System.NotImplementedException"></exception>
-    public override bool AddItem(ItemObject itemObject)
+    private void RefreshIcon()
     {
-        if (itemObject != null)
+        if (currentItem != null && currentItem.data != null)
         {
-            currentItem = itemObject.item;
-            icon.sprite = itemObject.item.data.icon;
+            icon.sprite = currentItem.data.icon;
             icon.enabled = true;
-            icon.color = new Vector4(1, 1, 1, 1);
-            currentItem.slotData = this;
-            currentCount = itemObject.item.addCount;
-            maxCount = itemObject.item.data.maxCount;
-            type = itemObject.item.data.itemType;
-            //OnItemUse = itemObject.item.OnItemUse;
-            OnItemUse = itemObject.UseItem;
-            //OnItemUpdate = item.OnItemUpdate;
-            UpdateUI();
-            Debug.Log("¼º°ø");
-            return true;
+            icon.color = Color.white;
         }
         else
         {
-            Debug.Log("¾ÆÀÌÅÛÀ» ÀúÀåÇÏÁö ¸øÇß½À´Ï´Ù.");
+            icon.sprite = baseSlotImage;
+            icon.enabled = true;
+            icon.color = Color.white;
+        }
+        UpdateUI();
+    }
+
+    private void Recalc()
+    {
+        // ìŠ¬ë¡¯ë§ˆë‹¤ ë“¤ê³  ìˆëŠ” equipmentStatì€ í•„ìš” ì‹œ ì™¸ë¶€ì—ì„œ ì¡°íšŒí•˜ì—¬ í•©ì‚°.
+        // ì—¬ê¸°ì„œëŠ” í•©ì‚° íŠ¸ë¦¬ê±°ë§Œ ê±´ë‹¤.
+        GetInventory()?.equipManager?.UpdateCharacterStatResult();
+    }
+
+    /* ---------- ìŠ¬ë¡¯ ê¸°ë³¸ êµ¬í˜„ ---------- */
+
+    public override bool AddItem(ItemBase item)
+    {
+        // ì™¸ë¶€ì—ì„œ ê°•ì œë¡œ "ì¥ì°©"í•˜ê³ ì í•  ë•Œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê²½ë¡œ (ë³´í†µì€ SwapItemì„ í†µí•´ ë“¤ì–´ì˜´)
+        if (!IsCompatibleEquipment(item))
+        {
+            Debug.Log("ì¥ë¹„ ìŠ¬ë¡¯ê³¼ í˜¸í™˜ë˜ì§€ ì•ŠëŠ” ì•„ì´í…œì…ë‹ˆë‹¤.");
             return false;
         }
+
+        currentItem = MakeEquippedCopy(item);
+        currentItem.slotData = this;
+
+        type = ItemType.Equitment;
+        maxCount = currentItem.data.maxCount;
+        currentCount = 1;
+
+        // (ì„ íƒ) ì¥ë¹„ ìŠ¤íƒ¯ ë¡œë“œê°€ í•„ìš”í•˜ë©´ ì—¬ê¸°ì„œ equipmentStatì„ ì„¸íŒ…
+        equipmentStat = new AddStatData(); // ì‹¤ì œ êµ¬ì¡°ê°€ ìˆìœ¼ë©´ ê·¸ì— ë§ê²Œ ì±„ìš°ì„¸ìš”.
+
+        RefreshIcon();
+        Recalc();
+        return true;
+    }
+
+    public override bool AddItem(ItemObject itemObject)
+    {
+        // ì¥ë¹„ì°½ì€ ItemObject ê²½ë¡œë¥¼ ì“°ì§€ ì•Šì•„ë„ ë˜ì§€ë§Œ, ì•ˆì „í•˜ê²Œ ë™ì¼ ì²˜ë¦¬
+        if (itemObject == null || itemObject.item == null) return false;
+        return AddItem(itemObject.item);
     }
 
     public override void SwapItem(ItemSlot slot)
     {
-        if (slot == null || slot == this)
+        // ì¸ë²¤í† ë¦¬ ìŠ¬ë¡¯ê³¼ "êµí™˜" ë¡œì§
+        if (slot == null || slot == this) return;
+
+        // 1) ì¸ë²¤í† ë¦¬ì—ì„œ ì˜¨ ì•„ì´í…œì´ ì¥ë¹„ë¡œ ë“¤ì–´ì˜¬ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬
+        var incoming = slot.currentItem;
+        if (incoming == null || !IsCompatibleEquipment(incoming))
+        {
+            Debug.Log("í•´ë‹¹ ì¥ë¹„ ìŠ¬ë¡¯ì— ì¥ì°©í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì…ë‹ˆë‹¤.");
             return;
+        }
 
-        // ÇöÀç ½½·Ô µ¥ÀÌÅÍ º¸°ü
-        ItemBase t_item = currentItem;
-        int t_count = currentCount;
-        int t_max = maxCount;
-        ItemType t_type = type;
-        var t_use = OnItemUse;
-        var t_update = OnItemUpdate;
+        // 2) í˜„ì¬ ì¥ë¹„(ìˆë‹¤ë©´)ë¥¼ ì¸ë²¤í† ë¦¬ë¡œ ë‚´ë³´ë‚´ê³ , ì¸ë²¤í† ë¦¬ ì•„ì´í…œì„ ì¥ë¹„ë¡œ ë“¤ì—¬ì˜¨ë‹¤ (ì§„ì§œ ìŠ¤ì™‘)
+        ItemBase prevEquip = currentItem;      // ì¥ë¹„ì¹¸ ê¸°ì¡´ ì•„ì´í…œ
+        int prevCount = currentCount;
+        int prevMax = maxCount;
+        ItemType prevType = type;
+        var prevUse = OnItemUse;
+        var prevUpdate = OnItemUpdate;
 
-        // this <- s
-        currentItem = slot.currentItem;
-        currentCount = slot.currentCount;
-        maxCount = slot.maxCount;
-        type = slot.type;
+        // this <- slot (ì¥ë¹„ëŠ” ë³µì œ + 1ê°œ)
+        currentItem = MakeEquippedCopy(incoming);
+        currentItem.slotData = this;
+
+        type = ItemType.Equitment;
+        maxCount = currentItem.data.maxCount;
+        currentCount = 1;
         OnItemUse = slot.OnItemUse;
         OnItemUpdate = slot.OnItemUpdate;
-        if (slot.type != ItemType.nullItem) currentItem.slotData = this;
 
-        // s <- temp
-        slot.currentItem = t_item;
-        slot.currentCount = t_count;
-        slot.maxCount = t_max;
-        slot.type = t_type;
-        slot.OnItemUse = t_use;
-        slot.OnItemUpdate = t_update;
-        if (slot.type != ItemType.nullItem) slot.currentItem.slotData = slot;
+        // (ì„ íƒ) ì¥ë¹„ ìŠ¤íƒ¯ ë¡œë“œ
+        equipmentStat = new AddStatData(); // ì‹¤ì œ êµ¬ì¡°ê°€ ìˆìœ¼ë©´ ì±„ìš°ì„¸ìš”.
 
-        // °¢ÀÚ UI °»½Å
-        if (slot.type != ItemType.nullItem)
-        {
-            icon.sprite = currentItem.data.icon;
-            icon.enabled = true;
-            icon.color = Color.white;
-            //countText.text = currentCount > 1 ? currentCount.ToString() : "";
-        }
-        else
-        {
-            ClearSlot();
-        }
+        // slot <- prevEquip (ì¸ë²¤í† ë¦¬ì—ëŠ” ì›ë³¸/ë³µì œ ë¬´ì—‡ì´ ë“¤ì–´ê°€ë„ ë˜ì§€ë§Œ,
+        // ì¸ë²¤í† ë¦¬ ìª½ AddItemì´ ë³µì œ ë¡œì§ì„ ê°–ê³  ìˆìœ¼ë¯€ë¡œ prevEquip ê·¸ëŒ€ë¡œ ê½‚ì•„ë„ ì•ˆì „)
+        slot.currentItem = prevEquip;
+        slot.currentCount = prevCount;
+        slot.maxCount = prevMax;
+        slot.type = (prevEquip != null) ? prevEquip.data.itemType : ItemType.nullItem;
+        slot.OnItemUse = prevUse;
+        slot.OnItemUpdate = prevUpdate;
+        if (slot.currentItem != null) slot.currentItem.slotData = slot;
 
+        // 3) ì•„ì´ì½˜ ë°˜ì˜
+        RefreshIcon();
         if (slot.type != ItemType.nullItem)
         {
             slot.icon.sprite = slot.currentItem.data.icon;
             slot.icon.enabled = true;
             slot.icon.color = Color.white;
-            //s.countText.text = s.currentCount > 1 ? s.currentCount.ToString() : "";
+            slot.UpdateUI();
         }
         else
         {
             slot.ClearSlot();
         }
+
+        // 4) í•©ì‚° ì¬ê³„ì‚°
+        Recalc();
     }
 
     public override void SwapItem(SlotBase slot)
     {
-        /*if (slot == null || slot == this)
-            return;
+        // ì¸ë²¤í† ë¦¬ ì™¸ì˜ ìŠ¬ë¡¯ íƒ€ì…ê³¼ êµí™˜ì€ í˜„ì¬ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
+        // í•„ìš” ì‹œ ItemSlot ê²½ë¡œë§Œ í—ˆìš©
+        var invSlot = slot as ItemSlot;
+        if (invSlot != null) { SwapItem(invSlot); }
+    }
 
-        // ÇöÀç ½½·Ô µ¥ÀÌÅÍ º¸°ü
-        ItemBase t_item = currentItem;
-        int t_count = currentCount;
-        int t_max = maxCount;
-        ItemType t_type = type;
-        var t_use = OnItemUse;
-        var t_update = OnItemUpdate;
+    public override void SumItem(ItemObject itemObject) { /* ì¥ë¹„ëŠ” ìŠ¤íƒ ë¶ˆê°€ */ }
 
-        // this <- s
-        currentItem = slot.currentItem;
-        currentCount = slot.currentCount;
-        maxCount = slot.maxCount;
-        type = slot.type;
-        OnItemUse = slot.OnItemUse;
-        OnItemUpdate = slot.OnItemUpdate;
-        if (currentItem != null) currentItem.slotData = this;
-
-        // s <- temp
-        slot.currentItem = t_item;
-        slot.currentCount = t_count;
-        slot.maxCount = t_max;
-        slot.type = t_type;
-        slot.OnItemUse = t_use;
-        slot.OnItemUpdate = t_update;
-        if (slot.currentItem != null) slot.currentItem.slotData = slot;
-
-        // °¢ÀÚ UI °»½Å
-        if (currentItem != null)
-        {
-            icon.sprite = currentItem.data.icon;
-            icon.enabled = true;
-            icon.color = Color.white;
-            //countText.text = currentCount > 1 ? currentCount.ToString() : "";
-        }
-        else
+    public override void SetItemDirect(ItemData data, int _)
+    {
+        if (data == null)
         {
             ClearSlot();
+            return;
         }
 
-        if (slot.currentItem != null)
-        {
-            slot.icon.sprite = slot.currentItem.data.icon;
-            slot.icon.enabled = true;
-            slot.icon.color = Color.white;
-            //s.countText.text = s.currentCount > 1 ? s.currentCount.ToString() : "";
-        }
-        else
-        {
-            slot.ClearSlot();
-        }*/
+        // ê°•ì œ ì¥ì°©(ìë™ ì¥ì°© ë“±) ê²½ë¡œ
+        var dummy = new ItemBase { data = data, addCount = 1, currentCount = 1 };
+        AddItem(dummy);
     }
 
-    public override void SumItem(ItemObject itemObject)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void SetItemDirect(ItemData data, int count)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    /// <summary>
-    /// ÀÌ°÷¿£ Àåºñ¸¦ ÅëÇÑ Ä³¸¯ÅÍ ½ºÅÈ Á¶Á¤
-    /// ÇÏÁö¸¸ »ç¿ëÇÏÁö ¾ÊÀ» ¼ö ÀÖÀ½
-    /// </summary>
     public override void UpdateSlot()
     {
-        throw new System.NotImplementedException();
+        // ì¥ë¹„ì°½ì€ ìŠ¤íƒ í…ìŠ¤íŠ¸ê°€ ì—†ìœ¼ë¯€ë¡œ ì•„ì´ì½˜ë§Œ ê°±ì‹ 
+        RefreshIcon();
+    }
 
+    public override void SortSlot(ItemBase itemData) { /* ì¥ë¹„ì°½ì€ ì •ë ¬ ì•ˆí•¨ */ }
+
+    public override void UpdateUI()
+    {
+        // ì¥ë¹„ëŠ” ìŠ¤íƒ í‘œê¸°ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
+        if (countText != null) countText.text = "";
     }
 
     /// <summary>
-    /// ÇØ´ç ±â´ÉÀº Àåºñ¿£ ¾ø¾î¾ß ÇÔ
+    /// ì¥ë¹„ í•´ì œ(ìš°í´ë¦­): ì¸ë²¤í† ë¦¬ ë¹„ì–´ìˆëŠ” ì¹¸ìœ¼ë¡œ ë°˜ë‚© ì‹œë„ â†’ ì„±ê³µ ì‹œ ì¥ë¹„ì¹¸ Clear
     /// </summary>
-    /// <param name="itemData"></param>
-    /// <exception cref="System.NotImplementedException"></exception>
-    public override void SortSlot(ItemBase itemData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
-    }
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+        if (currentItem == null) return;
 
-    /// <summary>
-    /// ¾ÆÁ÷ ½á¾ßÇÏ´Â ÀÌÀ¯¸¦ Ã£Áö ¸øÇßÀ½.
-    /// È¤½Ã ¸ğ¸£´Ï ÇÑ¹ø ´õ »ı°¢ÇÒ °Í
-    /// </summary>
-    /// <exception cref="System.NotImplementedException"></exception>
-    protected override void UpdateUI()
-    {
-        if (currentCount == 0)
+        // ë¬´ê¸° ë“± í•´ì œ ê¸ˆì§€ ìŠ¬ë¡¯ì´ë©´ ì—¬ê¸°ì„œ ì°¨ë‹¨
+        // if (equipmentType == EquipmentType.Weapon) { Debug.Log("ë¬´ê¸°ëŠ” í•´ì œë˜ì§€ ì•ŠìŠµë‹ˆë‹¤."); return; }
+
+        var inven = GetInventory();
+        if (inven == null) return;
+
+        // 1) ì¸ë²¤í† ë¦¬ì˜ ë¹ˆ ì¹¸ ì°¾ê¸°(ë³´ë‹¤ ì•ˆì „í•œ íŒì •: currentItem == null)
+        ItemSlot empty = null;
+        foreach (var s in inven.lSlot)
+        {
+            if (s != null && s.currentItem == null) { empty = s; break; }
+        }
+
+        if (empty == null)
+        {
+            Debug.Log("ì¸ë²¤í† ë¦¬ì— ë¹ˆ ìŠ¬ë¡¯ì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
+        }
 
-        countText.text = currentCount > 1 ? currentCount.ToString() : "";
+        // 2) ì¸ë²¤í† ë¦¬ ë¹ˆì¹¸ì— ì¥ë¹„ ì•„ì´í…œ ì¶”ê°€(ì¸ë²¤í† ë¦¬ AddItemì´ ë³µì œ/ìˆ˜ëŸ‰ ë³´ì • ì²˜ë¦¬)
+        empty.AddItem(currentItem);
+
+        // 3) ì¥ë¹„ì¹¸ ë¹„ìš°ê¸° + ì¬ê³„ì‚°
+        ClearSlot();
+        Recalc();
     }
 
-    /// <summary>
-    /// ´Ü¼ø Å×½ºÆ®¿ë
-    /// </summary>
-    /// <exception cref="System.NotImplementedException"></exception>
-    public override void TestInteraction()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    /// <summary>
-    /// Àåºñ¸¦ º¯°æ ¶Ç´Â Á¦°ÅÇÒ ¶§ ½ºÅÈ ¹× ¸Ş½¬ Àû¿ëÀ» ÃÊ±âÈ­ÇØ¾ßÇÑ´Ù
-    /// </summary>
     public override void ClearSlot()
     {
         currentItem = null;
-        icon.sprite = baseSlotImage;
-        countText.text = "";
         currentCount = 0;
         maxCount = 0;
         type = ItemType.nullItem;
+
         OnItemUse = null;
         OnItemUpdate = null;
+
+        equipmentStat = new AddStatData(); // ì¥ë¹„ ìŠ¤íƒ¯ ì´ˆê¸°í™”
+
+        RefreshIcon(); // ì•„ì´ì½˜/í…ìŠ¤íŠ¸ ë¦¬ì…‹
+        // ì¬ê³„ì‚°ì€ í˜¸ì¶œë¶€ì—ì„œ í•œ ë²ˆ ë” ë¬¶ì–´ì„œ í˜¸ì¶œí•˜ëŠ” í¸ì´ ì•ˆì „í•˜ì§€ë§Œ, ì—¬ê¸°ì„œëŠ” ìƒëµ ê°€ëŠ¥
     }
 
-    /// <summary>
-    /// ÇöÀç´Â ´çÀå ±¸ÇöÇÏÁö ¾Ê°ÚÁö¸¸,
-    /// ÀüÅõ ÁßÀÌ³ª ¸ğµç ½ºÅ³ÀÌ ÃÊ±âÈ­µÇÁö ¾Ê¾Ò´Ù¸é
-    /// Àåºñ °£ ±³È¯ÀÌ ÀÏ¾î³ª¸é ¾ÈµÈ´Ù
-    /// </summary>
-    /// <returns></returns>
     public override bool CanAddItem()
     {
-        
-        //ÀüÅõ ÁßÀÎ Á¶°Ç¹®À¸·Î ÀüÅõ ÁßÀÌ¶ó¸é Ã³¸® ºÒ°¡
-        /*if ()
-        { 
-            return false;
-        }*/
-        
-        
-        
-        
-
-        return true;
+        // ì¥ë¹„ì¹¸ì´ ë¹„ì–´ìˆì„ ë•Œë§Œ ì¥ì°© í—ˆìš©(ì „íˆ¬ ì¤‘ ì°¨ë‹¨ ë“±ì˜ ì¡°ê±´ì€ ì—¬ê¸°ì„œ ì¶”ê°€)
+        return currentItem == null;
     }
 
-    public bool CanSwapItem()
-    {
-        //ÀüÅõ ÁßÀÎ Á¶°Ç¹®À¸·Î ÀüÅõ ÁßÀÌ¶ó¸é ±³È¯ ºÒ°¡
-        /*if ()
-        { 
-            return false;
-        }*/
+    public override bool CanSumItem(ItemBase item) { return false; } // ì¥ë¹„ëŠ” í•©ì¹˜ê¸° ë¶ˆê°€
 
+    /* ---------- ë“œë˜ê·¸/ë“œë¡­ í›…(ì¸ë²¤í† ë¦¬ì—ì„œ ëŒì–´ë‹¤ ë†“ì„ ë•Œ) ---------- */
 
-
-        return true;
-    }
-
-    /// <summary>
-    /// Àåºñ´Â ÇÕÃÄÁö¸é ¾ÈµÈ´Ù.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    public override bool CanSumItem(ItemBase item)
-    {
-        return false;
-    }
-
-
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-
-    }
+    public void OnBeginDrag(PointerEventData eventData) { }
+    public void OnDrag(PointerEventData eventData) { }
+    public void OnEndDrag(PointerEventData eventData) { }
 
     public void OnDrop(PointerEventData eventData)
     {
-        /*
-        // ¸¶¿ì½º ÁÂÅ¬¸¯ µå·Ó + µå·¡±× ÁßÀÌ¾î¾ß¸¸
-        if (eventData.button != PointerEventData.InputButton.Left ||
-            inventory.GetDragSlot() == null) return;
+        // ì¸ë²¤í† ë¦¬ì—ì„œ ë“œë˜ê·¸í•´ì˜¨ ìŠ¬ë¡¯ì´ ìˆìœ¼ë©´ ìŠ¤ì™‘
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        var inven = GetInventory();
+        if (inven == null) return;
 
-        Debug.Log("OnDrop");
+        var dragSlot = inven.GetDragSlot();
+        if (dragSlot == null) return;
 
-        ItemSlot dragSlot = inventory.GetDragSlot();
-        //if (dragSlot == this) return;
-
-        // ´Ü ÇÑ ¹øÀÇ ½º¿ÒÀ¸·Î ³¡³½´Ù
-        dragSlot.SwapItem(this);*/
+        SwapItem(dragSlot);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        // ¿ìÅ¬¸¯ÀÎ °æ¿ì¿¡¸¸ ½ÇÇà
-        if (eventData.button != PointerEventData.InputButton.Right) return;
-
-        //¹«±â ½½·ÔÀº ³»°¡ ¸¸µç °ÔÀÓ »ó ¿ìÅ¬¸¯ ÇØÁ¦ÇÒ ¼ö´Â ¾ø´Ù.
-        //¹İµå½Ã ¹«±â ±³Ã¼¸¸ ÀÌ·ç¾î Áø´Ù.
-        if (equipmentType == EquipmentType.Weapon)
-        {
-            Debug.Log("¹«±â´Â ÇØÁ¦µÇÁö ¾Ê´Â´Ù.");
-            return;
-        }
-
-        Inventory inven = transform.parent.GetComponent<EquipmentManager>().inven;
-
-        for(int i = 0; i < inven.lSlot.Count; i++)
-        {
-            if (inven.lSlot[i].currentCount == 0)
-            {
-                inven.lSlot[i].SwapItem(this);
-                //±³È¯Çß´Ù¸é Àåºñ ½½·Ô¿¡ ÀÖ´Â Àåºñ ¿É¼ÇÀ» ÇØ´ç Àåºñ ½½·Ô µ¥ÀÌÅÍ¿¡ ÀúÀåÇÑ´Ù
-                equipmentStat = new AddStatData();
-
-
-                //ÀúÀå ÀÌÈÄ Àåºñ ½½·Ô ¸Å´ÏÀú¿¡ °¢ ºÎÀ§ÀÇ ÀåºñµéÀÇ ½ºÅÈÀ» ÃÖ½ÅÈ­ÇØ¾ßÇÑ´Ù
-                GetInventory().equipManager.UpdateCharacterStatResult();
-                //ClearSlot();
-                break;
-            }
-        }
-
-/*        ItemSlot slot = inven.lSlot.Find(s => s.currentItem == null);
-        if(slot != null)
-        {
-            //±³È¯Çß´Ù¸é Àåºñ ½½·Ô¿¡ ÀÖ´Â Àåºñ ¿É¼ÇÀ» ÇØ´ç Àåºñ ½½·Ô µ¥ÀÌÅÍ¿¡ ÀúÀåÇÑ´Ù
-            equipmentStat = new AddStatData();
-
-
-            //ÀúÀå ÀÌÈÄ Àåºñ ½½·Ô ¸Å´ÏÀú¿¡ °¢ ºÎÀ§ÀÇ ÀåºñµéÀÇ ½ºÅÈÀ» ÃÖ½ÅÈ­ÇØ¾ßÇÑ´Ù
-            slot.GetInventory().equipManager.UpdateCharacterStatResult();
-        }
-        else
-        {
-            Debug.Log("ÇØÁ¦ ÇÏ±â¿£, ÀÚ¸®°¡ ¾øÀ½");
-        }*/
-
-        
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
-    }
+    public void OnPointerEnter(PointerEventData eventData) { }
+    public void OnPointerExit(PointerEventData eventData) { }
 }

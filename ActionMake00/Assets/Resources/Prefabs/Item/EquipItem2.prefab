@@ -121,11 +121,12 @@ MonoBehaviour:
   item:
     data: {fileID: 11400000, guid: 7d94cfd62f4317f4a9242bf3c5d8a218, type: 2}
     slotData: {fileID: 0}
-    addCount: 1
-    currentCount: 0
+    addCount: 0
+    currentCount: 1
   statData:
     MaxHp: 50
     Damage: 0
     Defense: 50
     MoveSpeed: 0
   WeaponEquipment: {fileID: 0}
+  weaponType: 0

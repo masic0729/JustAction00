@@ -50,6 +50,7 @@ public class EquipRoot : ItemObject
         /*slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]
                 .SwapItem(slot);*/
 
+        
         slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);
 
         //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
@@ -79,11 +80,11 @@ public class EquipRoot : ItemObject
         if (slot == null)
             return;
 
-        slot.currentCount--;
-        if (slot.currentCount == 0)
+        //slot.currentCount--;
+        /*if (slot.currentCount == 0)
         {
             slot.ClearSlot();
-        }
+        }*/
     }
 
     /// <summary>

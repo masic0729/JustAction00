@@ -20,57 +20,77 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override bool AddItem(ItemObject itemObject)
     {
-        if (itemObject == null)
+        if (itemObject == null || itemObject.item == null || itemObject.item.data == null)
         {
             Debug.Log("아이템을 저장하지 못했습니다.");
             return false;
         }
 
-        currentItem = itemObject.item;
-        icon.sprite = itemObject.item.data.icon;
-        icon.enabled = true;
-        icon.color = new Vector4(1, 1, 1, 1);
+        var ib = itemObject.item;      // ItemBase
+        var data = ib.data;
+
+        // 1) 슬롯 기본 세팅
+        currentItem = ib;
         currentItem.slotData = this;
-        currentCount = itemObject.item.addCount;
-        maxCount = itemObject.item.data.maxCount;
-        type = itemObject.item.data.itemType;
 
-        // UseItem 시그니처가 Action<Character, SlotBase> 라면 그대로 대입
-        OnItemUse = itemObject.UseItem;
+        icon.sprite = data.icon;
+        icon.enabled = true;
+        icon.color = Color.white;
 
-        // 만약 UseItem 시그니처가 Action<Character, ItemSlot> 라면, 아래 어댑터 사용
-        // OnItemUse = (ch, sb) =>
-        // {
-        //     ItemSlot islot = sb as ItemSlot;
-        //     if (islot != null) itemObject.UseItem(ch, islot);
-        //     else Debug.LogWarning("UseItem 슬롯 타입 불일치");
-        // };
+        type = data.itemType;
+        maxCount = data.maxCount;
+
+        // 2) 수량 결정: currentCount > 0 우선, 없으면 addCount, 장비면 1
+        int count = ib.currentCount;
+        if (count <= 0)
+        {
+            if (type == ItemType.Equitment)
+                count = 1;
+            else
+                count = ib.addCount; // 소비/기타는 획득 수량
+        }
+        currentCount = Mathf.Clamp(count, 0, maxCount);
+
+        // 3) 델리게이트 바인딩: 아이템 쪽이 우선, 없으면 ItemObject의 핸들러 사용
+        if (ib.OnItemUse != null) OnItemUse = ib.OnItemUse;
+        /*else if (itemObject.UseItem != null) */ OnItemUse = itemObject.UseItem;
+
+        if (ib.OnItemUpdate != null) OnItemUpdate = ib.OnItemUpdate;
+        // (itemObject에 업데이트 콜백이 따로 있다면 여기서 보강)
 
         UpdateUI();
         Debug.Log("성공");
         return true;
     }
 
+
     public override bool AddItem(ItemBase item)
     {
-        if (item == null)
+        if (item == null || item.data == null)
         {
             Debug.Log("아이템을 저장하지 못했습니다.");
             return false;
         }
 
-        currentItem = item;
-        icon.sprite = item.data.icon;
-        icon.enabled = true;
-        icon.color = new Vector4(1, 1, 1, 1);
+        currentItem = new ItemBase  // 슬롯 전용 복제(레퍼런스 공유 방지)
+        {
+            data = item.data,
+            addCount = item.addCount,
+            currentCount = (item.currentCount > 0)
+                            ? item.currentCount
+                            : (item.data.itemType == ItemType.Equitment ? 1 : item.addCount),
+            OnItemUse = item.OnItemUse,
+            OnItemUpdate = item.OnItemUpdate
+        };
         currentItem.slotData = this;
-        currentCount = item.addCount;
-        maxCount = item.data.maxCount;
-        type = item.data.itemType;
 
-        // null 덮어쓰기 방지
-        if (item.OnItemUse != null) OnItemUse = item.OnItemUse;
-        if (item.OnItemUpdate != null) OnItemUpdate = item.OnItemUpdate;
+        type = currentItem.data.itemType;
+        maxCount = currentItem.data.maxCount;
+        currentCount = Mathf.Clamp(currentItem.currentCount, 0, maxCount);
+
+        icon.sprite = currentItem.data.icon;
+        icon.enabled = true;
+        icon.color = Color.white;
 
         UpdateUI();
         return true;
@@ -214,10 +234,13 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             return;
         }
 
-        currentItem = new ItemBase { data = data, addCount = count }; // 독립 인스턴스
+        currentItem = new ItemBase { data = data, addCount = count };
         currentItem.slotData = this;
+
+        type = data.itemType;          // ← 추가
         maxCount = data.maxCount;
         currentCount = count;
+
         icon.sprite = data.icon;
         icon.enabled = true;
         icon.color = Color.white;
@@ -275,17 +298,17 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         }
     }
 
-    protected override void UpdateUI()
+    public override void UpdateUI()
     {
         if (currentItem == null) { countText.text = ""; return; }
         countText.text = (currentCount > 1) ? currentCount.ToString() : "";
     }
 
-    public override void TestInteraction()
+    /*public override void TestInteraction()
     {
         if (currentItem == null) return;
         OnItemUse?.Invoke(target, this);
-    }
+    }*/
 
     public override void ClearSlot()
     {
@@ -306,14 +329,20 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override bool CanSumItem(ItemBase item)
     {
-        if (currentItem.data == null || item == null) return false;
+        // 유효성 검사
+        if (item == null) return false;
+        if (currentItem == null) return false;                   // 이 슬롯이 비어있으면 합칠 수 없음
+        if (type != ItemType.Consumable) return false;           // 소비 아이템만 합치기
 
-        if (currentItem.data.itemName == item.data.itemName &&
-            currentCount + item.addCount <= maxCount)
-        {
-            return true;
-        }
-        return false;
+        // 같은 아이템인지: 데이터 레퍼런스 기준 (이름 문자열보다 안전)
+        if (currentItem.data != item.data) return false;
+
+        // 슬롯의 '현재 수량'을 써야 함 (기존 bug: currentItem.currentCount 사용)
+        if (currentCount <= 0) return false;                     // 방어적 체크
+        if (currentCount >= maxCount) return false;              // 이미 꽉 찬 슬롯
+
+        // 완전히 들어갈 수 있을 때만 합치기 (넘치면 빈 슬롯으로 가도록)
+        return (currentCount + item.addCount) <= maxCount;
     }
 
     public void SetInventory(Inventory inven) => inventory = inven;
