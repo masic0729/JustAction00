@@ -98,7 +98,6 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         GetInventory()?.equipManager?.UpdateCharacterStatResult();
     }
 
-    /* ---------- 슬롯 기본 구현 ---------- */
 
     public override bool AddItem(ItemBase item)
     {
@@ -256,9 +255,19 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
             Debug.Log("인벤토리에 빈 슬롯이 없습니다.");
             return;
         }
-
+        
+        if(currentItem.OnItemUse != null)
+        {
+            Debug.Log("current가 비어있음");
+        }
+        if(OnItemUse != null)
+        {
+            Debug.Log("슬롯 내 기능이 비어있음");
+        }
         // 2) 인벤토리 빈칸에 장비 아이템 추가(인벤토리 AddItem이 복제/수량 보정 처리)
-        empty.AddItem(currentItem);
+        empty.SwapItem(this);
+
+
 
         // 3) 장비칸 비우기 + 재계산
         ClearSlot();

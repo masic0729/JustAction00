@@ -82,6 +82,8 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             OnItemUse = item.OnItemUse,
             OnItemUpdate = item.OnItemUpdate
         };
+        OnItemUse = item.OnItemUse;
+        OnItemUpdate = item.OnItemUpdate;
         currentItem.slotData = this;
 
         type = currentItem.data.itemType;
@@ -91,7 +93,6 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         icon.sprite = currentItem.data.icon;
         icon.enabled = true;
         icon.color = Color.white;
-
         UpdateUI();
         return true;
     }
@@ -358,6 +359,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         Debug.Log("OnClick");
         if (currentItem == null) return; // ← 반전 버그 수정
 
+        
         OnItemUse?.Invoke(target, this);
         OnItemUpdate?.Invoke(this);
     }
