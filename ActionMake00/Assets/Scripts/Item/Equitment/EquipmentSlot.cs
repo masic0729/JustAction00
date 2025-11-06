@@ -286,9 +286,9 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         ItemSlot empty = null;
         foreach (var s in inven.lSlot)
         {
-            if (s != null && s.currentItem == null) { empty = s; break; }
+            if (s != null && s.type == ItemType.nullItem) { empty = s; break; }
         }
-
+        //
         if (empty == null)
         {
             Debug.Log("인벤토리에 빈 슬롯이 없습니다.");

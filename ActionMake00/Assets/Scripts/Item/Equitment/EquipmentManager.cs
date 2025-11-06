@@ -65,11 +65,21 @@ public class EquipmentManager : MonoBehaviour
             StatResult.MoveSpeed += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.MoveSpeed;
         }
         StatViewTarget.statDatas[(int)AddStatName.Equit] = StatResult;
+        /*StatViewTarget.SetMaxHp(StatViewTarget.GetResultMaxHp());
+        StatViewTarget.SetDamage(StatViewTarget.GetResultDamage());
+        StatViewTarget.SetMoveSpeed(StatViewTarget.GetResultMoveSpeed());
+        StatViewTarget.SetDefense(StatViewTarget.GetResultMaxHp());*/
+
         CharacterStatUpdateForInfo();
     }
 
     void CharacterStatUpdateForInfo()
     {
+        /*StatViewTarget.SetMaxHp(StatViewTarget.GetResultMaxHp());
+        StatViewTarget.SetDamage(StatViewTarget.GetResultDamage());
+        StatViewTarget.SetMoveSpeed(StatViewTarget.GetResultMoveSpeed());
+        StatViewTarget.SetDefense(StatViewTarget.GetResultMaxHp());*/
+
         statTexts[(int)StatInfo.MaxHP].text = "MAXHP\n" + StatViewTarget.GetResultMaxHp().ToString();
         statTexts[(int)StatInfo.Damage].text = "DAMAGE\n" + StatViewTarget.GetResultDamage().ToString();
         statTexts[(int)StatInfo.Defense].text = "DEFENSE\n" + StatViewTarget.GetResultDefense().ToString();

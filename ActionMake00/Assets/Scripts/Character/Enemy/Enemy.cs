@@ -89,8 +89,7 @@ public class Enemy : Character
     }
 
     /// <summary>
-    /// todo : 연속 공격 시 회전을 자연스럽게 할 것
-    /// 공격 이후 대기 또는 이동? 계열로 잠깐 틀고 공격하기에 애니메이션이 다소 부자연스러움
+
     /// </summary>
     void RotateByAttack()
     {

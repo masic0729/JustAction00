@@ -127,6 +127,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     }
 
     public float GetMaxHp() => maxHp;
+    public void SetMaxHp(float value) => maxHp = value;
+
+    public float SetDamage(float value) => damage = value;
     public float GetHp() => hp;
     public void SetHp(int value) => hp = value;
 
@@ -169,9 +172,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     /// <param name="value"></param>
     public void HpTransfer(float value)
     {
-        if(hp + value >= maxHp)
+        if(hp + value >= GetResultMaxHp())
         {
-            hp = maxHp;
+            hp = GetResultMaxHp();
         }
         else if(hp + value <= 0)
         {
@@ -186,8 +189,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
 
         //예외적으로(그럴 일은 거의 없음), 현재 체력이 최대 체력이 넘을 경우, 최대체력으로 값을 조정(내린)한다.
-        if (hp > maxHp)
-            hp = maxHp;
+        if (hp > GetResultMaxHp())
+            hp = GetResultMaxHp();
     }
 
     /// <summary>
@@ -240,9 +243,10 @@ public class Character : MonoBehaviour, ICharacterDamageable
             return 1;
 
         //산정할 때 최대 체력이 현재 체력보다 작으면, 현재 최대 체력으로 조정한다.
-        if (hp > maxHp)
-            hp = maxHp;
+        if (hp > result)
+            hp = result;
 
+        
         return (int)result;
     }
 
@@ -315,6 +319,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public void SetMoveSpeed(float value) => moveSpeed = value;
 
     public float GetMoveSpeed() => moveSpeed;
+
+    public float GetDefense() => def;
+    public void SetDefense(float value) => def = value;
 
     public float GetCommonDamage() => damage;
 

@@ -8,7 +8,9 @@ public class Player : Character
 {
     PlayerController playerCtrl;
     SkillManager skillManager;
-    Vector3 moveVector;
+    [SerializeField] int needExp;
+
+
     //public Dictionary<string, GameObject> weaponsDic;
 
     protected Transform weaponTransform;
@@ -148,6 +150,11 @@ public class Player : Character
 
         CameraController.instance.PlayCameraShake();                    //피격 시 카메라 다소 흔들림
         playerCtrl.SetCanAttackInput(false);
+    }
+
+    public void GetExp()
+    {
+
     }
 
     public void SetWeaponType(string typeName) => weaponTypeString = typeName;
