@@ -63,7 +63,7 @@ public class GUI_PlayerInput : MonoBehaviour
         {
             //playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
-            //MouseControl.instance.Apply(MouseControl.AimCursorMode.Free);
+            MouseControl.instance.Apply(MouseControl.AimCursorMode.ConfinedWindow);
             /*cameraCtrl.SetCanRotate(false);*/
 
         }

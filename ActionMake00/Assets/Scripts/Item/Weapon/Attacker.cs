@@ -140,7 +140,7 @@ public class Attacker : MonoBehaviour, IAttacker
             else
             {
                 Debug.Log(this.gameObject.name + "°¡ ¶§¸²");
-                hitTarget.TakeDamage(damage, hitLevel);
+                hitTarget.TakeDamage(damage, owner, hitLevel);
 
                 if (hitEffect.Length != 0)
                 {

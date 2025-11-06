@@ -8,6 +8,7 @@ using UnityEngine;
 public class EquipRoot : ItemObject
 {
     public AddStatData statData;
+    protected Player player;
     public PlayerWeapon WeaponEquipment;
     public WeaponType weaponType;
 
@@ -19,7 +20,7 @@ public class EquipRoot : ItemObject
     public override void UseItem(Character character, SlotBase slot)
     {
         base.UseItem(character, slot);
-
+        player = slot.target.GetComponent<Player>();
         if (ItemUseCheck(character) == false || slot == null)
         {
             //원래 이곳에 사용되지 않았다는 메세지 및 사운드 구현해야함
@@ -27,23 +28,7 @@ public class EquipRoot : ItemObject
             return;
         }
 
-        /*
-        현재는 무기만 오브젝트가 변경되거나 추가된다.
-        방어구의 경우 오브젝트 상호작용은 메테리얼의 색 변경을 기반으로
-        진행될 예정이다.
-        무기 - 오브젝트 변경(이미 풀링처리됨)
-        방어구 - 플레이어의 해당 파츠의 메테리얼 색상 값이라도 변경하여 장비 변경됨을 어필
-        */
-        if (WeaponEquipment != null)
-        {
-            
-        }
-        else
-        {
-            //여기의 경우 방어구는 오브젝트가 없으니 해당 파츠에 대한 정보를 선언 및 정의를 하고,
-            //해당 파츠에 색 적용을 목표로 한다. 하지만 현재는 스킵하고, 12월에 적용할 것
 
-        }
 
         //장비창 및 스텟적용. 인벤토리의 슬롯이 장비 슬롯과 교환한다는 뜻이다
 

@@ -59,6 +59,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [Header("캐릭터 스킬 발사체")]
     public GameObject[] skillProjectiles;
 
+    protected int exp = 1;                                                  //몬스터가 사망 시 그 대상에게 주는 경험치
+
 
     //캐릭터 능력치 관련 데이터
     #region
@@ -128,7 +130,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public float GetHp() => hp;
     public void SetHp(int value) => hp = value;
 
-    public virtual void TakeDamage(float amount, int hitLevel = -1)
+    public virtual void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
         float defResult = 0f;
 

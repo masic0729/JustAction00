@@ -4930,7 +4930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18237382c062bb64696d5e7696ca2449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwordWeaponBasic: {fileID: 4488831371431100241, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  SwordWeaponBasic: {fileID: 4881988431276002148, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
   player: {fileID: 6251207807892908463}
 --- !u!222 &5815215448205093178
 CanvasRenderer:
@@ -5110,7 +5110,7 @@ PrefabInstance:
     - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: testitem2
       value: 
-      objectReference: {fileID: 4488831371431100241, guid: 40823a576fe809e4ebe56ec3ad619dec, type: 3}
+      objectReference: {fileID: 486598676061216866, guid: 0ef52d97518afb645bcab037905579c3, type: 3}
     - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: testitem3
       value: 

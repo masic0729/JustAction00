@@ -26,7 +26,7 @@ public class PlayerStaffExplosion : PlayerSkillInfo
         {
             for(int i = 0; i < enemy.Length; i++)
             {
-                enemy[i].GetComponent<Character>().TakeDamage(damage);
+                enemy[i].GetComponent<Character>().TakeDamage(damage, owner);
 
             }
         }

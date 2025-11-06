@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6819772885512568736}
   - component: {fileID: 7339001699121847349}
   - component: {fileID: 1828652746845502799}
-  - component: {fileID: 4881988431276002148}
+  - component: {fileID: 486598676061216866}
   m_Layer: 0
-  m_Name: SwordWeaponEquip
+  m_Name: SwordWeaponEquip3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4881988431276002148
+--- !u!114 &486598676061216866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,14 +119,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    data: {fileID: 11400000, guid: 0be7f6d3bf09df646a7491a83c8f9b48, type: 2}
+    data: {fileID: 11400000, guid: 8a3b0d050ad051e4c81ff4cd64835800, type: 2}
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 1
   statData:
     MaxHp: 0
-    Damage: 10
+    Damage: 30
     Defense: 0
     MoveSpeed: 0
-  WeaponEquipment: {fileID: 2548763761762157146, guid: 8f92e1c83cb3f9546a0b0183d008c14c, type: 3}
-  weaponType: 0
+  WeaponEquipment: {fileID: 8924246067352728424, guid: a7dd1f61e15c55f4eab277704c6d5f33, type: 3}
+  weaponType: 1

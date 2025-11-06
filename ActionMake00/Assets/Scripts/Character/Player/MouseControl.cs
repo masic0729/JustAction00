@@ -26,6 +26,7 @@ public class MouseControl : MonoBehaviour
     void Start()
     {
         Apply(modeAtStart);
+
     }
 
     // Alt+Tab / 창 전환 후 복구
@@ -46,31 +47,38 @@ public class MouseControl : MonoBehaviour
 
         CameraController cameraCtrl = GetComponent<CameraController>();
         PlayerController playerCtrl = GetComponent<PlayerController>();
+
         switch (mode)
         {
 
             case AimCursorMode.LockedCenter:
-                //Cursor.lockState = CursorLockMode.Locked;
-                //Cursor.visible = false;
-                //playerCtrl.SetCanAnyInput(true);
-                //Apply(MouseControl.AimCursorMode.LockedCenter);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+
                 cameraCtrl.SetCanRotate(true);
                 break;
 
             case AimCursorMode.ConfinedWindow:
+                Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
-                //Cursor.visible = false;
+                cameraCtrl.SetCanRotate(false);
+
                 break;
 
             case AimCursorMode.Free:
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+                cameraCtrl.SetCanRotate(false);
+
+                break;
+
             default:
-                Cursor.lockState = CursorLockMode.None;
+                //Cursor.lockState = CursorLockMode.Confined;
+                Debug.Log("마우스 커서 설정 간 예외 발생");
                 Cursor.visible = true;
                 //playerCtrl.SetCanAnyInput(false);
                 //Apply(MouseControl.AimCursorMode.Free);
                 cameraCtrl.SetCanRotate(false);
-
-
             break;
         }
     }

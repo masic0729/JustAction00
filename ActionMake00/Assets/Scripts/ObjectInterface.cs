@@ -5,7 +5,7 @@
 public interface ICharacterDamageable
 {
     
-    abstract void TakeDamage(float amount, int hitLevel = 0);
+    abstract void TakeDamage(float amount, Character attacker, int hitLevel = 0);
     abstract void Dead(float animationTime);
 }
 

@@ -74,14 +74,21 @@ public class Player : Character
     /// <param name="weapon"></param>
     public void WeaponInit(PlayerWeapon weapon)
     {
-        weaponTransform = FindTransformAtChild("PlayerWeapon");
-        weaponDic[weapon.weaponType.ToString()] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
-        //weaponDic[weapon.weaponType.ToString()].gameObject.SetActive(false);
-        weaponDic[weapon.weaponType.ToString()].transform.parent = weaponTransform;
-        weaponDic[weapon.weaponType.ToString()].SetDamage(GetResultDamage());
+        //현재 플레이어의 무기가 존재하면, 해당 무기 삭제
+        if (weaponTypeString != null)
+        {
+            Destroy(weaponDic[weaponTypeString].gameObject);
+        }
+
         weaponTypeString = weapon.weaponType.ToString();
 
-        Invoke("WeaponInitDelay", 0.2f);
+        weaponTransform = FindTransformAtChild("PlayerWeapon");
+        weaponDic[weaponTypeString] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
+
+        weaponDic[weaponTypeString].transform.parent = weaponTransform;
+        weaponDic[weaponTypeString].SetDamage(GetResultDamage());
+
+        Invoke("WeaponInitDelay", 0.1f);
     }
 
     void WeaponInitDelay()
@@ -117,7 +124,7 @@ public class Player : Character
         
     }
 
-    public override void TakeDamage(float amount, int hitLevel = -1)
+    public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
         hitAction();
 
@@ -129,7 +136,7 @@ public class Player : Character
 
         
 
-        base.TakeDamage(amount, hitLevel);
+        base.TakeDamage(amount, attacker, hitLevel);
         if (hitLevel == -1)
             return;
 

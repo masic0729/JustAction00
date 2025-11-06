@@ -47,15 +47,15 @@ public class EnemyTest : FollwingPlayerEnemyBT
         {
             for (int i = 0; i < playerCol.Length; i++)
             {
-                playerCol[i].GetComponent<Character>().TakeDamage(damage);
+                playerCol[i].GetComponent<Character>().TakeDamage(damage, this);
 
             }
         }
     }
 
-    public override void TakeDamage(float amount, int hitLevel = -1)
+    public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
-        base.TakeDamage(amount, hitLevel);
+        base.TakeDamage(amount, attacker, hitLevel);
         if (isSuperArmor == false || hitLevel != -1)
         {
             anim.SetTrigger("Hit");

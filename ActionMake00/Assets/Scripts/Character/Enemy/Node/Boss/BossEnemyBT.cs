@@ -24,9 +24,9 @@ public class BossEnemyBT : TreeCtrl
         base.Init();
     }
 
-    public override void TakeDamage(float amount, int hitLevel = -1)
+    public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
-        base.TakeDamage(amount, hitLevel);
+        base.TakeDamage(amount, attacker, hitLevel);
 
     }
 
