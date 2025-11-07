@@ -34,6 +34,7 @@ public class EquipmentManager : MonoBehaviour
 
     void Start()
     {
+        
     }
 
     private void OnEnable()
@@ -49,6 +50,8 @@ public class EquipmentManager : MonoBehaviour
             equipSlotDic[equipSlots[i].equipmentType.ToString()] = equipSlots[i];
         }
         UpdateCharacterStatResult();
+
+        
     }
 
 

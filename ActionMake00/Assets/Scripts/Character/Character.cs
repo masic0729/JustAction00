@@ -86,6 +86,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     // Start is called before the first frame update
     virtual protected void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -158,6 +159,12 @@ public class Character : MonoBehaviour, ICharacterDamageable
             //Dead();                         //이 부분은 이벤트/액션 처리할 것
             anim.SetTrigger("Death");
             isDead = true;
+
+            if(attacker.gameObject.transform.tag == "Player")
+            {
+                Player player = attacker.gameObject.GetComponent<Player>();
+                player.ExpUp(exp);
+            }
         }
 
         if (isSuperArmor == false || hitLevel != -1)

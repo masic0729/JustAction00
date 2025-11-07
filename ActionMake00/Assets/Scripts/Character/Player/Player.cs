@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 
 
@@ -8,7 +10,9 @@ public class Player : Character
 {
     PlayerController playerCtrl;
     SkillManager skillManager;
-    [SerializeField] int needExp;
+    [SerializeField] int level = 1;
+    [SerializeField] int[] needExp;
+    [SerializeField] const int maxLevel = 3;                              //플레이어의 체대 레벨은 3레벨이다
 
 
     //public Dictionary<string, GameObject> weaponsDic;
@@ -20,7 +24,11 @@ public class Player : Character
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
     protected string weaponTypeString;
-
+    /*private void Awake()
+    {
+        weaponDic[WeaponType.Sword.ToString()] = null;
+        weaponDic[WeaponType.Staff.ToString()] = null;
+    }*/
     // 초기화
     protected override void Start()
     {
@@ -31,21 +39,28 @@ public class Player : Character
     protected override void Init()
     {
         base.Init();
-
+        exp = 0;
         playerCtrl = GetComponent<PlayerController>();
-        skillManager = GetComponent<SkillManager>();
+
         hitAction += WeaponColDisable;
 
         transform.tag = "Player";
         hp = 100;
         rotateSpeed = 20f;
-        //WeaponInit("Sword");
+
+        /*weaponDic[WeaponType.Sword.ToString()] = null;
+        weaponDic[WeaponType.Staff.ToString()] = null;*/
+
+
     }
 
     protected override void Update()
     {
         base.Update();
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ExpUp(1);
+        }
     }
 
     /*public void WeaponInit(string weaponName)
@@ -76,8 +91,9 @@ public class Player : Character
     /// <param name="weapon"></param>
     public void WeaponInit(PlayerWeapon weapon)
     {
+        
         //현재 플레이어의 무기가 존재하면, 해당 무기 삭제
-        if (weaponTypeString != null)
+        if (weaponDic[weaponTypeString] != null && weaponTypeString != null)
         {
             Destroy(weaponDic[weaponTypeString].gameObject);
         }
@@ -86,22 +102,39 @@ public class Player : Character
 
         weaponTransform = FindTransformAtChild("PlayerWeapon");
         weaponDic[weaponTypeString] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
-
         weaponDic[weaponTypeString].transform.parent = weaponTransform;
         weaponDic[weaponTypeString].SetDamage(GetResultDamage());
+        WeaponInitDelay();
+        //Invoke("WeaponInitDelay", 0.1f);
+    }
 
-        Invoke("WeaponInitDelay", 0.1f);
+    public void WeaponAwakeInit(PlayerWeapon weapon)
+    {
+        weaponTypeString = weapon.weaponType.ToString();
+
+        weaponTransform = FindTransformAtChild("PlayerWeapon");
+        weaponDic[weaponTypeString] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
+        weaponDic[weaponTypeString].transform.parent = weaponTransform;
+        weaponDic[weaponTypeString].SetDamage(GetResultDamage());
+        WeaponInitDelay();
     }
 
     void WeaponInitDelay()
     {
+        if (skillManager == null)
+            skillManager = GetComponent<SkillManager>();
+
         skillManager.SetCurrentWeaponType(weaponTypeString);
         skillManager.WeaponSkillLoad(weaponTypeString);
     }
 
     public void WeaponColDisable()
     {
-        weaponDic[weaponTypeString].ResetColiderDisable();
+        if(weaponTypeString != null && weaponDic != null)
+        {
+            weaponDic[weaponTypeString].ResetColiderDisable();
+
+        }
     }
 
     public void TransWeapon(string weaponName)
@@ -152,10 +185,47 @@ public class Player : Character
         playerCtrl.SetCanAttackInput(false);
     }
 
-    public void GetExp()
+    /// <summary>
+    /// 플레이어는 적을 처치 시 경험치를 획득한다.
+    /// 획득할 때, 만약 최대 경험치를 초과한 경험치를 받는다면,
+    /// 우선 레벨업 후 나머지 경험치를 임지 저장 하여 마저 획득할 예정이다. 
+    /// </summary>
+    public void ExpUp(int getExp)
     {
+        Debug.Log("실행은 됨");
+        if(level == maxLevel)
+        {
+            Debug.Log("최대 레벨이므로, 경험치 획득이 제한됩니다.");
+            return;
+        }
+        exp += getExp;
 
+        //경험치
+        int overExpValue = 0;
+
+        //이후 일단 레벨업이 되는 지 확인후 레벨업 처리하자마자, 오버되는 경험치를 확인
+        if(exp + getExp >= needExp[level - 1])
+        {
+            LevelUp();
+
+            overExpValue = needExp[level - 1] - (exp + getExp);
+            exp = overExpValue;
+
+            level++;
+            Debug.Log(level);
+        }
     }
+
+    /// <summary>
+    /// 캐릭터가 레벨업에 의한 변화를 처리하는 곳.
+    /// 레벨 구간에 따라 능력치 선택 상승 또는
+    /// 새 스킬 활성화 등 기능을 추가한다
+    /// </summary>
+    void LevelUp()
+    {
+    }
+
+
 
     public void SetWeaponType(string typeName) => weaponTypeString = typeName;
 

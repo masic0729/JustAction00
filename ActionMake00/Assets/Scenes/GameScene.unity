@@ -2455,6 +2455,7 @@ RectTransform:
   m_Children:
   - {fileID: 618963144}
   - {fileID: 1103356010}
+  - {fileID: 1769580604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3252,6 +3253,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683330728}
   m_CullTransparentMesh: 1
+--- !u!1 &1769580603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1769580604}
+  m_Layer: 5
+  m_Name: PlayerUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1769580604
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769580603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1179473758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1786218399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3482,6 +3518,50 @@ MonoBehaviour:
   commonEnemy: {fileID: 65043727}
   BossEnemy: {fileID: 0}
   commonEnemySpawn: {fileID: 829931066}
+--- !u!1 &2060367311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2060367312}
+  - component: {fileID: 2060367313}
+  m_Layer: 0
+  m_Name: PlayerUI_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2060367312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060367311}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060367313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060367311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57b68e1f96ee27428f9def5ee4380ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2062254953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,7 +5125,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 58c16df078a6377409672abd9e3f36b1, type: 2}
     - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: maxExp.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: weapon.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: needExp.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
@@ -5056,6 +5144,14 @@ PrefabInstance:
       propertyPath: weapon.Array.data[1]
       value: 
       objectReference: {fileID: 8924246067352728424, guid: a7dd1f61e15c55f4eab277704c6d5f33, type: 3}
+    - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: needExp.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: needExp.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1320009996281408208, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: equip
       value: 
@@ -5781,3 +5877,4 @@ SceneRoots:
   - {fileID: 1179473758}
   - {fileID: 1786218400}
   - {fileID: 1430822377}
+  - {fileID: 2060367312}

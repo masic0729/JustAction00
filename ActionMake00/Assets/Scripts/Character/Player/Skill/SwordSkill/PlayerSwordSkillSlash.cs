@@ -12,8 +12,7 @@ public class PlayerSwordSkillSlash : PlayerWeaponSkill
     public override void SkillUse()
     { 
         base.SkillUse();
-        GameObject ins = PoolManager.instance.Spawn(skillPrefab.name, player.weaponDic["Sword"].transform.position , player.weaponDic["PlayerSword"].transform.rotation, player);
-        ins.transform.Rotate(0, 180, 0);
+        PoolManager.instance.Spawn(skillPrefab.name, player.weaponDic["Sword"].transform.position , player.weaponDic["Sword"].transform.rotation, player);
     }
 
     

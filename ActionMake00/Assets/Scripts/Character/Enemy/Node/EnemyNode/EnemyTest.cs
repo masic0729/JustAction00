@@ -32,6 +32,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
     void Attack01()
     {
         Transform attackTrans = FindTransformAtChild("mixamorig1:LeftToeBase");
+        //공격하는 위치가 없거나, 공격 중 상태가 아니면 사용되지 말 것
         if(attackTrans == null)
         {
             Debug.Log("데이터 없음");
