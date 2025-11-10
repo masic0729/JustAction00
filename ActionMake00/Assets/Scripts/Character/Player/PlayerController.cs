@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                transform.position += moveVector.normalized * player.GetMoveSpeed() * Time.deltaTime;
+                transform.position += moveVector.normalized * player.GetResultMoveSpeed() * Time.deltaTime;
             }
         }
     }

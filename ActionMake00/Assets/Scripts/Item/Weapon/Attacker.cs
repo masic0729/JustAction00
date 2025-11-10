@@ -17,7 +17,7 @@ public class Attacker : MonoBehaviour, IAttacker
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
-    [SerializeField] protected float damage = 1;
+    [SerializeField] protected float damageMultify = 1;
 
     protected string target;
     protected int hitLevel = -1;
@@ -140,8 +140,10 @@ public class Attacker : MonoBehaviour, IAttacker
             else
             {
                 Debug.Log(this.gameObject.name + "가 때림");
-                hitTarget.TakeDamage(damage, owner, hitLevel);
 
+                //시전자의 공격력 * 공격체의 데미지 배율에 따라 피해량이 달라짐
+                hitTarget.TakeDamage(damageMultify * owner.GetResultDamage(), owner, hitLevel);
+                Debug.Log(this.gameObject.name + "의 총 공격력 : " + damageMultify * owner.GetResultDamage());
                 if (hitEffect.Length != 0)
                 {
                     PlayEffect(other);
@@ -190,6 +192,6 @@ public class Attacker : MonoBehaviour, IAttacker
         PoolManager.instance.Spawn(hitEffect[psDataIndex].name, contactPoint, particleRotate);
     }
 
-    public float GetDamage() => damage;
-    public void SetDamage(float value) => damage = value;
+    public float GetDamage() => damageMultify;
+    public void SetDamage(float value) => damageMultify = value;
 }

@@ -5121,6 +5121,10 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: equipmentManager
+      value: 
+      objectReference: {fileID: 1103356013}
+    - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: characterStatData
       value: 
       objectReference: {fileID: 11400000, guid: 58c16df078a6377409672abd9e3f36b1, type: 2}
@@ -5138,7 +5142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: statDatas.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 629767094488128585, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: weapon.Array.data[1]
@@ -5180,6 +5184,12 @@ PrefabInstance:
       propertyPath: testitem3
       value: 
       objectReference: {fileID: 4488831371431100241, guid: 0427dfed3d08f694c9a52a0d11ca61fd, type: 3}
+    - target: {fileID: 1801321592399160821, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Right_Hand'\n\tFrom animation clip 'OneHand_Up_Attack_2_InPlace_New'"
+      objectReference: {fileID: 0}
     - target: {fileID: 2568580624046679621, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       propertyPath: m_Constraints
       value: 116
@@ -5282,6 +5292,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4995732278131615029, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6251207807892908471}
+    - targetCorrespondingSourceObject: {fileID: 4995732278131615029, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6251207807892908472}
     - targetCorrespondingSourceObject: {fileID: 6409639155250624676, guid: d1bcc8295b3eef843a058b48acc6602e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2068710228}
@@ -5321,6 +5334,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modeAtStart: 0
+--- !u!114 &6251207807892908472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796083943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0119b1b4b0854c249a41caf4ac45c0a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelUpPS: LevelUp
 --- !u!1001 &8610385282719232980
 PrefabInstance:
   m_ObjectHideFlags: 0

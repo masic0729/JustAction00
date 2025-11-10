@@ -27,7 +27,7 @@ public class BossGroundAttackProjectile : BossProjectile
         {
             for (int i = 0; i < player.Length; i++)
             {
-                player[i].GetComponent<Character>().TakeDamage(damage, owner, hitLevel);
+                player[i].GetComponent<Character>().TakeDamage(damageMultify, owner, hitLevel);
 
             }
         }

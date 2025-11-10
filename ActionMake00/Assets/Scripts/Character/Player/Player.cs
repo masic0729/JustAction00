@@ -9,7 +9,9 @@ using UnityEngine.Experimental.Rendering;
 public class Player : Character
 {
     PlayerController playerCtrl;
+    PlayerLevelUp playerLevelUp;
     SkillManager skillManager;
+    [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] int level = 1;
     [SerializeField] int[] needExp;
     [SerializeField] const int maxLevel = 3;                              //플레이어의 체대 레벨은 3레벨이다
@@ -24,6 +26,7 @@ public class Player : Character
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
     protected string weaponTypeString;
+
     /*private void Awake()
     {
         weaponDic[WeaponType.Sword.ToString()] = null;
@@ -41,6 +44,7 @@ public class Player : Character
         base.Init();
         exp = 0;
         playerCtrl = GetComponent<PlayerController>();
+        playerLevelUp = GetComponent<PlayerLevelUp>();
 
         hitAction += WeaponColDisable;
 
@@ -192,7 +196,7 @@ public class Player : Character
     /// </summary>
     public void ExpUp(int getExp)
     {
-        Debug.Log("실행은 됨");
+        //추후 UI_Manager를 통해 경험치 바 상태 최신화 요구
         if(level == maxLevel)
         {
             Debug.Log("최대 레벨이므로, 경험치 획득이 제한됩니다.");
@@ -206,23 +210,43 @@ public class Player : Character
         //이후 일단 레벨업이 되는 지 확인후 레벨업 처리하자마자, 오버되는 경험치를 확인
         if(exp + getExp >= needExp[level - 1])
         {
-            LevelUp();
-
             overExpValue = needExp[level - 1] - (exp + getExp);
-            exp = overExpValue;
 
             level++;
+            playerLevelUp.LevelUp();
+
+            exp = overExpValue;
+
             Debug.Log(level);
         }
     }
 
     /// <summary>
-    /// 캐릭터가 레벨업에 의한 변화를 처리하는 곳.
-    /// 레벨 구간에 따라 능력치 선택 상승 또는
-    /// 새 스킬 활성화 등 기능을 추가한다
+    /// 레벨업에 의한 새로운 스킬을 획득하는 함수.
+    /// E 스킬을 고정으로 활성화 한다.
     /// </summary>
-    void LevelUp()
+    public void LevelUpForSkillOpen()
     {
+        Debug.Log("스킬 해금해야함");
+    }
+
+    /// <summary>
+    /// 레벨업에 의해 플레이어의 모든 능력치가 소폭 상승한다
+    /// </summary>
+    public void LevelUpForStatUp()
+    {
+        Debug.Log("수치 상승해야함");
+
+        float statUpValue = 50f;
+        statDatas[(int)AddStatName.LevelUp].Damage += statUpValue;
+        statDatas[(int)AddStatName.LevelUp].Defense += statUpValue;
+        statDatas[(int)AddStatName.LevelUp].MoveSpeed += statUpValue;
+        statDatas[(int)AddStatName.LevelUp].MaxHp += statUpValue;
+
+        equipmentManager.UpdateCharacterStatResult();
+
+        //모든 스텟 조정 후, 체력의 경우 현재 체력을 상승한 최대 체력 만큼 상승한다
+        SetHp(GetHp() + 10f);
     }
 
 
@@ -230,4 +254,7 @@ public class Player : Character
     public void SetWeaponType(string typeName) => weaponTypeString = typeName;
 
     public string GetWeaponType() => weaponTypeString;
+
+    public int GetLevel() => level;
+
 }

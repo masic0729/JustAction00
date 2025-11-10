@@ -30,7 +30,8 @@ public enum StatTypeToIndex
 public enum AddStatName
 {
     Buff = 0,
-    Equit = 1
+    Equit = 1,
+    LevelUp
 }
 
 public class Character : MonoBehaviour, ICharacterDamageable
@@ -132,27 +133,31 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     public float SetDamage(float value) => damage = value;
     public float GetHp() => hp;
-    public void SetHp(int value) => hp = value;
+    public void SetHp(float value) => hp = value;
 
-    public virtual void TakeDamage(float amount, Character attacker, int hitLevel = -1)
+    public virtual void TakeDamage(float damage, Character attacker, int hitLevel = -1)
     {
         float defResult = 0f;
 
         for(int i = 0; i < statDatas.Length; i++)
         {
-            defResult += statDatas[i].MaxHp;
+            defResult += statDatas[i].Defense;
         }
-        amount -= (int)(defResult * 0.3f);
+        damage -= (int)(defResult * 0.3f);
 
         if (isIgnoreDamage == true)
         {
             return;
         }
 
-        if (hp - amount < 0)
+        if (hp - damage < 0)
             hp = 0;
         else
-            hp -= (int)amount;
+            hp -= (int)damage;
+
+        //이곳에 체력 바 갱신
+
+        //
 
         if (hp <= 0)
         {

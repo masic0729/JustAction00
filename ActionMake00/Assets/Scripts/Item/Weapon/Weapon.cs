@@ -13,7 +13,7 @@ public class Weapon : Attacker, IAttacker
     {
         base.Init();
         owner = GetComponentInParent<Character>();
-        damage = owner.GetResultDamage();
+        damageMultify = owner.GetResultDamage();
     }
 
 
