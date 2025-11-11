@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     bool canAttackInput = true;
     bool canAnyInput = true;
+    bool canKeyQ = false;
 
     // √ ±‚»≠
     void Start()
@@ -166,6 +167,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetCanInputQ()
+    {
+        canKeyQ = true;
+    }
+
     void PlayerSkillInput()
     {
         if(Input.GetKeyDown(KeyCode.E) && skillManager.isSkillCanUse("Skill0"))
@@ -181,7 +187,7 @@ public class PlayerController : MonoBehaviour
             player.anim.SetTrigger("Skill0");
             canInput = false;
         }*/
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && canKeyQ == true)
         {
             player.anim.SetBool("isAttacking", true);
 

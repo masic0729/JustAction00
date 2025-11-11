@@ -228,6 +228,16 @@ public class Player : Character
     public void LevelUpForSkillOpen()
     {
         Debug.Log("스킬 해금해야함");
+        playerCtrl.SetCanInputQ();
+
+        //이뿐만 아니라 일정 주기로 스킬 또는 공격 성공 시,
+        //해당 충돌 위치에 추가 공격 발동.
+        //해당 공격은 원형으로 터지는 스킬 형태로 발동될 예정.
+        //레퍼런스는 아델, 아크, 로아의 보주효과, 롤의 스태틱 등 존재한다.
+
+
+
+        //이후 UI 상에서 Q스킬 사용할 수 있음을 표시할 것
     }
 
     /// <summary>

@@ -30,7 +30,7 @@ public class PlayerLevelUp : MonoBehaviour
                 break;
 
             case 3:
-                player.LevelUpForStatUp();
+                player.LevelUpForSkillOpen();
                 break;
 
             default:
