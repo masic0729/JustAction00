@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     //bool isGround = true;
     bool canCombo = false;
     public bool isEscapeAttackAnim = false;
+
     [SerializeField]
     bool canAttackInput = true;
     bool canAnyInput = true;
@@ -46,30 +47,29 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (player.anim.GetBool("isStating") == true)
+            return;
+
+
         {
             if (canAnyInput == false)
                 return;
             PlayerEscape();
             WeapontestSwap();
-
         }
 
         {
             if (canAttackInput == false)
                 return;
             MoveInput();
-
             PlayerAttack();
             PlayerSkillInput();
         }
-        
-        
-
     }
+
     void FixedUpdate()
     {
         ActionCoolTimer();
-
     }
 
 

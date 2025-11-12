@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerSwordParring : PlayerSkillInfo
 {
-    float buffTime = 10f;
     protected override void Start()
     {
         base.Start();
@@ -25,12 +24,6 @@ public class PlayerSwordParring : PlayerSkillInfo
     {
         base.Init();
         hitLevel = 1;
-
-        BuffBase addDamageBuff = new BuffTransDamage();
-        addDamageBuff.ObjectSetup(owner, buffTime, "DamageUpEffectTest", null);
-        //ins.transform.Translate(0, 1, 0);
-        
-        //getBuffs.Add(addDamageBuff);
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -43,7 +36,10 @@ public class PlayerSwordParring : PlayerSkillInfo
         if(hitTarget.transform.tag == target)
         {
             hitTarget.anim.SetTrigger("GetParring");
+            float buffTime = 10f;
 
+            BuffBase addDamageBuff = new BuffTransDamage();
+            addDamageBuff.ObjectSetup(owner, buffTime, "DamageUpEffect", null);
         }
 
     }

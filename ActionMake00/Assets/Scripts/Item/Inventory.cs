@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     public GameObject slot;
     public Character inventoryOwner;                   //인벤토리 소유자. 현재는 플레이어 밖에 없음
     public EquipmentManager equipManager;
+    public Image DragImage;
     Transform inventoryTransform;
     const int slotCount = 40;
     public List<ItemSlot> lSlot;

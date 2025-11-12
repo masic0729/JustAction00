@@ -379,21 +379,26 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     {
         Debug.Log("End Drag");
         inventory.ResetDragSlot();
+        inventory.DragImage.sprite = null;
+        inventory.DragImage.gameObject.SetActive(false);
+
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+
         Debug.Log("OnDrag");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         // 좌클릭 + 아이템이 있어야 드래그 시작
-        if (eventData.button != PointerEventData.InputButton.Left || this.currentItem == null) return;
+        if (eventData.button != PointerEventData.InputButton.Left || this.currentCount == 0) return;
 
-        Debug.Log("OnBeginDrag");
         inventory.SetDragSlot(this);
+        inventory.DragImage.sprite = inventory.GetDragSlot().icon.sprite;
+        inventory.DragImage.gameObject.SetActive(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
