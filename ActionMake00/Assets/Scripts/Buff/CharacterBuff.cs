@@ -1,11 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuffType
-{
-    Buff,
-    Debuff
-}
+
 
 public class CharacterBuff : MonoBehaviour
 {
@@ -39,16 +35,28 @@ public class CharacterBuff : MonoBehaviour
         }
     }
 
-    public void AddBuff(BuffBase buff, BuffType buffType)
+    public void AddBuff(BuffBase buff)
     {
-        buff.onApply();
+        buff.onApply?.Invoke();
 
-        if (buffType == BuffType.Buff)
+        /*if (buffType == BuffType.Buff)
+        {
+            buffs.Add(buff);
+        }
+        
+        if (buffType == BuffType.Debuff)
+        {
+            debuffs.Add(buff);
+        }*/
+
+
+
+        if (buff.buffType == BuffType.Buff)
         {
             buffs.Add(buff);
         }
 
-        if(buffType == BuffType.Debuff)
+        if (buff.buffType == BuffType.Debuff)
         {
             debuffs.Add(buff);
         }
@@ -63,7 +71,7 @@ public class CharacterBuff : MonoBehaviour
     /// <param name="removeCount"></param>
     public void RemoveBuff(BuffType buffType, int removeCount = 999)
     {
-        int canRemoveCount;                 //본래 제거하려는 양이 현재 소지중인 버프 개수보다 적으면 이를 보정하기 위한 변수
+        int canRemoveCount;                                                                 //본래 제거하려는 양이 현재 소지중인 버프 개수보다 적으면 이를 보정하기 위한 변수
 
         if (buffType == BuffType.Buff)
         {

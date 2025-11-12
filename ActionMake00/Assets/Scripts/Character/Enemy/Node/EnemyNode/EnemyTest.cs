@@ -38,6 +38,7 @@ public class EnemyTest : FollwingPlayerEnemyBT
             Debug.Log("데이터 없음");
             return;
         }
+
         ParticleSystem ps = Instantiate(pEffectDic["CommonEnemyAttack"], attackTrans.position, attackTrans.rotation);
         ps.Play();
         Destroy(ps.gameObject, ps.main.duration);

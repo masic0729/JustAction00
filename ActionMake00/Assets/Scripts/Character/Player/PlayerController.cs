@@ -46,17 +46,23 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        MoveInput();
-        if (canAnyInput == false)
-            return;
-        PlayerEscape();
-        WeapontestSwap();
+        {
+            if (canAnyInput == false)
+                return;
+            PlayerEscape();
+            WeapontestSwap();
 
+        }
 
-        if (canAttackInput == false)
-            return;
-        PlayerAttack();
-        PlayerSkillInput();
+        {
+            if (canAttackInput == false)
+                return;
+            MoveInput();
+
+            PlayerAttack();
+            PlayerSkillInput();
+        }
+        
         
 
     }

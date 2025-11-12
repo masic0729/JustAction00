@@ -26,7 +26,7 @@ public class PlayerLevelUp : MonoBehaviour
         {
             case 2:
                 //player.LevelUpForSkillOpen();
-                player.LevelUpForStatUp();
+                //player.LevelUpForStatUp();
                 break;
 
             case 3:

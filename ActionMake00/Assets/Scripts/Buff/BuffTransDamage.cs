@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class BuffTransDamage : BuffBase
 {
-    [SerializeField] float damageAmount;        // 에디터 셋업 혹은 런타임 주입
+    float damageAmount = 2;        // 에디터 셋업 혹은 런타임 주입
 
-    public override void ObjectSetup(Character target, float dmgAmount, float duration)
+    public override GameObject ObjectSetup(Character target, float duration, string spawnParticleName, string spawnParentName)
     {
-        base.ObjectSetup(target, dmgAmount, duration);
-        damageAmount = dmgAmount;
+        return base.ObjectSetup(target, duration, spawnParticleName, spawnParentName);
+
+    }
+
+    public override void ObjectSetup(Character target, float duration)
+    {
+        base.ObjectSetup(target, duration);
+
     }
 
     protected override void ApplyBuff()

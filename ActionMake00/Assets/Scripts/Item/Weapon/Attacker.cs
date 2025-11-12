@@ -10,10 +10,13 @@ public enum AttackType
     Skill
 }
 
+
+
 public class Attacker : MonoBehaviour, IAttacker
 {
     [SerializeField] protected Character owner;                                                        //공격체의 출처
-    protected List<BuffBase> buffs;                                                                    //각 공격에 사용되는 버프구조 
+    /*protected List<BuffBase> getBuffs;                                                                    //자신에게 획득하는 버프 
+    protected List<BuffBase> tossBuffs;                                                                    //상대에게 제공하는 버프 */
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
@@ -29,7 +32,8 @@ public class Attacker : MonoBehaviour, IAttacker
         {
             objectCol = GetComponent<Collider>();
         }
-        buffs = new List<BuffBase>();
+        /*getBuffs = new List<BuffBase>();
+        tossBuffs = new List<BuffBase>();*/
     }
 
     protected virtual void Start()
@@ -143,17 +147,32 @@ public class Attacker : MonoBehaviour, IAttacker
 
                 //시전자의 공격력 * 공격체의 데미지 배율에 따라 피해량이 달라짐
                 hitTarget.TakeDamage(damageMultify * owner.GetResultDamage(), owner, hitLevel);
+
                 Debug.Log(this.gameObject.name + "의 총 공격력 : " + damageMultify * owner.GetResultDamage());
+
                 if (hitEffect.Length != 0)
                 {
                     PlayEffect(other);
                 }
             }
-                
-            foreach (BuffBase buff in buffs)
+
+            /*foreach (BuffBase buff in getBuffs)
             {
                 buff.Activate();
             }
+
+            hitTarget.UpdateBuffs();
+            owner.UpdateBuffs();*/
+
+            /*foreach( BuffBase insBuff in getBuffs)
+            {
+                owner.GetComponent<CharacterBuff>().AddBuff(insBuff);
+            }
+
+            foreach (BuffBase insBuff in tossBuffs)
+            {
+                hitTarget.GetComponent<CharacterBuff>().AddBuff(insBuff);
+            }*/
 
             if (attackType == AttackType.Projectile)
             {

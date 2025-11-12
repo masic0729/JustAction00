@@ -1,9 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
+public enum BuffType
+{
+    Buff,
+    Debuff
+}
 public abstract class BuffBase
 {
     protected Character character;                      // 캐시
+    public BuffType buffType;
 
     public Action onApply;
     public Action onUpdate;
@@ -12,6 +18,7 @@ public abstract class BuffBase
 
     float buffTimer;
     float buffTime;
+    bool isActived = false;
 
     /// <summary>
     /// 버프류 실행할 때, 만약 버프 이펙트 표시 시 파티클로 보여줄 수 있다.
@@ -25,12 +32,11 @@ public abstract class BuffBase
     /// <param name="duration">기본적인 버프 지속시간 및 버프 관련 파티클 유지 시간</param>
     /// <param name="spawnParticleName"></param>
     /// <param name="spawnParentName"></param>
-    public virtual GameObject ObjectSetup(Character target, int dmgAmount, float duration, string spawnParticleName, string spawnParentName)
+    public virtual GameObject ObjectSetup(Character target, float duration, string spawnParticleName, string spawnParentName)
     {
         character = target;
-        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+        buffTime = duration;
 
-        
 
         GameObject instance = PoolManager.instance.Spawn(spawnParticleName, target.transform.position, target.transform.rotation);
 
@@ -43,7 +49,11 @@ public abstract class BuffBase
             instance.transform.parent = target.transform;
         }
 
-        instance.GetComponent<ParticlePoolReleaser>().SetReleaseTime(duration);
+        instance.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(duration);
+        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+        character.GetComponent<CharacterBuff>().AddBuff(this);
+
+
         return instance;
     }
 
@@ -53,9 +63,11 @@ public abstract class BuffBase
     /// <param name="target"></param>
     /// <param name="dmgAmount"></param>
     /// <param name="duration"></param>
-    public virtual void ObjectSetup(Character target, float dmgAmount, float duration)
+    public virtual void ObjectSetup(Character target, float duration)
     {
         character = target;
+        buffTime = duration;
+
         Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
     }
 
@@ -75,6 +87,11 @@ public abstract class BuffBase
 
     public void Activate()
     {
+        if (isActived == true)
+            return;
+
+        isActived = true;
+        Init(buffTime, ApplyBuff, UpdateBuff, ExitBuff);
 
         onApply?.Invoke();   // 부가 훅
     }
@@ -83,6 +100,7 @@ public abstract class BuffBase
     {
 
         onExit?.Invoke();    // 부가 훅
+        isActived = false;
     }
 
     public bool UpdateTime()

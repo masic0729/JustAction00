@@ -244,6 +244,19 @@ public class Character : MonoBehaviour, ICharacterDamageable
         return null;
     }
 
+    public void UpdateBuffs()
+    {
+        /*foreach(BuffBase insBuffs in buffs)
+        {
+            insBuffs.Activate();
+        }
+
+        foreach(BuffBase insDebuffs in deBuffs)
+        {
+            insDebuffs.Activate();
+        }*/
+    }
+
     public int GetResultMaxHp()
     {
         float result = maxHp;
