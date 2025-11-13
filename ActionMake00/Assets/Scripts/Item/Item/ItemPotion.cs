@@ -4,10 +4,10 @@ public class ItemPotion : ItemObject
 {
     float transHpValue = 5f;
 
-    
-
     public override void UseItem(Character character, SlotBase slot)
     {
+        Debug.Log(item.comment);
+
         if (ItemUseCheck(character) == false)
         {
             //원래 이곳에 사용되지 않았다는 메세지 및 사운드 구현해야함
@@ -45,5 +45,8 @@ public class ItemPotion : ItemObject
         return true;
     }
 
-    
+    public override string SetItemComment()
+    {
+        return $"테스트 포션 : <color=#ff5555>{transHpValue}</color>" + "이지롱";
+    }
 }

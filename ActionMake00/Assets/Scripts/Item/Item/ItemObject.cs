@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
     Character test;
-    [SerializeField] public ItemBase item;
+    public ItemBase item;
+    protected string itemComment;
 
     // Start is called before the first frame update
     void Start()
@@ -35,5 +37,11 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
 
     public abstract bool ItemUseCheck(Character character);
+    public string GetItemComment()
+    {
+        item.comment = SetItemComment();
+        return SetItemComment();
+    }
 
+    public abstract string SetItemComment();
 }

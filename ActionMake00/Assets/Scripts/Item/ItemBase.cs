@@ -4,6 +4,7 @@ using System;
 public class ItemBase
 {
     public ItemData data;
+    public string comment;                                           //각 아이템에 대한 설명 및 정보
     //public ItemSlot slotData;                                      //해당 아이템이 위치한 슬롯 정보
     public SlotBase slotData;                                        //해당 아이템이 위치한 슬롯 정보
     public int addCount;                                             //해당 데이터는 테스트용으로 사용중임. 절대 이를 활용하지 말것

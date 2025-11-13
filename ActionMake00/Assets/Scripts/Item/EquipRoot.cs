@@ -97,4 +97,8 @@ public class EquipRoot : ItemObject
         return true;
     }
 
+    public override string SetItemComment()
+    {
+        return "장비는 아직 없음";
+    }
 }

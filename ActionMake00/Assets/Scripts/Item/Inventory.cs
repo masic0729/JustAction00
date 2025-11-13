@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
     public Character inventoryOwner;                   //인벤토리 소유자. 현재는 플레이어 밖에 없음
     public EquipmentManager equipManager;
     public Image DragImage;
+    public Text testItemName;
+    public Text testItemComment;
     Transform inventoryTransform;
     const int slotCount = 40;
     public List<ItemSlot> lSlot;
@@ -229,7 +231,7 @@ public class Inventory : MonoBehaviour
             // 소비만 0 이하면 제외
             if (data.itemType == ItemType.Consumable && count <= 0) continue;
 
-            snaps.Add((it, count, s.OnItemUse, s.OnItemUpdate));
+            snaps.Add((it, count, s.OnSlotItemUse, s.OnSlotItemUpdate));
         }
 
         // 타입 → (소비 수량 내림차순) → 이름
@@ -256,9 +258,9 @@ public class Inventory : MonoBehaviour
             var (item, count, onUse, onUpdate) = snaps[i];
             var slot = lSlot[i];
 
-            slot.SetItemDirect(item.data, count);
-            slot.OnItemUse = onUse;
-            slot.OnItemUpdate = onUpdate;
+            slot.SetItemDirect(item.data, count, item.comment);
+            slot.OnSlotItemUse = onUse;
+            slot.OnSlotItemUpdate = onUpdate;
 
             if (slot.currentItem != null) slot.currentItem.slotData = slot;
         }

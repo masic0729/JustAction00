@@ -16,6 +16,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     private void Start()
     {
         slotType = SlotType.InventorySlot;
+        slotIcon = GetComponent<Image>();
     }
 
     public override bool AddItem(ItemObject itemObject)
@@ -26,16 +27,19 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             return false;
         }
 
-        var ib = itemObject.item;      // ItemBase
-        var data = ib.data;
+        ItemBase ib = itemObject.item;      // ItemBase
+        ItemData data = ib.data;
 
         // 1) 슬롯 기본 세팅
         currentItem = ib;
         currentItem.slotData = this;
+        currentItem.comment = itemObject.GetItemComment();
 
-        icon.sprite = data.icon;
-        icon.enabled = true;
-        icon.color = Color.white;
+        Debug.Log(slotIcon + "랑");
+        Debug.Log(data + "가 있지요");
+        slotIcon.sprite = data.icon;
+        slotIcon.enabled = true;
+        slotIcon.color = Color.white;
 
         type = data.itemType;
         maxCount = data.maxCount;
@@ -52,10 +56,10 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         currentCount = Mathf.Clamp(count, 0, maxCount);
 
         // 3) 델리게이트 바인딩: 아이템 쪽이 우선, 없으면 ItemObject의 핸들러 사용
-        if (ib.OnItemUse != null) OnItemUse = ib.OnItemUse;
-        /*else if (itemObject.UseItem != null) */ OnItemUse = itemObject.UseItem;
+        if (ib.OnItemUse != null) OnSlotItemUse = ib.OnItemUse;
+        /*else if (itemObject.UseItem != null) */ OnSlotItemUse = itemObject.UseItem;
 
-        if (ib.OnItemUpdate != null) OnItemUpdate = ib.OnItemUpdate;
+        if (ib.OnItemUpdate != null) OnSlotItemUpdate = ib.OnItemUpdate;
         // (itemObject에 업데이트 콜백이 따로 있다면 여기서 보강)
 
         UpdateUI();
@@ -80,19 +84,22 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
                             ? item.currentCount
                             : (item.data.itemType == ItemType.Equitment ? 1 : item.addCount),
             OnItemUse = item.OnItemUse,
-            OnItemUpdate = item.OnItemUpdate
+            OnItemUpdate = item.OnItemUpdate,
+            
+            comment = item.comment,
         };
-        OnItemUse = item.OnItemUse;
-        OnItemUpdate = item.OnItemUpdate;
+
+        OnSlotItemUse = item.OnItemUse;
+        OnSlotItemUpdate = item.OnItemUpdate;
         currentItem.slotData = this;
 
         type = currentItem.data.itemType;
         maxCount = currentItem.data.maxCount;
         currentCount = Mathf.Clamp(currentItem.currentCount, 0, maxCount);
 
-        icon.sprite = currentItem.data.icon;
-        icon.enabled = true;
-        icon.color = Color.white;
+        slotIcon.sprite = currentItem.data.icon;
+        slotIcon.enabled = true;
+        slotIcon.color = Color.white;
         UpdateUI();
         return true;
     }
@@ -106,16 +113,17 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         int t_count = this.currentCount;
         int t_max = this.maxCount;
         ItemType t_type = this.type;
-        Action<Character, SlotBase> t_use = this.OnItemUse;
-        Action<SlotBase> t_update = this.OnItemUpdate;
+        Action<Character, SlotBase> t_use = this.OnSlotItemUse;
+        Action<SlotBase> t_update = this.OnSlotItemUpdate;
 
         // this <- slot
         this.currentItem = slot.currentItem;
         this.currentCount = slot.currentCount;
         this.maxCount = slot.maxCount;
         this.type = slot.type;
-        this.OnItemUse = slot.OnItemUse;
-        this.OnItemUpdate = slot.OnItemUpdate;
+        this.OnSlotItemUse = slot.OnSlotItemUse;
+        this.OnSlotItemUpdate = slot.OnSlotItemUpdate;
+        //this.slotItemName = slot.slotItemName;
         if (this.currentItem != null) this.currentItem.slotData = this;
 
         // slot <- temp
@@ -123,17 +131,19 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         slot.currentCount = t_count;
         slot.maxCount = t_max;
         slot.type = t_type;
-        slot.OnItemUse = t_use;
-        slot.OnItemUpdate = t_update;
+        slot.OnSlotItemUse = t_use;
+        slot.OnSlotItemUpdate = t_update;
+        /*slot.slotItemName = t_item.data.itemName;
+        slot.slotItemComment = t_item.comment;*/
         if (slot.currentItem != null) slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신 — 자기 슬롯의 currentItem 기준
         //if (this.currentItem != null)
         if (this.type != ItemType.nullItem)
         {
-            this.icon.sprite = this.currentItem.data.icon;
-            this.icon.enabled = true;
-            this.icon.color = Color.white;
+            this.slotIcon.sprite = this.currentItem.data.icon;
+            this.slotIcon.enabled = true;
+            this.slotIcon.color = Color.white;
             this.countText.text = (this.currentCount > 1) ? this.currentCount.ToString() : "";
         }
         else
@@ -144,9 +154,9 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         //if (slot.currentItem != null)
         if (slot.type != ItemType.nullItem)
         {
-            slot.icon.sprite = slot.currentItem.data.icon;
-            slot.icon.enabled = true;
-            slot.icon.color = Color.white;
+            slot.slotIcon.sprite = slot.currentItem.data.icon;
+            slot.slotIcon.enabled = true;
+            slot.slotIcon.color = Color.white;
             slot.countText.text = (slot.currentCount > 1) ? slot.currentCount.ToString() : "";
         }
         else
@@ -164,16 +174,18 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         int t_count = this.currentCount;
         int t_max = this.maxCount;
         ItemType t_type = this.type;
-        Action<Character, SlotBase> t_use = this.OnItemUse;
-        Action<SlotBase> t_update = this.OnItemUpdate;
+        Action<Character, SlotBase> t_use = this.OnSlotItemUse;
+        Action<SlotBase> t_update = this.OnSlotItemUpdate;
 
         // this <- slot
         this.currentItem = slot.currentItem;
         this.currentCount = slot.currentCount;
         this.maxCount = slot.maxCount;
         this.type = slot.type;
-        this.OnItemUse = slot.OnItemUse;
-        this.OnItemUpdate = slot.OnItemUpdate;
+        this.OnSlotItemUse = slot.OnSlotItemUse;
+        this.OnSlotItemUpdate = slot.OnSlotItemUpdate;
+        //this.slotItemComment = slot.slotItemComment;
+
         if (this.currentItem != null) this.currentItem.slotData = this;
 
         // slot <- temp
@@ -181,17 +193,19 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         slot.currentCount = t_count;
         slot.maxCount = t_max;
         slot.type = t_type;
-        slot.OnItemUse = t_use;
-        slot.OnItemUpdate = t_update;
+        slot.OnSlotItemUse = t_use;
+        slot.OnSlotItemUpdate = t_update;
+        //slot.slotItemComment = t_item.comment;
+
         if (slot.currentItem != null) slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신 — 자기 슬롯의 currentItem 기준
         //if (this.currentItem != null)
         if (this.type != ItemType.nullItem)
         {
-            this.icon.sprite = this.currentItem.data.icon;
-            this.icon.enabled = true;
-            this.icon.color = Color.white;
+            this.slotIcon.sprite = this.currentItem.data.icon;
+            this.slotIcon.enabled = true;
+            this.slotIcon.color = Color.white;
             this.countText.text = (this.currentCount > 1) ? this.currentCount.ToString() : "";
         }
         else
@@ -202,9 +216,9 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         //if (slot.currentItem != null)
         if (slot.type != ItemType.nullItem)
         {
-            slot.icon.sprite = slot.currentItem.data.icon;
-            slot.icon.enabled = true;
-            slot.icon.color = Color.white;
+            slot.slotIcon.sprite = slot.currentItem.data.icon;
+            slot.slotIcon.enabled = true;
+            slot.slotIcon.color = Color.white;
             slot.countText.text = (slot.currentCount > 1) ? slot.currentCount.ToString() : "";
         }
         else
@@ -227,7 +241,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     /// <summary>
     /// 정렬/재배치 때 쓰는 "직접 세팅" API (스냅샷을 그대로 주입)
     /// </summary>
-    public override void SetItemDirect(ItemData data, int count)
+    public override void SetItemDirect(ItemData data, int count, string comment)
     {
         if (data == null || count <= 0)
         {
@@ -235,16 +249,18 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             return;
         }
 
-        currentItem = new ItemBase { data = data, addCount = count };
+        currentItem = new ItemBase { data = data, addCount = count, comment = comment };
         currentItem.slotData = this;
 
         type = data.itemType;          // ← 추가
         maxCount = data.maxCount;
         currentCount = count;
+        //slotItemName = data.itemName;
+        //slotItemComment = data.
 
-        icon.sprite = data.icon;
-        icon.enabled = true;
-        icon.color = Color.white;
+        slotIcon.sprite = data.icon;
+        slotIcon.enabled = true;
+        slotIcon.color = Color.white;
 
         UpdateUI();
     }
@@ -260,9 +276,9 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             return;
         }
 
-        icon.sprite = currentItem.data.icon;
-        icon.enabled = true;
-        icon.color = new Vector4(1, 1, 1, 1);
+        slotIcon.sprite = currentItem.data.icon;
+        slotIcon.enabled = true;
+        slotIcon.color = new Vector4(1, 1, 1, 1);
         maxCount = currentItem.data.maxCount;
         type = currentItem.data.itemType;
         UpdateUI();
@@ -288,9 +304,9 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             type = currentItem.data.itemType;
 
             // 3) UI 갱신
-            icon.sprite = currentItem.data.icon;
-            icon.enabled = true;
-            icon.color = Color.white;
+            slotIcon.sprite = currentItem.data.icon;
+            slotIcon.enabled = true;
+            slotIcon.color = Color.white;
             countText.text = (currentCount > 1) ? currentCount.ToString() : "";
         }
         else
@@ -314,13 +330,13 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     public override void ClearSlot()
     {
         currentItem = null;
-        icon.sprite = baseSlotImage;
+        slotIcon.sprite = baseSlotImage;
         countText.text = "";
         currentCount = 0;
         maxCount = 0;
         type = ItemType.nullItem;
-        OnItemUse = null;
-        OnItemUpdate = null;
+        OnSlotItemUse = null;
+        OnSlotItemUpdate = null;
     }
 
     public override bool CanAddItem()
@@ -360,8 +376,8 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         if (currentItem == null) return; // ← 반전 버그 수정
 
         
-        OnItemUse?.Invoke(target, this);
-        OnItemUpdate?.Invoke(this);
+        OnSlotItemUse?.Invoke(target, this);
+        OnSlotItemUpdate?.Invoke(this);
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -397,13 +413,18 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         if (eventData.button != PointerEventData.InputButton.Left || this.currentCount == 0) return;
 
         inventory.SetDragSlot(this);
-        inventory.DragImage.sprite = inventory.GetDragSlot().icon.sprite;
+        inventory.DragImage.sprite = inventory.GetDragSlot().slotIcon.sprite;
         inventory.DragImage.gameObject.SetActive(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("OnEnter");
+        //Debug.Log(currentItem.comment);
+        if (type == ItemType.nullItem)
+            return;
+        inventory.testItemName.text = GetItemComment(this.currentItem);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)

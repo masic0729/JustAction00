@@ -15,6 +15,7 @@ public class ItemData : ScriptableObject
 {
     [Header("아이템 기본 정보")]
     public string itemName;
+    //public string commment;                 //아이템에 대한 설명
     public Sprite icon;
     public ItemType itemType;
 

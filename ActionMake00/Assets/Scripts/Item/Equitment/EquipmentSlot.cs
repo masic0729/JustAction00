@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.Progress;
+using UnityEngine.UI;
 
 public enum EquipmentType
 {
@@ -39,6 +39,11 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     [Header("장비 슬롯 메타")]
     public EquipmentType equipmentType;     // 이 슬롯이 담당하는 장비 타입(Weapon/Head/Top/Bottom...)
     public AddStatData equipmentStat;       // 이 슬롯에 장착된 아이템이 제공하는 스탯(합산은 EquipmentManager가 처리)
+
+    private void Awake()
+    {
+        slotIcon = GetComponent<Image>();
+    }
 
     /* ---------- 공통 유틸 ---------- */
 
@@ -78,15 +83,15 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     {
         if (currentItem != null && currentItem.data != null)
         {
-            icon.sprite = currentItem.data.icon;
-            icon.enabled = true;
-            icon.color = Color.white;
+            slotIcon.sprite = currentItem.data.icon;
+            slotIcon.enabled = true;
+            slotIcon.color = Color.white;
         }
         else
         {
-            icon.sprite = baseSlotImage;
-            icon.enabled = true;
-            icon.color = Color.white;
+            slotIcon.sprite = baseSlotImage;
+            slotIcon.enabled = true;
+            slotIcon.color = Color.white;
         }
         UpdateUI();
     }
@@ -110,6 +115,9 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
         currentItem = MakeEquippedCopy(item);
         currentItem.slotData = this;
+        currentItem.data.itemName = item.data.itemName;
+        currentItem.comment = item.comment;
+        
 
         type = ItemType.Equitment;
         maxCount = currentItem.data.maxCount;
@@ -137,10 +145,13 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         // 1) 슬롯 기본 세팅
         currentItem = ib;
         currentItem.slotData = this;
+        
 
-        icon.sprite = data.icon;
-        icon.enabled = true;
-        icon.color = Color.white;
+        slotIcon.sprite = data.icon;
+        slotIcon.enabled = true;
+        slotIcon.color = Color.white;
+        currentItem.data.itemName = itemObject.item.data.itemName;
+        currentItem.comment = itemObject.GetItemComment();
 
         type = data.itemType;
         maxCount = data.maxCount;
@@ -157,11 +168,11 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         currentCount = Mathf.Clamp(count, 0, maxCount);
 
         // 3) 델리게이트 바인딩: 아이템 쪽이 우선, 없으면 ItemObject의 핸들러 사용
-        if (ib.OnItemUse != null) OnItemUse = ib.OnItemUse;
+        if (ib.OnItemUse != null) OnSlotItemUse = ib.OnItemUse;
         /*else if (itemObject.UseItem != null) */
-        OnItemUse = itemObject.UseItem;
+        OnSlotItemUse = itemObject.UseItem;
 
-        if (ib.OnItemUpdate != null) OnItemUpdate = ib.OnItemUpdate;
+        if (ib.OnItemUpdate != null) OnSlotItemUpdate = ib.OnItemUpdate;
         // (itemObject에 업데이트 콜백이 따로 있다면 여기서 보강)
 
         UpdateUI();
@@ -187,18 +198,19 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         int prevCount = currentCount;
         int prevMax = maxCount;
         ItemType prevType = type;
-        var prevUse = OnItemUse;
-        var prevUpdate = OnItemUpdate;
+        var prevUse = OnSlotItemUse;
+        var prevUpdate = OnSlotItemUpdate;
 
         // this <- slot (장비는 복제 + 1개)
         currentItem = MakeEquippedCopy(incoming);
         currentItem.slotData = this;
+        //currentItem.comment = slot.currentItem.comment;
 
         type = ItemType.Equitment;
         maxCount = currentItem.data.maxCount;
         currentCount = 1;
-        OnItemUse = slot.OnItemUse;
-        OnItemUpdate = slot.OnItemUpdate;
+        OnSlotItemUse = slot.OnSlotItemUse;
+        OnSlotItemUpdate = slot.OnSlotItemUpdate;
 
         // (선택) 장비 스탯 로드
         equipmentStat = new AddStatData(); // 실제 구조가 있으면 채우세요.
@@ -209,17 +221,17 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         slot.currentCount = prevCount;
         slot.maxCount = prevMax;
         slot.type = (prevEquip != null) ? prevEquip.data.itemType : ItemType.nullItem;
-        slot.OnItemUse = prevUse;
-        slot.OnItemUpdate = prevUpdate;
+        slot.OnSlotItemUse = prevUse;
+        slot.OnSlotItemUpdate = prevUpdate;
         if (slot.currentItem != null) slot.currentItem.slotData = slot;
 
         // 3) 아이콘 반영
         RefreshIcon();
         if (slot.type != ItemType.nullItem)
         {
-            slot.icon.sprite = slot.currentItem.data.icon;
-            slot.icon.enabled = true;
-            slot.icon.color = Color.white;
+            slot.slotIcon.sprite = slot.currentItem.data.icon;
+            slot.slotIcon.enabled = true;
+            slot.slotIcon.color = Color.white;
             slot.UpdateUI();
         }
         else
@@ -241,7 +253,13 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     public override void SumItem(ItemObject itemObject) { /* 장비는 스택 불가 */ }
 
-    public override void SetItemDirect(ItemData data, int _)
+    /// <summary>
+    /// 장비의 개수는 고정1 이므로 파라미터에 이러한 구조로 되어있음
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="_"></param>
+    /// <param name="comment"></param>
+    public override void SetItemDirect(ItemData data, int _, string comment)
     {
         if (data == null)
         {
@@ -250,7 +268,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         }
 
         // 강제 장착(자동 장착 등) 경로
-        var dummy = new ItemBase { data = data, addCount = 1, currentCount = 1 };
+        var dummy = new ItemBase { data = data, addCount = 1, currentCount = 1, comment = comment };
         AddItem(dummy);
     }
 
@@ -299,7 +317,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         {
             Debug.Log("current가 비어있음");
         }
-        if(OnItemUse != null)
+        if(OnSlotItemUse != null)
         {
             Debug.Log("슬롯 내 기능이 비어있음");
         }
@@ -320,8 +338,8 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         maxCount = 0;
         type = ItemType.nullItem;
 
-        OnItemUse = null;
-        OnItemUpdate = null;
+        OnSlotItemUse = null;
+        OnSlotItemUpdate = null;
 
         equipmentStat = new AddStatData(); // 장비 스탯 초기화
 
@@ -356,6 +374,8 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         SwapItem(dragSlot);
     }
 
-    public void OnPointerEnter(PointerEventData eventData) { }
+    public void OnPointerEnter(PointerEventData eventData) {
+        inventory.testItemName.text = GetItemComment(this.currentItem);
+    }
     public void OnPointerExit(PointerEventData eventData) { }
 }
