@@ -56,6 +56,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     {
         if (item == null || item.data == null) return false;
         if (item.data.itemType != ItemType.Equitment) return false;
+        if (item.data.equipmentType != this.equipmentType) return false;
 
         // ※ 필요 시 여기서 item.data를 캐스팅하여 실제 equipType을 비교하세요.
         // ex) var equipData = item.data as EquipmentItemData;
@@ -75,7 +76,8 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
             addCount = 1,
             currentCount = 1,
             OnItemUse = src.OnItemUse,     // 장비창에선 쓰지 않지만 보존
-            OnItemUpdate = src.OnItemUpdate
+            OnItemUpdate = src.OnItemUpdate,
+            comment = src.comment
         };
     }
 
@@ -117,7 +119,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         currentItem.slotData = this;
         currentItem.data.itemName = item.data.itemName;
         currentItem.comment = item.comment;
-        
+        Debug.Log("장비?? : " + item.comment);
 
         type = ItemType.Equitment;
         maxCount = currentItem.data.maxCount;
@@ -204,7 +206,6 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         // this <- slot (장비는 복제 + 1개)
         currentItem = MakeEquippedCopy(incoming);
         currentItem.slotData = this;
-        //currentItem.comment = slot.currentItem.comment;
 
         type = ItemType.Equitment;
         maxCount = currentItem.data.maxCount;
@@ -215,15 +216,26 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         // (선택) 장비 스탯 로드
         equipmentStat = new AddStatData(); // 실제 구조가 있으면 채우세요.
 
-        // slot <- prevEquip (인벤토리에는 원본/복제 무엇이 들어가도 되지만,
-        // 인벤토리 쪽 AddItem이 복제 로직을 갖고 있으므로 prevEquip 그대로 꽂아도 안전)
-        slot.currentItem = prevEquip;
-        slot.currentCount = prevCount;
-        slot.maxCount = prevMax;
-        slot.type = (prevEquip != null) ? prevEquip.data.itemType : ItemType.nullItem;
-        slot.OnSlotItemUse = prevUse;
-        slot.OnSlotItemUpdate = prevUpdate;
-        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+        if(prevType == ItemType.nullItem)
+        {
+            slot.ClearSlot();
+        }
+        else
+        {
+            // slot <- prevEquip (인벤토리에는 원본/복제 무엇이 들어가도 되지만,
+            // 인벤토리 쪽 AddItem이 복제 로직을 갖고 있으므로 prevEquip 그대로 꽂아도 안전)
+            slot.currentItem = prevEquip;
+            slot.currentCount = prevCount;
+            slot.maxCount = prevMax;
+            slot.type = (prevEquip != null) ? prevEquip.data.itemType : ItemType.nullItem;
+            slot.OnSlotItemUse = prevUse;
+            slot.OnSlotItemUpdate = prevUpdate;
+            slot.currentItem.slotData = slot;
+        }
+            
+        /*if (slot.currentItem != null) slot.currentItem.slotData = slot;*/
+
+        Recalc();
 
         // 3) 아이콘 반영
         RefreshIcon();
@@ -236,11 +248,10 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         }
         else
         {
-            slot.ClearSlot();
         }
 
         // 4) 합산 재계산
-        Recalc();
+        
     }
 
     public override void SwapItem(SlotBase slot)
@@ -295,7 +306,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         if (currentItem == null) return;
 
         // 무기 등 해제 금지 슬롯이면 여기서 차단
-        // if (equipmentType == EquipmentType.Weapon) { Debug.Log("무기는 해제되지 않습니다."); return; }
+        if (equipmentType == EquipmentType.Weapon) { Debug.Log("무기는 해제되지 않습니다."); return; }
 
         var inven = GetInventory();
         if (inven == null) return;
@@ -357,9 +368,19 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
     /* ---------- 드래그/드롭 훅(인벤토리에서 끌어다 놓을 때) ---------- */
 
-    public void OnBeginDrag(PointerEventData eventData) { }
+    public void OnBeginDrag(PointerEventData eventData) {
+        if (eventData.button != PointerEventData.InputButton.Left || this.currentCount == 0) return;
+
+        inventory.SetDragSlot(this);
+        inventory.DragImage.sprite = inventory.GetDragSlot().slotIcon.sprite;
+        inventory.DragImage.gameObject.SetActive(true);
+    }
     public void OnDrag(PointerEventData eventData) { }
-    public void OnEndDrag(PointerEventData eventData) { }
+    public void OnEndDrag(PointerEventData eventData) {
+        inventory.ResetDragSlot();
+        inventory.DragImage.sprite = null;
+        inventory.DragImage.gameObject.SetActive(false);
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -375,7 +396,13 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
+        if (type == ItemType.nullItem)
+            return;
+
         inventory.testItemName.text = GetItemComment(this.currentItem);
     }
-    public void OnPointerExit(PointerEventData eventData) { }
+    public void OnPointerExit(PointerEventData eventData) {
+        inventory.testItemName.text = "";
+
+    }
 }

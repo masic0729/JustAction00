@@ -387,7 +387,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
         Debug.Log("OnDrop");
 
-        ItemSlot dragSlot = inventory.GetDragSlot();
+        SlotBase dragSlot = inventory.GetDragSlot();
         dragSlot.SwapItem(this);
     }
 
@@ -430,5 +430,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     public void OnPointerExit(PointerEventData eventData)
     {
         Debug.Log("OnExit");
+        inventory.testItemName.text = "";
+
     }
 }

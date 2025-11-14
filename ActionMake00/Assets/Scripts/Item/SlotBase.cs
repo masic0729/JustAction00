@@ -25,6 +25,7 @@ public abstract class SlotBase : MonoBehaviour
     public Sprite baseSlotImage;                    //비어있을 때 쓰는 이미지
     public Image slotIcon;
     public ItemBase currentItem = null;
+
     /*public string slotItemName;
     public string slotItemComment;*/
 

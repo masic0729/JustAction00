@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     Transform inventoryTransform;
     const int slotCount = 40;
     public List<ItemSlot> lSlot;
-    ItemSlot dragSlot = null;
+    SlotBase dragSlot = null;
 
     private void Awake()
     {
@@ -270,9 +270,9 @@ public class Inventory : MonoBehaviour
 
 
 
-    public void SetDragSlot(ItemSlot slot) => dragSlot = slot;
+    public void SetDragSlot(SlotBase slot) => dragSlot = slot;
 
-    public ItemSlot GetDragSlot() => dragSlot;
+    public SlotBase GetDragSlot() => dragSlot;
 
     public void ResetDragSlot() => dragSlot = null;
 
