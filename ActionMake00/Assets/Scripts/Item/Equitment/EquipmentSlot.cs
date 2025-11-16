@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -395,14 +391,22 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         SwapItem(dragSlot);
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
+    public void OnPointerEnter(PointerEventData eventData) 
+    {
         if (type == ItemType.nullItem)
             return;
 
-        inventory.testItemName.text = GetItemComment(this.currentItem);
-    }
-    public void OnPointerExit(PointerEventData eventData) {
-        inventory.testItemName.text = "";
+        inventory.TooltipView.gameObject.SetActive(true);
 
+        RectTransform slotTransform = GetComponent<RectTransform>();
+        float tooltipWidth = inventory.TooltipView.rect.width;
+        inventory.TooltipView.GetComponent<RectTransform>().position = CalToolTipPosition(slotTransform.position, tooltipWidth);
+        inventory.testItemName.text = this.currentItem.data.itemName;
+        inventory.testItemComment.text = GetItemComment(this.currentItem);
+    }
+
+    public void OnPointerExit(PointerEventData eventData) 
+    {
+        inventory.TooltipView.gameObject.SetActive(false);
     }
 }

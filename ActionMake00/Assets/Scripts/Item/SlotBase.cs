@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +54,6 @@ public abstract class SlotBase : MonoBehaviour
 
     public abstract void UpdateUI();
 
-    //public abstract void TestInteraction();
 
     public abstract void ClearSlot();
 
@@ -79,5 +76,30 @@ public abstract class SlotBase : MonoBehaviour
     public string GetItemComment(ItemBase slotItem)
     {
         return slotItem.comment;
+    }
+
+    /// <summary>
+    /// 기본적으로 툴팁은 슬롯 기준 우측에 등장한다
+    /// 
+    /// 툴팁의 가로 축과 슬롯의 위치를 고려하여
+    /// 가로 화면에 벗어나면 좌측으로 전환한다
+    /// </summary>
+    /// <param name="slotPosition"></param>
+    /// <param name="viewWidth"></param>
+    /// <returns></returns>
+    public Vector2 CalToolTipPosition(Vector3 slotPosition, float viewWidth)
+    {
+        Vector2 resultPosition = slotPosition;
+        //resultPosition = new Vector2(slotPosition.x + ((float)viewWidth / 2) + 55, slotPosition.y);
+        if ((slotPosition.x + viewWidth + 55) > 1920)
+        {
+            resultPosition = new Vector2(slotPosition.x - ((float)viewWidth / 2) - 55, slotPosition.y);
+        }
+        else
+        {
+            resultPosition = new Vector2(slotPosition.x + ((float)viewWidth / 2) + 55, slotPosition.y);
+
+        }
+        return resultPosition;
     }
 }

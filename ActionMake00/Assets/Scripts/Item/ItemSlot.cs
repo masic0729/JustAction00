@@ -1,5 +1,4 @@
 ﻿using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -394,10 +393,20 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("End Drag");
+
+        RectTransform invenTransform = inventory.GetComponent<RectTransform>();
+        
+
+
+        //드래그 데이터 삭제
         inventory.ResetDragSlot();
         inventory.DragImage.sprite = null;
         inventory.DragImage.gameObject.SetActive(false);
 
+        if (RectTransformUtility.RectangleContainsScreenPoint(invenTransform, eventData.position) == false)
+        {
+            this.ClearSlot();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -423,14 +432,21 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         //Debug.Log(currentItem.comment);
         if (type == ItemType.nullItem)
             return;
-        inventory.testItemName.text = GetItemComment(this.currentItem);
+
+        inventory.TooltipView.gameObject.SetActive(true);
+
+        RectTransform slotTransform = GetComponent<RectTransform>();
+        float tooltipWidth = inventory.TooltipView.rect.width;
+        inventory.TooltipView.GetComponent<RectTransform>().position = CalToolTipPosition(slotTransform.position, tooltipWidth);
+        inventory.testItemName.text = this.currentItem.data.itemName;
+        inventory.testItemComment.text = GetItemComment(this.currentItem);
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         Debug.Log("OnExit");
-        inventory.testItemName.text = "";
+        inventory.TooltipView.gameObject.SetActive(false);
 
     }
 }
