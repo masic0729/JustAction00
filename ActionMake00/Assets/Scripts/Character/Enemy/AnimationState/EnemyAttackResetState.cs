@@ -11,6 +11,7 @@ public class EnemyAttackResetState : EnemyBaseState
 
         animator.SetBool("isAttacking", false);
         enemy.SetIsWasParried(false);
+        animator.SetBool("isHitting", false);
 
     }
 

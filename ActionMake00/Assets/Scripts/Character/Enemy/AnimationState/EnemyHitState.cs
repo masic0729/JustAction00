@@ -9,6 +9,7 @@ public class EnemyHitState : EnemyBaseState
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         animator.SetBool("isAttacking", false);
+        animator.SetBool("isHitting", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

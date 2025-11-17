@@ -127,6 +127,8 @@ public class SkillManager : MonoBehaviour
         }*/
 
         //new
+        Debug.Log(skillKey + "1번째");
+        Debug.Log(data + "2번째");
         weaponSkillDic[skillKey] = data;
         weaponSkillDic[skillKey] += player.WeaponColDisable;
     }

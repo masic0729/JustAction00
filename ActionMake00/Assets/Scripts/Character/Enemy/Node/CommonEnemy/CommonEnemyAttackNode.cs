@@ -15,13 +15,14 @@ public class CommonEnemyAttackNode : Node
         if (enemy.isDefault == false)
             return state = NodeState.Success;
 
-        if (enemy.isAttack == false)
+        if (enemy.isAttack == false && enemy.anim.GetBool("isHitting") == false)
         {
             enemy.transform.LookAt(player);
 
             anim.SetTrigger("Attack");
             anim.SetBool("isAttacking", true);
             enemy.isAttack = true;
+
             return state = NodeState.Running;
         }
 

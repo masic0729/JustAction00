@@ -30,7 +30,6 @@ public class Enemy : Character
     protected bool isCanTurn = false;
     bool isWasParried = false;
 
-
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -170,4 +169,6 @@ public class Enemy : Character
     public bool GetIsWasParried() => isWasParried;
 
     public void SetIsWasParried(bool state) => isWasParried = state;
+
+
 }

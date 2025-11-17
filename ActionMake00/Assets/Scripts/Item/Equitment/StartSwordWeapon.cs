@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class StartSwordWeapon : MonoBehaviour
 {
+    [SerializeField] EquipmentManager equipmentManager;
     public EquipRoot SwordWeaponBasic;
     [SerializeField] Player player;
+
+    private void Awake()
+    {
+        Init();
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Init();
     }
 
 
@@ -19,7 +26,7 @@ public class StartSwordWeapon : MonoBehaviour
         slot.AddItem(SwordWeaponBasic);
         //slot.OnItemUse?.Invoke(player, slot);
         player.WeaponAwakeInit(SwordWeaponBasic.WeaponEquipment);
-        transform.parent.GetComponent<EquipmentManager>().gameObject.SetActive(false);
+        equipmentManager.gameObject.SetActive(false);
     }
 
     

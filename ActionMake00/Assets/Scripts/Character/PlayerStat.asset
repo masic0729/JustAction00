@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
   hp: 100
-  damage: 1
+  damage: 5
   moveSpeed: 5
   def: 5
