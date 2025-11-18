@@ -34,8 +34,6 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         currentItem.slotData = this;
         currentItem.comment = itemObject.GetItemComment();
 
-        Debug.Log(slotIcon + "랑");
-        Debug.Log(data + "가 있지요");
         slotIcon.sprite = data.icon;
         slotIcon.enabled = true;
         slotIcon.color = Color.white;

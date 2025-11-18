@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
     }
 
 
+
     /// <summary>
     /// 초기에 인벤토리의 슬롯은 40칸으로 정해져 있으며,
     /// 미리 생성 후 인벤토리 슬롯을 상자에 할당
@@ -44,6 +45,11 @@ public class Inventory : MonoBehaviour
             lSlot.Add(instance);
             instance.transform.SetParent(inventoryTransform, false);
         }
+        Invoke("AutoDisable", 0.01f);
+    }
+
+    void AutoDisable()
+    {
         this.gameObject.SetActive(false);
     }
 
@@ -52,12 +58,14 @@ public class Inventory : MonoBehaviour
     /// 획득을 할 때 추가되는 값을 그대로 정의를 한다
     /// </summary>
     /// <param name="itemObject">인벤토리에 삽입할 아이템 정보</param>
-    public void AddItemInList(ItemObject itemObject)
+    public bool AddItemInList(ItemObject itemObject)
     {
         bool isConsumableItemSum = false;
         ItemSlot voidSlot = null;
         for (int i = 0; i < lSlot.Count; i++)
         {
+            //소비 아이템을 위한 조건,
+            //인벤토리 인덱스 중 가장 값이 작은 슬롯을 확인한다
             if (voidSlot == null && lSlot[i].CanAddItem() == true)
             {
                 voidSlot = lSlot[i];
@@ -67,15 +75,17 @@ public class Inventory : MonoBehaviour
             {
                 //lSlot[i].AddItem(itemObject.item);
                 lSlot[i].AddItem(itemObject);
-                return;
+                return true;
             }
             
+            //하지만 이곳에 같은 타입의 소비아이템의 최대값이 넣어도 괜찮으면
+            //해당 슬롯에 개수를 더한다
             if (itemObject.item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(itemObject.item))
             {
                 isConsumableItemSum = true;
                 //lSlot[i].SumItem(itemObject.item);
                 lSlot[i].SumItem(itemObject);
-                return;
+                return true;
             }
         }
 
@@ -83,8 +93,11 @@ public class Inventory : MonoBehaviour
         {
             //voidSlot.AddItem(itemObject.item);
             voidSlot.AddItem(itemObject);
+            return true;
         }
 
+        Debug.Log("실패");
+        return false;
     }
 
     /// <summary>

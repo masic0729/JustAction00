@@ -14,8 +14,8 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     void Start()
     {
         //item.OnCheckUse += CheckUseItem;
-        item.OnItemUse += UseItem;
-        item.OnItemUpdate += UpdateInventory;
+        /*item.OnItemUse += UseItem;
+        item.OnItemUpdate += UpdateInventory;*/
     }
 
 
@@ -45,13 +45,23 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
     public abstract string SetItemComment();
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Player")
         {
-            Debug.Log("æ∆¿Ã≈€ »πµÊ");
-            other.GetComponent<GUI_PlayerInput>().inventory.AddItemInList(this);
+            Debug.Log("æ∆¿Ã≈€ »πµÊ" + other.transform.name);
+            Inventory playerInventory = other.GetComponent<GUI_PlayerInput>().inventory;
+            AddITemInInventory(playerInventory, this);
+        }
+    }
+
+    protected void AddITemInInventory(Inventory inven, ItemObject itemObject)
+    {
+
+        if (inven.AddItemInList(itemObject) == true)
+        {
             Destroy(this.gameObject);
         }
+
     }
 }

@@ -5,7 +5,6 @@ public abstract class TreeCtrl : Enemy
     protected override void Start()
     {
         base.Start();
-        Init();
     }
 
     // Update is called once per frame

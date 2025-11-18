@@ -11,7 +11,6 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
     protected override void Start()
     {
         base.Start();
-        Init();
 
     }
 
