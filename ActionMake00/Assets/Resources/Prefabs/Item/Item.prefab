@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2521281582449664501}
   - component: {fileID: 7823122585042254004}
   - component: {fileID: 7652535839393689605}
+  - component: {fileID: 3793428297481447888}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -80,6 +81,27 @@ MonoBehaviour:
     MoveSpeed: 0
   WeaponEquipment: {fileID: 2548763761762157146, guid: 8f92e1c83cb3f9546a0b0183d008c14c, type: 3}
   weaponType: 0
+--- !u!95 &3793428297481447888
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4005733897217825223}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1914139549541341258
 PrefabInstance:
   m_ObjectHideFlags: 0

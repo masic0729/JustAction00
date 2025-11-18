@@ -1,0 +1,17 @@
+{
+  "Item": [
+    {
+      "itemName": "testItem",
+      "hp": 100,
+      "damage": 200,
+      "defense": 30
+    },
+    {
+      "itemName": "testHead",
+      "hp": 50,
+      "damage": 100,
+      "defense": 100
+
+    }
+  ]
+}
