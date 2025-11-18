@@ -10,6 +10,7 @@ public class EnemyDeathState : EnemyBaseState
         base.OnStateEnter(animator, stateInfo, layerIndex);
         //character
         enemy.Dead(stateInfo.length);
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

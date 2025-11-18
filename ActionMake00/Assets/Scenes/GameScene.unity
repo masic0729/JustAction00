@@ -185,6 +185,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: DropItems
+      value: 
+      objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
       objectReference: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
@@ -642,6 +646,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: DropItems
+      value: 
+      objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
@@ -1936,6 +1944,7 @@ MonoBehaviour:
   def: 0
   isSuperArmor: 0
   isIgnoreDamage: 0
+  DropItems: {fileID: 0}
   thisObject: {fileID: 0}
   player: {fileID: 0}
   activityAllowValue: 20
@@ -2365,6 +2374,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6775566527582106909, guid: 241e250ae7c639e4fa5849326e877ca3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1215341554}
+    - targetCorrespondingSourceObject: {fileID: 6775566527582106909, guid: 241e250ae7c639e4fa5849326e877ca3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1215341562}
   m_SourcePrefab: {fileID: 100100000, guid: 241e250ae7c639e4fa5849326e877ca3, type: 3}
 --- !u!1 &899985636
 GameObject:
@@ -2850,7 +2862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1103356010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3467,6 +3479,22 @@ MonoBehaviour:
   sprintCoolTimer: 0
   isEscapeAttackAnim: 0
   canAttackInput: 1
+--- !u!114 &1215341562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215341549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18237382c062bb64696d5e7696ca2449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentManager: {fileID: 1103356013}
+  SwordWeaponBasic: {fileID: 4881988431276002148, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  player: {fileID: 1215341560}
+  slot: {fileID: 5815215447301663712}
 --- !u!1 &1251965340
 GameObject:
   m_ObjectHideFlags: 0
@@ -3927,6 +3955,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: DropItems
+      value: 
+      objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
@@ -4850,6 +4882,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: DropItems
+      value: 
+      objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
@@ -5824,6 +5860,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: DropItems
+      value: 
+      objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
       objectReference: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
@@ -6150,7 +6190,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4246578042616820169}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18237382c062bb64696d5e7696ca2449, type: 3}
   m_Name: 
@@ -6158,6 +6198,7 @@ MonoBehaviour:
   equipmentManager: {fileID: 1103356013}
   SwordWeaponBasic: {fileID: 4881988431276002148, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
   player: {fileID: 1215341560}
+  slot: {fileID: 0}
 --- !u!222 &5815215448205093178
 CanvasRenderer:
   m_ObjectHideFlags: 0

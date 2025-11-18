@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
-    Character test;
+    Character getTarget;
     public ItemBase item;
     protected string itemComment;
 
@@ -14,8 +14,8 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     void Start()
     {
         //item.OnCheckUse += CheckUseItem;
-        //item.OnItemUse += UseItem;
-        //item.OnItemUpdate += UpdateInventory;
+        item.OnItemUse += UseItem;
+        item.OnItemUpdate += UpdateInventory;
     }
 
 
@@ -44,4 +44,14 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     }
 
     public abstract string SetItemComment();
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Player")
+        {
+            Debug.Log("æ∆¿Ã≈€ »πµÊ");
+            other.GetComponent<GUI_PlayerInput>().inventory.AddItemInList(this);
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 
 
 public class Enemy : Character
 {
+    public ItemObject DropItems;                                       //현재는 단일 게임오브젝트로 고정  소환하지만, 확률에 의해 다양한 아이템 및 여러 아이템 생성할 예정
+
     protected Node root;
     public Transform thisObject;
     public Transform player;
@@ -56,6 +59,7 @@ public class Enemy : Character
         nav = GetComponent<NavMeshAgent>();
         pEffectDic["pDeath"] = pEffect[1];
 
+        deathAction += DropItem;
     }
 
     /// <summary>
@@ -109,9 +113,20 @@ public class Enemy : Character
 
     public void MoveForward()
     {
+        
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// 몬스터 사망 시 아이템을 드랍한다
+    /// 하지만 보스몬스터는 안넣을 지 고민중
+    /// </summary>
+    void DropItem()
+    {
+        if (DropItems == null)
+            return;
+        Instantiate(DropItems, transform.position, transform.rotation);
+    }
 
     /// <summary>
     /// 목표 위치로 이동한다. 플레이어든 복귀 위치든 특정 위치든
@@ -119,6 +134,9 @@ public class Enemy : Character
     /// <param name="target"></param>
     public void MoveTarget(Vector3 target)
     {
+        if (this.hp <= 0)
+            return;
+
         if (target == null)
         {
             nav.isStopped = true;                 // 이동 중지

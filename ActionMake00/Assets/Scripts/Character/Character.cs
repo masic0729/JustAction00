@@ -44,8 +44,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [HideInInspector]public Animator anim;
 
     //피격 및 사망 시 발생하는 액션류
-    public Action hitAction;
-    public Action deathAction;
+    public Action hitAction;        //아직 사용하지는 않았음
+    public Action deathAction;      //몬스터가 사용됨
 
     [SerializeField]
     public ParticleSystem[] pEffect;                                        //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
@@ -170,6 +170,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
                 Player player = attacker.gameObject.GetComponent<Player>();
                 player.ExpUp(exp);
             }
+            deathAction?.Invoke();
+        }
+        else
+        {
+            hitAction?.Invoke();
         }
 
         if (isSuperArmor == false || hitLevel != -1)

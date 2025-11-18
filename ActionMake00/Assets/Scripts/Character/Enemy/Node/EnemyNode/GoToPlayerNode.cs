@@ -13,8 +13,9 @@ public class GoToPlayerNode : Node
     {
 
         float distance = Vector3.Distance(transform.position, player.transform.position);
+
         if (distance < enemy.GetAttackReadyDistance() || enemy.isDefault == false &&
-            enemy.GetIsAttack() == false)
+            enemy.GetIsAttack() == false || enemy.GetHp() <= 0)
         {
             anim.SetBool("Move", false);
             enemy.MoveTarget(this.transform.position);
@@ -22,6 +23,7 @@ public class GoToPlayerNode : Node
             enemy.anim.SetInteger("PattenIndex", rand);
             return state = NodeState.Success;
         }
+
         enemy.MoveTarget(player.position);
 
         anim.SetBool("Move", true);
