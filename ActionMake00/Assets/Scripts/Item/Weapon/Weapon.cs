@@ -9,14 +9,12 @@ public class Weapon : Attacker, IAttacker
         base.Start();
         //Init();
     }
+
     protected override void Init()
     {
         base.Init();
         owner = GetComponentInParent<Character>();
         damageMultify = owner.GetResultDamage();
     }
-
-
-    
 
 }

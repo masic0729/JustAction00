@@ -111,7 +111,8 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
             return false;
         }
 
-        currentItem = MakeEquippedCopy(item);
+        //currentItem = MakeEquippedCopy(item);
+        currentItem.data = SetItemData(item.data.id);
         currentItem.slotData = this;
         currentItem.data.itemName = item.data.itemName;
         currentItem.comment = item.comment;

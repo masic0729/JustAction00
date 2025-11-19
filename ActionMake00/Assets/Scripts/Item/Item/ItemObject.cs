@@ -6,9 +6,14 @@ using UnityEngine;
 [System.Serializable]
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
-    Character getTarget;
+    public int itemID;
     public ItemBase item;
     protected string itemComment;
+
+    private void Awake()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
