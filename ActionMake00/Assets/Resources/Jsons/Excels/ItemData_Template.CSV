@@ -1,0 +1,5 @@
+itemName,iconKey,itemType,equipmentType,maxCount
+실험소비템,03_Alchemy,Consumable,None,10
+특이한투구,03_plate_helm_E,Equitment,Head,1
+일반투구,03_plate_helm_nobg,Equitment,Head,1
+집행검,09_Longsword,Equitment,Weapon,1
