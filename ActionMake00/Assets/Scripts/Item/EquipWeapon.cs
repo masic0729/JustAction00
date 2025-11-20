@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EquipWeapon : EquipRoot
 {
+    public PlayerWeapon WeaponEquipment;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,5 @@ public class EquipWeapon : EquipRoot
     {
         base.UseItem(character, slot);
         player.WeaponInit(WeaponEquipment);
-
     }
 }

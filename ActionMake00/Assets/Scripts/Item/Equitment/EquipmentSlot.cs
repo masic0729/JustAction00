@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public enum EquipmentType
 {
@@ -102,19 +103,24 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     }
 
 
+    /// <summary>
+    /// 해당 함수는 정렬할 때 사용함
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public override bool AddItem(ItemBase item)
     {
+
         // 외부에서 강제로 "장착"하고자 할 때 사용할 수 있는 경로 (보통은 SwapItem을 통해 들어옴)
         if (!IsCompatibleEquipment(item))
         {
             Debug.Log("장비 슬롯과 호환되지 않는 아이템입니다.");
             return false;
         }
-
         //currentItem = MakeEquippedCopy(item);
         currentItem.data = SetItemData(item.data.id);
         currentItem.slotData = this;
-        currentItem.data.itemName = item.data.itemName;
+        //currentItem.data.itemName = item.data.itemName;
         currentItem.comment = item.comment;
         Debug.Log("장비?? : " + item.comment);
 
@@ -139,7 +145,9 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         }
 
         var ib = itemObject.item;      // ItemBase
-        var data = ib.data;
+        //var data = ib.data;
+        var data = SetItemData(itemObject.itemId);
+        //currentItem.data = SetItemData(item.data.id);
 
         // 1) 슬롯 기본 세팅
         currentItem = ib;
@@ -149,7 +157,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         slotIcon.sprite = data.icon;
         slotIcon.enabled = true;
         slotIcon.color = Color.white;
-        currentItem.data.itemName = itemObject.item.data.itemName;
+        //currentItem.data.itemName = itemObject.item.data.itemName;
         currentItem.comment = itemObject.GetItemComment();
 
         type = data.itemType;

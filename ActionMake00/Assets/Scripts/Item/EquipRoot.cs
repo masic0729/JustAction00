@@ -9,8 +9,6 @@ public class EquipRoot : ItemObject
 {
     public AddStatData statData;
     protected Player player;
-    public PlayerWeapon WeaponEquipment;
-    public WeaponType weaponType;
 
     /// <summary>
     /// 상호작용을 통해 해당 아이템에 설정된 기능들을 실행한다
@@ -31,11 +29,6 @@ public class EquipRoot : ItemObject
 
 
         //장비창 및 스텟적용. 인벤토리의 슬롯이 장비 슬롯과 교환한다는 뜻이다
-
-        /*slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]
-                .SwapItem(slot);*/
-
-
         //장비 슬롯이 아니라면,
         if (slot.GetComponent<EquipmentSlot>() == null)
         {
@@ -99,6 +92,6 @@ public class EquipRoot : ItemObject
 
     public override string SetItemComment()
     {
-        return "장비는 아직 없음";
+        return "아직 할당을 안했음";
     }
 }

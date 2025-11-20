@@ -118,9 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e0705280510bf4183ef5d644c3e0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemId: 0
   item:
-    data: {fileID: 11400000, guid: fbab075d4e55cd04a83eeb4d835b11c2, type: 2}
-    comment: 
+    data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
+    comment: "\uD14C\uC2A4\uD2B8 \uD3EC\uC158 : <color=#ff5555>5</color>\uC774\uC9C0\uB871"
     slotData: {fileID: 0}
     addCount: 1
     currentCount: 0

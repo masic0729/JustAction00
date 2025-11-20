@@ -118,8 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94818be40b2de8d4e851a82452295f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemId: 2
   item:
-    data: {fileID: 11400000, guid: 7d94cfd62f4317f4a9242bf3c5d8a218, type: 2}
+    data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
     comment: 
     slotData: {fileID: 0}
     addCount: 0
@@ -129,5 +130,3 @@ MonoBehaviour:
     Damage: 0
     Defense: 50
     MoveSpeed: 0
-  WeaponEquipment: {fileID: 0}
-  weaponType: 0

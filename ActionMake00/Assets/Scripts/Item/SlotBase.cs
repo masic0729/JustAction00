@@ -131,7 +131,7 @@ public abstract class SlotBase : MonoBehaviour
         ItemData instanceItemData = null;
 
         // CSV À§Ä¡: Assets/Resources/Jsons/ItemData.CS
-        string path = Application.dataPath + "/Resources/Jsons/ItemData.CSV";
+        string path = Application.dataPath + "/Resources/Jsons/ItemData_Template.CSV";
 
         using (StreamReader reader = new StreamReader(path))
         {

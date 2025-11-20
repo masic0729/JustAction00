@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartSwordWeapon : MonoBehaviour
 {
     [SerializeField] EquipmentManager equipmentManager;
-    public EquipRoot SwordWeaponBasic;
+    public EquipWeapon SwordWeaponBasic;
     [SerializeField] Player player;
     public SlotBase slot;
 
@@ -24,6 +24,8 @@ public class StartSwordWeapon : MonoBehaviour
 
     void Init()
     {
+        EquipWeapon instanceWeapon = SwordWeaponBasic;
+        instanceWeapon.SetItemData(instanceWeapon.itemId);
         slot.AddItem(SwordWeaponBasic);
         //slot.OnItemUse?.Invoke(player, slot);
         player.WeaponAwakeInit(SwordWeaponBasic.WeaponEquipment);

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 /// <summary>
 /// 슬롯 타입에 따라 장비칸인 지,
@@ -20,14 +21,15 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override bool AddItem(ItemObject itemObject)
     {
-        if (itemObject == null || itemObject.item == null || itemObject.item.data == null)
+        if (itemObject == null)
         {
             Debug.Log("아이템을 저장하지 못했습니다.");
             return false;
         }
 
         ItemBase ib = itemObject.item;      // ItemBase
-        ItemData data = ib.data;
+        //ItemData data = ib.data;
+        ItemData data = SetItemData(itemObject.itemId);
 
         // 1) 슬롯 기본 세팅
         currentItem = ib;
@@ -42,7 +44,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         maxCount = data.maxCount;
 
         // 2) 수량 결정: currentCount > 0 우선, 없으면 addCount, 장비면 1
-        int count = ib.currentCount;
+        int count = currentItem.currentCount;
         if (count <= 0)
         {
             if (type == ItemType.Equitment)
@@ -65,8 +67,14 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     }
 
 
+    /// <summary>
+    /// 정렬할 때 해당 함수 사용중임
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     public override bool AddItem(ItemBase item)
     {
+
         if (item == null || item.data == null)
         {
             Debug.Log("아이템을 저장하지 못했습니다.");
@@ -75,6 +83,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
         currentItem = new ItemBase  // 슬롯 전용 복제(레퍼런스 공유 방지)
         {
+
             data = item.data,
             addCount = item.addCount,
             currentCount = (item.currentCount > 0)
@@ -82,7 +91,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
                             : (item.data.itemType == ItemType.Equitment ? 1 : item.addCount),
             OnItemUse = item.OnItemUse,
             OnItemUpdate = item.OnItemUpdate,
-            
+
             comment = item.comment,
         };
 
@@ -343,6 +352,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override bool CanSumItem(ItemBase item)
     {
+
         // 유효성 검사
         if (item == null) return false;
         if (currentItem == null) return false;                   // 이 슬롯이 비어있으면 합칠 수 없음

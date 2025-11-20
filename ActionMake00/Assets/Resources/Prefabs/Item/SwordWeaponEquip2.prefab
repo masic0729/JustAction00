@@ -118,9 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec2d3a51a8fd1549b6c9dd049d7c028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemId: 3
   item:
-    data: {fileID: 11400000, guid: 84b07841606e8734d8c665cf9faad284, type: 2}
-    comment: 
+    data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
+    comment: "\uD14C\uC2A4\uD2B8\uBB34\uAE302"
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 1
@@ -130,4 +131,3 @@ MonoBehaviour:
     Defense: 0
     MoveSpeed: 0
   WeaponEquipment: {fileID: 2548763761762157146, guid: 8f92e1c83cb3f9546a0b0183d008c14c, type: 3}
-  weaponType: 0
