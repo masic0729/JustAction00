@@ -52,7 +52,7 @@ public class MouseControl : MonoBehaviour
         {
 
             case AimCursorMode.LockedCenter:
-                Cursor.visible = false;
+                //Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
 
                 cameraCtrl.SetCanRotate(true);

@@ -865,7 +865,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 618963143}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -873,11 +873,11 @@ RectTransform:
   - {fileID: 539832273}
   - {fileID: 1683330729}
   - {fileID: 1141842135}
-  m_Father: {fileID: 1179473758}
+  m_Father: {fileID: 928485618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -30, y: 10}
+  m_AnchoredPosition: {x: -500, y: 350}
   m_SizeDelta: {x: 1000, y: 700}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &618963145
@@ -2294,6 +2294,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920593219}
   m_CullTransparentMesh: 1
+--- !u!1 &928485617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928485618}
+  m_Layer: 5
+  m_Name: PlayerInfoView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &928485618
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928485617}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 618963144}
+  - {fileID: 1103356010}
+  m_Father: {fileID: 1179473758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 47.5, y: -202.5}
+  m_SizeDelta: {x: 2765, y: 1355}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,7 +2656,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103356009}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2630,11 +2667,11 @@ RectTransform:
   - {fileID: 2684803634415749031}
   - {fileID: 2684803634854296629}
   - {fileID: 2062254954}
-  m_Father: {fileID: 1179473758}
+  m_Father: {fileID: 928485618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 375, y: 202.5}
   m_SizeDelta: {x: 750, y: 950}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1103356011
@@ -2974,8 +3011,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 618963144}
-  - {fileID: 1103356010}
+  - {fileID: 928485618}
   - {fileID: 1769580604}
   - {fileID: 1559694383}
   - {fileID: 295417130}
@@ -3499,6 +3535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94818be40b2de8d4e851a82452295f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 0
   item:
     data: {fileID: 11400000, guid: 0d0394f0892848048b1a3063f0f865b3, type: 2}
     comment: 
@@ -4040,6 +4077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e0705280510bf4183ef5d644c3e0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 0
   item:
     data: {fileID: 11400000, guid: fbab075d4e55cd04a83eeb4d835b11c2, type: 2}
     comment: 
@@ -6694,6 +6732,10 @@ PrefabInstance:
       propertyPath: equip
       value: 
       objectReference: {fileID: 1103356013}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: UI_View
+      value: 
+      objectReference: {fileID: 928485617}
     - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: inventory
       value: 

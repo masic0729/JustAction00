@@ -58,8 +58,11 @@ public class BossEnemyBT : TreeCtrl
                         //여기에 공격을 하는데, 패턴1을 할 수도 있고, 2를 할 수도 있다. 말이 Stay인거지, 현재는 공격이나 다름 없음
                         //또한 공격하면서 몬스터의 영역을 벗어나지 않는 선에서  
                         new DecoratorNode(
-                            new BossPunchAttack(player, thisObject), () => CheckMelee()
+                            new BossPunchAttack(player, thisObject), () => Random.Range(0,2) == 1? true : false
                             ),
+                        /*new DecoratorNode(
+                            new BossPunchAttack(player, thisObject), () => CheckMelee()
+                            ),*/
                         
 
                         //반반 확률로 바닥 공격 혹은 캐스팅 공격

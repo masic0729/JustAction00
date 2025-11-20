@@ -5,6 +5,7 @@ using UnityEngine;
 public class GUI_PlayerInput : MonoBehaviour
 {
     private PlayerController playerCtrl;
+    [SerializeField] GameObject UI_View;
     public Inventory inventory;
     public EquipmentManager equip;
     
@@ -12,6 +13,7 @@ public class GUI_PlayerInput : MonoBehaviour
     public ItemObject testitem1;
     public ItemObject testitem2;
     public ItemObject testitem3;
+
 
 
     private void Start()
@@ -29,12 +31,12 @@ public class GUI_PlayerInput : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            EnableUI(inventory.gameObject);
+            EnableUI(UI_View.gameObject);
             
         }
         if(Input.GetKeyDown(KeyCode.P))
         {
-            EnableUI(equip.gameObject);
+            EnableUI(UI_View.gameObject);
         }
         if(Input.GetKeyDown(KeyCode.U))
         {

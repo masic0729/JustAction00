@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
 
     void AutoDisable()
     {
-        this.gameObject.SetActive(false);
+        this.transform.parent.gameObject.SetActive(false);
     }
 
     /// <summary>

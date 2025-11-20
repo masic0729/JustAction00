@@ -27,7 +27,7 @@ public class BossCastProjectile : BossProjectile
             float buffTime = 3f;
 
             Character target = other.GetComponent<Character>();
-            addDamageBuff.ObjectSetup(target, buffTime, "DamageUpEffect", null);
+            addDamageBuff.ObjectSetup(target, buffTime, "StunEffect", null);
         }
 
     }

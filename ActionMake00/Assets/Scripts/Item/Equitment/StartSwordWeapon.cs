@@ -27,7 +27,7 @@ public class StartSwordWeapon : MonoBehaviour
         slot.AddItem(SwordWeaponBasic);
         //slot.OnItemUse?.Invoke(player, slot);
         player.WeaponAwakeInit(SwordWeaponBasic.WeaponEquipment);
-        equipmentManager.gameObject.SetActive(false);
+        //equipmentManager.gameObject.SetActive(false);
     }
 
     
