@@ -32,7 +32,8 @@ public class EquipRoot : ItemObject
         //장비 슬롯이 아니라면,
         if (slot.GetComponent<EquipmentSlot>() == null)
         {
-            slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);   
+            slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);
+            Debug.Log("이거 구동됨??");
         }
         else
         {
@@ -46,20 +47,7 @@ public class EquipRoot : ItemObject
         slot.GetInventory().equipManager.UpdateCharacterStatResult();
         //////////////////////////////////////////////////////////////
 
-        /*if (slot.gameObject.TryGetComponent(out ItemSlot itemSlot))
-        {
-            //장비창으로 적용
-
-            itemSlot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]
-            .SwapItem(slot);
-        }
-
-        //인벤토리로
-        if (slot.gameObject.TryGetComponent(out EquipmentSlot equipSlot))
-        {
-            equipSlot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]
-            .SwapItem(slot);
-        }*/
+        
     }
 
     public override void UpdateInventory(SlotBase slot)
