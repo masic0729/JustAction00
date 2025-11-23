@@ -23,16 +23,17 @@ public class PlayerArmorCustom : MonoBehaviour
     [SerializeField] GameObject[] belts;
     [SerializeField] GameObject[] legs;
     [SerializeField] GameObject[] feets;*/
+    [SerializeField] GameObject armorParts;
     List<SkinnedMeshRenderer[]> parts = new List<SkinnedMeshRenderer[]>();
 
     enum PLAYERARMORS
     {
         HEADS = 0,
-        CHESTS,
-        ARMS,
-        BELTS,
-        LEGS,
-        FEET
+        CHESTS = 1,
+        ARMS = 2,
+        BELTS = 3,
+        LEGS = 4,
+        FEET = 5
     }
     PLAYERARMORS armors;
 
@@ -45,17 +46,14 @@ public class PlayerArmorCustom : MonoBehaviour
         {
             PLAYERARMORS armorType = (PLAYERARMORS)i;
 
-            GameObject part = this.gameObject.transform.Find(armorType.ToString()).gameObject;
+            GameObject part = armorParts.transform.Find(armorType.ToString()).gameObject;
             parts.Add(part.transform.GetComponentsInChildren<SkinnedMeshRenderer>());
-
         }
-        Debug.Log(parts.Count + "히히");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SetPlayerArmorVisual(EquipmentType.Head, 0);
+        SetPlayerArmorVisual(EquipmentType.Top, 0);
+        SetPlayerArmorVisual(EquipmentType.Bottom, 0);
+
     }
 
     /// <summary>
@@ -68,7 +66,7 @@ public class PlayerArmorCustom : MonoBehaviour
     /// <param name="index"></param>
     public void SetPlayerArmorVisual(EquipmentType equipType, int index)
     {
-        List<Transform> parts = new List<Transform>();
+        //List<Transform> parts = new List<Transform>();
         this.gameObject.transform.Find("");
         switch(equipType)
         {
@@ -77,16 +75,19 @@ public class PlayerArmorCustom : MonoBehaviour
                 return;
 
             case EquipmentType.Head:
-                parts.Add(this.gameObject.transform.Find("HEADS"));
+                //parts.Add(armorParts.transform.Find("HEADS"));
+                TransArmorVisuals(parts[0], index);
                 break;
             case EquipmentType.Top:
-                parts.Add(this.gameObject.transform.Find("CHESTS"));
-                parts.Add(this.gameObject.transform.Find("ARMS"));
-                parts.Add(this.gameObject.transform.Find("BELTS"));
+                TransArmorVisuals(parts[1], index);
+                TransArmorVisuals(parts[2], index);
+                TransArmorVisuals(parts[3], index);
+
                 break;
             case EquipmentType.Bottom:
-                parts.Add(this.gameObject.transform.Find("LEGS"));
-                parts.Add(this.gameObject.transform.Find("FEET"));
+                TransArmorVisuals(parts[4], index);
+                TransArmorVisuals(parts[5], index);
+
                 break;
 
             default:
@@ -94,29 +95,30 @@ public class PlayerArmorCustom : MonoBehaviour
                 return;
         }
 
-        TransArmorVisuals(parts, index);
+        //TransArmorVisuals(parts, index);
     }
 
-    void TransArmorVisuals(List<Transform> parts, int index)
+    void TransArmorVisuals(SkinnedMeshRenderer[] parts, int index)
     {
         if(index < 0 || index > 2)
         {
             Debug.Log("인덱스 값이 잘못들어감. 확인 요망");
             return;
         }
-        SkinnedMeshRenderer[] data = GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        for(int i = 0; i < parts.Count; i++)
+        for (int i = 0; i < parts.Length; i++)
         {
-            if(i == index)
+            if (i == index)
             {
                 parts[i].gameObject.SetActive(true);
+                Debug.Log("기본 구동은 제대로 실행됨");
             }
             else
             {
                 parts[i].gameObject.SetActive(false);
             }
         }
+        
     }
     
 }

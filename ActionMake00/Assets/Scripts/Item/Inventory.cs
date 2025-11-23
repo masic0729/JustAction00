@@ -22,7 +22,12 @@ public class Inventory : MonoBehaviour
     {
         Init();
     }
-
+    private void OnEnable()
+    {
+        ResetDragSlot();
+        DragImage.sprite = null;
+        DragImage.gameObject.SetActive(false);
+    }
 
 
     /// <summary>

@@ -33,6 +33,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     /// <param name="slot"></param>
     public virtual void UseItem(Character character, SlotBase slot)
     {
+        SetItemData(itemId);
 
         UpdateInventory(slot);
     }
