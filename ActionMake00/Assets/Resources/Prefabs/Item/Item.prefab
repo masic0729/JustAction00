@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec2d3a51a8fd1549b6c9dd049d7c028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 0
+  itemId: 4
   item:
     data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
     comment: "\uC7A5\uBE44\uB294 \uC544\uC9C1 \uC5C6\uC74C"

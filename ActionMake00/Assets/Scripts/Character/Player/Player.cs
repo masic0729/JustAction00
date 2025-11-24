@@ -17,7 +17,6 @@ public class Player : Character
     [SerializeField] const int maxLevel = 3;                              //플레이어의 체대 레벨은 3레벨이다
 
 
-    //public Dictionary<string, GameObject> weaponsDic;
 
     protected Transform weaponTransform;
 
@@ -204,17 +203,18 @@ public class Player : Character
         int overExpValue = 0;
 
         //이후 일단 레벨업이 되는 지 확인후 레벨업 처리하자마자, 오버되는 경험치를 확인
-        if(currentExp + getExp >= needExp[level - 1])
+        if(currentExp >= needExp[level - 1])
         {
-            overExpValue = needExp[level - 1] - (currentExp + getExp);
+            overExpValue = currentExp - needExp[level - 1];
 
             level++;
             playerLevelUp.LevelUp();
+            currentExp = 0;
+            ExpUp(overExpValue);
 
-            currentExp = overExpValue;
-
-            Debug.Log(level);
         }
+        Debug.Log(level + "경험치가 오르긴 했어요~" + currentExp);
+
     }
 
     /// <summary>
@@ -262,5 +262,7 @@ public class Player : Character
     public string GetWeaponType() => weaponTypeString;
 
     public int GetLevel() => level;
+
+    public int GetNeedExp() => needExp[level - 1];
 
 }

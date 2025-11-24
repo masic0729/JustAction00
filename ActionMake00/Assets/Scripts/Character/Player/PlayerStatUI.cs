@@ -10,6 +10,7 @@ public class PlayerStatUI : MonoBehaviour
 {
     Player player;
     public Slider HpSlider;
+    public Slider ExpSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -30,5 +31,10 @@ public class PlayerStatUI : MonoBehaviour
     public void PlayerUpdateHp()
     {
         HpSlider.value = (float)player.GetHp()/player.GetResultMaxHp();
+    }
+
+    public void UpdateExp()
+    {
+        ExpSlider.value = (float)player.GetCurrentExp() / player.GetNeedExp();
     }
 }

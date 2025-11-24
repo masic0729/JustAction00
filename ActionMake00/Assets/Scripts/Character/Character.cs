@@ -363,6 +363,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public float GetRotateSpeed() => rotateSpeed;
     public void SetRotateSpeed(float value) => rotateSpeed = value;
 
+    public int GetCurrentExp() => currentExp;
+
     public bool GetIsDead() => isDead;
 
     public bool GetIsParring() => isParring;

@@ -264,6 +264,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: expAddValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
       objectReference: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
@@ -831,6 +835,10 @@ PrefabInstance:
       propertyPath: DropItems
       value: 
       objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: expAddValue
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
@@ -2071,6 +2079,7 @@ MonoBehaviour:
   activityAllowValue: 20
   playerFindDistance: 10
   attackReadyDistance: 1
+  expAddValue: 0
   isPlayerFound: 0
   isDefault: 1
   isAttack: 0
@@ -4385,6 +4394,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: expAddValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
       objectReference: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
@@ -5192,6 +5205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpSlider: {fileID: 1233439398}
+  ExpSlider: {fileID: 753415064}
 --- !u!1 &1914810386
 GameObject:
   m_ObjectHideFlags: 0
@@ -5752,6 +5766,10 @@ PrefabInstance:
       propertyPath: DropItems
       value: 
       objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: expAddValue
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
@@ -6730,6 +6748,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
     - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: expAddValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153854162322850845, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: characterStatData
       value: 
       objectReference: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
@@ -7609,6 +7631,10 @@ PrefabInstance:
     - target: {fileID: 2336478506798534285, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.7624006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806915460544298901, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
+      propertyPath: expAddValue
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2806915460544298901, guid: 213c1657f24d4fa45a1e5450081bdb41, type: 3}
       propertyPath: GroundAttackGuide
