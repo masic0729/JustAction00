@@ -45,7 +45,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     //피격 및 사망 시 발생하는 액션류
     public Action hitAction;        //아직 사용하지는 않았음
-    public Action deathAction;      //몬스터가 사용됨
+    public Action<Character> deathAction;      
 
     [SerializeField]
     public ParticleSystem[] pEffect;                                        //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
@@ -60,8 +60,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [Header("캐릭터 스킬 발사체")]
     public GameObject[] skillProjectiles;
 
-    protected int exp = 1;                                                  //몬스터가 사망 시 그 대상에게 주는 경험치
-
+    protected int currentExp = 0;                                                  //몬스터가 사망 시 그 대상에게 주는 경험치
+    
 
     //캐릭터 능력치 관련 데이터
     #region
@@ -156,6 +156,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
             hp -= (int)damage;
 
         //이곳에 체력 바 갱신
+        hitAction?.Invoke();
 
         //
 
@@ -165,16 +166,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
             anim.SetTrigger("Death");
             isDead = true;
 
-            if(attacker.gameObject.transform.tag == "Player")
-            {
-                Player player = attacker.gameObject.GetComponent<Player>();
-                player.ExpUp(exp);
-            }
-            deathAction?.Invoke();
-        }
-        else
-        {
-            hitAction?.Invoke();
+            deathAction?.Invoke(attacker);
+            return;
         }
 
         if (isSuperArmor == false || hitLevel != -1)

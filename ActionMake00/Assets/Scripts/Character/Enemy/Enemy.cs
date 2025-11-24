@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -60,6 +61,7 @@ public class Enemy : Character
         pEffectDic["pDeath"] = pEffect[1];
 
         deathAction += DropItem;
+        deathAction += ExpUpForPlayer;
     }
 
     /// <summary>
@@ -110,6 +112,16 @@ public class Enemy : Character
             rotateSpeed * Time.deltaTime
         );
     }
+    void ExpUpForPlayer(Character attacker)
+    {
+
+        if (attacker.gameObject.transform.tag == "Player")
+        {
+            Player player = attacker.gameObject.GetComponent<Player>();
+            player.ExpUp(currentExp);
+        }
+    }
+
 
     public void MoveForward()
     {
@@ -121,7 +133,7 @@ public class Enemy : Character
     /// 몬스터 사망 시 아이템을 드랍한다
     /// 하지만 보스몬스터는 안넣을 지 고민중
     /// </summary>
-    void DropItem()
+    void DropItem(Character notUse)
     {
         if (DropItems == null)
             return;
@@ -151,19 +163,9 @@ public class Enemy : Character
         nav.SetDestination(target);
     }
 
-    /*public override void Dead(float animationTime)
-    {
-        base.Dead(animationTime);
-        
-    }*/
-
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "PlayerAttack")
-        {
-            //기본적으로 피해를 받는다
-            //TakeDamage(other.GetComponent<PlayerSword>().GetDamage());
-        }
+        
     }
 
     public void SetEnemyIndex(int value) => enemyIndex = value;

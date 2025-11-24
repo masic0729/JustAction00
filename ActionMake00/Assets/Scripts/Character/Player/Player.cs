@@ -27,11 +27,7 @@ public class Player : Character
     public LayerMask groundMask;
     protected string weaponTypeString;
 
-    /*private void Awake()
-    {
-        weaponDic[WeaponType.Sword.ToString()] = null;
-        weaponDic[WeaponType.Staff.ToString()] = null;
-    }*/
+    
     // 초기화
     protected override void Start()
     {
@@ -42,7 +38,7 @@ public class Player : Character
     protected override void Init()
     {
         base.Init();
-        exp = 0;
+        currentExp = 0;
         playerCtrl = GetComponent<PlayerController>();
         playerLevelUp = GetComponent<PlayerLevelUp>();
 
@@ -202,20 +198,20 @@ public class Player : Character
             Debug.Log("최대 레벨이므로, 경험치 획득이 제한됩니다.");
             return;
         }
-        exp += getExp;
+        currentExp += getExp;
 
         //경험치
         int overExpValue = 0;
 
         //이후 일단 레벨업이 되는 지 확인후 레벨업 처리하자마자, 오버되는 경험치를 확인
-        if(exp + getExp >= needExp[level - 1])
+        if(currentExp + getExp >= needExp[level - 1])
         {
-            overExpValue = needExp[level - 1] - (exp + getExp);
+            overExpValue = needExp[level - 1] - (currentExp + getExp);
 
             level++;
             playerLevelUp.LevelUp();
 
-            exp = overExpValue;
+            currentExp = overExpValue;
 
             Debug.Log(level);
         }

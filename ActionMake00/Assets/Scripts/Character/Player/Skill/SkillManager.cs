@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    /*public Dictionary<string, Action> swordSkillDic;
-    public Dictionary<string, Action> staffSkillDic;*/
     public Dictionary<string, Action> weaponSkillDic;
 
     [SerializeField] PlayerSkillData[] weaponData;
     
-    /*Dictionary<string, float> swordSkillCooltimeDic;
-    Dictionary<string, float> staffSkillCooltimeDic;*/
     Dictionary<string, float> weaponSkillCooltimeDic;
-
-    /*Dictionary<string, float> swordSkillCoolListDic;
-    Dictionary<string, float> staffSkillCoolListDic;*/
     Dictionary<string, float> weaponSkillCoolListDic;
 
     Player player;
@@ -24,20 +17,12 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        /*swordSkillDic = new Dictionary<string, Action>();
-        staffSkillDic = new Dictionary<string, Action>();*/
         weaponSkillDic = new Dictionary<string, Action>();
 
-        /*swordSkillCoolListDic = new Dictionary<string, float>();
-        staffSkillCoolListDic = new Dictionary<string, float>();*/
         weaponSkillCoolListDic = new Dictionary<string, float>();
         
-        /*swordSkillCooltimeDic = new Dictionary<string, float>();
-        staffSkillCooltimeDic = new Dictionary<string, float>();*/
         weaponSkillCooltimeDic = new Dictionary<string, float>();
         
-        
-
         player = GetComponent<Player>();
     }
 
@@ -65,27 +50,11 @@ public class SkillManager : MonoBehaviour
 
                 float coolTime = weaponData[i].weaponSkillBase[j].coolTime;
 
-                /*if (weaponData[i].weaponType == "Sword")
-                {
-                    swordSkillCooltimeDic[skillTriggerName] = 0;
-                    swordSkillCoolListDic[skillTriggerName] = coolTime;
-                    //Debug.Log(swordSkillCoolListDic[skillTriggerName] + "히히 사실 이래");
-                }
-
-                if (weaponData[i].weaponType == "Staff")
-                {
-                    staffSkillCooltimeDic[skillTriggerName] = 0;
-                    staffSkillCoolListDic[skillTriggerName] = coolTime;
-
-                }*/
-
                 //new
                 weaponSkillCooltimeDic[skillTriggerName] = 0;
                 weaponSkillCoolListDic[skillTriggerName] = coolTime;
             }
         }
-
-
 
     }
 
@@ -98,34 +67,8 @@ public class SkillManager : MonoBehaviour
     /// <param name="data">각 스킬 명령에 저장할 기능들</param>
     public void SetSkillDic(WeaponType type, Action data, int index)
     {
-        /*Debug.Log(data.Count + "리스트 개수");
-        for(int i = 0; i < data.Count; i++)
-        {
-            string skillKey = "Skill" + i.ToString();
-            if (type == WeaponType.Sword)
-            {
-                swordSkillDic[skillKey] = data[i];
-                swordSkillDic[skillKey] += character.WeaponColDisable;
-            }
-            else if(type == WeaponType.Staff)
-            {
-                staffSkillDic[skillKey] = data[i];
-                staffSkillDic[skillKey] += character.WeaponColDisable;
-            }
-        }*/
-
         string skillKey = "Skill" + index.ToString();
-        /*if(type == WeaponType.Sword)
-        {
-            swordSkillDic[skillKey] = data;
-            swordSkillDic[skillKey] += character.WeaponColDisable;
-        }
-        else
-        {
-            staffSkillDic[skillKey] = data;
-            staffSkillDic[skillKey] += character.WeaponColDisable;
-        }*/
-
+     
         //new
         Debug.Log(skillKey + "1번째");
         Debug.Log(data + "2번째");
@@ -159,32 +102,7 @@ public class SkillManager : MonoBehaviour
                 string skillTriggerName;
                 skillTriggerName = weaponData[i].weaponSkillBase[j].triggerName;
 
-                /*if (weaponData[i].weaponType == "Sword")
-                {
-                    if (swordSkillCooltimeDic[skillTriggerName] > 0)
-                    {
-                        swordSkillCooltimeDic[skillTriggerName] -= Time.deltaTime;
-                        Debug.Log("감소중");
-                    }
-
-                    if (swordSkillCooltimeDic[skillTriggerName] <= 0)
-                    {
-                        swordSkillCooltimeDic[skillTriggerName] = 0;
-                    }
-                }
-
-                if (weaponData[i].weaponType == "Staff")
-                {
-                    if(staffSkillCooltimeDic[skillTriggerName] > 0)
-                        staffSkillCooltimeDic[skillTriggerName] -= Time.deltaTime;
-
-                    if (staffSkillCooltimeDic[skillTriggerName] <= 0)
-                    {
-                        staffSkillCooltimeDic[skillTriggerName] = 0;
-                    }
-                }*/
-
-                //new
+                
                 if (weaponSkillCooltimeDic[skillTriggerName] > 0)
                     weaponSkillCooltimeDic[skillTriggerName] -= Time.deltaTime;
 
@@ -198,41 +116,14 @@ public class SkillManager : MonoBehaviour
     void SetSkillCoolTime(int key)
     {
         string skillKey = "Skill" + key.ToString();
-        /*switch (currentWeaponType)
-        {
-            case "Sword":
-                swordSkillCooltimeDic[skillKey] = swordSkillCoolListDic[skillKey];
-                break;
-
-            case "Staff":
-                staffSkillCooltimeDic[skillKey] = staffSkillCoolListDic[skillKey];
-
-                break;
-            default:
-                Debug.Log("스킬 쿨 예외 발생");
-                break;
-        }*/
+        
         weaponSkillCooltimeDic[skillKey] = weaponSkillCoolListDic[skillKey];
     }
 
 
     public bool isSkillCanUse(string skillKey)
     {
-        /*switch (currentWeaponType)
-        {
-            case "Sword":
-                if (swordSkillCooltimeDic[skillKey] > 0)
-                    return false;
-                break;
-        _graphics->GetDevice()
-            case "Staff":
-                if (staffSkillCooltimeDic[skillKey] > 0)
-                    return false;
-                break;
-            default:
-                Debug.Log("스킬 쿨 예외 발생");
-                break;
-        }*/
+        
         if (weaponSkillCooltimeDic[skillKey] > 0)
             return false;
 
@@ -265,28 +156,8 @@ public class SkillManager : MonoBehaviour
     public void UseSkill(int key)
     {
         string skillKey = "Skill" + key.ToString();
-        /*switch(currentWeaponType)
-        {
-            case "Sword":
-                if (swordSkillCooltimeDic[skillKey] <= 0)
-                {
-                    swordSkillDic[skillKey]();
-                    SkillCoolTimeStart(key);
-                }
-                break;
-            case "Staff":
-                if (staffSkillCooltimeDic[skillKey] <= 0)
-                {
-                    staffSkillDic[skillKey]();
-                    SkillCoolTimeStart(key);
-                }
-                break;
-            default:
-                Debug.Log("스킬 발동 중 예외 발생");
-                break;
-        }*/
+        
 
-        //new
         weaponSkillDic[skillKey]();
         SetSkillCoolTime(key);
     }
