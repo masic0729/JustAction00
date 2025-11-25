@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class CharacterBuff : MonoBehaviour
 {
-    List<BuffBase> buffs = new List<BuffBase>();
-    List<BuffBase> debuffs = new List<BuffBase>();                      //추후 확장성으로 추가 사용할 수 있으나, 스케쥴 상 될 지는 의문
+    List<BuffBase> buffs = new List<BuffBase>();                 //캐릭터가 받는 이로운 버프
+    List<BuffBase> debuffs = new List<BuffBase>();              //캐릭터가 받는 해로운 디버프
 
     private void Start()
     {
-        //스킬 또는 상호작용을 통해 버프를 실행한다. 이때 버프를 리스트 기반으로 관리하여 실행 및 관리한다.
-        /*BuffBase testBuff = new BuffTransDamage();
-        testBuff.Setup(this.gameObject.transform.parent.GetComponent<Character>(), 10, 10f);
-        AddBuff(testBuff, BuffType.Buff);*/
+
     }
 
     void Update()
@@ -24,8 +21,8 @@ public class CharacterBuff : MonoBehaviour
             {
                 buffs.RemoveAt(i);
             }
-            
         }
+
         for (int i = 0; i < debuffs.Count; i++)
         {
             if (debuffs[i].UpdateTime())
@@ -59,7 +56,6 @@ public class CharacterBuff : MonoBehaviour
         if (buff.buffType == BuffType.Debuff)
         {
             debuffs.Add(buff);
-            Debug.Log("디버프 추가됨");
         }
     }
     
