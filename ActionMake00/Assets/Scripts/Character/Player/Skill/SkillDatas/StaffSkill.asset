@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: Staff
   weaponSkillBase:
-  - icon: {fileID: 21300000, guid: 3a88d46ed00b9214a8cc55ba6e67ab09, type: 3}
+  - icon: {fileID: 21300000, guid: 448d600b6b959074d94c8933775142fc, type: 3}
     skillName: skill0
-    skillPrefab: {fileID: 5503505460791601945, guid: 694f37b5f19bd75448c4c15eafa2c312, type: 3}
     description: staff skill0
     coolTime: 7
     triggerName: Skill0
-  - icon: {fileID: 21300000, guid: 00fbb4588136cde4fbf9001df788bcfb, type: 3}
+  - icon: {fileID: 21300000, guid: 2531e15fe967a354d9d28c9cfc1d71ca, type: 3}
     skillName: skill1
-    skillPrefab: {fileID: 0}
     description: staff skill1
     coolTime: 12
     triggerName: Skill1

@@ -8,9 +8,17 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerStatUI : MonoBehaviour
 {
+    SkillManager skillManager;
     Player player;
     public Slider HpSlider;
     public Slider ExpSlider;
+    public Slider[] SkillCoolTime; 
+    public Image[] skills;
+
+    private void Awake()
+    {
+        skillManager = GetComponent<SkillManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +30,19 @@ public class PlayerStatUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateSkillCoolTimeValue();
+    }
+    
+    void UpdateSkillCoolTimeValue()
+    {
+        float[] coolTimer = skillManager.GetSkillCoolTimerDatas();
+        float[] coolTime = skillManager.GetSkillCoolTimeDatas();
+
+        for (int i = 0; i < SkillCoolTime.Length; i++)
+        {
+
+            SkillCoolTime[i].value = coolTimer[i] / coolTime[i];
+        }
     }
 
     /// <summary>
@@ -37,4 +57,20 @@ public class PlayerStatUI : MonoBehaviour
     {
         ExpSlider.value = (float)player.GetCurrentExp() / player.GetNeedExp();
     }
+
+
+
+    /// <summary>
+    /// 스킬의 아이콘을 업데이트 하기 위한 함수
+    /// 스킬 활성화는 별개로 순수 장비 타입에 따른 스킬 변환이다
+    /// </summary>
+    public void UpdateSkillIcon()
+    {
+        for(int i = 0; i < skills.Length; i++)
+        {
+            skills[i].sprite = skillManager.GetSkillData().weaponSkillBase[i].icon;
+        }
+    }
+
+    //나머지가 아마 버프시스템의 시각화인데, 이걸 최대한 빨리 할 것. 목표는 늦어도 이번 주 안으로
 }

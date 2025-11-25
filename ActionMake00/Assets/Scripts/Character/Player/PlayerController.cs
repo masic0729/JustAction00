@@ -86,9 +86,6 @@ public class PlayerController : MonoBehaviour
         {
             moveVector = (camRight * h + camFwd * v);
 
-
-
-
             if (player.anim.GetBool("isAttacking") == true)
                 player.anim.SetBool("isAttacking", false);
 
@@ -104,9 +101,6 @@ public class PlayerController : MonoBehaviour
                 return;
 
             }
-
-
-
 
             if (moveVector.magnitude > 0.1f)
             {
@@ -186,6 +180,7 @@ public class PlayerController : MonoBehaviour
 
             player.anim.SetTrigger("Skill0");
             canAttackInput = false;
+            skillManager.SetSkillCoolTime(0);
         }
 
         /*if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill0"))
@@ -193,12 +188,13 @@ public class PlayerController : MonoBehaviour
             player.anim.SetTrigger("Skill0");
             canInput = false;
         }*/
-        if (Input.GetKeyDown(KeyCode.Q) && canKeyQ == true)
+        if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill1") && canKeyQ == true)
         {
             player.anim.SetBool("isAttacking", true);
 
             player.anim.SetTrigger("Skill1");
             canAttackInput = false;
+            skillManager.SetSkillCoolTime(1);
         }
     }
 

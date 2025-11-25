@@ -104,9 +104,17 @@ public class Player : Character
         weaponDic[weaponTypeString].transform.parent = weaponTransform;
         weaponDic[weaponTypeString].SetDamage(GetResultDamage());
         WeaponInitDelay();
-        //Invoke("WeaponInitDelay", 0.1f);
+
+
+        PlayerStatUI playerUI = GetComponent<PlayerStatUI>();
+        playerUI.UpdateSkillIcon();
     }
 
+    /// <summary>
+    /// 게임을 시작할 때 실행된다.
+    /// 추후 json기반으로 확장할 때 실행 구조가 변동될 예정이다.
+    /// </summary>
+    /// <param name="weapon"></param>
     public void WeaponAwakeInit(PlayerWeapon weapon)
     {
         weaponTypeString = weapon.weaponType.ToString();
@@ -116,6 +124,9 @@ public class Player : Character
         weaponDic[weaponTypeString].transform.parent = weaponTransform;
         weaponDic[weaponTypeString].SetDamage(GetResultDamage());
         WeaponInitDelay();
+
+        PlayerStatUI playerUI = GetComponent<PlayerStatUI>();
+        playerUI.UpdateSkillIcon();
     }
 
     void WeaponInitDelay()

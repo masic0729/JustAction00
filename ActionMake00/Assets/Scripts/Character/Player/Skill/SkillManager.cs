@@ -7,7 +7,7 @@ public class SkillManager : MonoBehaviour
     public Dictionary<string, Action> weaponSkillDic;
 
     [SerializeField] PlayerSkillData[] weaponData;
-    
+
     Dictionary<string, float> weaponSkillCooltimeDic;
     Dictionary<string, float> weaponSkillCoolListDic;
 
@@ -20,9 +20,9 @@ public class SkillManager : MonoBehaviour
         weaponSkillDic = new Dictionary<string, Action>();
 
         weaponSkillCoolListDic = new Dictionary<string, float>();
-        
+
         weaponSkillCooltimeDic = new Dictionary<string, float>();
-        
+
         player = GetComponent<Player>();
     }
 
@@ -39,11 +39,11 @@ public class SkillManager : MonoBehaviour
 
     void Init()
     {
-        
+
         //초기 모든 스킬의 쿨타임 값을 0으로 초기화한다.
-        for(int i = 0; i < weaponData.Length;i++)
+        for (int i = 0; i < weaponData.Length; i++)
         {
-            for(int j = 0; j < weaponData[i].weaponSkillBase.Length; j++)
+            for (int j = 0; j < weaponData[i].weaponSkillBase.Length; j++)
             {
                 string skillTriggerName;
                 skillTriggerName = weaponData[i].weaponSkillBase[j].triggerName;
@@ -68,7 +68,7 @@ public class SkillManager : MonoBehaviour
     public void SetSkillDic(WeaponType type, Action data, int index)
     {
         string skillKey = "Skill" + index.ToString();
-     
+
         //new
         Debug.Log(skillKey + "1번째");
         Debug.Log(data + "2번째");
@@ -87,58 +87,90 @@ public class SkillManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 기본적으로 현재 무기타입 내에 스킬을 사용하기 때문에
-    /// 현재 무기 타입의 해당 딕셔너리인덱스 스킬 쿨타임 설정 및 
-    /// 시작을 한다
+    /// 모든 무기들의 스킬 쿨타임을 감소하고 있다.
     /// 
     /// 해당 코드는 매 프레임마다 스킬 쿨타임을 내릴려고 한다
     /// </summary>
     public void SkillCollTimer()
     {
-        for (int i = 0; i < weaponData.Length; i++)
+
+        for(int i = 0; i < GetSkillData().weaponSkillBase.Length; i++)
         {
-            for (int j = 0; j < weaponData[i].weaponSkillBase.Length; j++)
-            {
-                string skillTriggerName;
-                skillTriggerName = weaponData[i].weaponSkillBase[j].triggerName;
+            string skillTriggerName = weaponData[i].weaponSkillBase[i].triggerName;
 
-                
-                if (weaponSkillCooltimeDic[skillTriggerName] > 0)
-                    weaponSkillCooltimeDic[skillTriggerName] -= Time.deltaTime;
 
-                if (weaponSkillCooltimeDic[skillTriggerName] <= 0)
-                    weaponSkillCooltimeDic[skillTriggerName] = 0;
-            }
+            if (weaponSkillCooltimeDic[skillTriggerName] > 0)
+                weaponSkillCooltimeDic[skillTriggerName] -= Time.deltaTime;
+
+            if (weaponSkillCooltimeDic[skillTriggerName] <= 0)
+                weaponSkillCooltimeDic[skillTriggerName] = 0;
         }
 
     }
 
-    void SetSkillCoolTime(int key)
+    /// <summary>
+    /// 현재 플레이어 스킬들의 잔여 쿨타임 상태 값을 반환한다
+    /// </summary>
+    /// <returns></returns>
+    public float[] GetSkillCoolTimerDatas()
+    {
+        int skillCount = GetSkillData().weaponSkillBase.Length;
+        float[] datas = new float[skillCount];
+
+
+        for (int i = 0; i < datas.Length; i++)
+        {
+            string skillTriggerName = GetSkillData().weaponSkillBase[i].triggerName;
+            datas[i] = weaponSkillCooltimeDic[skillTriggerName];
+        }
+        return datas;
+
+    }
+
+    /// <summary>
+    /// 현재 플레이어 스킬의 기본 쿨타임 값을 반환한다
+    /// </summary>
+    /// <returns></returns>
+    public float[] GetSkillCoolTimeDatas()
+    {
+        int skillCount = GetSkillData().weaponSkillBase.Length;
+        float[] datas = new float[skillCount];
+
+
+        for (int i = 0; i < datas.Length; i++)
+        {
+            string skillTriggerName = GetSkillData().weaponSkillBase[i].triggerName;
+            datas[i] = weaponSkillCoolListDic[skillTriggerName];
+        }
+        return datas;
+    }
+
+    public void SetSkillCoolTime(int key)
     {
         string skillKey = "Skill" + key.ToString();
-        
+
         weaponSkillCooltimeDic[skillKey] = weaponSkillCoolListDic[skillKey];
     }
 
 
     public bool isSkillCanUse(string skillKey)
     {
-        
+
         if (weaponSkillCooltimeDic[skillKey] > 0)
             return false;
 
         return true;
     }
 
-    
+
     public void WeaponSkillLoad(string weaponType)
     {
         PlayerSkillProcessor skillBase = null;
         if (weaponType == "Sword")
         {
             skillBase = transform.Find("SwordSkill").GetComponent<PlayerSwordSkill>();
-        }   
-        if(weaponType == "Staff")
+        }
+        if (weaponType == "Staff")
         {
             skillBase = transform.Find("StaffSkill").GetComponent<PlayerStaffSkill>();
 
@@ -156,13 +188,33 @@ public class SkillManager : MonoBehaviour
     public void UseSkill(int key)
     {
         string skillKey = "Skill" + key.ToString();
-        
+
 
         weaponSkillDic[skillKey]();
-        SetSkillCoolTime(key);
+        //SetSkillCoolTime(key);
     }
 
     public void SetCurrentWeaponType(string typeName) => currentWeaponType = typeName;
 
     public string GetCurrentWeaponType() => currentWeaponType;
+
+    /// <summary>
+    /// 스킬 데이터를 불러온다.
+    /// </summary>
+    /// <param name="index">0부터 1까지 존재한다</param>
+    /// <returns></returns>
+    public PlayerSkillData GetSkillData()
+    {
+        switch(currentWeaponType)
+        {
+            case "Sword":
+                return weaponData[0];
+            case "Staff":
+                return weaponData[1];
+            default:
+                Debug.Log("예외 발생. 확인할 것");
+                return null;
+        }
+
+    }
 }
