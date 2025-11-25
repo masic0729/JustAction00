@@ -3,17 +3,24 @@ using UnityEngine;
 
 public class BuffTransDamage : BuffBase
 {
-    float damageAmount = 2;        // 에디터 셋업 혹은 런타임 주입
+    //데미지 변화값. 생성자를 통해 할당된다
+    float damageAmount;
 
-    public override GameObject ObjectSetup(Character target, float duration, string spawnParticleName, string spawnParentName)
+    public BuffTransDamage(float duration, string spawnParticleName, string spawnParentName, BuffType buffType, float damageValue)
+        : base(duration, spawnParticleName, spawnParentName, buffType)
     {
-        return base.ObjectSetup(target, duration, spawnParticleName, spawnParentName);
+        damageAmount = damageValue;
+    }
+
+    public override GameObject ObjectSetup(Character target)
+    {
+        return base.ObjectSetup(target);
 
     }
 
-    public override void ObjectSetup(Character target, float duration)
+    public override void ObjectSetup(Character target, float duration, BuffType buffType)
     {
-        base.ObjectSetup(target, duration);
+        base.ObjectSetup(target, duration, buffType);
 
     }
 

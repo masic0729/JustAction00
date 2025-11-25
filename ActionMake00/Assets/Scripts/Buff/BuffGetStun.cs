@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class BuffGetStun : BuffBase
 {
-    public override GameObject ObjectSetup(Character target, float duration, string spawnParticleName, string spawnParentName)
+    /// <summary>
+    /// 기절의 경우 상태이상 지속시간 자체가 버프 시간이므로 파라미터는 똑같다
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <param name="spawnParticleName"></param>
+    /// <param name="spawnParentName"></param>
+    /// <param name="buffType"></param>
+    public BuffGetStun(float duration, string spawnParticleName, string spawnParentName, BuffType buffType)
+        : base(duration, spawnParticleName, spawnParentName, buffType)
     {
-        return base.ObjectSetup(target, duration, spawnParticleName, spawnParentName);
     }
 
-    public override void ObjectSetup(Character target, float duration)
+    public override GameObject ObjectSetup(Character target)
     {
-        base.ObjectSetup(target, duration);
+        return base.ObjectSetup(target);
+    }
+
+    public override void ObjectSetup(Character target, float duration, BuffType buffType)
+    {
+        base.ObjectSetup(target, duration, buffType);
     }
     protected override void ApplyBuff()
     {

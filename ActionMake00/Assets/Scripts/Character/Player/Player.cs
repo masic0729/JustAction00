@@ -254,16 +254,16 @@ public class Player : Character
     {
         Debug.Log("수치 상승해야함");
 
-        float statUpValue = 50f;
+        float statUpValue = 5f;
         statDatas[(int)AddStatName.LevelUp].Damage += statUpValue;
         statDatas[(int)AddStatName.LevelUp].Defense += statUpValue;
-        statDatas[(int)AddStatName.LevelUp].MoveSpeed += statUpValue;
+        //statDatas[(int)AddStatName.LevelUp].MoveSpeed += statUpValue;
         statDatas[(int)AddStatName.LevelUp].MaxHp += statUpValue;
 
         equipmentManager.UpdateCharacterStatResult();
 
         //모든 스텟 조정 후, 체력의 경우 현재 체력을 상승한 최대 체력 만큼 상승한다
-        SetHp(GetHp() + 10f);
+        SetHp(GetHp() + statUpValue);
     }
 
 

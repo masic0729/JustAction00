@@ -18,6 +18,9 @@ public class PlayerSwordParring : PlayerSkillInfo
     protected override void Awake()
     {
         base.Awake();
+
+        BuffBase addDamageBuff = new BuffTransDamage(10f, "DamageUpEffect", null, BuffType.Buff, 5f);
+        ownerBuffs.Add(addDamageBuff);
     }
 
     protected override void Init()
@@ -29,18 +32,5 @@ public class PlayerSwordParring : PlayerSkillInfo
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-
-        if (!other.TryGetComponent<Character>(out Character hitTarget))
-            return;
-
-        if(hitTarget.transform.tag == target)
-        {
-            hitTarget.anim.SetTrigger("GetParring");
-            float buffTime = 10f;
-
-            BuffBase addDamageBuff = new BuffTransDamage();
-            addDamageBuff.ObjectSetup(owner, buffTime, "DamageUpEffect", null);
-        }
-
     }
 }

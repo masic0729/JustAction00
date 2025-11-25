@@ -59,6 +59,7 @@ public class CharacterBuff : MonoBehaviour
         if (buff.buffType == BuffType.Debuff)
         {
             debuffs.Add(buff);
+            Debug.Log("디버프 추가됨");
         }
     }
     

@@ -14,9 +14,9 @@ public enum AttackType
 
 public class Attacker : MonoBehaviour, IAttacker
 {
-    [SerializeField] protected Character owner;                                                        //공격체의 출처
-    /*protected List<BuffBase> getBuffs;                                                                    //자신에게 획득하는 버프 
-    protected List<BuffBase> tossBuffs;                                                                    //상대에게 제공하는 버프 */
+    [SerializeField] protected Character owner;                      //공격체의 출처
+    protected List<BuffBase> ownerBuffs;                            //자신에게 획득하는 버프 
+    protected List<BuffBase> targetBuffs;                           //상대에게 제공하는 버프 
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
@@ -25,6 +25,7 @@ public class Attacker : MonoBehaviour, IAttacker
     protected string target;
     protected int hitLevel = -1;
     protected string tagName;
+    protected bool isParringAttack;
 
     protected virtual void Awake()
     {
@@ -32,8 +33,8 @@ public class Attacker : MonoBehaviour, IAttacker
         {
             objectCol = GetComponent<Collider>();
         }
-        /*getBuffs = new List<BuffBase>();
-        tossBuffs = new List<BuffBase>();*/
+        ownerBuffs = new List<BuffBase>();
+        targetBuffs = new List<BuffBase>();
     }
 
     protected virtual void Start()
@@ -156,23 +157,22 @@ public class Attacker : MonoBehaviour, IAttacker
                 }
             }
 
-            /*foreach (BuffBase buff in getBuffs)
+            if(isParringAttack == true)
             {
-                buff.Activate();
+                hitTarget.anim.SetTrigger("GetParring");
             }
 
-            hitTarget.UpdateBuffs();
-            owner.UpdateBuffs();*/
-
-            /*foreach( BuffBase insBuff in getBuffs)
+            foreach (BuffBase ownerBuff in ownerBuffs)
             {
-                owner.GetComponent<CharacterBuff>().AddBuff(insBuff);
+                ownerBuff.ObjectSetup(owner);
             }
 
-            foreach (BuffBase insBuff in tossBuffs)
+            
+
+            foreach (BuffBase targetBuff in targetBuffs)
             {
-                hitTarget.GetComponent<CharacterBuff>().AddBuff(insBuff);
-            }*/
+                targetBuff.ObjectSetup(hitTarget);
+            }
 
             if (attackType == AttackType.Projectile)
             {

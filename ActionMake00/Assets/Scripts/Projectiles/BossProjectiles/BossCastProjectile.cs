@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class BossCastProjectile : BossProjectile
 {
-
+    protected override void Awake()
+    {
+        base.Awake();
+        BuffBase stunDeBuff = new BuffGetStun(2f, "StunEffect", null, BuffType.Debuff);
+        targetBuffs.Add(stunDeBuff);
+    }
     protected override void Start()
     {
         base.Start();
@@ -20,15 +25,5 @@ public class BossCastProjectile : BossProjectile
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        BuffBase addDamageBuff = new BuffGetStun();
-
-        if (other.transform.tag == target)
-        {
-            float buffTime = 3f;
-
-            Character target = other.GetComponent<Character>();
-            addDamageBuff.ObjectSetup(target, buffTime, "StunEffect", null);
-        }
-
     }
 }

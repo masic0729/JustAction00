@@ -22,11 +22,14 @@ public class PlayerLevelUp : MonoBehaviour
     {
         int level = player.GetLevel();
 
+        if (level == 3)
+            player.LevelUpForSkillOpen();
+
+
         switch(level)
         {
             case 2:
-                //player.LevelUpForSkillOpen();
-                //player.LevelUpForStatUp();
+                player.LevelUpForStatUp();
                 break;
 
             case 3:
@@ -34,8 +37,11 @@ public class PlayerLevelUp : MonoBehaviour
                 break;
 
             default:
+                Debug.Log("레벨업 예외 발생");
                 break;
         }
+
+        //레벨업 이펙트 출력
         GameObject instance = PoolManager.instance.Spawn(LevelUpPS, transform.position);
         instance.transform.Translate(0, 1f, 0);
         instance.transform.parent = this.gameObject.transform;

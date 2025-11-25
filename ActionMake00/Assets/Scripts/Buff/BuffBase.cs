@@ -18,7 +18,19 @@ public abstract class BuffBase
 
     float buffTimer;
     float buffTime;
+
+    string particleName;
+    string particleParentName;
     bool isActived = false;
+
+
+    public BuffBase(float duration, string spawnParticleName, string spawnParentName, BuffType buffType) 
+    {
+        buffTime = duration;
+        particleName = spawnParticleName;
+        particleParentName = spawnParentName;
+        this.buffType = buffType;
+    }
 
     /// <summary>
     /// 버프류 실행할 때, 만약 버프 이펙트 표시 시 파티클로 보여줄 수 있다.
@@ -32,25 +44,23 @@ public abstract class BuffBase
     /// <param name="duration">기본적인 버프 지속시간 및 버프 관련 파티클 유지 시간</param>
     /// <param name="spawnParticleName"></param>
     /// <param name="spawnParentName"></param>
-    public virtual GameObject ObjectSetup(Character target, float duration, string spawnParticleName, string spawnParentName)
+    public virtual GameObject ObjectSetup(Character target)
     {
         character = target;
-        buffTime = duration;
 
+        GameObject instance = PoolManager.instance.Spawn(particleName, target.transform.position, target.transform.rotation);
 
-        GameObject instance = PoolManager.instance.Spawn(spawnParticleName, target.transform.position, target.transform.rotation);
-
-        if(spawnParentName != null)
+        if(particleParentName != null)
         {
-            instance.transform.parent = target.gameObject.transform.Find(spawnParentName);
+            instance.transform.parent = target.gameObject.transform.Find(particleParentName);
         }
         else
         {
             instance.transform.parent = target.transform;
         }
 
-        instance.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(duration);
-        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+        instance.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
+        Init(buffTime, ApplyBuff, UpdateBuff, ExitBuff);
         character.GetComponent<CharacterBuff>().AddBuff(this);
 
 
@@ -63,7 +73,7 @@ public abstract class BuffBase
     /// <param name="target"></param>
     /// <param name="dmgAmount"></param>
     /// <param name="duration"></param>
-    public virtual void ObjectSetup(Character target, float duration)
+    public virtual void ObjectSetup(Character target, float duration, BuffType buffType)
     {
         character = target;
         buffTime = duration;
