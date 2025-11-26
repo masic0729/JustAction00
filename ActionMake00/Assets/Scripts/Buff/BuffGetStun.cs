@@ -21,10 +21,8 @@ public class BuffGetStun : BuffBase
         return base.ObjectSetup(target, buffCaster);
     }
 
-    public override void ObjectSetup(Character target, float duration, BuffType buffType)
-    {
-        base.ObjectSetup(target, duration, buffType);
-    }
+
+
     protected override void ApplyBuff()
     {
         buffCharacter.anim.SetTrigger("GetStatus");

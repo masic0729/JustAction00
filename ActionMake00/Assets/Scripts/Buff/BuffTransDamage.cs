@@ -18,12 +18,7 @@ public class BuffTransDamage : BuffBase
 
     }
 
-    public override void ObjectSetup(Character target, float duration, BuffType buffType)
-    {
-        base.ObjectSetup(target, duration, buffType);
-
-    }
-
+    
     protected override void ApplyBuff()
     {
         if (buffCharacter != null)

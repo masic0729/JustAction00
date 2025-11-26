@@ -8,7 +8,9 @@ public enum BuffType
 }
 public abstract class BuffBase
 {
-    protected Character buffCharacter;                      //
+    protected Character buffCharacter;
+    Character caster;                                   //버프 시전자
+    GameObject spawnedParticle = null;
     public BuffType buffType;
 
     public Action onApply;
@@ -20,13 +22,16 @@ public abstract class BuffBase
 
     string particleName;
     string particleParentName;
+    protected string iconPath = null;                   //버프 창에 등록될 아이콘 리소스 경로. 각각의 클래스에 적용한다
+
     bool isActived = false;
-    BuffBase buffData;                                  //같은 버프형태인 지 확인하는 데이터
-    Character caster;                                   //버프 시전자
+
+    
 
 
     public BuffBase(float duration, string spawnParticleName, string spawnParentName, BuffType buffType) 
     {
+        
         buffTime = duration;
         particleName = spawnParticleName;
         particleParentName = spawnParentName;
@@ -45,26 +50,15 @@ public abstract class BuffBase
     public virtual GameObject ObjectSetup(Character target, Character buffCaster)
     {
         buffCharacter = target;
-        buffData = this;
         caster = buffCaster;
 
-        GameObject instance = PoolManager.instance.Spawn(particleName, target.transform.position, target.transform.rotation);
-
-        if(particleParentName != null)
-        {
-            instance.transform.parent = target.gameObject.transform.Find(particleParentName);
-        }
-        else
-        {
-            instance.transform.parent = target.transform;
-        }
-
-        instance.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
+        BuffEffectActive();
         Init(buffTime, ApplyBuff, UpdateBuff, ExitBuff);
         buffCharacter.GetComponent<CharacterBuff>().AddBuff(this);
+        Debug.Log("버프 등록됨");
 
 
-        return instance;
+        return spawnedParticle;
     }
 
     /// <summary>
@@ -75,20 +69,37 @@ public abstract class BuffBase
     {
         buffTimer = buffTime;
         
+        BuffEffectActive();
+
+        Debug.Log("중복 처리됨");
+        
     }
 
     /// <summary>
-    /// 이하 동일
+    /// 버프 이펙트를 소환하는 함수
+    /// 버프가 생성되는 것이 아닌 업데이트를 하는 경우
+    /// 해당 버프 이펙트의 재생시간을 다시 초기화한다
     /// </summary>
-    /// <param name="target"></param>
-    /// <param name="dmgAmount"></param>
-    /// <param name="duration"></param>
-    public virtual void ObjectSetup(Character target, float duration, BuffType buffType)
+    void BuffEffectActive()
     {
-        buffCharacter = target;
-        buffTime = duration;
+        if (spawnedParticle != null)
+        {
+            spawnedParticle.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
+            return;
+        }
 
-        Init(duration, ApplyBuff, UpdateBuff, ExitBuff);
+        spawnedParticle = PoolManager.instance.Spawn(particleName, buffCharacter.transform.position, buffCharacter.transform.rotation);
+
+        if (particleParentName != null)
+        {
+            spawnedParticle.transform.parent = buffCharacter.gameObject.transform.Find(particleParentName);
+        }
+        else
+        {
+            spawnedParticle.transform.parent = buffCharacter.transform;
+        }
+
+        spawnedParticle.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
     }
 
     /// <summary>
@@ -147,7 +158,5 @@ public abstract class BuffBase
     protected abstract void ApplyBuff();
     protected abstract void UpdateBuff();
     protected abstract void ExitBuff();
-
-    public BuffBase GetBuffData() => buffData;
     public Character GetCaster() => caster;
 }

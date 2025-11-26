@@ -117,10 +117,9 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
             Debug.Log("장비 슬롯과 호환되지 않는 아이템입니다.");
             return false;
         }
-        //currentItem = MakeEquippedCopy(item);
+
         currentItem.data = SetItemData(item.data.id);
         currentItem.slotData = this;
-        //currentItem.data.itemName = item.data.itemName;
         currentItem.comment = item.comment;
         Debug.Log("장비?? : " + item.comment);
 

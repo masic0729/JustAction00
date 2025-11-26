@@ -8,10 +8,7 @@ public class CharacterBuff : MonoBehaviour
     List<BuffBase> buffs = new List<BuffBase>();                 //캐릭터가 받는 이로운 버프
     List<BuffBase> debuffs = new List<BuffBase>();              //캐릭터가 받는 해로운 디버프
 
-    private void Start()
-    {
-
-    }
+    [SerializeField] 
 
     void Update()
     {
@@ -32,19 +29,65 @@ public class CharacterBuff : MonoBehaviour
         }
     }
 
-    public void AddBuff(BuffBase buff)
+    /// <summary>
+    /// 캐릭터에게 버프를 부여하는 곳
+    /// 기본적으로 버프, 디버프로 분리가 되며
+    /// 각 버프 스크롤 뷰에 해당 버프의 비주얼이 할당된다.
+    /// 
+    /// ---구현 목표---
+    /// 하지만 중첩형 버프의 경우 같은 타입의 버프를 찾아낸 후
+    /// 해당 버프의 시간만 갱신한다.
+    /// 
+    /// 중첩형 중에 스택형 버프는 기획안에 존재하지는 않다.
+    /// 
+    /// </summary>
+    /// <param name="buff"></param>
+    public bool AddBuff(BuffBase buff)
     {
-        buff.onApply?.Invoke();
+        BuffBase updateBuffTarget = null;
 
         if (buff.buffType == BuffType.Buff)
         {
-            buffs.Add(buff);
+            updateBuffTarget = buffs.Find(data => data.GetType() == buff.GetType());
+            if (updateBuffTarget != null)
+            {
+                updateBuffTarget.BuffUpdate();
+                return false;
+            }
+            else
+            {
+                //디버프 창 내 중복된 타입의 버프가 없으면 추가하기
+                buffs.Add(buff);
+                buff.onApply?.Invoke();
+                return true;
+
+            }
         }
 
         if (buff.buffType == BuffType.Debuff)
         {
-            debuffs.Add(buff);
+            updateBuffTarget = debuffs.Find(data => data.GetType() == buff.GetType());
+            if(updateBuffTarget != null)
+            {
+                updateBuffTarget.BuffUpdate();
+                return false;
+            }
+            else
+            {
+                //디버프 창 내 중복된 타입의 버프가 없으면 추가하기
+                debuffs.Add(buff);
+                buff.onApply?.Invoke();
+                return true;
+            }
         }
+
+        Debug.Log("AddBuff예외 발생. 확인 요망");
+        return false;
+    }
+
+    bool SameBuffType()
+    {
+        return false;
     }
     
     /// <summary>

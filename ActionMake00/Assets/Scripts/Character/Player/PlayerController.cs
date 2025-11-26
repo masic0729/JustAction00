@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerSkillInput()
     {
-        if(Input.GetKeyDown(KeyCode.E) && skillManager.isSkillCanUse("Skill0"))
+        if (Input.GetKeyDown(KeyCode.E) && skillManager.isSkillCanUse("Skill0"))
         {
             player.anim.SetBool("isAttacking", true);
 
@@ -182,6 +182,15 @@ public class PlayerController : MonoBehaviour
             canAttackInput = false;
             skillManager.SetSkillCoolTime(0);
         }
+/*
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.anim.SetBool("isAttacking", true);
+
+            player.anim.SetTrigger("Skill0");
+            canAttackInput = false;
+            skillManager.SetSkillCoolTime(0);
+        }*/
 
         /*if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill0"))
         {
