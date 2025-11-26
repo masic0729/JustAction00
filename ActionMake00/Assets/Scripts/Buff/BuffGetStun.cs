@@ -16,9 +16,9 @@ public class BuffGetStun : BuffBase
     {
     }
 
-    public override GameObject ObjectSetup(Character target)
+    public override GameObject ObjectSetup(Character target, Character buffCaster)
     {
-        return base.ObjectSetup(target);
+        return base.ObjectSetup(target, buffCaster);
     }
 
     public override void ObjectSetup(Character target, float duration, BuffType buffType)
@@ -27,9 +27,9 @@ public class BuffGetStun : BuffBase
     }
     protected override void ApplyBuff()
     {
-        character.anim.SetTrigger("GetStatus");
-        character.anim.SetBool("isStating", true);
-        character.anim.SetInteger("StatusIndex", 0);
+        buffCharacter.anim.SetTrigger("GetStatus");
+        buffCharacter.anim.SetBool("isStating", true);
+        buffCharacter.anim.SetInteger("StatusIndex", 0);
     }
 
     protected override void UpdateBuff()
@@ -39,7 +39,7 @@ public class BuffGetStun : BuffBase
 
     protected override void ExitBuff()
     {
-        character.anim.SetBool("isStating", false);
+        buffCharacter.anim.SetBool("isStating", false);
 
     }
 

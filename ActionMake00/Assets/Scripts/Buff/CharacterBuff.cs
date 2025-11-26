@@ -36,18 +36,6 @@ public class CharacterBuff : MonoBehaviour
     {
         buff.onApply?.Invoke();
 
-        /*if (buffType == BuffType.Buff)
-        {
-            buffs.Add(buff);
-        }
-        
-        if (buffType == BuffType.Debuff)
-        {
-            debuffs.Add(buff);
-        }*/
-
-
-
         if (buff.buffType == BuffType.Buff)
         {
             buffs.Add(buff);

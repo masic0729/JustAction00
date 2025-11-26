@@ -12,9 +12,9 @@ public class BuffTransDamage : BuffBase
         damageAmount = damageValue;
     }
 
-    public override GameObject ObjectSetup(Character target)
+    public override GameObject ObjectSetup(Character target, Character buffCaster)
     {
-        return base.ObjectSetup(target);
+        return base.ObjectSetup(target, buffCaster);
 
     }
 
@@ -26,11 +26,11 @@ public class BuffTransDamage : BuffBase
 
     protected override void ApplyBuff()
     {
-        if (character != null)
+        if (buffCharacter != null)
         {
-            character.statDatas[(int)AddStatName.Buff].Damage += damageAmount;
+            buffCharacter.statDatas[(int)AddStatName.Buff].Damage += damageAmount;
             
-            Debug.Log("캐릭터 공벞 시작. 공격력 추가 계수는" + damageAmount + ", 현재 공격력 계수 : " + character.GetResultDamage());
+            Debug.Log("캐릭터 공벞 시작. 공격력 추가 계수는" + damageAmount + ", 현재 공격력 계수 : " + buffCharacter.GetResultDamage());
         }
         else
         {
@@ -45,11 +45,11 @@ public class BuffTransDamage : BuffBase
 
     protected override void ExitBuff()
     {
-        if (character != null)
+        if (buffCharacter != null)
         {
-            character.statDatas[(int)AddStatName.Buff].Damage -= damageAmount;
+            buffCharacter.statDatas[(int)AddStatName.Buff].Damage -= damageAmount;
 
-            Debug.Log("캐릭터 공벞 종료. 공격력 삭제 계수는" + damageAmount + ", 현재 공격력 계수 : " + character.GetResultDamage());
+            Debug.Log("캐릭터 공벞 종료. 공격력 삭제 계수는" + damageAmount + ", 현재 공격력 계수 : " + buffCharacter.GetResultDamage());
 
         }
     }

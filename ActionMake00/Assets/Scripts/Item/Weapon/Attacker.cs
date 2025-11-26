@@ -164,14 +164,15 @@ public class Attacker : MonoBehaviour, IAttacker
 
             foreach (BuffBase ownerBuff in ownerBuffs)
             {
-                ownerBuff.ObjectSetup(owner);
+                ownerBuff.ObjectSetup(owner, owner);
             }
 
             
 
             foreach (BuffBase targetBuff in targetBuffs)
             {
-                targetBuff.ObjectSetup(hitTarget);
+                targetBuff.ObjectSetup(hitTarget, owner);
+                Debug.Log(targetBuff + "그렇습니다.");
             }
 
             if (attackType == AttackType.Projectile)
