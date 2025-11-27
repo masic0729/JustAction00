@@ -8,22 +8,29 @@ public enum BuffType
 }
 public abstract class BuffBase
 {
-    protected Character buffCharacter;
+    protected Character buffCharacter;                  //버프 받는 캐릭터
+    public CharacterBuff characterBuff;                 //캐릭터 버프의 스크립트와 공유된다
     Character caster;                                   //버프 시전자
-    GameObject spawnedParticle = null;
+    GameObject spawnedParticle = null;                  //버프에 의한 캐릭터 이펙트
+    public GameObject buffSlider;                       //슬라이더와 버프 스크립트 동기화용. 버프 만료 시 삭제되도록 하기 위함
     public BuffType buffType;
 
+
+    //버프 시전, 매 효과,  종료 효과 등 다양하게 설계했다
     public Action onApply;
     public Action onUpdate;
     public Action onExit;
 
+    //버프 타이머
     float buffTimer;
     float buffTime;
 
+    //버프에 의한 캐릭터 이펙트
     string particleName;
     string particleParentName;
     protected string iconPath = null;                   //버프 창에 등록될 아이콘 리소스 경로. 각각의 클래스에 적용한다
 
+    //버프 첫 활성화 유무, 중첩 시 재발동을 막기 위함
     bool isActived = false;
 
     
@@ -133,7 +140,11 @@ public abstract class BuffBase
     {
 
         onExit?.Invoke();    // 부가 훅
+        
         isActived = false;
+        spawnedParticle = null;
+        Debug.Log(characterBuff + "가 존재하나요?");
+        characterBuff.RemoveBuffSlider(ref buffSlider);
     }
 
     public bool UpdateTime()

@@ -18,6 +18,9 @@ public class PlayerSwordSlash : PlayerSkillInfo
         hitLevel = 1;
         BuffBase addDamageBuff = new BuffTransDamage(10f, "DamageUpEffect", null, BuffType.Buff, 5f);
         ownerBuffs.Add(addDamageBuff);
+
+        BuffBase stunDeBuff = new BuffGetStun(2f, "StunEffect", null, BuffType.Buff);
+        ownerBuffs.Add(stunDeBuff);
     }
 
     

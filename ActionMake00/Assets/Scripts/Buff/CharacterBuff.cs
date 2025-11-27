@@ -1,14 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class CharacterBuff : MonoBehaviour
 {
-    List<BuffBase> buffs = new List<BuffBase>();                 //캐릭터가 받는 이로운 버프
-    List<BuffBase> debuffs = new List<BuffBase>();              //캐릭터가 받는 해로운 디버프
+    //캐릭터의 능력치가 반영되는 버프들
+    List<BuffBase> buffs = new List<BuffBase>();                
+    List<BuffBase> debuffs = new List<BuffBase>();
 
-    [SerializeField] 
+    //화면에 보여주기 위한 버프들
+    //버프 생성 및 삭제할 때 활용된다
+    /*public List<Slider> buffSliders = new List<Slider>();       
+    public List<Slider> deBuffSliders = new List<Slider>();*/
+
+    //버프 슬라이더가존재해야하는 부모UI데이터
+    [SerializeField] Slider buffSlider;
+    [SerializeField] RectTransform buffParent;            
+    [SerializeField] RectTransform deBuffParent;            
+
 
     void Update()
     {
@@ -21,7 +31,7 @@ public class CharacterBuff : MonoBehaviour
         }
 
         for (int i = 0; i < debuffs.Count; i++)
-        {
+        {                                                                                                                          
             if (debuffs[i].UpdateTime())
             {
                 debuffs.RemoveAt(i);
@@ -38,13 +48,15 @@ public class CharacterBuff : MonoBehaviour
     /// 하지만 중첩형 버프의 경우 같은 타입의 버프를 찾아낸 후
     /// 해당 버프의 시간만 갱신한다.
     /// 
-    /// 중첩형 중에 스택형 버프는 기획안에 존재하지는 않다.
+    /// 중첩형 중에 스택형 버프는 기획안에 존재하지는 않으나
+    /// 물론 확장 자체는 가능하다
     /// 
     /// </summary>
     /// <param name="buff"></param>
     public bool AddBuff(BuffBase buff)
     {
         BuffBase updateBuffTarget = null;
+        RectTransform insBuff = null;
 
         if (buff.buffType == BuffType.Buff)
         {
@@ -56,9 +68,14 @@ public class CharacterBuff : MonoBehaviour
             }
             else
             {
-                //디버프 창 내 중복된 타입의 버프가 없으면 추가하기
+                insBuff = Instantiate(buffSlider).GetComponent<RectTransform>();
+                insBuff.SetParent(buffParent, false);
+
+                //버프 창 내 중복된 타입의 버프가 없으면 추가하기
                 buffs.Add(buff);
                 buff.onApply?.Invoke();
+                buff.buffSlider = insBuff.gameObject;
+                buff.characterBuff = this;
                 return true;
 
             }
@@ -74,22 +91,31 @@ public class CharacterBuff : MonoBehaviour
             }
             else
             {
+                insBuff = Instantiate(buffSlider).GetComponent<RectTransform>();
+                insBuff.transform.SetParent(deBuffParent, false);
+
                 //디버프 창 내 중복된 타입의 버프가 없으면 추가하기
                 debuffs.Add(buff);
                 buff.onApply?.Invoke();
+                buff.buffSlider = insBuff.gameObject;
+                buff.characterBuff = this;
                 return true;
             }
         }
+        
 
         Debug.Log("AddBuff예외 발생. 확인 요망");
         return false;
     }
 
-    bool SameBuffType()
-    {
-        return false;
-    }
     
+
+    public void RemoveBuffSlider(ref GameObject buffSlider)
+    {
+        Destroy(buffSlider);
+        Debug.Log("버프 삭제됨");
+    }
+
     /// <summary>
     /// 기본적인 강제 버프 해제는 모든 버프를 제거하는(999개로 이론상 모든 버프 해제)
     /// 구조이나, 특정 행동이나 패턴에 의해 해제될 수 있다.
