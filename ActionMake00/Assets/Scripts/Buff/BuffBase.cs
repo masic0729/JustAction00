@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BuffType
 {
@@ -12,7 +13,7 @@ public abstract class BuffBase
     public CharacterBuff characterBuff;                 //캐릭터 버프의 스크립트와 공유된다
     Character caster;                                   //버프 시전자
     GameObject spawnedParticle = null;                  //버프에 의한 캐릭터 이펙트
-    public GameObject buffSlider;                       //슬라이더와 버프 스크립트 동기화용. 버프 만료 시 삭제되도록 하기 위함
+    public Slider buffSlider;                       //슬라이더와 버프 스크립트 동기화용. 버프 만료 시 삭제되도록 하기 위함
     public BuffType buffType;
 
 
@@ -59,7 +60,7 @@ public abstract class BuffBase
         buffCharacter = target;
         caster = buffCaster;
 
-        BuffEffectActive();
+        CheckAlreadyHaveBuffEffectActive();
         Init(buffTime, ApplyBuff, UpdateBuff, ExitBuff);
         buffCharacter.GetComponent<CharacterBuff>().AddBuff(this);
         Debug.Log("버프 등록됨");
@@ -75,8 +76,8 @@ public abstract class BuffBase
     public virtual void BuffUpdate()
     {
         buffTimer = buffTime;
-        
-        BuffEffectActive();
+        buffSlider.GetComponent<BuffStater>().SetCurrentTimer(buffTimer);            //버프UI 타이머를 초기화한다
+        CheckAlreadyHaveBuffEffectActive();
 
         Debug.Log("중복 처리됨");
         
@@ -87,12 +88,12 @@ public abstract class BuffBase
     /// 버프가 생성되는 것이 아닌 업데이트를 하는 경우
     /// 해당 버프 이펙트의 재생시간을 다시 초기화한다
     /// </summary>
-    void BuffEffectActive()
+    bool CheckAlreadyHaveBuffEffectActive()
     {
         if (spawnedParticle != null)
         {
             spawnedParticle.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
-            return;
+            return true;
         }
 
         spawnedParticle = PoolManager.instance.Spawn(particleName, buffCharacter.transform.position, buffCharacter.transform.rotation);
@@ -107,6 +108,8 @@ public abstract class BuffBase
         }
 
         spawnedParticle.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
+        return false;
+
     }
 
     /// <summary>
@@ -143,14 +146,15 @@ public abstract class BuffBase
         
         isActived = false;
         spawnedParticle = null;
-        Debug.Log(characterBuff + "가 존재하나요?");
         characterBuff.RemoveBuffSlider(ref buffSlider);
+        characterBuff.RemoveBuffByTimeOver(this);
     }
 
     public bool UpdateTime()
     {
 
         buffTimer -= Time.deltaTime;
+        buffSlider.GetComponent<BuffStater>().SetCurrentTimer(buffTimer);
         onUpdate?.Invoke();
 
         if (buffTimer <= 0f)
@@ -161,13 +165,12 @@ public abstract class BuffBase
         return false;
     }
 
-    public float GetBuffTimePercent()
-    {
-        return (buffTime > 0f) ? (buffTimer / buffTime) : 0f;
-    }
-
     protected abstract void ApplyBuff();
     protected abstract void UpdateBuff();
     protected abstract void ExitBuff();
     public Character GetCaster() => caster;
+
+    public string GetIconPath() => iconPath;
+
+    public float GetBuffTime() => buffTime;
 }

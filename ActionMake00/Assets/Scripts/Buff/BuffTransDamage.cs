@@ -10,6 +10,8 @@ public class BuffTransDamage : BuffBase
         : base(duration, spawnParticleName, spawnParentName, buffType)
     {
         damageAmount = damageValue;
+        iconPath = "Icons/Buffs/DamageUpIcon";
+
     }
 
     public override GameObject ObjectSetup(Character target, Character buffCaster)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,7 @@ public class CharacterBuff : MonoBehaviour
         {
             if(buffs[i].UpdateTime())
             {
-                buffs.RemoveAt(i);
+                //.RemoveAt(i);
             }
         }
 
@@ -34,7 +35,7 @@ public class CharacterBuff : MonoBehaviour
         {                                                                                                                          
             if (debuffs[i].UpdateTime())
             {
-                debuffs.RemoveAt(i);
+                //debuffs.RemoveAt(i);
             }
         }
     }
@@ -52,67 +53,54 @@ public class CharacterBuff : MonoBehaviour
     /// 물론 확장 자체는 가능하다
     /// 
     /// </summary>
-    /// <param name="buff"></param>
+    /// <param name="buff">버프 리스트에 넣으려는 버프</param>
     public bool AddBuff(BuffBase buff)
     {
         BuffBase updateBuffTarget = null;
         RectTransform insBuff = null;
 
+        List<BuffBase> targetBuffs = null;
+        RectTransform targetBuffParent = null;
+
         if (buff.buffType == BuffType.Buff)
         {
-            updateBuffTarget = buffs.Find(data => data.GetType() == buff.GetType());
-            if (updateBuffTarget != null)
-            {
-                updateBuffTarget.BuffUpdate();
-                return false;
-            }
-            else
-            {
-                insBuff = Instantiate(buffSlider).GetComponent<RectTransform>();
-                insBuff.SetParent(buffParent, false);
-
-                //버프 창 내 중복된 타입의 버프가 없으면 추가하기
-                buffs.Add(buff);
-                buff.onApply?.Invoke();
-                buff.buffSlider = insBuff.gameObject;
-                buff.characterBuff = this;
-                return true;
-
-            }
+            targetBuffs = buffs;
+            targetBuffParent = buffParent;
         }
-
-        if (buff.buffType == BuffType.Debuff)
+        else
         {
-            updateBuffTarget = debuffs.Find(data => data.GetType() == buff.GetType());
-            if(updateBuffTarget != null)
-            {
-                updateBuffTarget.BuffUpdate();
-                return false;
-            }
-            else
-            {
-                insBuff = Instantiate(buffSlider).GetComponent<RectTransform>();
-                insBuff.transform.SetParent(deBuffParent, false);
-
-                //디버프 창 내 중복된 타입의 버프가 없으면 추가하기
-                debuffs.Add(buff);
-                buff.onApply?.Invoke();
-                buff.buffSlider = insBuff.gameObject;
-                buff.characterBuff = this;
-                return true;
-            }
+            targetBuffs = debuffs;
+            targetBuffParent = deBuffParent;
         }
-        
 
-        Debug.Log("AddBuff예외 발생. 확인 요망");
-        return false;
+        updateBuffTarget = targetBuffs.Find(data => data.GetType() == buff.GetType());
+
+        if (updateBuffTarget != null)
+        {
+            updateBuffTarget.BuffUpdate();
+            return false;
+        }
+        else
+        {
+            insBuff = Instantiate(buffSlider).GetComponent<RectTransform>();
+            insBuff.SetParent(targetBuffParent, false);
+
+            //버프 창 내 중복된 타입의 버프가 없으면 추가하기
+            buffs.Add(buff);
+            buff.onApply?.Invoke();
+            buff.characterBuff = this;
+            buff.buffSlider = insBuff.GetComponent<Slider>();
+
+            insBuff.GetComponent<BuffStater>().InitBuffData(buff.GetIconPath(), buff.GetBuffTime());
+            return true;
+        }
     }
 
     
 
-    public void RemoveBuffSlider(ref GameObject buffSlider)
+    public void RemoveBuffSlider(ref Slider buffSlider)
     {
-        Destroy(buffSlider);
+        Destroy(buffSlider.gameObject);
         Debug.Log("버프 삭제됨");
     }
 
@@ -123,31 +111,49 @@ public class CharacterBuff : MonoBehaviour
     /// </summary>
     /// <param name="buffType"></param>
     /// <param name="removeCount"></param>
-    public void RemoveBuff(BuffType buffType, int removeCount = 999)
+    public void CustomRemoveBuff(BuffType buffType, int removeCount = 999)
     {
         int canRemoveCount;                                                                 //본래 제거하려는 양이 현재 소지중인 버프 개수보다 적으면 이를 보정하기 위한 변수
 
+        List<BuffBase> instanceBuffs = null;
+
         if (buffType == BuffType.Buff)
         {
-            canRemoveCount = buffs.Count < removeCount ? buffs.Count : removeCount;
-
-            for(int i = 0; i < canRemoveCount; i++)
-            {
-                buffs[i].Deactivate();
-            }
-            buffs.RemoveRange(0, canRemoveCount);
+            instanceBuffs = buffs;
+            
         }
-
-        if (buffType == BuffType.Debuff)
+        else
         {
-            canRemoveCount = debuffs.Count < removeCount ? debuffs.Count : removeCount;
-
-            for (int i = 0; i < canRemoveCount; i++)
-            {
-                debuffs[i].Deactivate();
-            }
-            debuffs.RemoveRange(0, canRemoveCount);
+            instanceBuffs = debuffs;
         }
 
+        canRemoveCount = instanceBuffs.Count < removeCount ? instanceBuffs.Count : removeCount;
+
+        for (int i = 0; i < canRemoveCount; i++)
+        {
+            instanceBuffs[i].Deactivate();
+        }
+        instanceBuffs.RemoveRange(0, canRemoveCount);
+    }
+
+    /// <summary>
+    /// 버프의 지속시간 만료 시 실행되는 함수
+    /// 실행 시 지속시간 만료된 버프는 리스트에서 사라진다
+    /// </summary>
+    /// <param name="buff"></param>
+    public void RemoveBuffByTimeOver(BuffBase buff)
+    {
+        List<BuffBase> instanceBuffs = null;
+        if(buff.buffType == BuffType.Buff)
+        {
+            instanceBuffs = buffs;
+
+        }
+        else
+        {
+            instanceBuffs = debuffs;
+        }
+
+        instanceBuffs.Remove(buff);
     }
 }

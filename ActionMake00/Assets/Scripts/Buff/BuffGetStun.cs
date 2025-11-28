@@ -14,6 +14,7 @@ public class BuffGetStun : BuffBase
     public BuffGetStun(float duration, string spawnParticleName, string spawnParentName, BuffType buffType)
         : base(duration, spawnParticleName, spawnParentName, buffType)
     {
+        iconPath = "Icons/Buffs/StunIcon";
     }
 
     public override GameObject ObjectSetup(Character target, Character buffCaster)
