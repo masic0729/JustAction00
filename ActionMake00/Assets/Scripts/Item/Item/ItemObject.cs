@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
@@ -79,7 +75,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     /// </summary>
     /// <param name="itemId"></param>
     /// <param name="iconBasePath"></param>
-    public void SetItemData(int itemId)
+    /*public void SetItemData(int itemId)
     {
         ItemData instanceItemData = null;
 
@@ -175,7 +171,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                 instanceItemData.icon = icon;
 
                 // 슬롯 공통 필드도 그대로 유지
-                /*this.type = instanceItemData.itemType;
+                *//*this.type = instanceItemData.itemType;
                 this.maxCount = instanceItemData.maxCount;
 
                 if (slotIcon != null && instanceItemData.icon != null)
@@ -183,7 +179,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                     slotIcon.sprite = instanceItemData.icon;
                     slotIcon.enabled = true;
                     slotIcon.color = Color.white;
-                }*/
+                }*//*
 
                 // 찾았으면 더 읽을 필요 없으니 바로 종료
                 break;
@@ -191,5 +187,68 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
         }
 
         item.data = instanceItemData;
+    }*/
+
+
+    public void SetItemData(int itemId)
+    {
+        ItemData instanceItemData = null;
+
+        string path = Path.Combine(Application.streamingAssetsPath, "ItemData_Template.csv");
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError("[SetItemData] CSV 파일 없음: " + path);
+            item.data = null;
+            return;
+        }
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            bool isFirstLine = true;
+
+            while (true)
+            {
+                string line = reader.ReadLine();
+                if (line == null) break;
+
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                if (isFirstLine) { isFirstLine = false; continue; }
+
+                string[] split = line.Split(',');
+                if (split.Length < 6) continue;
+
+                if (!int.TryParse(split[5], out int id)) continue;
+
+                if (id != itemId) continue;
+
+                // 아이템 데이터 생성
+                instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                instanceItemData.itemName = split[0];
+
+                Enum.TryParse(split[2], true, out ItemType itemType);
+                instanceItemData.itemType = itemType;
+
+                Enum.TryParse(split[3], true, out EquipmentType equipType);
+                instanceItemData.equipmentType = equipType;
+
+                int.TryParse(split[4], out int maxCountParsed);
+                instanceItemData.maxCount = maxCountParsed;
+
+                // 아이콘 로드 (Resources 기준 그대로)
+                string normalized = split[1].Replace("\\", "/");
+                if (normalized.StartsWith("Resources/"))
+                    normalized = normalized.Substring("Resources/".Length);
+
+                Sprite icon = Resources.Load<Sprite>(normalized);
+                instanceItemData.icon = icon;
+
+                break;
+            }
+        }
+
+        item.data = instanceItemData;
     }
+
 }

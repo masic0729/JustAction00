@@ -70,7 +70,6 @@ public class Inventory : MonoBehaviour
     {
         ItemData instanceItemData = null;
 
-        // CSV 위치: Assets/Resources/Jsons/ItemData.CS
         string path = Application.dataPath + "/Resources/Jsons/ItemData_Template.CSV";
 
         using (StreamReader reader = new StreamReader(path))
@@ -185,69 +184,67 @@ public class Inventory : MonoBehaviour
     /// 획득을 할 때 추가되는 값을 그대로 정의를 한다
     /// </summary>
     /// <param name="itemObject">인벤토리에 삽입할 아이템 정보</param>
+    // Inventory 안에 있는 함수라고 가정
     public bool AddItemInList(ItemObject itemObject)
     {
-        bool isConsumableItemSum = false;
-        ItemSlot voidSlot = null;
+        if (itemObject == null)
+        {
+            Debug.LogError("[AddItemInList] itemObject가 null");
+            return false;
+        }
 
-        itemObject.item.data = SetItemData(itemObject.itemId);
+        bool isConsumableItemSum = false;
+        ItemSlot emptySlot = null;
+
+        // 장비 / 소비 아이템 구분용 컴포넌트
+        var equipRoot = itemObject.GetComponent<EquipRoot>();
+        var itemPotion = itemObject.GetComponent<ItemPotion>();
+
         for (int i = 0; i < lSlot.Count; i++)
         {
-            //소비 아이템을 위한 조건,
-            //인벤토리 인덱스 중 가장 값이 작은 슬롯을 확인한다
-            if (voidSlot == null && lSlot[i].CanAddItem() == true)
+            ItemSlot slot = lSlot[i];
+
+            // 비어 있는 슬롯 찾기 (type == nullItem)
+            if (emptySlot == null && slot.CanAddItem())
             {
-                voidSlot = lSlot[i];
+                emptySlot = slot;
             }
 
-            if (itemObject.GetComponent<EquipRoot>() == true && lSlot[i].CanAddItem() == true)
+            // 1) 장비 아이템인 경우: 비어 있는 슬롯에 바로 배치
+            if (equipRoot != null && slot.CanAddItem())
             {
-                //lSlot[i].AddItem(itemObject.item);
-                lSlot[i].AddItem(itemObject);
-                return true;
+                // 👇 ItemSlot.AddItem 내부에서 SetItemData(itemId)가 호출되고,
+                //     위에 오빠가 만든 SetItemData(StreamingAssets + Resources)가 실행됨
+                if (slot.AddItem(itemObject))
+                    return true;
+
+                Debug.LogWarning($"[AddItemInList] 장비 아이템 AddItem 실패, slotIndex={i}");
             }
 
-            //하지만 이곳에 같은 타입의 소비아이템의 최대값이 넣어도 괜찮으면
-            //해당 슬롯에 개수를 더한다
-            if (itemObject.GetComponent<ItemPotion>() == true && lSlot[i].CanSumItem(itemObject.item))
+            // 2) 소비 아이템인 경우: 기존 같은 아이템이 있고 합칠 수 있으면 합치기
+            if (itemPotion != null && slot.CanSumItem(itemObject.item))
             {
+                slot.SumItem(itemObject);
                 isConsumableItemSum = true;
-                //lSlot[i].SumItem(itemObject.item);
-                lSlot[i].SumItem(itemObject);
                 return true;
             }
-
-
-            /*if (itemObject.item.data.itemType == ItemType.Equitment && lSlot[i].CanAddItem() == true)
-            {
-                //lSlot[i].AddItem(itemObject.item);
-                lSlot[i].AddItem(itemObject);
-                return true;
-            }
-            
-            //하지만 이곳에 같은 타입의 소비아이템의 최대값이 넣어도 괜찮으면
-            //해당 슬롯에 개수를 더한다
-            if (itemObject.item.data.itemType == ItemType.Consumable && lSlot[i].CanSumItem(itemObject.item))
-            {
-                isConsumableItemSum = true;
-                //lSlot[i].SumItem(itemObject.item);
-                lSlot[i].SumItem(itemObject);
-                return true;
-            }
-            */
-
         }
 
-        if (isConsumableItemSum == false && voidSlot != null)
+        // 3) 소비템인데 합칠 슬롯이 없고, 빈 슬롯은 있는 경우 → 새 슬롯에 추가
+        if (!isConsumableItemSum && emptySlot != null)
         {
-            //voidSlot.AddItem(itemObject.item);
-            voidSlot.AddItem(itemObject);
-            return true;
+            if (emptySlot.AddItem(itemObject))
+                return true;
+
+            Debug.LogWarning("[AddItemInList] 빈 슬롯 AddItem 실패");
         }
 
-        Debug.Log("실패");
+        Debug.Log("[AddItemInList] 인벤토리 공간 부족 또는 조건 불일치로 실패");
         return false;
     }
+
+
+
 
     /// <summary>
     /// 인벤토리 내 모든 아이템을 정렬한다.

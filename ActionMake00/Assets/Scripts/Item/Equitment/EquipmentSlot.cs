@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public enum EquipmentType
 {
@@ -344,6 +343,8 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         // 3) 장비칸 비우기 + 재계산
         ClearSlot();
         Recalc();
+
+        target.GetComponent<PlayerArmorCustom>().SetPlayerArmorVisual(equipmentType, 0);
     }
 
     public override void ClearSlot()

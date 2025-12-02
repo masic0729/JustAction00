@@ -121,7 +121,7 @@ MonoBehaviour:
   itemId: 4
   item:
     data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
-    comment: "\uAE30\uBCF8\uAC80\uC774\uB2E4."
+    comment: "\uC544\uC9C1 \uD560\uB2F9\uC744 \uC548\uD588\uC74C"
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 1

@@ -1,0 +1,7 @@
+itemName,iconKey,itemType,equipmentType,maxCount,ID
+실험소비템,Resources\JsonImageData\03_Alchemy,Consumable,None,10,0
+특이한투구,Resources\JsonImageData\03_plate_helm_E,Equitment,Head,1,1
+일반투구,Resources\JsonImageData\03_plate_helm_nobg,Equitment,Head,1,2
+집행검,Resources\JsonImageData\09_Longsword,Equitment,Weapon,1,3
+기본검,Resources\JsonImageData\02_Sword_nobg,Equitment,Weapon,1,4
+오래된지팡이,Resources\JsonImageData\08_Mage_Staff_nobg,Equitment,Weapon,1,5

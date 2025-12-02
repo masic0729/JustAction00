@@ -126,7 +126,7 @@ public abstract class SlotBase : MonoBehaviour
     /// </summary>
     /// <param name="itemId"></param>
     /// <param name="iconBasePath"></param>
-    protected ItemData SetItemData(int itemId)
+    /*protected ItemData SetItemData(int itemId)
     {
         ItemData instanceItemData = null;
 
@@ -233,6 +233,115 @@ public abstract class SlotBase : MonoBehaviour
                 }
 
                 // 찾았으면 더 읽을 필요 없으니 바로 종료
+                break;
+            }
+        }
+
+        return instanceItemData;
+    }*/
+
+
+    /// <summary>
+    //// csv의 데이터를 불러온다.
+    //// id를 기반으로 불러오며, 해당 아이템의 아이콘은
+    //// 경로를 통해 불러와서 적용한다
+    /// </summary>
+    protected ItemData SetItemData(int itemId)
+    {
+        ItemData instanceItemData = null;
+
+        string path = Path.Combine(Application.streamingAssetsPath, "ItemData_Template.csv");
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError($"[SetItemData] CSV 파일을 찾을 수 없음: {path}");
+            return null;
+        }
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            bool isFirstLine = true; // 헤더 스킵용
+
+            while (true)
+            {
+                string line = reader.ReadLine();
+
+                // 더 이상 읽을 줄이 없으면 종료
+                if (line == null)
+                    break;
+
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
+
+                if (isFirstLine)
+                {
+                    isFirstLine = false;
+                    continue;
+                }
+
+                // CSV: itemName,iconKey,itemType,equipmentType,maxCount,ID
+                string[] split = line.Split(',');
+                if (split.Length < 6)
+                {
+                    Debug.LogWarning($"[SetItemData] 잘못된 라인: {line}");
+                    continue;
+                }
+
+                // 마지막 컬럼이 ID
+                if (!int.TryParse(split[5], out int id))
+                {
+                    Debug.LogWarning($"[SetItemData] ID 파싱 실패: {split[5]}");
+                    continue;
+                }
+
+                // 원하는 ID 아니면 패스
+                if (id != itemId)
+                    continue;
+
+                // 여기 도달 = 찾는 아이템 한 줄 발견
+                instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+
+                instanceItemData.itemName = split[0];
+
+                if (!Enum.TryParse(split[2], true, out ItemType itemType))
+                    itemType = ItemType.nullItem;
+                instanceItemData.itemType = itemType;
+
+                if (!Enum.TryParse(split[3], true, out EquipmentType equipType))
+                    equipType = EquipmentType.None;
+                instanceItemData.equipmentType = equipType;
+
+                if (!int.TryParse(split[4], out int parsedMaxCount))
+                    parsedMaxCount = 0;
+                instanceItemData.maxCount = parsedMaxCount;
+
+                string iconKey = split[1].Trim();
+
+                string normalized = iconKey.Replace("\\", "/");
+
+                if (normalized.StartsWith("Resources/"))
+                    normalized = normalized.Substring("Resources/".Length);
+
+                string iconPath = normalized; // 예: "JsonImageData/03_Alchemy"
+
+                Sprite icon = Resources.Load<Sprite>(iconPath);
+                if (icon == null)
+                {
+                    Debug.LogWarning($"[SetItemData] 아이콘 로드 실패: {iconPath}");
+                }
+                instanceItemData.icon = icon;
+
+                // 슬롯 쪽 기본값도 같이 갱신
+                this.type = instanceItemData.itemType;
+                this.maxCount = instanceItemData.maxCount;
+
+                if (slotIcon != null && instanceItemData.icon != null)
+                {
+                    slotIcon.sprite = instanceItemData.icon;
+                    slotIcon.enabled = true;
+                    slotIcon.color = Color.white;
+                }
+
                 break;
             }
         }

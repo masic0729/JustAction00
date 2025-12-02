@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 /// <summary>
 /// 슬롯 타입에 따라 장비칸인 지,
