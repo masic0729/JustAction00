@@ -10,6 +10,7 @@ public class EquipArmor : EquipRoot
         base.UseItem(character, slot);
         character.GetComponent<PlayerArmorCustom>().SetPlayerArmorVisual(item.data.equipmentType, playerArmorIndex);
     }
+
     public override void UpdateInventory(SlotBase slot)
     {
         base.UpdateInventory(slot);

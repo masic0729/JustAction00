@@ -763,6 +763,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3008803472013111404}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3162581405714836195}
   m_SourcePrefab: {fileID: 100100000, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
 --- !u!1 &92006596297286257 stripped
 GameObject:
@@ -852,24 +855,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cea166cee2642d42b2142ad8c01184a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statDatas: []
+  characterStatData: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
   anim: {fileID: 0}
   pEffect:
   - {fileID: 7177991128484655658, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
   weapon: []
   skillProjectiles: []
+  maxHp: 0
   hp: 0
+  damage: 0
+  moveSpeed: 5
+  def: 0
   isSuperArmor: 0
   isIgnoreDamage: 0
-  moveSpeed: 5
+  DropItems: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
   thisObject: {fileID: 0}
   player: {fileID: 0}
   activityAllowValue: 10
   playerFindDistance: 10
   attackReadyDistance: 1
+  expAddValue: 4
   isPlayerFound: 0
   isDefault: 1
-  isAttacked: 0
+  isAttack: 0
 --- !u!195 &3008803472013111404
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -892,3 +902,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
+--- !u!114 &3162581405714836195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92006596297286257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cc9d292f9d0244ea9560c2633caf93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffSlider: {fileID: 0}
+  buffParent: {fileID: 0}
+  deBuffParent: {fileID: 0}

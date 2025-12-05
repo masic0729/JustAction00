@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
+/*using Random = UnityEngine.Random;
 
 public class Tile : MonoBehaviour
 {
@@ -24,11 +24,15 @@ public class Cell : MonoBehaviour
         tileOptions = tiles;
     }
 
-}
+}*/
 
 public class TestMapMaker : MonoBehaviour
 {
-    public int size;//맵 크기
+    [SerializeField] GameObject[] Maps;
+
+
+
+    /*public int size;//맵 크기
     public Tile[] tiles;//모든 타일들
     public List<Cell> grid;//현재 모든 셀의 정보를 가지고 있을 리스트
     public Cell cellObj;//cellPrefab
@@ -188,5 +192,5 @@ public class TestMapMaker : MonoBehaviour
         neighbors.Add(leftIndex != -1 ? grid[leftIndex] : null);
 
         return neighbors;
-    }
+    }*/
 }
