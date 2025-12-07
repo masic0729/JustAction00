@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestMapMaker : MonoBehaviour
+public class MapMaker : MonoBehaviour
 {
     //맵은 테스트용이기에 1개 밖에 없지만,
     //좌/우/마지막 맵(보스 방)으로 구성되어 있다
     public GameObject Ground;
 
-    GameObject[] createdMap;
+    List<(int, int)> mapIndex = new List<(int, int)>();
 
+    bool[ , ] map = new bool[7, 7];
     public int mapMakeCount;
     public int currentX, currentZ;
 
@@ -17,51 +18,31 @@ public class TestMapMaker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        createdMap = new GameObject[mapMakeCount];
-
         InitMap();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            InitMap();
-        }
+        
     }
 
     public void InitMap()
     {
-        List<(int, int)> mapIndex = new List<(int, int)>();
+        int currentMakeCount = 0;
 
-        if (createdMap.Length > 0)
-        {
-            for(int i = 0; i < createdMap.Length; i++)
-            {
-                Destroy(createdMap[i]);
-            }
-        }
-
-        createdMap = new GameObject[mapMakeCount];
-
-        bool[,] map;
-
-        map = new bool[mapMakeCount, mapMakeCount];
         //처음 시작하는 맵 위치는 이곳이다.
         map[3, 3] = true;
         mapIndex.Add((3, 3));
 
         //고정적으로 위로 올라가기 때문에 3,4로 이동한다.
         map[3, 4] = true;
-
+        
         currentX = 3;
         currentZ = 4;
         mapIndex.Add((3, 4));
-        int currentMakeCount = 2;
 
-
-        while (currentMakeCount < mapMakeCount)
+        while(currentMakeCount != mapMakeCount)
         {
             List<(int, int)> canMakeMapList = new List<(int, int)>();
 
@@ -103,9 +84,8 @@ public class TestMapMaker : MonoBehaviour
                 mapIndex.RemoveAt(mapIndex.Count - 1);
                 currentMakeCount--;
 
-                var last = mapIndex[mapIndex.Count - 1];
-                currentX = last.Item1;
-                currentZ = last.Item2;
+                currentX = mapIndex[mapIndex.Count].Item1;
+                currentZ = mapIndex[mapIndex.Count].Item2;
             }
 
             canMakeMapList.Clear();
@@ -116,8 +96,6 @@ public class TestMapMaker : MonoBehaviour
         for (int i = 0; i < mapIndex.Count; i++)
         {
             Debug.Log(mapIndex[i]);
-            Vector3 spawnPos = new Vector3(mapIndex[i].Item1 * 3, 0, mapIndex[i].Item2 * 3);
-            createdMap[i] = Instantiate(Ground, spawnPos, transform.rotation);
         }
     }
 }

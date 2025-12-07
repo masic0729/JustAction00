@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -287,6 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 582305191}
   - component: {fileID: 582305192}
+  - component: {fileID: 582305193}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -316,12 +317,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582305190}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a4e7154e307b243abd5583b22afa9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ground: {fileID: 0}
+  mapMakeCount: 5
+  currentX: 0
+  currentZ: 0
+--- !u!114 &582305193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582305190}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82235e392c997524e84b92ddc290268a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Maps: {fileID: 0}
+  Ground: {fileID: 8940641812018483761, guid: b9a9971342b37bc4388c7e203672d2f1, type: 3}
+  mapMakeCount: 7
+  currentX: 0
+  currentZ: 0
 --- !u!1001 &683604069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -461,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 5338865303852131664, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338865303852131664, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442080198381692917, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_IsActive
@@ -696,6 +720,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapStraight (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -893,6 +921,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapStraight (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1074,6 +1106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapStraight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1093,6 +1129,10 @@ PrefabInstance:
     - target: {fileID: 92006596297286257, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 92006596297286257, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724251812097079499, guid: 52683d16a7e70a84981f90a7185845bb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1263,6 +1303,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapStart
       objectReference: {fileID: 0}
+    - target: {fileID: 8940641812018483761, guid: b9a9971342b37bc4388c7e203672d2f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1322,6 +1366,10 @@ PrefabInstance:
     - target: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
       propertyPath: m_Name
       value: MapStraight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
