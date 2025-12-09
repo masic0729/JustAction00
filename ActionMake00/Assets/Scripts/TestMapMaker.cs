@@ -17,9 +17,10 @@ public enum MAPTYPE
 
 public class SpawnedMapData
 {
-    public List<int> spawnedMapX = new List<int>();
-    public List<int> spawnedMapZ = new List<int>();
-    public List<MAPTYPE> mapType = new List<MAPTYPE>();
+    public List<int> spawnedMapX = new List<int>();                 //맵이 소환되는 x값
+    public List<int> spawnedMapZ = new List<int>();                 //맵이 소환되는 y값
+    public List<MAPTYPE> mapType = new List<MAPTYPE>();             //맵의 타입
+    public List<int> mapRotate= new List<int>();                    //맵의 회전값. 기본은0이나, 마지막 맵은 형태에 따라 다름    
 }
 
 public class TestMapMaker : MonoBehaviour
@@ -215,53 +216,12 @@ public class TestMapMaker : MonoBehaviour
             }
         }
 
+        spawnPos = new Vector3(mapIndex[mapIndex.Count - 1].Item1 * 3, 0, mapIndex[mapIndex.Count - 1].Item2 * 3);
+
         int endX = mapIndex[mapIndex.Count - 1].Item1 - mapIndex[mapIndex.Count - 2].Item1;
         int endZ = mapIndex[mapIndex.Count - 1].Item2 - mapIndex[mapIndex.Count - 2].Item2;
         CreateEndGround(endX, endZ, spawnPos);
     }
-
-
-    /*GameObject CalMiddleMapsType((int, int) prevMap, (int, int) currentMap, (int, int) nextMap)
-    {
-        int dx = Math.Sign(nextMap.Item1 - currentMap.Item1);
-        int dz = Math.Sign(nextMap.Item2 - currentMap.Item2);
-
-        
-        if (dx == 0 && dz != 0)
-        {
-            mapData.mapType.Add(MAPTYPE.VERTICAL);
-            return VerticalGround;
-        }
-
-        if (dz == 0 && dx != 0)
-        {
-            mapData.mapType.Add(MAPTYPE.HORIZONTAL);
-            return HorizontalGround;
-        }
-
-        switch (dx, dz)
-        {
-            case (1, 1):       
-                mapData.mapType.Add(MAPTYPE.UPRIGHT);
-                return UpRightGround;
-
-            case (-1, 1):      
-                mapData.mapType.Add(MAPTYPE.UPLEFT);
-                return UpLeftGround;
-
-            case (1, -1):      
-                mapData.mapType.Add(MAPTYPE.DOWNRIGHT);
-                return DownRightGround;
-
-            case (-1, -1):     
-                mapData.mapType.Add(MAPTYPE.DOWNLEFT);
-                return DownLeftGround;
-        }
-
-        Debug.LogError($"[CalMiddleMapsType] 예외 방향 dx:{dx}, dz:{dz}");
-        return null;
-    }*/
-
 
     GameObject CalMiddleMapsType((int, int) prevMap, (int, int) currentMap, (int, int) nextMap)
     {
@@ -306,10 +266,9 @@ public class TestMapMaker : MonoBehaviour
             Debug.LogWarning("prevMap과 nextMap이 같음");
             return null;
         }
+        mapData.mapRotate.Add(0);
 
-
-
-        // 3) 여기까지 왔으면 코너 (대각 관계)
+        // 3) 여기까지 왔으면 코너 처리
         switch (x, z)
         {
             case (1, -1):
@@ -345,63 +304,24 @@ public class TestMapMaker : MonoBehaviour
         Debug.LogError($"예외 방향 x:{x}, z:{z}");
         return null;
     }
-    /*GameObject CalMiddleMapsType( (int,int )prevMap, (int, int) nextMap)
-    {
-        int x = 0, z = 0;
-
-        if (nextMap.Item1< prevMap.Item1)
-            x = 1;
-        else if (nextMap.Item1> prevMap.Item1)
-            x = -1;
-
-        if (nextMap.Item2< prevMap.Item2)
-            z = 1;
-        else if (nextMap.Item2> prevMap.Item2)
-            z = -1;
-        if (x == 0 && z != 0)
-            return VerticalGround;
-        if (x != 0 && z == 0)
-            return HorizontalGround;
-
-            switch ((x, z))
-            {
-                case (-1, -1):
-                    mapData.mapType.Add(MAPTYPE.DOWNLEFT);
-                    return DownLeftGround;
-                case (1, -1):
-                    mapData.mapType.Add(MAPTYPE.DOWNRIGHT);
-
-                    return DownRightGround;
-                case (-1, 1):
-                    mapData.mapType.Add(MAPTYPE.UPLEFT);
-
-                    return UpLeftGround;
-                case (1, 1):
-                    mapData.mapType.Add(MAPTYPE.UPRIGHT);
-
-                    return UpRightGround;
-
-            }
-
-        Debug.Log("예외발생");
-        return null;
-    }*/
+    
 
     void CreateEndGround(int resultX, int resultZ, Vector3 spawnPosition)
     {
-        float resultRotateY = 0;
+        int resultRotateY = 0;
         if (resultX < 0)
             resultRotateY = -90;
         if (resultX > 0)
             resultRotateY = 90;
         if (resultZ < 0)
-            resultRotateY = 0;
-        if (resultZ > 0)
             resultRotateY = 180;
+        if (resultZ > 0)
+            resultRotateY = 0;
 
         createdMap.Add(Instantiate(EndGround, spawnPosition, transform.rotation));
         createdMap[createdMap.Count - 1].transform.Rotate(0, resultRotateY, 0);
         mapData.mapType.Add(MAPTYPE.END);
+        mapData.mapRotate.Add(resultRotateY);
 
     }
 }
