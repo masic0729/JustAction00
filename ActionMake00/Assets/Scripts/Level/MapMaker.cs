@@ -15,19 +15,18 @@ public class SpawnedMapData
     public List<int> spawnedMapX = new List<int>();                 //맵이 소환되는 x값
     public List<int> spawnedMapZ = new List<int>();                 //맵이 소환되는 y값
     public List<MAPTYPE> mapType = new List<MAPTYPE>();             //맵의 타입
-    public List<int> mapRotate = new List<int>();                   //맵의 회전값. 기본은0이나, 마지막 맵은 형태에 따라 다름    
+    public List<int> mapRotate = new List<int>();                   //맵의 회전값. 각 맵 생성 후 회전 값을 반영한다
 }
 
 public class MapMaker : MonoBehaviour
 {
-    SpawnedMapData mapData;                     //추후 json에 저장할 데이터
+    SpawnedMapData mapData;                                         //추후 json에 저장할 데이터
 
     //맵은 테스트용이기에 1개 밖에 없지만,
     //좌/우/마지막 맵(보스 방)으로 구성되어 있다
     public GameObject StartGround;
 
     public GameObject StraightGround;
-    //public GameObject VerticalGround;
 
     public GameObject DownLeftGround;
 
@@ -36,16 +35,12 @@ public class MapMaker : MonoBehaviour
 
     List<GameObject> createdMap = new List<GameObject>();
 
-
-
     public int mapMakeCount;
     public int currentX, currentZ;
 
 
     void Start()
     {
-
-
         InitMap();
     }
 
@@ -57,7 +52,7 @@ public class MapMaker : MonoBehaviour
         }
     }
 
-
+    
     public void InitMap()
     {
         mapData = new SpawnedMapData();
@@ -179,16 +174,12 @@ public class MapMaker : MonoBehaviour
 
         mapData.spawnedMapX.Add(currentX);
         mapData.spawnedMapZ.Add(currentZ);
-        //mapData.mapType.Add(MAPTYPE.END);
-        //mapData.spawnedMapRotationY.Add(currentMapRotateY);
 
         Vector3 spawnPos = Vector3.zero;
         for (int i = 0; i < mapIndex.Count - 1; i++)
         {
             spawnPos = new Vector3(mapIndex[i].Item1 * StartGround.transform.localScale.x, 0, mapIndex[i].Item2 * StartGround.transform.localScale.z);
-            //Debug.Log(mapData.spawnedMapX[i] + " " + mapData.spawnedMapZ[i] + " " + mapData.mapType[i] + " " + mapData.spawnedMapRotationY[i]);
 
-            //createdMap.Add(Instantiate(StartGround, spawnPos, transform.rotation));
 
             if (i == 0)
             {
@@ -206,7 +197,6 @@ public class MapMaker : MonoBehaviour
                 resultRotateMap = mapData.mapRotate[mapData.mapRotate.Count - 1];
                 createdMap[createdMap.Count - 1].transform.Rotate(0, resultRotateMap, 0);
             }
-            //Debug.Log(mapData.mapType[mapData.mapType.Count - 1] + "ㅋㅋ~");
         }
 
         spawnPos = new Vector3(mapIndex[mapIndex.Count - 1].Item1 * StartGround.transform.localScale.x, 0, mapIndex[mapIndex.Count - 1].Item2 * StartGround.transform.localScale.z);
