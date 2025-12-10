@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum MAPTYPE
+/*public enum MAPTYPE
 {
     START,
-    HORIZONTAL,
+    Straight,
     VERTICAL,
     DOWNLEFT,
     DOWNRIGHT,
     UPLEFT,
     UPRIGHT,
     END
-}
+}*/
 
-public class SpawnedMapData
+/*public class SpawnedMapData
 {
     public List<int> spawnedMapX = new List<int>();                 //맵이 소환되는 x값
     public List<int> spawnedMapZ = new List<int>();                 //맵이 소환되는 y값
     public List<MAPTYPE> mapType = new List<MAPTYPE>();             //맵의 타입
-    public List<int> mapRotate= new List<int>();                    //맵의 회전값. 기본은0이나, 마지막 맵은 형태에 따라 다름    
-}
+    public List<int> mapRotate = new List<int>();                    //맵의 회전값. 기본은0이나, 마지막 맵은 형태에 따라 다름    
+}*/
+
 
 public class TestMapMaker : MonoBehaviour
 {
@@ -50,8 +51,8 @@ public class TestMapMaker : MonoBehaviour
     public int currentX, currentZ;
 
 
-    // Start is called before the first frame update
-    void Start()
+
+    /*void Start()
     {
         
 
@@ -72,7 +73,7 @@ public class TestMapMaker : MonoBehaviour
     {
         mapData = new SpawnedMapData();
 
-
+        int resultRotateMap = 0;
         
 
         //월드 좌표를 기준으로 맵의 위치를 정한다
@@ -212,7 +213,9 @@ public class TestMapMaker : MonoBehaviour
 
                 GameObject wantMap = CalMiddleMapsType(mapIndex[i - 1], mapIndex[i], mapIndex[i + 1]);
                 createdMap.Add(Instantiate(wantMap, spawnPos, transform.rotation));
-                //mapData.mapType.Add(MAPTYPE.START);
+
+                resultRotateMap = mapData.mapRotate[mapData.mapRotate.Count - 1];
+                createdMap[createdMap.Count - 1].transform.Rotate(0, resultRotateMap, 0);
             }
         }
 
@@ -231,11 +234,13 @@ public class TestMapMaker : MonoBehaviour
         if(prevMap.Item1 == currentMap.Item1 && currentMap.Item1 == nextMap.Item1)
         {
             mapData.mapType.Add(MAPTYPE.VERTICAL);
+            mapData.mapRotate.Add(0);
             return VerticalGround;
         }
         if (prevMap.Item2 == currentMap.Item2 && currentMap.Item2 == nextMap.Item2)
         {
             mapData.mapType.Add(MAPTYPE.HORIZONTAL);
+            mapData.mapRotate.Add(0);
             return HorizontalGround;
         }
 
@@ -266,38 +271,44 @@ public class TestMapMaker : MonoBehaviour
             Debug.LogWarning("prevMap과 nextMap이 같음");
             return null;
         }
-        mapData.mapRotate.Add(0);
+        //mapData.mapRotate.Add(0);
 
         // 3) 여기까지 왔으면 코너 처리
         switch (x, z)
         {
             case (1, -1):
                 mapData.mapType.Add(MAPTYPE.DOWNLEFT);
+                mapData.mapRotate.Add(0);
                 return DownLeftGround;
 
             case (-1, -1):
                 mapData.mapType.Add(MAPTYPE.DOWNRIGHT);
-                return DownRightGround;
+                mapData.mapRotate.Add(270);
+                return DownLeftGround;
 
             case (1, 1):
                 mapData.mapType.Add(MAPTYPE.UPLEFT);
-                return UpLeftGround;
+                mapData.mapRotate.Add(90);
+                return DownLeftGround;
 
             case (-1, 1):
                 mapData.mapType.Add(MAPTYPE.UPRIGHT);
-                return UpRightGround;
+                mapData.mapRotate.Add(180);
+                return DownLeftGround;
         }
 
         // 2) 직선(세로/가로) 먼저 처리
         if (x == 0 && z != 0)
         {
             mapData.mapType.Add(MAPTYPE.VERTICAL);
+            mapData.mapRotate.Add(0);
             return VerticalGround;
         }
 
         if (x != 0 && z == 0)
         {
             mapData.mapType.Add(MAPTYPE.HORIZONTAL);
+            mapData.mapRotate.Add(0);
             return HorizontalGround;
         }
 
@@ -323,5 +334,5 @@ public class TestMapMaker : MonoBehaviour
         mapData.mapType.Add(MAPTYPE.END);
         mapData.mapRotate.Add(resultRotateY);
 
-    }
+    }*/
 }
