@@ -14,13 +14,13 @@ public class SpawnedMapData
 {
     public List<int> spawnedMapX = new List<int>();                 //맵이 소환되는 x값
     public List<int> spawnedMapZ = new List<int>();                 //맵이 소환되는 y값
-    public List<MAPTYPE> mapType = new List<MAPTYPE>();             //맵의 타입
-    public List<int> mapRotate = new List<int>();                   //맵의 회전값. 각 맵 생성 후 회전 값을 반영한다
+    public List<MAPTYPE> mapType = new List<MAPTYPE>();      //맵의 타입
+    public List<int> mapRotate = new List<int>();                      //맵의 회전값. 각 맵 생성 후 회전 값을 반영한다
 }
 
 public class MapMaker : MonoBehaviour
 {
-    SpawnedMapData mapData;                                         //추후 json에 저장할 데이터
+    SpawnedMapData mapData;                                             //추후 json에 저장할 데이터
 
     //맵은 테스트용이기에 1개 밖에 없지만,
     //좌/우/마지막 맵(보스 방)으로 구성되어 있다
@@ -35,25 +35,31 @@ public class MapMaker : MonoBehaviour
 
     List<GameObject> createdMap = new List<GameObject>();
 
-    public int mapMakeCount;
-    public int currentX, currentZ;
+    int mapMakeCount;
+    int currentX, currentZ;
 
 
     void Start()
     {
-        InitMap();
+        Init();
+        MapMake();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            InitMap();
+            MapMake();
         }
     }
 
+    void Init()
+    {
+        mapMakeCount = GetComponent<MapDesign>().GetMapMakeCount();
+    }
+
     
-    public void InitMap()
+    public void MapMake()
     {
         mapData = new SpawnedMapData();
 

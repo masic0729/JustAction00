@@ -290,9 +290,6 @@ MonoBehaviour:
   StraightGround: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
   DownLeftGround: {fileID: 953084259992814367, guid: 1c39c3c5eb0030b4e88271ad27d072b4, type: 3}
   EndGround: {fileID: 2316511290600402421, guid: 05391ac4095f21e409771faf3e390eb4, type: 3}
-  mapMakeCount: 7
-  currentX: 0
-  currentZ: 0
 --- !u!114 &582305193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,22 +297,38 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582305190}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82235e392c997524e84b92ddc290268a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7710334120e1fe44d8a5125b38bc7827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartGround: {fileID: 8940641812018483761, guid: b9a9971342b37bc4388c7e203672d2f1, type: 3}
-  HorizontalGround: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
-  VerticalGround: {fileID: 6303697165454988592, guid: 1acbfe894b1d0f94c893ab70904ae10f, type: 3}
-  DownLeftGround: {fileID: 953084259992814367, guid: 1c39c3c5eb0030b4e88271ad27d072b4, type: 3}
-  DownRightGround: {fileID: 953084259992814367, guid: ee3a5decc5a32184b9ca96e6a9d5e88b, type: 3}
-  UpLeftGround: {fileID: 953084259992814367, guid: c0c0ff22359b3d048a26639d44beafd2, type: 3}
-  UpRightGround: {fileID: 953084259992814367, guid: b8043e71bc1d67747945a7c82ad61527, type: 3}
-  EndGround: {fileID: 2316511290600402421, guid: 05391ac4095f21e409771faf3e390eb4, type: 3}
   mapMakeCount: 7
-  currentX: 0
-  currentZ: 0
+  middleTileConfigs:
+  - contentType: 1
+    monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 1
+  - contentType: 2
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
+    npcCount: 1
+  - contentType: 3
+    monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
+    npcCount: 1
+  - contentType: 2
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
+    npcCount: 1
+  - contentType: 2
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
+    npcCount: 1
 --- !u!1001 &683604069
 PrefabInstance:
   m_ObjectHideFlags: 0
