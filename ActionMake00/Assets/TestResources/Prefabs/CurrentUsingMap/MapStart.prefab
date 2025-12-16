@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 210055729318314660}
   - component: {fileID: 5286094017215737138}
   - component: {fileID: 2407237061262694193}
+  - component: {fileID: -438150596527848116}
   m_Layer: 0
   m_Name: MapStart
   m_TagString: Untagged
@@ -243,3 +244,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-438150596527848116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8940641812018483761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78a29c6e925251498d88352d220cb49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

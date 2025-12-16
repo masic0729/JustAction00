@@ -12,15 +12,14 @@ public enum MAPTYPE
 
 public class SpawnedMapData
 {
-    public List<int> spawnedMapX = new List<int>();                 //맵이 소환되는 x값
-    public List<int> spawnedMapZ = new List<int>();                 //맵이 소환되는 y값
-    public List<MAPTYPE> mapType = new List<MAPTYPE>();      //맵의 타입
-    public List<int> mapRotate = new List<int>();                      //맵의 회전값. 각 맵 생성 후 회전 값을 반영한다
+    public List<int> spawnedMapX = new List<int>();                                                             //맵이 소환되는 x값
+    public List<int> spawnedMapZ = new List<int>();                                                             //맵이 소환되는 y값
+    public List<MAPTYPE> mapType = new List<MAPTYPE>();                                                  //맵의 타입
+    public List<int> mapRotate = new List<int>();                                                                  //맵의 회전값. 각 맵 생성 후 회전 값을 반영한다
 }
 
 public class MapMaker : MonoBehaviour
 {
-    SpawnedMapData mapData;                                             //추후 json에 저장할 데이터
 
     //맵은 테스트용이기에 1개 밖에 없지만,
     //좌/우/마지막 맵(보스 방)으로 구성되어 있다
@@ -61,7 +60,7 @@ public class MapMaker : MonoBehaviour
     
     public void MapMake()
     {
-        mapData = new SpawnedMapData();
+        //GameData.instance.mapData = new SpawnedMapData();
 
         int resultRotateMap = 0;
 
@@ -81,26 +80,27 @@ public class MapMaker : MonoBehaviour
 
         bool[,] map;
 
-        map = new bool[mapMakeCount, mapMakeCount];
+        map = new bool[mapMakeCount * 4, mapMakeCount * 4];
 
         //처음 시작하는 맵 위치는 이곳이다.
-        map[3, 3] = true;
-        mapIndex.Add((3, 3));
+        map[mapMakeCount, mapMakeCount] = true;
+        mapIndex.Add((mapMakeCount, mapMakeCount));
 
-        mapData.spawnedMapX.Add(3);
-        mapData.spawnedMapZ.Add(3);
+        GameData.instance.mapData.spawnedMapX.Add(mapMakeCount);
+        GameData.instance.mapData.spawnedMapZ.Add(mapMakeCount);
         //mapData.mapType.Add(MAPTYPE.START);
 
 
-        //고정적으로 위로 올라가기 때문에 3,4로 이동한다.
-        map[3, 4] = true;
+        
 
-        currentX = 3;
-        currentZ = 4;
-        mapIndex.Add((3, 4));
+        currentX = mapMakeCount;
+        currentZ = mapMakeCount + 1;
+        //고정적으로 위로 올라가기 때문에 3,4로 이동한다.
+        map[currentX, currentZ] = true;
+        mapIndex.Add((currentX, currentZ));
         int currentMakeCount = 2;
 
-
+        //목표 맵 생성을 이루기 까지 DFS 실행한다
         while (currentMakeCount < mapMakeCount)
         {
             List<(int, int)> canMakeMapList = new List<(int, int)>();
@@ -144,8 +144,8 @@ public class MapMaker : MonoBehaviour
                 //float resultRotateY = currentMapRotateY + targetMap.Item4;
 
                 //SetMapType();
-                mapData.spawnedMapX.Add(currentX);
-                mapData.spawnedMapZ.Add(currentZ);
+                GameData.instance.mapData.spawnedMapX.Add(currentX);
+                GameData.instance.mapData.spawnedMapZ.Add(currentZ);
 
                 //currentMapRotateY = resultRotateY;
 
@@ -159,8 +159,8 @@ public class MapMaker : MonoBehaviour
             }
             else
             {
-                mapData.spawnedMapX.RemoveAt(mapData.spawnedMapX.Count);
-                mapData.spawnedMapZ.RemoveAt(mapData.spawnedMapZ.Count);
+                GameData.instance.mapData.spawnedMapX.RemoveAt(GameData.instance.mapData.spawnedMapX.Count);
+                GameData.instance.mapData.spawnedMapZ.RemoveAt(GameData.instance.mapData.spawnedMapZ.Count);
                 //mapData.mapType.RemoveAt(mapData.mapType.Count);
                 //mapData.spawnedMapRotationY.RemoveAt(mapData.spawnedMapRotationY.Count);
 
@@ -178,8 +178,8 @@ public class MapMaker : MonoBehaviour
 
         }
 
-        mapData.spawnedMapX.Add(currentX);
-        mapData.spawnedMapZ.Add(currentZ);
+        GameData.instance.mapData.spawnedMapX.Add(currentX);
+        GameData.instance.mapData.spawnedMapZ.Add(currentZ);
 
         Vector3 spawnPos = Vector3.zero;
         for (int i = 0; i < mapIndex.Count - 1; i++)
@@ -190,7 +190,7 @@ public class MapMaker : MonoBehaviour
             if (i == 0)
             {
                 createdMap.Add(Instantiate(StartGround, spawnPos, transform.rotation));
-                mapData.mapType.Add(MAPTYPE.START);
+                GameData.instance.mapData.mapType.Add(MAPTYPE.START);
             }
             else
             {
@@ -198,9 +198,13 @@ public class MapMaker : MonoBehaviour
                 int middleZ = mapIndex[i + 1].Item2 - mapIndex[i - 1].Item2;
 
                 GameObject wantMap = CalMiddleMapsType(mapIndex[i - 1], mapIndex[i], mapIndex[i + 1]);
-                createdMap.Add(Instantiate(wantMap, spawnPos, transform.rotation));
+                GameObject createMap = Instantiate(wantMap, spawnPos, transform.rotation);
+                createdMap.Add(createMap);
+                
+                //해당 기능은 커스텀에디터 기반으로 제작된 맵 데이터를 해당 맵에 연동하여 설계된 액터들을 배치하는 것
+                createMap.GetComponent<MapActorSpawn>().ActorSpawn(i - 1);
 
-                resultRotateMap = mapData.mapRotate[mapData.mapRotate.Count - 1];
+                resultRotateMap = GameData.instance.mapData.mapRotate[GameData.instance.mapData.mapRotate.Count - 1];
                 createdMap[createdMap.Count - 1].transform.Rotate(0, resultRotateMap, 0);
             }
         }
@@ -220,16 +224,16 @@ public class MapMaker : MonoBehaviour
         //Vertical
         if (prevMap.Item1 == currentMap.Item1 && currentMap.Item1 == nextMap.Item1)
         {
-            mapData.mapType.Add(MAPTYPE.Straight);
-            mapData.mapRotate.Add(90);
+            GameData.instance.mapData.mapType.Add(MAPTYPE.Straight);
+            GameData.instance.mapData.mapRotate.Add(90);
             return StraightGround;
         }
         
         //Horizontal
         if (prevMap.Item2 == currentMap.Item2 && currentMap.Item2 == nextMap.Item2)
         {
-            mapData.mapType.Add(MAPTYPE.Straight);
-            mapData.mapRotate.Add(0);
+            GameData.instance.mapData.mapType.Add(MAPTYPE.Straight);
+            GameData.instance.mapData.mapRotate.Add(0);
             return StraightGround;
         }
 
@@ -265,23 +269,23 @@ public class MapMaker : MonoBehaviour
         switch (x, z)
         {
             case (1, -1):
-                mapData.mapType.Add(MAPTYPE.DOWNLEFT);
-                mapData.mapRotate.Add(0);
+                GameData.instance.mapData.mapType.Add(MAPTYPE.DOWNLEFT);
+                GameData.instance.mapData.mapRotate.Add(0);
                 return DownLeftGround;
 
             case (-1, -1):
-                mapData.mapType.Add(MAPTYPE.DOWNLEFT);
-                mapData.mapRotate.Add(270);
+                GameData.instance.mapData.mapType.Add(MAPTYPE.DOWNLEFT);
+                GameData.instance.mapData.mapRotate.Add(270);
                 return DownLeftGround;
 
             case (1, 1):
-                mapData.mapType.Add(MAPTYPE.DOWNLEFT);
-                mapData.mapRotate.Add(90);
+                GameData.instance.mapData.mapType.Add(MAPTYPE.DOWNLEFT);
+                GameData.instance.mapData.mapRotate.Add(90);
                 return DownLeftGround;
 
             case (-1, 1):
-                mapData.mapType.Add(MAPTYPE.DOWNLEFT);
-                mapData.mapRotate.Add(180);
+                GameData.instance.mapData.mapType.Add(MAPTYPE.DOWNLEFT);
+                GameData.instance.mapData.mapRotate.Add(180);
                 return DownLeftGround;
         }
 
@@ -304,8 +308,8 @@ public class MapMaker : MonoBehaviour
 
         createdMap.Add(Instantiate(EndGround, spawnPosition, transform.rotation));
         createdMap[createdMap.Count - 1].transform.Rotate(0, resultRotateY, 0);
-        mapData.mapType.Add(MAPTYPE.END);
-        mapData.mapRotate.Add(resultRotateY);
+        GameData.instance.mapData.mapType.Add(MAPTYPE.END);
+        GameData.instance.mapData.mapRotate.Add(resultRotateY);
 
     }
 }

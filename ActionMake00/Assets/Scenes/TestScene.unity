@@ -241,6 +241,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &328803162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328803164}
+  - component: {fileID: 328803163}
+  m_Layer: 0
+  m_Name: GameDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &328803163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328803162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be0d7a87b4270b4d96ab9c804cfcac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &328803164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328803162}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582305190
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,33 +346,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7710334120e1fe44d8a5125b38bc7827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMakeCount: 7
+  mapMakeCount: 4
   middleTileConfigs:
   - contentType: 1
     monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
     monsterCountMultiplier: 1
     npcPrefab: {fileID: 0}
-    npcCount: 1
-  - contentType: 2
-    monsterPreset: {fileID: 0}
-    monsterCountMultiplier: 1
-    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
-    npcCount: 1
-  - contentType: 3
+    npcCount: 0
+  - contentType: 1
     monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
     monsterCountMultiplier: 1
-    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
-    npcCount: 1
-  - contentType: 2
-    monsterPreset: {fileID: 0}
-    monsterCountMultiplier: 1
-    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
-    npcCount: 1
-  - contentType: 2
-    monsterPreset: {fileID: 0}
-    monsterCountMultiplier: 1
-    npcPrefab: {fileID: 1148613061152340, guid: eded051879df4c147b9010199d240258, type: 3}
-    npcCount: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 0
 --- !u!1001 &683604069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -912,3 +941,4 @@ SceneRoots:
   - {fileID: 582305191}
   - {fileID: 1412309203}
   - {fileID: 683604069}
+  - {fileID: 328803164}

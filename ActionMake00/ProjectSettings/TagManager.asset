@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - WeaponOff
   - FxTemporaire
+  - SpawnEnemy
+  - SpawnNPC
   layers:
   - Default
   - TransparentFX

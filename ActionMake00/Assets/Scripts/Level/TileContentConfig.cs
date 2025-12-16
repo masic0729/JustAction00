@@ -18,7 +18,7 @@ public class TileContentConfig
     public MonsterSpawnPreset monsterPreset;
     [Min(1)] public int monsterCountMultiplier = 1;
 
-    // NPC (보통 1마리)
+    // NPC (현재로선 종류는 하나다)
     public GameObject npcPrefab;
-    [Min(1)] public int npcCount = 1; // 원하면 나중에 에디터에서 숨기고 1 고정하면 됨
+    [Min(0)] public int npcCount = 0;           
 }
