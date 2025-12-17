@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MapActorSpawn : MonoBehaviour
+
+public class MapMiddleZone : MonoBehaviour
 {
     int mapDataIndex = -1;
 

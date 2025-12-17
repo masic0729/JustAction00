@@ -202,7 +202,7 @@ public class MapMaker : MonoBehaviour
                 createdMap.Add(createMap);
                 
                 //해당 기능은 커스텀에디터 기반으로 제작된 맵 데이터를 해당 맵에 연동하여 설계된 액터들을 배치하는 것
-                createMap.GetComponent<MapActorSpawn>().ActorSpawn(i - 1);
+                createMap.GetComponent<MapMiddleZone>().ActorSpawn(i - 1);
 
                 resultRotateMap = GameData.instance.mapData.mapRotate[GameData.instance.mapData.mapRotate.Count - 1];
                 createdMap[createdMap.Count - 1].transform.Rotate(0, resultRotateMap, 0);
