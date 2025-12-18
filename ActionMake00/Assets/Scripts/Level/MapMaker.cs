@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public enum MAPTYPE
@@ -14,12 +15,13 @@ public class SpawnedMapData
 {
     public List<int> spawnedMapX = new List<int>();                                                             //맵이 소환되는 x값
     public List<int> spawnedMapZ = new List<int>();                                                             //맵이 소환되는 y값
-    public List<MAPTYPE> mapType = new List<MAPTYPE>();                                                  //맵의 타입
+    public List<MAPTYPE> mapType = new List<MAPTYPE>();                                                         //맵의 타입
     public List<int> mapRotate = new List<int>();                                                                  //맵의 회전값. 각 맵 생성 후 회전 값을 반영한다
 }
 
 public class MapMaker : MonoBehaviour
 {
+    public static MapMaker instance;
 
     //맵은 테스트용이기에 1개 밖에 없지만,
     //좌/우/마지막 맵(보스 방)으로 구성되어 있다
@@ -38,6 +40,11 @@ public class MapMaker : MonoBehaviour
     int currentX, currentZ;
 
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         Init();
@@ -48,7 +55,7 @@ public class MapMaker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MapMake();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -83,19 +90,20 @@ public class MapMaker : MonoBehaviour
         map = new bool[mapMakeCount * 4, mapMakeCount * 4];
 
         //처음 시작하는 맵 위치는 이곳이다.
-        map[mapMakeCount, mapMakeCount] = true;
-        mapIndex.Add((mapMakeCount, mapMakeCount));
+        map[mapMakeCount * 3, mapMakeCount * 3] = true;
+        mapIndex.Add((mapMakeCount * 3, mapMakeCount * 3));
 
-        GameData.instance.mapData.spawnedMapX.Add(mapMakeCount);
-        GameData.instance.mapData.spawnedMapZ.Add(mapMakeCount);
+        GameData.instance.mapData.spawnedMapX.Add(mapMakeCount * 3);
+        GameData.instance.mapData.spawnedMapZ.Add(mapMakeCount * 3);
         //mapData.mapType.Add(MAPTYPE.START);
 
 
         
 
-        currentX = mapMakeCount;
-        currentZ = mapMakeCount + 1;
-        //고정적으로 위로 올라가기 때문에 3,4로 이동한다.
+        currentX = (mapMakeCount * 3);
+        currentZ = (mapMakeCount * 3) + 1;
+
+        //고정적으로 위로 올라가기 때문에 첫 맵 위치에서 Z + 1한 채로 고정설정된다.
         map[currentX, currentZ] = true;
         mapIndex.Add((currentX, currentZ));
         int currentMakeCount = 2;
@@ -113,7 +121,7 @@ public class MapMaker : MonoBehaviour
                 }
             }
 
-            if (currentX + 1 <= 6)
+            if (currentX + 1 <= mapMakeCount * 4 - 1)
             {
                 if (map[currentX + 1, currentZ] == false)
                 {
@@ -129,7 +137,7 @@ public class MapMaker : MonoBehaviour
                 }
             }
 
-            if (currentZ + 1 <= 6)
+            if (currentZ + 1 <= mapMakeCount * 4 - 1)
             {
                 if (map[currentX, currentZ + 1] == false)
                 {
@@ -140,6 +148,8 @@ public class MapMaker : MonoBehaviour
             //제작할 수 있는 맵의 경우의 수라면 데이터 삽입 및 진전
             if (canMakeMapList.Count > 0)
             {
+                //int randResult = (int)Time.time % canMakeMapList.Count;
+                //순수 확률 기반으로 가능한 타일들을 추려낸 것들을 추첨하여 맵을 연결한다
                 (int, int) targetMap = canMakeMapList[Random.Range(0, canMakeMapList.Count)];
                 //float resultRotateY = currentMapRotateY + targetMap.Item4;
 
@@ -312,4 +322,6 @@ public class MapMaker : MonoBehaviour
         GameData.instance.mapData.mapRotate.Add(resultRotateY);
 
     }
+
+    public int GetMapMakeCount() => mapMakeCount;
 }

@@ -346,15 +346,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7710334120e1fe44d8a5125b38bc7827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMakeCount: 4
+  mapMakeCount: 7
   middleTileConfigs:
   - contentType: 1
-    monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
+    monsterPreset: {fileID: 11400000, guid: 6aa7d20f05c4395409d6a366f514b245, type: 2}
     monsterCountMultiplier: 1
     npcPrefab: {fileID: 0}
     npcCount: 0
   - contentType: 1
-    monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
+    monsterPreset: {fileID: 11400000, guid: 6aa7d20f05c4395409d6a366f514b245, type: 2}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 0
+  - contentType: 0
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 0
+  - contentType: 0
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 0
+  - contentType: 0
+    monsterPreset: {fileID: 0}
     monsterCountMultiplier: 1
     npcPrefab: {fileID: 0}
     npcCount: 0
@@ -500,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5338865303852131664, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5442080198381692917, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_IsActive

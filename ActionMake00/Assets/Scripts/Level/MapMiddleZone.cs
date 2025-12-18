@@ -11,7 +11,13 @@ public class MapMiddleZone : MonoBehaviour
     public void ActorSpawn(int mapIndex)
     {
         mapDataIndex = mapIndex;
+        if (mapIndex > MapMaker.instance.GetMapMakeCount())
+        {
+            return;
+        }
+
         TileContentConfig data = MapDesign.instance.GetMiddleTiles()[mapDataIndex];
+
         switch(data.contentType)
         {
             case TileContentType.None:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapEndZone : MonoBehaviour
 {
@@ -15,7 +16,11 @@ public class MapEndZone : MonoBehaviour
         bossSpawn = transform.Find("BOSS").position;
         navSurface = GetComponent<NavMeshSurface>();
         navSurface.BuildNavMesh();
-        GameObject ins = Instantiate(boss, bossSpawn, transform.rotation);
+
+        if (SceneManager.GetActiveScene().name != "TestScene")
+        {
+            GameObject ins = Instantiate(boss, bossSpawn, transform.rotation);
+        }
         //GameObject.Find("Boss_Main").transform.position = bossSpawn;
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapStartZone : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class MapStartZone : MonoBehaviour
     {
         playerSpawnZone = transform.Find("PLAYER").position;
 
-        GameObject.FindWithTag("Player").transform.position = playerSpawnZone;
+        if(SceneManager.GetActiveScene().name != "TestScene")
+        {
+            GameObject.FindWithTag("Player").transform.position = playerSpawnZone;
+
+        }
     }
 
     // Update is called once per frame
