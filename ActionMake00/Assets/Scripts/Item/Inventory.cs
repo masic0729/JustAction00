@@ -68,6 +68,8 @@ public class Inventory : MonoBehaviour
     /// <param name="iconBasePath"></param>
     public ItemData SetItemData(int itemId)
     {
+        Debug.Log("SetItemData 실행됨");
+        
         ItemData instanceItemData = null;
 
         string path = Application.dataPath + "/Resources/Jsons/ItemData_Template.CSV";
@@ -113,11 +115,15 @@ public class Inventory : MonoBehaviour
                 // 원하는 ID가 아니면 패스
                 if (id != itemId)
                     continue;
+                else
+                {
+                    Debug.Log("ID기반으로 찾아내어 인벤토리에 넣음");
+                }
+                    // 여기 도달하면: 찾고 싶은 ID의 줄이다
 
-                // 여기 도달하면: 찾고 싶은 ID의 줄이다
-
-                // 런타임용 ItemData 인스턴스 생성
-                instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                    // 런타임용 ItemData 인스턴스 생성
+                    //instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                    instanceItemData = new ItemData();
 
                 // 기본 정보 세팅
                 instanceItemData.itemName = split[0];
@@ -187,6 +193,8 @@ public class Inventory : MonoBehaviour
     // Inventory 안에 있는 함수라고 가정
     public bool AddItemInList(ItemObject itemObject)
     {
+        Debug.Log("AddItemInList 실행됨");
+
         if (itemObject == null)
         {
             Debug.LogError("[AddItemInList] itemObject가 null");
@@ -210,11 +218,11 @@ public class Inventory : MonoBehaviour
                 emptySlot = slot;
             }
 
-            // 1) 장비 아이템인 경우: 비어 있는 슬롯에 바로 배치
+            // 장비 아이템인 경우 비어 있는 슬롯에 바로 배치
             if (equipRoot != null && slot.CanAddItem())
             {
-                // 👇 ItemSlot.AddItem 내부에서 SetItemData(itemId)가 호출되고,
-                //     위에 오빠가 만든 SetItemData(StreamingAssets + Resources)가 실행됨
+                //장비의 경우 ItemSlot.AddItem 내부에서 SetItemData(itemId)가 호출되고,
+                //SetItemData(StreamingAssets + Resources)가 실행됨
                 if (slot.AddItem(itemObject))
                     return true;
 

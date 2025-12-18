@@ -24,9 +24,11 @@ public class PlayerController : MonoBehaviour
     public bool isEscapeAttackAnim = false;
 
     [SerializeField]
-    bool canAttackInput = true;
-    bool canAnyInput = true;
-    bool canKeyQ = false;
+    bool canAttackInput = true;                                                 //기본조작은 가능하나, 공격할 수 있는 지 확인하는 용도
+    bool canAnyInput = true;                                                    //어쨋든 플레이어가 입력할 수 있는 지 확인한다. 보통 상태이상에 의해 움직이지 못하는 경우도 있다
+    bool canKeyQ = false;                                                      //Q스킬을 사용할 수 있는 여부. 
+    bool canInteraction = false;                                                //플레이어의 상호작용 여부
+    bool isInteracting = false;                                                 //상호작용 중인 지 따지는 데이터. 활성화 시 중첩 상호작용이 되지 않는다
 
     // 초기화
     void Start()
@@ -45,21 +47,43 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        InteractionNPC();
+
         if (player.anim.GetBool("isStating") == true)
             return;
 
 
         {
-            if (canAnyInput == false)
-                return;
+            
+            
+
             PlayerEscape();
             WeapontestSwap();
         }
 
         {
+
+            if (canAnyInput == false)   //여기 부분이 통제구역
+            {
+                //기본적으로 어떠한 이유로 입력이 통제되어야 하는 기능을 위해 수시로 처리해놓는다.
+                player.anim.SetBool("Move", false);
+                player.anim.SetFloat("moveValue", 0f);
+
+                moveVector = Vector3.zero;
+
+                h = 0f;
+                v = 0f;
+                return;
+            }
+
+            /*if (canAnyInput == false)
+                return;*/
+
+            MoveInput();
+
             if (canAttackInput == false)
                 return;
-            MoveInput();
+
             PlayerAttack();
             PlayerSkillInput();
         }
@@ -70,15 +94,37 @@ public class PlayerController : MonoBehaviour
         ActionCoolTimer();
     }
 
+    void InteractionNPC()
+    {
+        //기본적으로 상호작용할 수 있는 지 확인하고, 이미 상호작용 중인 지 확인한다
+        if (Input.GetKeyDown(KeyCode.F) && canInteraction == true && isInteracting == false)
+        {
+            //상호작용 중이고, 이에 따라 중첩 상호작용을 막는다.
+            isInteracting = true;
+            GUI_PlayerInput.instance.EnableUI(GUI_PlayerInput.instance.NPC_InventoryView);
+            //GetComponent<RayCastToNPC>().GetNpc().ShowView();         //여기에는 해당 인벤토리 뷰에 아이템 데이터를 넣어야함
+        }
+    }
+
+    /// <summary>
+    /// 상호작용을 어쨋든 다시 실행하게 만드는 함수
+    /// </summary>
+    public void SetCanIsInteraction()
+    {
+        isInteracting = false;
+    }
 
     void MoveInput()
     {
+        
+
         Vector3 cameraVec = mainCamera.transform.position;
 
         Transform camT = mainCamera.transform;
         Vector3 camFwd = Vector3.ProjectOnPlane(camT.forward, Vector3.up).normalized; // 카메라 전방(수평)
         Vector3 camRight = Vector3.ProjectOnPlane(camT.right, Vector3.up).normalized; // 카메라 우측(수평)
-                                                  
+
+        
 
         if (player.anim.GetBool("isAttacking") == false)
         {
@@ -92,12 +138,7 @@ public class PlayerController : MonoBehaviour
             h = Input.GetAxis("Horizontal");
             v = Input.GetAxis("Vertical");
 
-            if (canAnyInput == false)   //여기 부분이 통제구역
-            {
-                player.anim.SetFloat("moveValue", 0f);
-
-                return;
-            }
+            
 
             if (moveVector.magnitude > 0.1f)
             {
@@ -278,4 +319,8 @@ public class PlayerController : MonoBehaviour
     public void SetCanAnyInput(bool state) => canAnyInput = state;
 
     public bool GetCanAnyInput() => canAnyInput;
+
+    public bool GetCanInteraction() => canInteraction;
+
+    public void SetCanInteraction(bool state) => canInteraction = state;
 }

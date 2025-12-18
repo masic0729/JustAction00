@@ -9,9 +9,9 @@ public enum ItemType
     Miscellaneous,                  //기타
     nullItem                        //정렬용 타입
 }
-
-[CreateAssetMenu(fileName = "ItemConfig", menuName ="GameData/ItemConfig")]
-public class ItemData : ScriptableObject
+/*
+[CreateAssetMenu(fileName = "ItemConfig", menuName ="GameData/ItemConfig")]*/
+public class ItemData
 {
     public int id;
     [Header("아이템 기본 정보")]

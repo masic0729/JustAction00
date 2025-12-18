@@ -26,9 +26,13 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             return false;
         }
 
-        ItemBase ib = itemObject.item;      // ItemBase
         //ItemData data = ib.data;
+        //왜 이렇게 됐냐.
+        //1. 스크립터블 오브젝트는 필요가 없어졌다.
+        //2. csv기반으로 데이터를 불러오기 때문에, 이를 해당아이템 데이터를 불러온 후 인벤토리에 할당한다
+        itemObject.SetItemData(itemObject.itemId);
         ItemData data = SetItemData(itemObject.itemId);
+        ItemBase ib = itemObject.item;      // ItemBase
 
         // 1) 슬롯 기본 세팅
         currentItem = ib;

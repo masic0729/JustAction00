@@ -299,7 +299,8 @@ public abstract class SlotBase : MonoBehaviour
                     continue;
 
                 // 여기 도달 = 찾는 아이템 한 줄 발견
-                instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                //instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                instanceItemData = new ItemData();
 
                 instanceItemData.itemName = split[0];
 

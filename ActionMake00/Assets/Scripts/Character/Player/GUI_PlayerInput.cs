@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class GUI_PlayerInput : MonoBehaviour
 {
+    public static GUI_PlayerInput instance;
+
     private PlayerController playerCtrl;
     [SerializeField] GameObject UI_View;
     public Inventory inventory;
     public EquipmentManager equip;
-    
+
+    public GameObject NPC_InventoryView;
+
     //public GameObject testItem;
     public ItemObject testitem1;
     public ItemObject testitem2;
     public ItemObject testitem3;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -47,6 +54,11 @@ public class GUI_PlayerInput : MonoBehaviour
             TestInputItem2();
             TestInputItem3();
         }
+        
+        /*if(Input.GetKeyDown(KeyCode.F))
+        {
+            EnableUI(NPC_InventoryView);
+        }*/
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -58,12 +70,12 @@ public class GUI_PlayerInput : MonoBehaviour
     /// 원하는 오브젝트의 활성화 여부를 확인하여 상태를 항상 반대로 전환한다
     /// </summary>
     /// <param name="target">활성화/비활성화 하려는 오브젝트 대상</param>
-    void EnableUI(GameObject target)
+    public void EnableUI(GameObject target)
     {
         /*CameraController cameraCtrl = GetComponent<CameraController>();*/
         if (target.activeSelf == false)
         {
-            //playerCtrl.SetCanAnyInput(false);
+            playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
             MouseControl.instance.Apply(MouseControl.AimCursorMode.ConfinedWindow);
             /*cameraCtrl.SetCanRotate(false);*/
@@ -71,7 +83,7 @@ public class GUI_PlayerInput : MonoBehaviour
         }
         else if(target.activeSelf == true)
         {
-            //playerCtrl.SetCanAnyInput(true);
+            playerCtrl.SetCanAnyInput(true);
             target.SetActive(false);
             MouseControl.instance.Apply(MouseControl.AimCursorMode.LockedCenter);
             /*cameraCtrl.SetCanRotate(true);*/

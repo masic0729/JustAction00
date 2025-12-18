@@ -12,6 +12,7 @@ TagManager:
   - FxTemporaire
   - SpawnEnemy
   - SpawnNPC
+  - NPC
   layers:
   - Default
   - TransparentFX

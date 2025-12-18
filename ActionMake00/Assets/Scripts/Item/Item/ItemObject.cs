@@ -224,7 +224,9 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                 if (id != itemId) continue;
 
                 // 아이템 데이터 생성
-                instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                //instanceItemData = ScriptableObject.CreateInstance<ItemData>();
+                instanceItemData = new ItemData();
+
                 instanceItemData.itemName = split[0];
 
                 Enum.TryParse(split[2], true, out ItemType itemType);
