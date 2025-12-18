@@ -17,7 +17,7 @@ public class MapEndZone : MonoBehaviour
         navSurface = GetComponent<NavMeshSurface>();
         navSurface.BuildNavMesh();
 
-        if (SceneManager.GetActiveScene().name != "TestScene")
+        if (GameManager.instance.GetIsTest() == false)
         {
             GameObject ins = Instantiate(boss, bossSpawn, transform.rotation);
         }

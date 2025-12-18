@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -99,7 +97,6 @@ public class PlayerController : MonoBehaviour
                 player.anim.SetFloat("moveValue", 0f);
 
                 return;
-
             }
 
             if (moveVector.magnitude > 0.1f)

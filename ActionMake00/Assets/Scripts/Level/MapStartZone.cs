@@ -12,16 +12,11 @@ public class MapStartZone : MonoBehaviour
     {
         playerSpawnZone = transform.Find("PLAYER").position;
 
-        if(SceneManager.GetActiveScene().name != "TestScene")
+        //if(GameManager.instance.GetIsTest() == false)
         {
             GameObject.FindWithTag("Player").transform.position = playerSpawnZone;
-
         }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

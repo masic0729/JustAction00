@@ -33,7 +33,7 @@ public class SkillManager : MonoBehaviour
 
     void Update()
     {
-        SkillCollTimer();
+        SkillCoolTimer();
 
     }
 
@@ -91,7 +91,7 @@ public class SkillManager : MonoBehaviour
     /// 
     /// 해당 코드는 매 프레임마다 스킬 쿨타임을 내릴려고 한다
     /// </summary>
-    public void SkillCollTimer()
+    public void SkillCoolTimer()
     {
 
         for(int i = 0; i < GetSkillData().weaponSkillBase.Length; i++)

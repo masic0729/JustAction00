@@ -45,7 +45,7 @@ public class Player : Character
 
         transform.tag = "Player";
         hp = 100;
-        rotateSpeed = 20f;
+        rotateSpeed = 5f;
 
         /*weaponDic[WeaponType.Sword.ToString()] = null;
         weaponDic[WeaponType.Staff.ToString()] = null;*/
