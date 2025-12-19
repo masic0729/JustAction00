@@ -153,8 +153,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7710334120e1fe44d8a5125b38bc7827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMakeCount: 2
-  middleTileConfigs: []
+  mapMakeCount: 3
+  middleTileConfigs:
+  - contentType: 2
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 4764888283214704460, guid: af8cb16525003e44c91e74c5ee2e0177, type: 3}
+    npcCount: 0
 --- !u!114 &4459832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2578,7 +2583,7 @@ MonoBehaviour:
         m_MethodName: EnableUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 1895227277}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
