@@ -111,7 +111,7 @@ public class PlayerArmorCustom : MonoBehaviour
             if (i == index)
             {
                 parts[i].gameObject.SetActive(true);
-                Debug.Log("기본 구동은 제대로 실행됨");
+                //Debug.Log("기본 구동은 제대로 실행됨");
             }
             else
             {

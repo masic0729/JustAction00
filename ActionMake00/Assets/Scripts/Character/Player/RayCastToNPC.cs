@@ -41,7 +41,7 @@ public class RayCastToNPC : MonoBehaviour
             if (hit.collider.tag == "NPC")
             {
                 npc = hit.collider.gameObject.GetComponent<BaseNPC>();
-                Debug.Log(npc + "快客! NPC促");
+                //Debug.Log(npc + "快客! NPC促");
                 GetComponent<PlayerController>().SetCanInteraction(true);
                 return;
             }

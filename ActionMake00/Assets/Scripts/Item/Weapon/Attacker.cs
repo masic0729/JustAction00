@@ -75,7 +75,7 @@ public class Attacker : MonoBehaviour, IAttacker
         if (objectCol != null)
         {
             objectCol.enabled = false;
-            Debug.Log(this.gameObject.name + "콜라이더 초기화됨");
+            //Debug.Log(this.gameObject.name + "콜라이더 초기화됨");
         }
             
     }

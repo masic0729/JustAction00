@@ -70,8 +70,8 @@ public class SkillManager : MonoBehaviour
         string skillKey = "Skill" + index.ToString();
 
         //new
-        Debug.Log(skillKey + "1번째");
-        Debug.Log(data + "2번째");
+        /*Debug.Log(skillKey + "1번째");
+        Debug.Log(data + "2번째");*/
         weaponSkillDic[skillKey] = data;
         weaponSkillDic[skillKey] += player.WeaponColDisable;
     }

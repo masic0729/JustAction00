@@ -181,7 +181,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         // (itemObject에 업데이트 콜백이 따로 있다면 여기서 보강)
 
         UpdateUI();
-        Debug.Log("성공");
+        //Debug.Log("성공");
         return true;
     }
 
