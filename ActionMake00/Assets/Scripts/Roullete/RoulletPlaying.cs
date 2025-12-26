@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class RoulletPlaying : MonoBehaviour
 {
+    
     //룰렛에 관한 데이터들
     RoulletPlayData roulleteData;
+    RoulletUI roulletUI;
 
-    private DOTweenAnimation tweenAnim;
+    DOTweenAnimation roulletAnim;
 
     bool isRotating = false;
+    bool isEnd = false;                                                     //잔여 룰렛 회전 횟수가 끝났다면
+
     private void Start()
     {
         Init();
@@ -22,28 +26,38 @@ public class RoulletPlaying : MonoBehaviour
 
     void Init()
     {
-        tweenAnim = GetComponent<DOTweenAnimation>();
+        roulletAnim = GetComponent<DOTweenAnimation>();
+        roulletUI = GetComponent<RoulletUI>();
         roulleteData = GetComponent<RoulletPlayData>();
     }
 
     void PlayRoullet()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        //룰렛 작동 시 잔여 횟수 차감 및 결과도출을 즉각적으로 실행하며,
+        //이후 룰렛 연출로 결과를 보여준다
+        //하지만, 플레이어의 인벤토리 공간이 최소 1칸이라도 있어야 실행할 자격이 있다(구현 요구)
+        if (Input.GetKeyDown(KeyCode.F1) && isEnd == false /*&& */)
         {
-            tweenAnim.DOKill();
+            roulleteData.remainPlayCount--;
+            roulletUI.SetRemainPlayCount(roulleteData.remainPlayCount);
+            roulletAnim.DOKill();
 
             CalResultRoullete();
 
 
-            tweenAnim.endValueV3 = new Vector3(0, 0, roulleteData.targetRotate);
-            tweenAnim.CreateTween();
-            tweenAnim.DORestart();
+            roulletAnim.endValueV3 = new Vector3(0, 0, roulleteData.targetRotate);
+            roulletAnim.CreateTween();
+            roulletAnim.DORestart();
             isRotating = true;
+        }
+        else
+        {
+            Debug.Log("잔여 회전 횟수가 없습니다.");
         }
 
         if (isRotating == false)
         {
-            transform.Rotate(0, 0, 0.5f);
+            transform.Rotate(0, 0, 0.1f);
         }
     }
 
@@ -76,5 +90,27 @@ public class RoulletPlaying : MonoBehaviour
         //최종 회전값 산정
         roulleteData.targetRotate += addRotate;
 
+        //룰렛 실행에 의한 점수를 데이터에 저장
+        roulleteData.currentScore += roulleteData.roulletScoreData[result];
+    }
+
+    /// <summary>
+    /// 회전이 끝났기에
+    /// UI반영을 한다.
+    /// 이때 scoreText의 경우 애니메이션으로 값이 오른다.
+    /// 또한 다시 룰렛을 회전할 수 있도록 설정한다.
+    /// </summary>
+    public void RotateEnd()
+    {
+        //잔여 횟수가 존재하면 회전 가능상태로 전환, 미존재 시 종료 및 보상 지급(구현 예정)
+        if (roulleteData.remainPlayCount != 0)
+            isRotating = false;
+        else
+        {
+            isEnd = true;
+            //여기서 플레이어에게 아이템을 준다.
+        }
+
+        roulletUI.PlayAnimUI(roulleteData.currentScore);
     }
 }

@@ -22,5 +22,5 @@ public class RoulletPlayData : MonoBehaviour
     [Header("아이템을 받기 위한 최소 요구 점수")]
     public int[] needScores;
 
-    const int maxScore = 1500;
+    public readonly  int maxScore = 1500;
 }

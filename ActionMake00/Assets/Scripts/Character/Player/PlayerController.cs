@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     bool canAttackInput = true;                                                 //기본조작은 가능하나, 공격할 수 있는 지 확인하는 용도
     bool canAnyInput = true;                                                    //어쨋든 플레이어가 입력할 수 있는 지 확인한다. 보통 상태이상에 의해 움직이지 못하는 경우도 있다
-    bool canKeyQ = false;                                                      //Q스킬을 사용할 수 있는 여부. 
+    bool canKeyQ = false;                                                        //Q스킬을 사용할 수 있는 여부. 
     bool canInteraction = false;                                                //플레이어의 상호작용 여부
-    bool isInteracting = false;                                                 //상호작용 중인 지 따지는 데이터. 활성화 시 중첩 상호작용이 되지 않는다
+    bool isInteracting = false;                                                   //상호작용 중인 지 따지는 데이터. 활성화 시 중첩 상호작용이 되지 않는다
 
     // 초기화
     void Start()
