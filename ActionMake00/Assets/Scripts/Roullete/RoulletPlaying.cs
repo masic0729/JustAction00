@@ -4,7 +4,7 @@ using UnityEngine;
 public class RoulletPlaying : MonoBehaviour
 {
     //∑Í∑øø° ∞¸«— µ•¿Ã≈ÕµÈ
-    RoulletData roulleteData;
+    RoulletPlayData roulleteData;
 
     private DOTweenAnimation tweenAnim;
 
@@ -23,7 +23,7 @@ public class RoulletPlaying : MonoBehaviour
     void Init()
     {
         tweenAnim = GetComponent<DOTweenAnimation>();
-        roulleteData = GetComponent<RoulletData>();
+        roulleteData = GetComponent<RoulletPlayData>();
     }
 
     void PlayRoullet()
@@ -39,8 +39,8 @@ public class RoulletPlaying : MonoBehaviour
             tweenAnim.CreateTween();
             tweenAnim.DORestart();
             isRotating = true;
-
         }
+
         if (isRotating == false)
         {
             transform.Rotate(0, 0, 0.5f);
