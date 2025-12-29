@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class RoulletPlaying : MonoBehaviour
 {
-    
+
     //룰렛에 관한 데이터들
     RoulletPlayData roulleteData;
     RoulletUI roulletUI;
 
     DOTweenAnimation roulletAnim;
+    [SerializeField] Inventory playerInventory;
 
     bool isRotating = false;
     bool isEnd = false;                                                     //잔여 룰렛 회전 횟수가 끝났다면
@@ -50,12 +51,7 @@ public class RoulletPlaying : MonoBehaviour
             roulletAnim.DORestart();
             isRotating = true;
         }
-        else
-        {
-            Debug.Log("잔여 회전 횟수가 없습니다.");
-        }
-
-        if (isRotating == false)
+        else if (isRotating == false)
         {
             transform.Rotate(0, 0, 0.1f);
         }
@@ -78,7 +74,7 @@ public class RoulletPlaying : MonoBehaviour
         //이렇게 해야 해당 값에 맞는 회전 값으로 1차 보정이 된다.
         //룰렛의 경우의 수(칸) 간 회전 요구값 + 랜덤에 의한 곱 = 목표칸과 직전 칸의 경계
         int addRotate = (360 / roulleteData.roulletBlockCount) * result;
-        
+
         Debug.Log(result);
 
         //해당 값은 그 값으로 가리킬 때, 경계선으로 애매하게 가리키는 일을 막기 위해 설정하는 데이터이다
@@ -108,9 +104,12 @@ public class RoulletPlaying : MonoBehaviour
         else
         {
             isEnd = true;
-            //여기서 플레이어에게 아이템을 준다.
         }
 
         roulletUI.PlayAnimUI(roulleteData.currentScore);
     }
+
+    public Inventory GetPlayerInventory() => playerInventory;
+
+    public bool GetIsEnd() => isEnd;
 }
