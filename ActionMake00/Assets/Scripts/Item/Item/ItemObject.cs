@@ -18,6 +18,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
 

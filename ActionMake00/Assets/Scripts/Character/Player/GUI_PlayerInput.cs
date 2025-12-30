@@ -18,7 +18,10 @@ public class GUI_PlayerInput : MonoBehaviour
     public ItemObject testitem2;
     public ItemObject testitem3;
 
-    private void Awake()
+    //어떠한 창이 이미 활성화중인 지 확인하는 데이터. 다시 말해 여러 창을 동시에 활성화되는 방식은 아니다
+    bool isShowing = false;        
+    
+    void Awake()
     {
         instance = this;
     }
@@ -39,16 +42,18 @@ public class GUI_PlayerInput : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I))
         {
             EnableUI(UI_View.gameObject);
-            
         }
+
         if(Input.GetKeyDown(KeyCode.P))
         {
             EnableUI(UI_View.gameObject);
         }
+
         if(Input.GetKeyDown(KeyCode.U))
         {
             TestInputItem1();
         }
+
         if(Input.GetKeyDown(KeyCode.Y))
         {
             TestInputItem2();
@@ -73,19 +78,24 @@ public class GUI_PlayerInput : MonoBehaviour
     public void EnableUI(GameObject target)
     {
         /*CameraController cameraCtrl = GetComponent<CameraController>();*/
-        if (target.activeSelf == false)
+        //어떠한 창이 호라성화되지 않은 채로 창 활성화를 시도해야 할 수 있다.
+        if (target.activeSelf == false && isShowing == false)
         {
             playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
             MouseControl.instance.Apply(MouseControl.AimCursorMode.ConfinedWindow);
-            /*cameraCtrl.SetCanRotate(false);*/
 
+            /*cameraCtrl.SetCanRotate(false);*/
+            isShowing = true;
         }
         else if(target.activeSelf == true)
         {
+            //해당 창이 활성화중일 때만 해당 창 비활성화
+
             playerCtrl.SetCanAnyInput(true);
             target.SetActive(false);
             MouseControl.instance.Apply(MouseControl.AimCursorMode.LockedCenter);
+            isShowing = false;
             /*cameraCtrl.SetCanRotate(true);*/
         }
     }

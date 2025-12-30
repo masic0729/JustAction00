@@ -13,10 +13,11 @@ public class RoulletUI : MonoBehaviour
     public Text scoreText;
     public Text remainPlayCountText;
     public Slider scoreSlider;
+    [HideInInspector] public Sprite resultItemIcon;                    //플레이어가 아이템을 받으려는 아이템 아이콘
+    public GameObject resultPanel;                                      //룰렛을 다 돌린 뒤 획득하려는 아이템을 보여주는 창
+    public Image resultImage;                                             //룰렛 결과의 이미지
 
-    
-
-    bool isAnimationEnd = true;                 //룰렛 결과 UI연출이 끝났는 지 확인하는 변수.해당 애니메이션은 필요없을 수 있음
+    bool isAnimationEnd = true;                                         //룰렛 결과 UI연출이 끝났는 지 확인하는 변수.해당 애니메이션은 필요없을 수 있음
 
     private void Start()
     {
@@ -62,5 +63,13 @@ public class RoulletUI : MonoBehaviour
     public void SetRemainPlayCount(int count)
     {
         remainPlayCountText.text = count.ToString();
+    }
+
+    public void ShowResultPanel(Sprite itemIcon)
+    {
+        resultImage.sprite = itemIcon;
+
+        //이곳에 아이템 아이콘 할당 및 공개
+        resultPanel.SetActive(true);
     }
 }

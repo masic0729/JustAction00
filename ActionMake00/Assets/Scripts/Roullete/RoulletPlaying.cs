@@ -37,7 +37,7 @@ public class RoulletPlaying : MonoBehaviour
         //룰렛 작동 시 잔여 횟수 차감 및 결과도출을 즉각적으로 실행하며,
         //이후 룰렛 연출로 결과를 보여준다
         //하지만, 플레이어의 인벤토리 공간이 최소 1칸이라도 있어야 실행할 자격이 있다(구현 요구)
-        if (Input.GetKeyDown(KeyCode.F1) && isEnd == false /*&& */)
+        if (Input.GetKeyDown(KeyCode.F1) && isEnd == false && isRotating == false)
         {
             roulleteData.remainPlayCount--;
             roulletUI.SetRemainPlayCount(roulleteData.remainPlayCount);
