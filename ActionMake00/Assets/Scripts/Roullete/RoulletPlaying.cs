@@ -63,7 +63,6 @@ public class RoulletPlaying : MonoBehaviour
     /// </summary>
     void CalResultRoullete()
     {
-
         //GetComponent<RectTransform>().rotation = ;
         //기본적으로 룰렛은 5번 회전한다
         roulleteData.targetRotate = 1800;
