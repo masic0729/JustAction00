@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &974948311633485600
+--- !u!1001 &6194020232875693958
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.51
+      value: -10.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       propertyPath: m_LocalPosition.y
@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.54
+      value: -9.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       propertyPath: m_LocalRotation.w
@@ -750,56 +750,62 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3107115165574525294}
+      addedObject: {fileID: 114018590757550824}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4730989100668582787}
+      addedObject: {fileID: 2521141290099298735}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3737537437360109163}
+      addedObject: {fileID: 8743227983480601087}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5153854162322850845}
+      addedObject: {fileID: 4936416491616526515}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3008803472013111404}
+      addedObject: {fileID: 6795052119732963217}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3162581405714836195}
+      addedObject: {fileID: 8926048622677978462}
   m_SourcePrefab: {fileID: 100100000, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
---- !u!1 &92006596297286257 stripped
+--- !u!1 &6428041037808036567 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
-  m_PrefabInstance: {fileID: 974948311633485600}
+  m_PrefabInstance: {fileID: 6194020232875693958}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3107115165574525294
+--- !u!95 &114018590757550824
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92006596297286257}
+  m_GameObject: {fileID: 6428041037808036567}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 2c6eff9e1e7b3774da7b05500a596177, type: 3}
   m_Controller: {fileID: 9100000, guid: 5448966d67d88f945b37efda78352059, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig1:Hips'\n\tTransform 'mixamorig1:LeftHandThumb1'\n\tTransform
+    'mixamorig1:RightHand'\n\tTransform 'mixamorig1:LeftHandMiddle2'\n\tTransform
+    'mixamorig1:RightFoot'\n\tTransform 'mixamorig1:Spine1'\n\tTransform 'mixamorig1:RightLeg'\n\tTransform
+    'mixamorig1:RightHandMiddle2'\n\tTransform 'mixamorig1:Hips'\n\tTransform 'mixamorig1:RightArm'\n\tand
+    more ...\n\tFrom animation clip 'Attack'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &4730989100668582787
+--- !u!136 &2521141290099298735
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92006596297286257}
+  m_GameObject: {fileID: 6428041037808036567}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -816,13 +822,13 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!54 &3737537437360109163
+--- !u!54 &8743227983480601087
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92006596297286257}
+  m_GameObject: {fileID: 6428041037808036567}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -843,13 +849,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &5153854162322850845
+--- !u!114 &4936416491616526515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92006596297286257}
+  m_GameObject: {fileID: 6428041037808036567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cea166cee2642d42b2142ad8c01184a, type: 3}
@@ -880,13 +886,13 @@ MonoBehaviour:
   isPlayerFound: 0
   isDefault: 1
   isAttack: 0
---- !u!195 &3008803472013111404
+--- !u!195 &6795052119732963217
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92006596297286257}
+  m_GameObject: {fileID: 6428041037808036567}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -902,13 +908,13 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
---- !u!114 &3162581405714836195
+--- !u!114 &8926048622677978462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92006596297286257}
+  m_GameObject: {fileID: 6428041037808036567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5cc9d292f9d0244ea9560c2633caf93, type: 3}

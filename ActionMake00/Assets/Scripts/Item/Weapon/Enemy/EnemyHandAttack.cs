@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWeapon : Weapon
+public class EnemyHandAttack : EnemyWeapon
 {
     protected override void Start()
     {
         base.Start();
+        Init();
     }
+
+
     protected override void Init()
     {
         base.Init();
-        target = "Player";
-        //damageMultify = 1;
-        tagName = "EnemyAttack";
     }
-
-
+    
 }

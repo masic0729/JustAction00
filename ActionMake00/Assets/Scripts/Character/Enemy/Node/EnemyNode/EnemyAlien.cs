@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyTest : FollwingPlayerEnemyBT
+public class EnemyAlien : FollwingPlayerEnemyBT
 {
     AttackColManager attackmanage;
     protected override void Start()

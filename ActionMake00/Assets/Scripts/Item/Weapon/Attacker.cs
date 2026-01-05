@@ -14,7 +14,7 @@ public enum AttackType
 
 public class Attacker : MonoBehaviour, IAttacker
 {
-    [SerializeField] protected Character owner;                      //공격체의 출처
+    [SerializeField] protected Character owner;                     //공격체의 출처
     protected List<BuffBase> ownerBuffs;                            //자신에게 획득하는 버프 
     protected List<BuffBase> targetBuffs;                           //상대에게 제공하는 버프 
     [SerializeField] protected AttackType attackType;

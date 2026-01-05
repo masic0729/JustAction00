@@ -1,20 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPunch : EnemyWeapon
+public class BossHook : EnemyWeapon
 {
-
-    // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         Init();
     }
-
     protected override void Init()
     {
         base.Init();
-        hitLevel = 0;
-
+        hitLevel = 1;
     }
+
 
 }
