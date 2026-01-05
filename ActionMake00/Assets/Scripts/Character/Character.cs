@@ -48,8 +48,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
     public Action<Character> deathAction;      
 
     [SerializeField]
-    public ParticleSystem[] pEffect;                                        //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
-    protected Dictionary<string, ParticleSystem> pEffectDic;                //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
+    public ParticleSystem[] pEffect;                                                                                            //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
+    protected Dictionary<string, ParticleSystem> pEffectDic = new Dictionary<string, ParticleSystem>();  //해당 데이터는 풀 매니저에 의해 없어질 가능성이 높음
     Collider hitCol;
     protected Rigidbody rb;
     public Weapon[] weapon;
@@ -60,7 +60,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [Header("캐릭터 스킬 발사체")]
     public GameObject[] skillProjectiles;
 
-    protected int currentExp = 0;                                                  //몬스터가 사망 시 그 대상에게 주는 경험치
+    protected int currentExp = 0;                                                                                              //몬스터가 사망 시 그 대상에게 주는 경험치
     
 
     //캐릭터 능력치 관련 데이터
@@ -111,12 +111,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
         rb.useGravity = true;
         hitCol.enabled = true;
         DictionaryInit();
-
     }
 
     void DictionaryInit()
     {
-        pEffectDic = new Dictionary<string, ParticleSystem>();
+        
         for (int i = 0; i < weapon.Length; i++)
         {
             weaponDic[weapon[i].name] = weapon[i];

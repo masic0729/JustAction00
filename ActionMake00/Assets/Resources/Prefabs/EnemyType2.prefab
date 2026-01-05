@@ -2035,7 +2035,7 @@ GameObject:
   - component: {fileID: 8357481034762357687}
   - component: {fileID: 1971745283312877}
   - component: {fileID: 1694330990856734459}
-  - component: {fileID: 1280957289426316655}
+  - component: {fileID: 3494262387137502733}
   m_Layer: 0
   m_Name: EnemyType2
   m_TagString: Untagged
@@ -2182,7 +2182,7 @@ MonoBehaviour:
   buffSlider: {fileID: 0}
   buffParent: {fileID: 0}
   deBuffParent: {fileID: 0}
---- !u!114 &1280957289426316655
+--- !u!114 &3494262387137502733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5057414593308687330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cea166cee2642d42b2142ad8c01184a, type: 3}
+  m_Script: {fileID: 11500000, guid: a996cf47cec48c941a9eae94b4c698a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statDatas: []
@@ -2687,7 +2687,7 @@ GameObject:
   - component: {fileID: 3351610468270899970}
   - component: {fileID: 2722325626309544596}
   - component: {fileID: 8887731263787880581}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackArea
   m_TagString: EnemyAttack
   m_Icon: {fileID: 0}

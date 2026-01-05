@@ -12,12 +12,9 @@ public class BossWeapon : EnemyWeapon
     protected override void Init()
     {
         base.Init();
-        damageMultify = 5f;
+        hitLevel = 0;
+
+        damageMultify = 3f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

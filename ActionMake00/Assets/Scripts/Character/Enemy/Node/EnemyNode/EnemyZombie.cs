@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyZombie : FollwingPlayerEnemyBT
 {
     //AttackColManager attackmanage;
+
+
     protected override void Start()
     {
         base.Start();

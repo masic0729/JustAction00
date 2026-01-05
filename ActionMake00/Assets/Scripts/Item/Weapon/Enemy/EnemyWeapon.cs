@@ -12,7 +12,7 @@ public class EnemyWeapon : Weapon
     {
         base.Init();
         target = "Player";
-        //damageMultify = 1;
+        damageMultify = 1;
         tagName = "EnemyAttack";
     }
 
