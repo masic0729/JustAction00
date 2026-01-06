@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyZombie : FollwingPlayerEnemyBT
 {
-    //AttackColManager attackmanage;
-
 
     protected override void Start()
     {
@@ -21,7 +19,6 @@ public class EnemyZombie : FollwingPlayerEnemyBT
     protected override void Init()
     {
         base.Init();
-        //attackmanage = new AttackColManager();
         pEffectDic["CommonEnemyAttack"] = pEffect[0];
         playerFindDistance = 5f;
         activityAllowValue = 10f;
@@ -62,21 +59,8 @@ public class EnemyZombie : FollwingPlayerEnemyBT
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
         base.TakeDamage(amount, attacker, hitLevel);
-        if (isSuperArmor == false || hitLevel != -1)
-        {
-            anim.SetTrigger("Hit");
-        }
+        
     }
-    /*Collider CheckPlayerAttackAround(Transform trans)
-    {
-        Collider[] collider = Physics.OverlapSphere(trans.position, 2.0f, playerLayerMask);
-
-        if (collider.Length <= 0)
-        {
-            return null;
-        }
-        return collider[0];
-    }*/
 
 
     protected override void OnTriggerEnter(Collider other)

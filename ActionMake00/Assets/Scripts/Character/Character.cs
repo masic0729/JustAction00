@@ -43,8 +43,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     [HideInInspector]public Animator anim;
 
-    //피격 및 사망 시 발생하는 액션류
-    public Action hitAction;        //아직 사용하지는 않았음
+    //피격 및 사망 시 발생하는 액션류. 현재는 사망 효과 및 피격에 따른 캐릭터 상태 변화만 적용되었음
+    public Action hitAction;        
     public Action<Character> deathAction;      
 
     [SerializeField]
@@ -104,7 +104,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
         damage = characterStatData.GetDamage();
         moveSpeed = characterStatData.GetMoveSpeed();
         def = characterStatData.GetDef();
-
+        
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
@@ -126,6 +126,8 @@ public class Character : MonoBehaviour, ICharacterDamageable
             pEffectDic[pEffect[i].name] = pEffect[i];
         }
     }
+
+
 
     public float GetMaxHp() => maxHp;
     public void SetMaxHp(float value) => maxHp = value;
@@ -172,6 +174,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
         if (isSuperArmor == false || hitLevel != -1)
         {
             anim.SetInteger("HitLevel", hitLevel);
+        }
+
+        if (isSuperArmor == false || hitLevel != -1)
+        {
+            anim.SetTrigger("Hit");
         }
     }
 
