@@ -252,6 +252,14 @@ public class CustomTrail : MonoBehaviour
             _tris.Add(v0);
             _tris.Add(v3);
             _tris.Add(v2);
+
+            _tris.Add(v0);
+            _tris.Add(v3);
+            _tris.Add(v1);
+
+            _tris.Add(v0);
+            _tris.Add(v2);
+            _tris.Add(v3);
         }
 
         _mesh.Clear();

@@ -22,6 +22,9 @@ public class Attacker : MonoBehaviour, IAttacker
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
+    protected CustomTrail[] weaponCustomTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
+    protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
+
 
     [SerializeField] protected float damageMultify = 1;
 
@@ -55,7 +58,8 @@ public class Attacker : MonoBehaviour, IAttacker
         {
             return;
         }
-        ColliderTransEnable();
+        ResetColiderDisable();
+        //ColliderTransEnable();
         //weaponCol.enabled = false; // 시작은 꺼두기
     }
 
@@ -105,7 +109,26 @@ public class Attacker : MonoBehaviour, IAttacker
             objectCol.enabled = true;
 
         }
+        TransTrailByColliderEnable(objectCol.enabled);
+    }
 
+    /// <summary>
+    /// 트레일의 경우 콜라이더의 활성화 상태를 따라간다.
+    /// </summary>
+    /// <param name="state"></param>
+    void TransTrailByColliderEnable(bool state)
+    {
+        for(int i =0; i < weaponTrail.Length;i++)
+        {
+            if(state)
+            {
+                weaponTrail[i].emitting = true;
+            }
+            else
+            {
+                weaponTrail[i].emitting = false;
+            }
+        }
     }
 
     /// <summary>
