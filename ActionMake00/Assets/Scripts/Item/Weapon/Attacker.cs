@@ -23,7 +23,7 @@ public class Attacker : MonoBehaviour, IAttacker
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
     protected CustomTrail[] weaponCustomTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
-    protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
+    [SerializeField]protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
 
 
     [SerializeField] protected float damageMultify = 1;
@@ -61,6 +61,27 @@ public class Attacker : MonoBehaviour, IAttacker
         ResetColiderDisable();
         //ColliderTransEnable();
         //weaponCol.enabled = false; // 시작은 꺼두기
+
+        InitWeaponTrail();
+
+    }
+
+    /// <summary>
+    /// 게임 시작 시 트레일 모드를 비활성화한다
+    /// </summary>
+    void InitWeaponTrail()
+    {
+        //만약 weaponTrail 값을 할당하지 않았으면 메세지 보낼 것
+        if (weaponTrail.Length == 0)
+        {
+            Debug.LogError("Weapon Trail is not Valid : " + this.gameObject.name);
+            return;
+        }
+
+        for (int i = 0; i < weaponTrail.Length; i++)
+        {
+            weaponTrail[i].emitting = false;
+        }
     }
 
     /// <summary>

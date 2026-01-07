@@ -433,6 +433,8 @@ MonoBehaviour:
   objectCol: {fileID: 0}
   hitEffect:
   - {fileID: 1429954232896169632, guid: 68529e36d5702f64e9c06c41ac91be17, type: 3}
+  weaponTrail:
+  - {fileID: 5069208269306483080}
   damageMultify: 1
   weaponType: 0
 --- !u!4 &1086954030455651005 stripped

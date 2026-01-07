@@ -104,7 +104,7 @@ Material:
     - _CameraOffset: 0
     - _ColorSmoothstep: 0
     - _ColorSmoothstepSmoothness: 1
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DepthFade: 0
     - _DetailNormalMapScale: 1
@@ -156,8 +156,8 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color01: {r: 1, g: 0.10196079, b: 0.69803923, a: 0}
-    - _Color02: {r: 0.2509804, g: 0.10196079, b: 1, a: 0}
+    - _Color01: {r: 1, g: 0, b: 0.038758278, a: 0}
+    - _Color02: {r: 0.38679248, g: 0, b: 0.003951379, a: 0}
     - _ColorPanSpeed: {r: -1.15, g: -0.113, b: 0, a: 0}
     - _ColorUVScale: {r: 0.115, g: 1, b: 0, a: 0}
     - _Color_01: {r: 0.5323144, g: 0.3, b: 1, a: 0}
@@ -175,7 +175,7 @@ Material:
     - _Erosion_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Erosion_Speed: {r: 0.25, g: 0, b: 0, a: 0}
     - _MaskPanSpeed: {r: -0.777, g: 0, b: 0, a: 0}
-    - _MaskUVScale: {r: 0.1, g: 1, b: 0, a: 0}
+    - _MaskUVScale: {r: 0.5, g: 1, b: 0, a: 0}
     - _Mask_Scale: {r: 0.5, g: 1, b: 0, a: 0}
     - _Mask_Speed: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
