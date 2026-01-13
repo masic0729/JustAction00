@@ -72,6 +72,7 @@ MonoBehaviour:
   attackType: 0
   objectCol: {fileID: 0}
   hitEffect: []
+  weaponTrail: []
   damageMultify: 1
 --- !u!1 &3071375093165761184
 GameObject:
@@ -143,6 +144,7 @@ MonoBehaviour:
   attackType: 0
   objectCol: {fileID: 0}
   hitEffect: []
+  weaponTrail: []
   damageMultify: 1
 --- !u!1 &6255069050452724833
 GameObject:
@@ -871,7 +873,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa69e61e1f892f4e8d89382ef8a1614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statDatas: []
+  statDatas:
+  - MaxHp: 0
+    Damage: 0
+    Defense: 0
+    MoveSpeed: 0
+  - MaxHp: 0
+    Damage: 0
+    Defense: 0
+    MoveSpeed: 0
+  - MaxHp: 0
+    Damage: 0
+    Defense: 0
+    MoveSpeed: 0
   characterStatData: {fileID: 11400000, guid: 850b0ae4face7a445a80f8adbf7df178, type: 2}
   anim: {fileID: 0}
   pEffect:

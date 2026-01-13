@@ -196,7 +196,6 @@ public class Attacker : MonoBehaviour, IAttacker
                 //시전자의 공격력 * 공격체의 데미지 배율에 따라 피해량이 달라짐
                 hitTarget.TakeDamage(damageMultify * owner.GetResultDamage(), owner, hitLevel);
 
-                Debug.Log(this.gameObject.name + "의 총 공격력 : " + damageMultify * owner.GetResultDamage());
 
                 if (hitEffect.Length != 0)
                 {
@@ -219,12 +218,12 @@ public class Attacker : MonoBehaviour, IAttacker
             foreach (BuffBase targetBuff in targetBuffs)
             {
                 targetBuff.ObjectSetup(hitTarget, owner);
-                Debug.Log(targetBuff + "그렇습니다.");
             }
 
+            //발사체의 경우 강제로 반환을 한다. 사실상 발사체는 충돌된 순간 없어져야 하기 때문
             if (attackType == AttackType.Projectile)
             {
-                Destroy(this.gameObject);
+                this.gameObject.GetComponent<ParticlePoolReleaser>().PoolRelease();
             }
         }
     }

@@ -22,6 +22,8 @@ public class Projectile : Attacker
     {
         base.Init();
         hitLevel = 0;
+        attackType = AttackType.Projectile;
+
         Destroy(gameObject, destroyTime);
     }
 

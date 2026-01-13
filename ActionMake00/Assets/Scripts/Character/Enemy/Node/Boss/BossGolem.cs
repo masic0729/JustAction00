@@ -9,7 +9,7 @@ public class BossGolem : BossEnemyBT
     [SerializeField] GameObject GroundAttackGuide;                          //보통 해당 데이터를 확장하여 다양한 텔레그래피의 기능을 똑같이 수행할 수 있다. 현재는 하나만 할 것이므로 여기까지
     GameObject currentTeleObject;                                           //현재 시전 중인 텔레그래피 오브젝트
 
-    Transform spawnProjectileTransform;
+    Transform spawnProjectileTransform;                                     //발사체의 생성 위치
 
 
     protected override void Start()
@@ -72,7 +72,6 @@ public class BossGolem : BossEnemyBT
         GameObject instance;
         //instance = Instantiate(skillProjectiles[0], spawnProjectileTransform.position, spawnProjectileTransform.rotation);
         instance = PoolManager.instance.Spawn(skillProjectiles[0].name, spawnProjectileTransform.position, spawnProjectileTransform.rotation, this);
-        Debug.Log("소환됨");
 
         //이펙트가 있으면 상대적으로 강한 패턴이므로 더 많은 발사체를 소환한다 
         if(pattenEffect != null)

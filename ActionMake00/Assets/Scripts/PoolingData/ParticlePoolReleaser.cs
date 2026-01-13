@@ -53,10 +53,14 @@ public class ParticlePoolReleaser : MonoBehaviour
 
     public void PoolReleaser()
     {
+        PoolRelease();
+    }
+
+    public void PoolRelease()
+    {
         if (this.transform.parent != null)
             this.transform.parent = null;
         PoolManager.instance.skillPrefabs[this.gameObject.name].Release(this.gameObject);
-
     }
 
     public void SetReleaseTime(float time)

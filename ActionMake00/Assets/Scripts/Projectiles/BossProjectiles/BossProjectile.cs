@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossProjectile : Projectile
+public class BossProjectile : EnemyProjectile
 {
     protected int playerLayer = 1 << 6;
     protected override void Awake()
@@ -18,8 +18,7 @@ public class BossProjectile : Projectile
     protected override void Init()
     {
         base.Init();
-        attackType = AttackType.Projectile;
-        target = "Player";
+        
     }
 
     protected override void OnTriggerEnter(Collider other)

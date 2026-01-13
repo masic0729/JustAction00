@@ -13,6 +13,8 @@ public class BossCastProjectile : BossProjectile
     protected override void Start()
     {
         base.Start();
+        Init();
+        
     }
 
 
