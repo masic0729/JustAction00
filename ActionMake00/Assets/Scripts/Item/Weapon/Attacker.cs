@@ -74,7 +74,7 @@ public class Attacker : MonoBehaviour, IAttacker
         //만약 weaponTrail 값을 할당하지 않았으면 메세지 보낼 것
         if (weaponTrail.Length == 0)
         {
-            Debug.LogError("Weapon Trail is not Valid : " + this.gameObject.name);
+            //Debug.Log("Weapon Trail is not Valid : " + this.gameObject.name);
             return;
         }
 

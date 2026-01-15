@@ -14,14 +14,14 @@ public class BuffStater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slider = GetComponent<Slider>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float remainTime = buffTime - currentTimer;
-        slider.value = remainTime / buffTime;
+        if(slider != null)
+            slider.value = remainTime / buffTime;
     }
 
     /// <summary>
@@ -34,6 +34,7 @@ public class BuffStater : MonoBehaviour
     {
         currentTimer = buffMaxTime;
         buffTime = buffMaxTime;
+        slider = GetComponent<Slider>();
 
         Sprite instanceSprite = Resources.Load<Sprite>(buffIconPath);
         if(instanceSprite != null)

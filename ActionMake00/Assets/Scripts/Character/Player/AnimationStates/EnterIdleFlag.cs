@@ -7,6 +7,8 @@ public class EnterIdleFlag : PlayerState
         base.OnStateEnter(animator, stateInfo, layerIndex);
         playerCtrl.TransIdleState();
         playerCtrl.SetComboAttackIndex(0);
+        playerCtrl.SetCanAnyInput(true);
+
         player.WeaponColDisable();
         player.SetIsParring(false);
         player.SetParringAction(false);

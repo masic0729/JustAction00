@@ -65,7 +65,6 @@ public abstract class BuffBase
         buffCharacter.GetComponent<CharacterBuff>().AddBuff(this);
         Debug.Log("버프 등록됨");
 
-
         return spawnedParticle;
     }
 
@@ -79,8 +78,6 @@ public abstract class BuffBase
         buffSlider.GetComponent<BuffStater>().SetCurrentTimer(buffTimer);            //버프UI 타이머를 초기화한다
         CheckAlreadyHaveBuffEffectActive();
 
-        Debug.Log("중복 처리됨");
-        
     }
 
     /// <summary>
@@ -146,22 +143,29 @@ public abstract class BuffBase
         
         isActived = false;
         spawnedParticle = null;
-        characterBuff.RemoveBuffSlider(ref buffSlider);
+
+
+        //버프 리스트 삭제
         characterBuff.RemoveBuffByTimeOver(this);
+
+        //버프UI삭제
+        characterBuff.RemoveBuffSlider(ref buffSlider);
+
     }
 
     public bool UpdateTime()
     {
 
         buffTimer -= Time.deltaTime;
-        buffSlider.GetComponent<BuffStater>().SetCurrentTimer(buffTimer);
-        onUpdate?.Invoke();
+        
 
         if (buffTimer <= 0f)
         {
             Deactivate();
             return true;     // 만료됨
         }
+        buffSlider.GetComponent<BuffStater>().SetCurrentTimer(buffTimer);
+        onUpdate?.Invoke();
         return false;
     }
 

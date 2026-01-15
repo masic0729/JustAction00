@@ -83,14 +83,15 @@ public class CharacterBuff : MonoBehaviour
         {
             insBuff = Instantiate(buffSlider).GetComponent<RectTransform>();
             insBuff.SetParent(targetBuffParent, false);
+            
+            insBuff.GetComponent<BuffStater>().InitBuffData(buff.GetIconPath(), buff.GetBuffTime());
 
             //버프 창 내 중복된 타입의 버프가 없으면 추가하기
-            buffs.Add(buff);
+            targetBuffs.Add(buff);
             buff.onApply?.Invoke();
             buff.characterBuff = this;
             buff.buffSlider = insBuff.GetComponent<Slider>();
 
-            insBuff.GetComponent<BuffStater>().InitBuffData(buff.GetIconPath(), buff.GetBuffTime());
             return true;
         }
     }
@@ -100,7 +101,7 @@ public class CharacterBuff : MonoBehaviour
     public void RemoveBuffSlider(ref Slider buffSlider)
     {
         Destroy(buffSlider.gameObject);
-        Debug.Log("버프 삭제됨");
+        //Debug.Log("버프 삭제됨");
     }
 
     /// <summary>

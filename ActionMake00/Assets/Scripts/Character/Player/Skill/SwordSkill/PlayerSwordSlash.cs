@@ -19,8 +19,9 @@ public class PlayerSwordSlash : PlayerSkillInfo
         BuffBase addDamageBuff = new BuffTransDamage(10f, "DamageUpEffect", null, BuffType.Buff, 6f);
         ownerBuffs.Add(addDamageBuff);
 
-        BuffBase stunDeBuff = new BuffGetStun(2f, "StunEffect", null, BuffType.Buff);
-        ownerBuffs.Add(stunDeBuff);
+        //테스트용 디버프
+        /*BuffBase stunDeBuff = new BuffGetStun(2f, "StunEffect", null, BuffType.Buff);
+        ownerBuffs.Add(stunDeBuff);*/
     }
 
     

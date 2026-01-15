@@ -12,8 +12,8 @@ public class PlayerHitState : PlayerState
         player.SetIsSuperArmor(true);
         player.WeaponColDisable();
         player.SetIsParring(false);
-        playerCtrl.SetCanAttackInput(false);
-
+        //playerCtrl.SetCanAttackInput(false);
+        playerCtrl.SetCanAnyInput(false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -26,7 +26,7 @@ public class PlayerHitState : PlayerState
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player.SetIsSuperArmor(false);
-        playerCtrl.SetCanAttackInput(true);
+        playerCtrl.SetCanAnyInput(true);
 
     }
 
