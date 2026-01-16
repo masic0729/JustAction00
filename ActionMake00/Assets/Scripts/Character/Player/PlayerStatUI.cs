@@ -24,7 +24,7 @@ public class PlayerStatUI : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        player.hitAction += PlayerUpdateHp;
+        player.onHitAction += PlayerUpdateHp;
     }
 
     // Update is called once per frame

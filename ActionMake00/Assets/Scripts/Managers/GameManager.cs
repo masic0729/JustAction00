@@ -17,24 +17,16 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public bool GetIsTest() => isTest;
 
     /// <summary>
-    /// 플레이어가 사망하면 게임 오버
+    /// 플레이어가 사망하면 게임 오버창 활성화한다
     /// </summary>
     public void GameOver()
     {
-        gameClearView.SetActive(true);
+        gameOverView.SetActive(true);
+
+        GUI_PlayerInput.instance.EnableUI(gameOverView);
     }
 
     /// <summary>
@@ -42,6 +34,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameClear()
     {
-        gameOverView.SetActive(true);
+        gameClearView.SetActive(true);
+
+        GUI_PlayerInput.instance.EnableUI(gameClearView);
+
     }
 }

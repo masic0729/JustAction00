@@ -9,8 +9,11 @@ using UnityEngine.Experimental.Rendering;
 public class Player : Character
 {
     PlayerController playerCtrl;
+    CameraController cameraCtrl;
+
     PlayerLevelUp playerLevelUp;
     SkillManager skillManager;
+
     [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] int level = 1;
     [SerializeField] int[] needExp;
@@ -40,8 +43,11 @@ public class Player : Character
         currentExp = 0;
         playerCtrl = GetComponent<PlayerController>();
         playerLevelUp = GetComponent<PlayerLevelUp>();
+        cameraCtrl = GetComponent<CameraController>();
 
-        hitAction += WeaponColDisable;
+
+        onHitAction += WeaponColDisable;
+        onDeathAction += PlayerDeath;
 
         transform.tag = "Player";
         hp = 100;
@@ -171,7 +177,7 @@ public class Player : Character
 
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
-        hitAction();
+        onHitAction();
 
         if (isIgnoreDamage == true)
         {
@@ -252,8 +258,6 @@ public class Player : Character
     /// </summary>
     public void LevelUpForStatUp()
     {
-        Debug.Log("수치 상승해야함");
-
         float statUpValue = 5f;
         statDatas[(int)AddStatName.LevelUp].Damage += statUpValue;
         statDatas[(int)AddStatName.LevelUp].Defense += statUpValue;
@@ -266,6 +270,32 @@ public class Player : Character
         SetHp(GetHp() + statUpValue);
     }
 
+    /// <summary>
+    /// 플레이어가 사망 시 플레이어 조작 권한이 모두 사라진다.
+    /// 오직 마우스로만 누름으로서 
+    /// </summary>
+    void PlayerDeath(Character attacker)
+    {
+        playerCtrl.SetCanAnyInput(false);
+        cameraCtrl.SetCanRotate(false);
+        GUI_PlayerInput.instance.UI_LockByDeath();
+
+        ShowGameOverPanel();
+
+        //이후 플레이어의 콜라이더를 비활성화한다
+        Collider col = GetComponent<Collider>();
+        col.enabled = false;
+    }
+
+    /// <summary>
+    /// 플레이어 사망 시 패배 화면이 노출되는 방식이다
+    /// 해당 함수는 사망 애니메이션 시작 후 일정 시간이 지난 후에 실행된다.
+    /// </summary>
+    public void ShowGameOverPanel()
+    {
+        const float showTimer = 4f;
+        GameManager.instance.Invoke("GameOver", showTimer);
+    }
 
 
     public void SetWeaponType(string typeName) => weaponTypeString = typeName;

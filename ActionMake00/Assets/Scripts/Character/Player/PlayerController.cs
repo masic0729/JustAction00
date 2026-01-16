@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     bool canInteraction = false;                                                 //플레이어의 상호작용 여부
     bool isInteracting = false;                                                   //상호작용 중인 지 따지는 데이터. 활성화 시 중첩 상호작용이 되지 않는다
 
+    bool isPlayerDeath = false;                                                 //플레이어 사망 시 그 어떤 기능도 이용할 수 없음
+
     // 초기화
     void Start()
     {
@@ -47,6 +50,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //플레이어 사망 시 조작 불가
+        if (isPlayerDeath == true)
+            return;
+
         InteractionNPC();
 
         if (player.anim.GetBool("isStating") == true)
@@ -265,7 +272,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Sprint()
     {
-        player.hitAction();
+        player.onHitAction();
 
         canAttackInput = true;
         player.anim.SetTrigger("Sprint");

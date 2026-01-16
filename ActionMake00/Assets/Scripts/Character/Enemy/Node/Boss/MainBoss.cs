@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossGolem : BossEnemyBT
+public class MainBoss : BossEnemyBT
 {
     GameObject pattenEffect;
 
@@ -118,5 +118,14 @@ public class BossGolem : BossEnemyBT
     public void TurnOff()
     {
         isCanTurn = false;
+    }
+
+
+    /// <summary>
+    /// 보스 사망 시 플레이어의 키 인풋및 관련 데이터들을 통제한다
+    /// </summary>
+    public void BossDeath()
+    {
+
     }
 }

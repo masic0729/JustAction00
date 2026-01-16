@@ -22,7 +22,7 @@ public class BossGroundAttack : EnemyAttackTree
         if (enemy.isAttack == false)
         {
             //텔레그래피를 생성한다
-            transform.GetComponent<BossGolem>().SpawnTeleGuide();
+            transform.GetComponent<MainBoss>().SpawnTeleGuide();
             anim.SetTrigger("GroundAttack");
             anim.SetBool("isAttacking", true);
             enemy.isAttack = true;

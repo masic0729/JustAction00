@@ -19,8 +19,12 @@ public class GUI_PlayerInput : MonoBehaviour
     public ItemObject testitem3;
 
     //어떠한 창이 이미 활성화중인 지 확인하는 데이터. 다시 말해 여러 창을 동시에 활성화되는 방식은 아니다
-    bool isShowing = false;        
-    
+    bool isShowing = false;
+    GameObject currentEnableView = null;       //활성화 중인 창
+
+    //플레이어 사망 시 ui창을 작업할 수 없다
+    bool isPlayerDeath = false;
+
     void Awake()
     {
         instance = this;
@@ -34,12 +38,15 @@ public class GUI_PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         InputKey();
     }
 
     void InputKey()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        
+
+        if (Input.GetKeyDown(KeyCode.I))
         {
             EnableUI(UI_View.gameObject);
         }
@@ -77,15 +84,19 @@ public class GUI_PlayerInput : MonoBehaviour
     /// <param name="target">활성화/비활성화 하려는 오브젝트 대상</param>
     public void EnableUI(GameObject target)
     {
-        /*CameraController cameraCtrl = GetComponent<CameraController>();*/
-        //어떠한 창이 호라성화되지 않은 채로 창 활성화를 시도해야 할 수 있다.
+        //플레이어 사망 시 창을 활성화 할 수 없다
+        if (isPlayerDeath == true)
+            return;
+
+        //어떠한 창이 활성화되지 않은 채로 창 활성화를 시도해야 할 수 있다.
         if (target.activeSelf == false && isShowing == false)
         {
             playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);
             MouseControl.instance.Apply(MouseControl.AimCursorMode.ConfinedWindow);
 
-            /*cameraCtrl.SetCanRotate(false);*/
+            currentEnableView = target;
+
             isShowing = true;
         }
         else if(target.activeSelf == true)
@@ -95,8 +106,10 @@ public class GUI_PlayerInput : MonoBehaviour
             playerCtrl.SetCanAnyInput(true);
             target.SetActive(false);
             MouseControl.instance.Apply(MouseControl.AimCursorMode.LockedCenter);
+
+            currentEnableView = null;
+
             isShowing = false;
-            /*cameraCtrl.SetCanRotate(true);*/
         }
     }
 
@@ -114,4 +127,17 @@ public class GUI_PlayerInput : MonoBehaviour
     {
         inventory.AddItemInList(testitem3);
     }
+
+    /// <summary>
+    /// 플레이어 사망에 의해 인게임 ui조작은 불가한다
+    /// </summary>
+    public void UI_LockByDeath()
+    {
+        isPlayerDeath = true;
+        
+        //활성화 중인 창이 있다면, 해당 창 비활성화 처리
+        if (currentEnableView != null)
+            currentEnableView.SetActive(false);
+    }
+
 }

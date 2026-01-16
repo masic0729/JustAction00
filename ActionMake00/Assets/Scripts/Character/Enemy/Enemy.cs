@@ -60,8 +60,8 @@ public class Enemy : Character
         nav = GetComponent<NavMeshAgent>();
         pEffectDic["pDeath"] = pEffect[1];
 
-        deathAction += DropItem;
-        deathAction += ExpUpForPlayer;
+        onDeathAction += DropItem;
+        onDeathAction += ExpUpForPlayer;
     }
 
     /// <summary>
