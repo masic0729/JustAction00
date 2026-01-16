@@ -27,35 +27,6 @@ public class EnemyZombie1 : FollwingPlayerEnemyBT
 
 
 
-    /// <summary>
-    /// 일반 몬스터의 일반 공격
-    /// </summary>
-    /*void Attack01()
-    {
-        Transform attackTrans = FindTransformAtChild("mixamorig1:LeftToeBase");
-        //공격하는 위치가 없거나, 공격 중 상태가 아니면 사용되지 말 것
-        if (attackTrans == null)
-        {
-            Debug.Log("데이터 없음");
-            return;
-        }
-
-        ParticleSystem ps = Instantiate(pEffectDic["CommonEnemyAttack"], attackTrans.position, attackTrans.rotation);
-        ps.Play();
-        Destroy(ps.gameObject, ps.main.duration);
-        //Collider playerCol = CheckPlayerAttackAround(attackTrans);
-        Collider[] playerCol = attackmanage.CheckPlayerAttackAround(attackTrans, 2f, playerLayerMask);
-
-        if (playerCol != null)
-        {
-            for (int i = 0; i < playerCol.Length; i++)
-            {
-                playerCol[i].GetComponent<Character>().TakeDamage(damage, this);
-
-            }
-        }
-    }*/
-
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
         base.TakeDamage(amount, attacker, hitLevel);
