@@ -84,13 +84,11 @@ public class Character : MonoBehaviour, ICharacterDamageable
 
     #endregion
 
-    // Start is called before the first frame update
     virtual protected void Start()
     {
 
     }
 
-    // Update is called once per frame
     virtual protected void Update()
     {
         

@@ -84,6 +84,7 @@ public class GUI_PlayerInput : MonoBehaviour
     /// <param name="target">활성화/비활성화 하려는 오브젝트 대상</param>
     public void EnableUI(GameObject target)
     {
+
         //플레이어 사망 시 창을 활성화 할 수 없다
         if (isPlayerDeath == true)
             return;
@@ -113,6 +114,19 @@ public class GUI_PlayerInput : MonoBehaviour
         }
     }
 
+    public void ShowEndUI(GameObject target)
+    {
+        playerCtrl.SetCanAnyInput(false);
+        target.SetActive(true);
+        MouseControl.instance.Apply(MouseControl.AimCursorMode.ConfinedWindow);
+
+        currentEnableView = target;
+
+        isShowing = true;
+    }
+
+    //public void 
+
     void TestInputItem1()
     {
         inventory.AddItemInList(testitem1);
@@ -129,9 +143,9 @@ public class GUI_PlayerInput : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어 사망에 의해 인게임 ui조작은 불가한다
+    /// 게임 종료 시 ui조작은 불가한다
     /// </summary>
-    public void UI_LockByDeath()
+    public void UI_LockForGameEnd()
     {
         isPlayerDeath = true;
         

@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+    }
+
     public bool GetIsTest() => isTest;
 
     /// <summary>
@@ -26,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverView.SetActive(true);
 
-        GUI_PlayerInput.instance.EnableUI(gameOverView);
+        GUI_PlayerInput.instance.ShowEndUI(gameOverView);
     }
 
     /// <summary>
@@ -36,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         gameClearView.SetActive(true);
 
-        GUI_PlayerInput.instance.EnableUI(gameClearView);
+        GUI_PlayerInput.instance.ShowEndUI(gameClearView);
 
     }
 }

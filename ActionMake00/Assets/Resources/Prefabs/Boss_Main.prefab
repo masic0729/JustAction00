@@ -870,7 +870,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 347906078160315764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aa69e61e1f892f4e8d89382ef8a1614, type: 3}
+  m_Script: {fileID: 11500000, guid: 89b8808e24913c24fa1c881377977dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statDatas:
@@ -889,19 +889,20 @@ MonoBehaviour:
   characterStatData: {fileID: 11400000, guid: 850b0ae4face7a445a80f8adbf7df178, type: 2}
   anim: {fileID: 0}
   pEffect:
-  - {fileID: 9186446616439801708, guid: 3cca8ff5b07f7d74f99c42d348d62e6a, type: 3}
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
+  - {fileID: 9186446616439801708, guid: 3cca8ff5b07f7d74f99c42d348d62e6a, type: 3}
+  - {fileID: 4593184484909914550, guid: 783eff529051b1c448a7765aef6cd417, type: 3}
   weapon:
   - {fileID: 2068265579322148270}
   - {fileID: 5853966072210373655}
   skillProjectiles:
   - {fileID: 3737708309985444689, guid: 108992382f3b68846ada30cb8d8d5849, type: 3}
   maxHp: 0
-  hp: 100
+  hp: 0
   damage: 0
   moveSpeed: 5
   def: 0
-  isSuperArmor: 1
+  isSuperArmor: 0
   isIgnoreDamage: 0
   DropItems: {fileID: 0}
   thisObject: {fileID: 0}
@@ -909,7 +910,7 @@ MonoBehaviour:
   activityAllowValue: 20
   playerFindDistance: 10
   attackReadyDistance: 1
-  expAddValue: 3
+  expAddValue: 0
   isPlayerFound: 0
   isDefault: 1
   isAttack: 0

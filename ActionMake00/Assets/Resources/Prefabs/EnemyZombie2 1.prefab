@@ -4308,7 +4308,7 @@ MonoBehaviour:
   characterStatData: {fileID: 11400000, guid: 0b32dce957a53f7408629402da3cbce6, type: 2}
   anim: {fileID: 0}
   pEffect:
-  - {fileID: 7177991128484655658, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
+  - {fileID: 2565938770276610593, guid: d7b2995964520104abfa84210644ab16, type: 3}
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
   weapon: []
   skillProjectiles:

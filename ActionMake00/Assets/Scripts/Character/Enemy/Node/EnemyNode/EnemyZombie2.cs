@@ -33,9 +33,8 @@ public class EnemyZombie2 : FollwingPlayerEnemyBT
     /// </summary>
     void Attack01()
     {
-
-        PoolManager.instance.Spawn(skillProjectiles[0].name, spawnProjectileTransform.position, spawnProjectileTransform.rotation, this);
-
+        PoolManager.instance.Spawn("EnemyProjectile", spawnProjectileTransform.position, spawnProjectileTransform.rotation, this);
+    
     }
 
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)

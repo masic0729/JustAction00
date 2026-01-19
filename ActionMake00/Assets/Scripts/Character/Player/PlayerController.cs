@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     bool canInteraction = false;                                                 //플레이어의 상호작용 여부
     bool isInteracting = false;                                                   //상호작용 중인 지 따지는 데이터. 활성화 시 중첩 상호작용이 되지 않는다
 
-    bool isPlayerDeath = false;                                                 //플레이어 사망 시 그 어떤 기능도 이용할 수 없음
+    bool isGameEnd = false;                                                 //플레이어 사망 시 그 어떤 기능도 이용할 수 없음
 
     // 초기화
     void Start()
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //플레이어 사망 시 조작 불가
-        if (isPlayerDeath == true)
+        if (isGameEnd == true)
             return;
 
         InteractionNPC();
@@ -328,4 +328,6 @@ public class PlayerController : MonoBehaviour
     public bool GetCanInteraction() => canInteraction;
 
     public void SetCanInteraction(bool state) => canInteraction = state;
+
+    public void SetIsGameEnd(bool state) => isGameEnd = state;
 }

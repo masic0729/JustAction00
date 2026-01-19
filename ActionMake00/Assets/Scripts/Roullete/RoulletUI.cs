@@ -17,7 +17,7 @@ public class RoulletUI : MonoBehaviour
     public GameObject resultPanel;                                      //룰렛을 다 돌린 뒤 획득하려는 아이템을 보여주는 창
     public Image resultImage;                                             //룰렛 결과의 이미지
 
-    bool isAnimationEnd = true;                                         //룰렛 결과 UI연출이 끝났는 지 확인하는 변수.해당 애니메이션은 필요없을 수 있음
+    //bool isAnimationEnd = true;                                         //룰렛 결과 UI연출이 끝났는 지 확인하는 변수.해당 애니메이션은 필요없을 수 있음
 
     private void Start()
     {
@@ -37,12 +37,12 @@ public class RoulletUI : MonoBehaviour
     /// <param name="targetScore"></param>
     public void PlayAnimUI(int targetScore)
     {
-        isAnimationEnd = false;
+        //isAnimationEnd = false;
 
         scoreText.text = targetScore.ToString();
         scoreSlider.value = (float)targetScore / roulletData.maxScore;
 
-        isAnimationEnd = true;
+        //isAnimationEnd = true;
 
         //지금은 여기에 있지만, 트윈 애니메이션의 컴플릿에 실행해야함
         CheckCanGive();

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,12 +33,16 @@ public class MainBoss : BossEnemyBT
         }
         /*weaponDic["PunchWeapon"] = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
         weaponDic["HookWeapon"] = FindTransformAtChild("HookWeapon").GetComponent<Weapon>();*/
-        
+
+        onDeathAction += BossDeath;
+        onDeathAction += ShowGameOverPanel;
+
         playerFindDistance = 10f;
         activityAllowValue = 20f;
         attackReadyDistance = 3f;
         punchDistance = 2.0f;
-        
+
+
     }
 
     public override void Dead(float animationTime)
@@ -124,8 +129,26 @@ public class MainBoss : BossEnemyBT
     /// <summary>
     /// 보스 사망 시 플레이어의 키 인풋및 관련 데이터들을 통제한다
     /// </summary>
-    public void BossDeath()
+    public void BossDeath(Character attacker)
     {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
+        //게임 내 플레이어가 여러 명으로 개발 할 수 있으므로, 이를 고려하여 처리한다
+        foreach(GameObject player in players)
+        {
+            player.GetComponent<Player>().GameEnd();
+        }
+
+
+    }
+
+    /// <summary>
+    /// 보스 사망 시 승리 화면이 노출되는 방식이다
+    /// 해당 함수는 사망 애니메이션 시작 후 일정 시간이 지난 후에 실행된다.
+    /// </summary>
+    public void ShowGameOverPanel(Character attacker)
+    {
+        const float showTimer = 4f;
+        GameManager.instance.Invoke("GameClear", showTimer);
     }
 }

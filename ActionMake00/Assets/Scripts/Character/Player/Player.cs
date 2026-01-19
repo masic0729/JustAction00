@@ -35,6 +35,7 @@ public class Player : Character
     {
         base.Start();
         Init();
+
     }
 
     protected override void Init()
@@ -47,7 +48,9 @@ public class Player : Character
 
 
         onHitAction += WeaponColDisable;
-        onDeathAction += PlayerDeath;
+
+        onDeathAction += GameEnd;
+        onDeathAction += ShowGameOverPanel;
 
         transform.tag = "Player";
         hp = 100;
@@ -68,27 +71,7 @@ public class Player : Character
         }
     }
 
-    /*public void WeaponInit(string weaponName)
-    {
-        weaponTransform = FindTransformAtChild("PlayerWeapon");
-
-        for (int i = 0; i < weapon.Length; i++)
-        {
-            PlayerWeapon playerWeapon = weapon[i].GetComponent<PlayerWeapon>();
-
-            weaponDic[playerWeapon.weaponType.ToString()] = Instantiate(weapon[i].gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<Weapon>();
-            weaponDic[playerWeapon.weaponType.ToString()].gameObject.SetActive(false);
-            weaponDic[playerWeapon.weaponType.ToString()].transform.parent = weaponTransform;
-            weaponDic[playerWeapon.weaponType.ToString()].SetDamage(damage);
-        }
-        weaponTypeString = weaponName;
-        skillManager.SetCurrentWeaponType(weaponTypeString);
-        skillManager.WeaponSkillLoad(weaponTypeString);
-
-        weaponDic[weaponTypeString].gameObject.SetActive(true);
-
-    }*/
-
+    
     /// <summary>
     /// 새로 제작한 무기 초기화 함수로,
     /// 해당 기능은 무기 공격력을 적용 직후에 실행해야 한다
@@ -274,13 +257,12 @@ public class Player : Character
     /// 플레이어가 사망 시 플레이어 조작 권한이 모두 사라진다.
     /// 오직 마우스로만 누름으로서 
     /// </summary>
-    void PlayerDeath(Character attacker)
+    public void GameEnd(Character attacker = null)
     {
-        playerCtrl.SetCanAnyInput(false);
+        playerCtrl.SetIsGameEnd(true);
         cameraCtrl.SetCanRotate(false);
-        GUI_PlayerInput.instance.UI_LockByDeath();
+        GUI_PlayerInput.instance.UI_LockForGameEnd();
 
-        ShowGameOverPanel();
 
         //이후 플레이어의 콜라이더를 비활성화한다
         Collider col = GetComponent<Collider>();
@@ -291,7 +273,7 @@ public class Player : Character
     /// 플레이어 사망 시 패배 화면이 노출되는 방식이다
     /// 해당 함수는 사망 애니메이션 시작 후 일정 시간이 지난 후에 실행된다.
     /// </summary>
-    public void ShowGameOverPanel()
+    public void ShowGameOverPanel(Character attacker)
     {
         const float showTimer = 4f;
         GameManager.instance.Invoke("GameOver", showTimer);
