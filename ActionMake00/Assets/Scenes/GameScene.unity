@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338704, g: 0.216739, b: 0.2988083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -350,14 +350,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: -0.00289917
       value: 0
-      inSlope: 5.09434
-      outSlope: 5.09434
+      inSlope: 7.7105393
+      outSlope: 7.7105393
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.025
+      outWeight: 0.024896072
     - serializedVersion: 3
       time: 0.69583327
       value: 1
@@ -376,7 +376,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -384,7 +384,7 @@ MonoBehaviour:
   animationType: 22
   targetType: 3
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0, z: 0}
@@ -1797,7 +1797,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -1805,7 +1805,7 @@ MonoBehaviour:
   animationType: 11
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 1
   endValueV3: {x: 1, y: 1, z: 1}
@@ -1876,7 +1876,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268271899}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94fcf2a8af05d0b4fb25ab6f596e69b8, type: 3}
   m_Name: 
@@ -7592,9 +7592,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd1daabf3c31f24197281e034a1c18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tweenText: {fileID: 268271901}
+  tweenBar: {fileID: 8212752}
   scoreText: {fileID: 268271902}
   remainPlayCountText: {fileID: 504045249}
-  scoreSlider: {fileID: 0}
+  scoreSlider: {fileID: 8212750}
   resultItemIcon: {fileID: 0}
   resultPanel: {fileID: 1077322390}
   resultImage: {fileID: 1841269536}
@@ -7631,7 +7633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInventory: {fileID: 5794484}
-  PlayButton: {fileID: 0}
+  PlayButton: {fileID: 1060826640}
 --- !u!114 &1615472083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8649,7 +8651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1776234220
 RectTransform:
   m_ObjectHideFlags: 0

@@ -23,8 +23,13 @@ public class RoulletPlaying : MonoBehaviour
 
     void Update()
     {
-        PlayRoullet();
+        //PlayRoullet();
 
+        //룰렛 회전 중이 아니라면 조금씩 회전할 것
+        if (isRotating == false)
+        {
+            transform.Rotate(0, 0, 0.1f);
+        }
     }
 
     void Init()
@@ -39,7 +44,7 @@ public class RoulletPlaying : MonoBehaviour
         //룰렛 작동 시 잔여 횟수 차감 및 결과도출을 즉각적으로 실행하며,
         //이후 룰렛 연출로 결과를 보여준다
         //하지만, 플레이어의 인벤토리 공간이 최소 1칸이라도 있어야 실행할 자격이 있다(구현 요구)
-        if (Input.GetKeyDown(KeyCode.F1) && isEnd == false && isRotating == false)
+        if (/*Input.GetKeyDown(KeyCode.F1) && */isEnd == false && isRotating == false)
         {
             PlayButton.SetActive(false);
 
@@ -54,10 +59,6 @@ public class RoulletPlaying : MonoBehaviour
             roulletAnim.CreateTween();
             roulletAnim.DORestart();
             isRotating = true;
-        }
-        else if (isRotating == false)
-        {
-            transform.Rotate(0, 0, 0.1f);
         }
     }
 
@@ -103,12 +104,13 @@ public class RoulletPlaying : MonoBehaviour
     {
         //잔여 횟수가 존재하면 회전 가능상태로 전환, 미존재 시 종료 및 보상 지급(구현 예정)
         if (roulleteData.remainPlayCount != 0)
+        {
             isRotating = false;
+            PlayButton.SetActive(true);
+        }
         else
         {
             isEnd = true;
-            PlayButton.SetActive(true);
-
         }
 
         roulletUI.PlayAnimUI(roulleteData.currentScore);

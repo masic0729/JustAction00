@@ -10,7 +10,7 @@ public class TestAnim : MonoBehaviour
     void Start()
     {
         anim = GetComponent<DOTweenAnimation>();
-        anim.DOPlay();
+        //anim.DOPlay();
     }
 
     // Update is called once per frame

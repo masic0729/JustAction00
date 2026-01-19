@@ -8,11 +8,12 @@ public class RoulletUI : MonoBehaviour
     RoulletPlayData roulletData;
     RoulletPlaying roullet;
     RoulletItem roulletItem;
-    DOTweenAnimation scoreTextAnim;
+    [SerializeField] DOTweenAnimation tweenText;                    //룰렛 회전이 끝날 때 실행되는 텍스트
+    [SerializeField] DOTweenAnimation tweenBar;                    //룰렛 회전이 끝날 때 실행되는 게이지
 
     public Text scoreText;
     public Text remainPlayCountText;
-    public Slider scoreSlider;
+    public Image scoreSlider;
     [HideInInspector] public Sprite resultItemIcon;                    //플레이어가 아이템을 받으려는 아이템 아이콘
     public GameObject resultPanel;                                      //룰렛을 다 돌린 뒤 획득하려는 아이템을 보여주는 창
     public Image resultImage;                                             //룰렛 결과의 이미지
@@ -21,11 +22,12 @@ public class RoulletUI : MonoBehaviour
 
     private void Start()
     {
-        scoreTextAnim = scoreText.GetComponent<DOTweenAnimation>();
         roulletData = GetComponent<RoulletPlayData>();
         roullet = GetComponent<RoulletPlaying>();
         roulletItem = GetComponent<RoulletItem>();
         remainPlayCountText.text = roulletData.remainPlayCount.ToString();
+
+
     }
 
     /// <summary>
@@ -37,12 +39,23 @@ public class RoulletUI : MonoBehaviour
     /// <param name="targetScore"></param>
     public void PlayAnimUI(int targetScore)
     {
-        //isAnimationEnd = false;
-
+        //룰렛 결과를 데이터에 반영
         scoreText.text = targetScore.ToString();
-        scoreSlider.value = (float)targetScore / roulletData.maxScore;
 
-        //isAnimationEnd = true;
+        float currentBarValue = (float)targetScore / roulletData.maxScore;
+        //scoreSlider.fillAmount = currentBarValue;
+
+        //트위
+        tweenBar.endValueFloat = currentBarValue;
+
+        tweenBar.DOKill();
+
+        tweenBar.endValueFloat = currentBarValue;
+        tweenBar.RecreateTween();
+
+        //이후 애니메이션 실행.
+        tweenBar.DORestart();
+        tweenText.DORestart();
 
         //지금은 여기에 있지만, 트윈 애니메이션의 컴플릿에 실행해야함
         CheckCanGive();
