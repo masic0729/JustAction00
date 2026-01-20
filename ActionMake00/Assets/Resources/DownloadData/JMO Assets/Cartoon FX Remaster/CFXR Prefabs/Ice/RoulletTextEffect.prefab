@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2147420418670197918}
   - component: {fileID: 8280942166302414958}
   - component: {fileID: 1565506079972833602}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stars remains
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.48584908, g: 0.71130383, b: 1, a: 1}
+      maxColor: {r: 0.1273585, g: 0.30230626, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4881,7 +4881,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4925,13 +4925,13 @@ GameObject:
   - component: {fileID: 4035222792055163473}
   - component: {fileID: 4035222792055163475}
   - component: {fileID: 4035222792055163472}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4035222792055163473
 Transform:
   m_ObjectHideFlags: 0
@@ -4964,7 +4964,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9781,7 +9781,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9944,8 +9944,8 @@ GameObject:
   - component: {fileID: 5112403345868107844}
   - component: {fileID: 5112403345868107899}
   - component: {fileID: 5112403345868107846}
-  m_Layer: 0
-  m_Name: CFXR3 Hit Ice B (Air)
+  m_Layer: 5
+  m_Name: RoulletTextEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10012,7 +10012,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -10062,7 +10062,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -11235,7 +11235,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.41037738, g: 0.5668078, b: 1, a: 1}
-        key1: {r: 0.5801887, g: 0.9193304, b: 1, a: 0}
+        key1: {r: 0.16958882, g: 0.30279166, b: 0.9716981, a: 0}
         key2: {r: 1, g: 1, b: 1, a: 0.039215688}
         key3: {r: 0, g: 0.24578038, b: 0.5660378, a: 0.039215688}
         key4: {r: 1, g: 0.017601715, b: 0, a: 0.039215688}
@@ -11259,7 +11259,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 4
         m_NumAlphaKeys: 2
       minGradient:
@@ -14692,7 +14692,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112403345868107898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
   m_Name: 
@@ -14868,7 +14868,7 @@ GameObject:
   - component: {fileID: 5112403347238810574}
   - component: {fileID: 5112403347238810568}
   - component: {fileID: 5112403347238810575}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14907,7 +14907,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -16224,7 +16224,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 0.5801887, g: 0.9193304, b: 1, a: 0}
+        key1: {r: 0.07075471, g: 0.31908184, b: 1, a: 0}
         key2: {r: 0.41037738, g: 0.5668078, b: 1, a: 0.039215688}
         key3: {r: 0.5801887, g: 0.9193304, b: 1, a: 0.039215688}
         key4: {r: 1, g: 0.017601715, b: 0, a: 0.039215688}
@@ -16248,7 +16248,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
       minGradient:
@@ -19724,7 +19724,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -19768,7 +19768,7 @@ GameObject:
   - component: {fileID: 7531768400295773594}
   - component: {fileID: 7531768400295773596}
   - component: {fileID: 7531768400295773595}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19807,7 +19807,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -21016,7 +21016,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.41037738, g: 0.5668078, b: 1, a: 1}
-        key1: {r: 0.5801887, g: 0.9193304, b: 1, a: 0}
+        key1: {r: 0.1273585, g: 0.36013716, b: 1, a: 0}
         key2: {r: 1, g: 1, b: 1, a: 0.039215688}
         key3: {r: 0, g: 0.24578038, b: 0.5660378, a: 0.039215688}
         key4: {r: 1, g: 0.017601715, b: 0, a: 0.039215688}
@@ -21040,7 +21040,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 4
         m_NumAlphaKeys: 2
       minGradient:
@@ -24516,7 +24516,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0

@@ -8,8 +8,11 @@ public class RoulletUI : MonoBehaviour
     RoulletPlayData roulletData;
     RoulletPlaying roullet;
     RoulletItem roulletItem;
+
+    //DOTween 또는 이펙트 관련 데이터
     [SerializeField] DOTweenAnimation tweenText;                    //룰렛 회전이 끝날 때 실행되는 텍스트
     [SerializeField] DOTweenAnimation tweenBar;                    //룰렛 회전이 끝날 때 실행되는 게이지
+    [SerializeField] ParticleSystem scoreTextEffect;                                         //점수값이 변경될 때마다 실행할 이펙트
 
     public Text scoreText;
     public Text remainPlayCountText;
@@ -18,7 +21,8 @@ public class RoulletUI : MonoBehaviour
     public GameObject resultPanel;                                      //룰렛을 다 돌린 뒤 획득하려는 아이템을 보여주는 창
     public Image resultImage;                                             //룰렛 결과의 이미지
 
-    //bool isAnimationEnd = true;                                         //룰렛 결과 UI연출이 끝났는 지 확인하는 변수.해당 애니메이션은 필요없을 수 있음
+
+
 
     private void Start()
     {
@@ -26,8 +30,6 @@ public class RoulletUI : MonoBehaviour
         roullet = GetComponent<RoulletPlaying>();
         roulletItem = GetComponent<RoulletItem>();
         remainPlayCountText.text = roulletData.remainPlayCount.ToString();
-
-
     }
 
     /// <summary>
@@ -56,6 +58,7 @@ public class RoulletUI : MonoBehaviour
         //이후 애니메이션 실행.
         tweenBar.DORestart();
         tweenText.DORestart();
+        scoreTextEffect.Play();
 
         //지금은 여기에 있지만, 트윈 애니메이션의 컴플릿에 실행해야함
         CheckCanGive();
