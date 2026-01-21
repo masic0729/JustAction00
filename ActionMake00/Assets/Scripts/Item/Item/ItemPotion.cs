@@ -18,7 +18,9 @@ public class ItemPotion : ItemObject
         character.HpTransfer(transHpValue);
         base.UseItem(character, slot);
         Debug.Log("È¸º¹µÊ : " + character.GetHp());
-        
+
+        character.onTransStatData?.Invoke();
+
     }
 
     public override void UpdateInventory(SlotBase slot)

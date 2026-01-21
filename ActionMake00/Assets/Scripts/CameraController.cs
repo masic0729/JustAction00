@@ -70,6 +70,7 @@ public class CameraController : MonoBehaviour
         mainCamera.PlayCameraShake(multify);
     }
 
+
     public void SetCanRotate(bool state) => canRotate = state;
 
     public bool GetCanRotate() => canRotate;

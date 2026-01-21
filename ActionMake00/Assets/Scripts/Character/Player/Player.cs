@@ -47,7 +47,7 @@ public class Player : Character
         cameraCtrl = GetComponent<CameraController>();
 
 
-        onHitAction += WeaponColDisable;
+        onTransStatData += WeaponColDisable;
 
         onDeathAction += GameEnd;
         onDeathAction += ShowGameOverPanel;
@@ -160,7 +160,7 @@ public class Player : Character
 
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
-        onHitAction();
+        //onTransStatData();
 
         if (isIgnoreDamage == true)
         {
@@ -171,6 +171,7 @@ public class Player : Character
         
 
         base.TakeDamage(amount, attacker, hitLevel);
+
         if (hitLevel == -1)
             return;
 

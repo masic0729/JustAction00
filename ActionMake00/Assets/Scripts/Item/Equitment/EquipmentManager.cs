@@ -29,13 +29,8 @@ public class EquipmentManager : MonoBehaviour
     private void Awake()
     {
         Init();
-
     }
 
-    void Start()
-    {
-        
-    }
 
     private void OnEnable()
     {
@@ -49,9 +44,8 @@ public class EquipmentManager : MonoBehaviour
         {
             equipSlotDic[equipSlots[i].equipmentType.ToString()] = equipSlots[i];
         }
-        UpdateCharacterStatResult();
 
-        
+        UpdateCharacterStatResult();
     }
 
 
@@ -68,26 +62,20 @@ public class EquipmentManager : MonoBehaviour
             StatResult.MoveSpeed += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.MoveSpeed;
         }
         StatViewTarget.statDatas[(int)AddStatName.Equit] = StatResult;
-        /*StatViewTarget.SetMaxHp(StatViewTarget.GetResultMaxHp());
-        StatViewTarget.SetDamage(StatViewTarget.GetResultDamage());
-        StatViewTarget.SetMoveSpeed(StatViewTarget.GetResultMoveSpeed());
-        StatViewTarget.SetDefense(StatViewTarget.GetResultMaxHp());*/
 
         CharacterStatUpdateForInfo();
     }
 
     void CharacterStatUpdateForInfo()
     {
-        /*StatViewTarget.SetMaxHp(StatViewTarget.GetResultMaxHp());
-        StatViewTarget.SetDamage(StatViewTarget.GetResultDamage());
-        StatViewTarget.SetMoveSpeed(StatViewTarget.GetResultMoveSpeed());
-        StatViewTarget.SetDefense(StatViewTarget.GetResultMaxHp());*/
-
+        //장비창 내 텍스트 변화용
         statTexts[(int)StatInfo.MaxHP].text = "MAXHP\n" + StatViewTarget.GetResultMaxHp().ToString();
         statTexts[(int)StatInfo.Damage].text = "DAMAGE\n" + StatViewTarget.GetResultDamage().ToString();
         statTexts[(int)StatInfo.Defense].text = "DEFENSE\n" + StatViewTarget.GetResultDefense().ToString();
         statTexts[(int)StatInfo.MoveSpeed].text = "SPEED\n" + StatViewTarget.GetResultMoveSpeed().ToString();
-    }
 
-    
+        //캐릭터의 체력바 업데이트용
+        StatViewTarget.onTransStatData?.Invoke();
+    }
+   
 }

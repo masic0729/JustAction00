@@ -44,7 +44,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [HideInInspector]public Animator anim;
 
     //피격 및 사망 시 발생하는 액션류. 현재는 사망 효과 및 피격에 따른 캐릭터 상태 변화만 적용되었음
-    public Action onHitAction;        
+    public Action onTransStatData;        
     public Action<Character> onDeathAction;      
 
     [SerializeField]
@@ -155,7 +155,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
             hp -= (int)damage;
 
         //이곳에 체력 바 갱신
-        onHitAction?.Invoke();
+        onTransStatData?.Invoke();
 
 
         if (hp <= 0)

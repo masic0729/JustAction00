@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
@@ -14,10 +13,6 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayCameraShake();
-        }
     }
 
     public void PlayCameraShake(float shakeMultyfy = 1f)
@@ -32,6 +27,7 @@ public class CameraShake : MonoBehaviour
 
     IEnumerator Shake(float shakeMultify)
     {
+        Debug.Log("³»°¡ ½ÇÇàµÊ");
         float halfDuration = duration / 2;
         float elapsed = 0f;
         float tick = Random.Range(-10f, 10f);

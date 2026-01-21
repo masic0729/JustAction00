@@ -55,11 +55,11 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
         {
             Debug.Log("æ∆¿Ã≈€ »πµÊ" + other.transform.name);
             Inventory playerInventory = other.GetComponent<GUI_PlayerInput>().inventory;
-            AddITemInInventory(playerInventory, this);
+            AddItemInInventory(playerInventory, this);
         }
     }
 
-    protected void AddITemInInventory(Inventory inven, ItemObject itemObject)
+    protected void AddItemInInventory(Inventory inven, ItemObject itemObject)
     {
 
         if (inven.AddItemInList(itemObject) == true)

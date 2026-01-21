@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     public Text testItemName;
     public Text testItemComment;
     Transform inventoryTransform;
-    const int slotCount = 40;
+    const int slotCount = 35;
     public List<ItemSlot> lSlot;
     SlotBase dragSlot = null;
 

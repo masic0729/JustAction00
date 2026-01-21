@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameObject mainCamera;
+    public GameObject mainCamera;
     SkillManager skillManager;
     Player player;
     [Header("Character default info")]
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     bool canInteraction = false;                                                 //플레이어의 상호작용 여부
     bool isInteracting = false;                                                   //상호작용 중인 지 따지는 데이터. 활성화 시 중첩 상호작용이 되지 않는다
 
-    bool isGameEnd = false;                                                 //플레이어 사망 시 그 어떤 기능도 이용할 수 없음
+    bool isGameEnd = false;                                                      //플레이어 사망 시 그 어떤 기능도 이용할 수 없음
 
     // 초기화
     void Start()
@@ -61,9 +61,6 @@ public class PlayerController : MonoBehaviour
 
 
         {
-            
-            
-
             PlayerEscape();
             WeapontestSwap();
         }
@@ -82,7 +79,6 @@ public class PlayerController : MonoBehaviour
                 v = 0f;
                 return;
             }
-
 
             MoveInput();
 
@@ -272,7 +268,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Sprint()
     {
-        player.onHitAction();
+        player.onTransStatData();
 
         canAttackInput = true;
         player.anim.SetTrigger("Sprint");
