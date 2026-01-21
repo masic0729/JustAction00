@@ -2231,15 +2231,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7710334120e1fe44d8a5125b38bc7827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMakeCount: 5
+  mapMakeCount: 7
   middleTileConfigs:
-  - contentType: 2
+  - contentType: 0
     monsterPreset: {fileID: 0}
     monsterCountMultiplier: 1
     npcPrefab: {fileID: 4764888283214704460, guid: af8cb16525003e44c91e74c5ee2e0177, type: 3}
     npcCount: 0
-  - contentType: 1
+  - contentType: 0
     monsterPreset: {fileID: 11400000, guid: dd120b794bf9a3c49b820d336563683f, type: 2}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 0
+  - contentType: 0
+    monsterPreset: {fileID: 0}
+    monsterCountMultiplier: 1
+    npcPrefab: {fileID: 0}
+    npcCount: 0
+  - contentType: 0
+    monsterPreset: {fileID: 0}
     monsterCountMultiplier: 1
     npcPrefab: {fileID: 0}
     npcCount: 0
@@ -3069,7 +3079,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 34218696068357817, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0007691175
+      value: -0.0031079429
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Spacing.x
@@ -3093,7 +3103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2152476883280493531, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0007691175
+      value: -0.0031079429
       objectReference: {fileID: 0}
     - target: {fileID: 5224335211069199097, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Pivot.x
@@ -7978,7 +7988,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 124917543783094091, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.75
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 124917543783094091, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_LocalPosition.y
