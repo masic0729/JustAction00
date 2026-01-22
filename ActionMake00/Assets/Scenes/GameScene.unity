@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338704, g: 0.216739, b: 0.2988083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2274,6 +2274,7 @@ MonoBehaviour:
   StraightGround: {fileID: 6303697165454988592, guid: 3ad86a4806586f84e8ef30a6b6fc0069, type: 3}
   DownLeftGround: {fileID: 953084259992814367, guid: 1c39c3c5eb0030b4e88271ad27d072b4, type: 3}
   EndGround: {fileID: 2316511290600402421, guid: 05391ac4095f21e409771faf3e390eb4, type: 3}
+  mapSize: 40
 --- !u!4 &346747629
 Transform:
   m_ObjectHideFlags: 0
@@ -3079,7 +3080,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 34218696068357817, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0031079429
+      value: 0.0009781886
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Spacing.x
@@ -3103,7 +3104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2152476883280493531, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0031079429
+      value: 0.0009781886
       objectReference: {fileID: 0}
     - target: {fileID: 5224335211069199097, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Pivot.x

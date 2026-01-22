@@ -39,7 +39,7 @@ public class MapMaker : MonoBehaviour
     int mapMakeCount;
     int currentX, currentZ;
 
-    [SerializeField] int mapSize = 20;
+    [SerializeField] int mapSize = 30;
 
     private void Awake()
     {
