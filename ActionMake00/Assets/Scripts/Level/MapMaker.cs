@@ -39,6 +39,7 @@ public class MapMaker : MonoBehaviour
     int mapMakeCount;
     int currentX, currentZ;
 
+    [SerializeField] int mapSize = 20;
 
     private void Awake()
     {
@@ -194,7 +195,7 @@ public class MapMaker : MonoBehaviour
         Vector3 spawnPos = Vector3.zero;
         for (int i = 0; i < mapIndex.Count - 1; i++)
         {
-            spawnPos = new Vector3(mapIndex[i].Item1 * StartGround.transform.localScale.x, 0, mapIndex[i].Item2 * StartGround.transform.localScale.z);
+            spawnPos = new Vector3(mapIndex[i].Item1 * mapSize, 0, mapIndex[i].Item2 * mapSize);
 
 
             if (i == 0)
@@ -219,7 +220,7 @@ public class MapMaker : MonoBehaviour
             }
         }
 
-        spawnPos = new Vector3(mapIndex[mapIndex.Count - 1].Item1 * StartGround.transform.localScale.x, 0, mapIndex[mapIndex.Count - 1].Item2 * StartGround.transform.localScale.z);
+        spawnPos = new Vector3(mapIndex[mapIndex.Count - 1].Item1 * mapSize, 0, mapIndex[mapIndex.Count - 1].Item2 * mapSize);
 
         int endX = mapIndex[mapIndex.Count - 1].Item1 - mapIndex[mapIndex.Count - 2].Item1;
         int endZ = mapIndex[mapIndex.Count - 1].Item2 - mapIndex[mapIndex.Count - 2].Item2;
