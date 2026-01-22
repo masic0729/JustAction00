@@ -14,7 +14,6 @@ public class MapEndZone : MonoBehaviour
     void Start()
     {
         bossSpawn = transform.Find("BOSS").position;
-        //navSurface = GetComponent<NavMeshSurface>();
         navSurface.BuildNavMesh();
 
         if (GameManager.instance.GetIsTest() == false)

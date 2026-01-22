@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6535109449178066880}
   - component: {fileID: 6535109449197058912}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_en_ConcretePlates_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,14 +24,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535109449177707488}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6535109449178066884}
   - {fileID: 6535109449178066886}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &6535109449197058912
 LODGroup:
@@ -68,7 +69,7 @@ GameObject:
   - component: {fileID: 6535109449180966880}
   - component: {fileID: 6535109449179966752}
   - component: {fileID: 6175463583341164571}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sm_en_ConcretePlates_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,12 +83,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535109449177707492}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6535109449178066880}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6535109449180966880
 MeshFilter:
@@ -108,6 +110,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -146,9 +149,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535109449177707492}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1.5, y: 1.5000004, z: 0.1}
   m_Center: {x: 0, y: 0, z: -0.05}
 --- !u!1 &6535109449177707494
@@ -162,7 +173,7 @@ GameObject:
   - component: {fileID: 6535109449178066886}
   - component: {fileID: 6535109449180966882}
   - component: {fileID: 6535109449179966754}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sm_en_ConcretePlates_01_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,12 +187,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535109449177707494}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6535109449178066880}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6535109449180966882
 MeshFilter:
@@ -202,6 +214,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

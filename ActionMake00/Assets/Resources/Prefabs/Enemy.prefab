@@ -885,8 +885,8 @@ MonoBehaviour:
   DropItems: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
   thisObject: {fileID: 0}
   player: {fileID: 0}
-  activityAllowValue: 10
-  playerFindDistance: 10
+  activityAllowValue: 8
+  playerFindDistance: 4
   attackReadyDistance: 1
   expAddValue: 4
   isPlayerFound: 0

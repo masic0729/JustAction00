@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3298489355895290384}
   - component: {fileID: 3298489355898714686}
   - component: {fileID: 3298489355897583870}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sm_en_MetalSupport_01_05_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,12 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298489355895318064}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.6129999, y: 0.9289999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3298489355895290392}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3298489355898714686
 MeshFilter:
@@ -51,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -91,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3298489355895290392}
   - component: {fileID: 3298489355881246392}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: P_en_MetalSupport_01_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,16 +107,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298489355895318072}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3298489355895290394}
   - {fileID: 3298489355895290396}
   - {fileID: 3298489355895290398}
   - {fileID: 3298489355895290384}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &3298489355881246392
 LODGroup:
@@ -158,7 +161,7 @@ GameObject:
   - component: {fileID: 3298489355895290394}
   - component: {fileID: 3298489355898714680}
   - component: {fileID: 3298489355897583864}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sm_en_MetalSupport_01_05_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,12 +175,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298489355895318074}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.6129999, y: 0.9289999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3298489355895290392}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3298489355898714680
 MeshFilter:
@@ -198,6 +202,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -239,7 +244,7 @@ GameObject:
   - component: {fileID: 3298489355895290396}
   - component: {fileID: 3298489355898714682}
   - component: {fileID: 3298489355897583866}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sm_en_MetalSupport_01_05_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,12 +258,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298489355895318076}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.613, y: 0.929, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3298489355895290392}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3298489355898714682
 MeshFilter:
@@ -279,6 +285,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -320,7 +327,7 @@ GameObject:
   - component: {fileID: 3298489355895290398}
   - component: {fileID: 3298489355898714684}
   - component: {fileID: 3298489355897583868}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sm_en_MetalSupport_01_05_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,12 +341,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3298489355895318078}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.6129999, y: 0.9289999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3298489355895290392}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3298489355898714684
 MeshFilter:
@@ -360,6 +368,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

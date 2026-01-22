@@ -4323,8 +4323,8 @@ MonoBehaviour:
   DropItems: {fileID: 0}
   thisObject: {fileID: 0}
   player: {fileID: 0}
-  activityAllowValue: 20
-  playerFindDistance: 10
+  activityAllowValue: 8
+  playerFindDistance: 6
   attackReadyDistance: 1
   expAddValue: 0
   isPlayerFound: 0
