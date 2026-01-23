@@ -6,21 +6,15 @@ public class EquipWeapon : EquipRoot
 {
     public PlayerWeapon WeaponEquipment;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public override void UseItem(Character character, SlotBase slot)
     {
         base.UseItem(character, slot);
         player.WeaponInit(WeaponEquipment);
+    }
+
+    public override string SetItemComment()
+    {
+        return "평범한 장비이다. 예외 발생!!";
     }
 }

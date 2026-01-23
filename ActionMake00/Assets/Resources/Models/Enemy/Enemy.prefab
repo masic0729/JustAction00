@@ -870,7 +870,6 @@ MonoBehaviour:
   def: 0
   isSuperArmor: 0
   isIgnoreDamage: 0
-  DropItems: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
   thisObject: {fileID: 0}
   player: {fileID: 0}
   activityAllowValue: 10
@@ -880,6 +879,13 @@ MonoBehaviour:
   isPlayerFound: 0
   isDefault: 1
   isAttack: 0
+  dropItems:
+  - {fileID: 8384050773670843287, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  - {fileID: -95557241977493478, guid: 5a5c77dcb79de0442bebec763ee269da, type: 3}
+  - {fileID: 486598676061216866, guid: 0ef52d97518afb645bcab037905579c3, type: 3}
+  - {fileID: -7627589713841941184, guid: ea9888f27fe202749b0786f52996a112, type: 3}
+  - {fileID: -7627589713841941184, guid: 8e1f2b42eca418846939e20cdd8f57ce, type: 3}
+  - {fileID: -7627589713841941184, guid: e66aefa839533c3479f6f6660a9a0247, type: 3}
 --- !u!195 &3008803472013111404
 NavMeshAgent:
   m_ObjectHideFlags: 0

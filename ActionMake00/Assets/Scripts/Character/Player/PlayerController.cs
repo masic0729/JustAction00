@@ -52,7 +52,11 @@ public class PlayerController : MonoBehaviour
     {
         //플레이어 사망 시 조작 불가
         if (isGameEnd == true)
+        {
+            player.anim.SetFloat("moveValue", 0f);
             return;
+
+        }
 
         InteractionNPC();
 

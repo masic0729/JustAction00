@@ -27,12 +27,12 @@ public class MainBoss : BossEnemyBT
     protected override void Init()
     {
         base.Init();
+
         for(int i = 0; i < weapon.Length; i++)
         {
             weaponDic[weapon[i].name] = weapon[i];
         }
-        /*weaponDic["PunchWeapon"] = FindTransformAtChild("PunchWeapon").GetComponent<Weapon>();
-        weaponDic["HookWeapon"] = FindTransformAtChild("HookWeapon").GetComponent<Weapon>();*/
+
 
         onDeathAction += BossDeath;
         onDeathAction += ShowGameOverPanel;
@@ -56,14 +56,11 @@ public class MainBoss : BossEnemyBT
     }
 
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
 
     public void CastWarning(int pattenIndex)
     {
         spawnProjectileTransform = FindTransformAtChild("CastShooter").GetComponent<Transform>();
+
         if(pattenIndex != 0)
         {
             pattenEffect = PoolManager.instance.Spawn("pCastWarning", spawnProjectileTransform.position, spawnProjectileTransform.rotation);

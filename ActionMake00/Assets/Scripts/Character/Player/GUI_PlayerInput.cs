@@ -14,6 +14,7 @@ public class GUI_PlayerInput : MonoBehaviour
     public GameObject NPC_InventoryView;
 
     //public GameObject testItem;
+    public ItemObject[] equips;                 //테스트용 장비 배열
     public ItemObject testitem1;
     public ItemObject testitem2;
     public ItemObject testitem3;
@@ -63,8 +64,9 @@ public class GUI_PlayerInput : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            TestInputItem2();
+            //TestInputItem2();
             TestInputItem3();
+            
         }
         
         /*if(Input.GetKeyDown(KeyCode.F))
@@ -139,7 +141,11 @@ public class GUI_PlayerInput : MonoBehaviour
 
     void TestInputItem3()
     {
-        inventory.AddItemInList(testitem3);
+        //inventory.AddItemInList(testitem3);
+        foreach(ItemObject item in equips)
+        {
+            inventory.AddItemInList(item);
+        }
     }
 
     /// <summary>

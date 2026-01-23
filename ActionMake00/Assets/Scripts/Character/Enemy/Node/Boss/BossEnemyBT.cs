@@ -43,7 +43,7 @@ public class BossEnemyBT : TreeCtrl
     protected override Node SetupBehaviorTree()
     {
 
-        root = new SequenceNode(new List<Node>
+        node = new SequenceNode(new List<Node>
         {
             //우선 플레이어가 올 때까지 대기한다
             new CheckPlayerInNearNode(thisObject),
@@ -89,7 +89,7 @@ public class BossEnemyBT : TreeCtrl
         });
 
 
-        return root;
+        return node;
     }
 
 }

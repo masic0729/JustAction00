@@ -9,6 +9,8 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
     public ItemBase item;
     protected string itemComment;
+    Collider collider;
+
 
     private void Awake()
     {
@@ -16,10 +18,24 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        collider = GetComponent<Collider>();
+        //collider.enabled = false;
 
+        Invoke("EnableCol", 1.5f);
     }
+
+    protected virtual void Update()
+    {
+        transform.Rotate(0, 60f * Time.deltaTime, 0);
+    }
+
+    void EnableCol()
+    {
+        collider.enabled = true;
+    }
+
 
 
     /// <summary>
@@ -43,7 +59,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     public abstract bool ItemUseCheck(Character character);
     public string GetItemComment()
     {
-        item.comment = SetItemComment();
+        //item.comment = SetItemComment();
         return SetItemComment();
     }
 

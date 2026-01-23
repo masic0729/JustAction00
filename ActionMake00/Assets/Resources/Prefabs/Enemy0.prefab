@@ -334,20 +334,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cea166cee2642d42b2142ad8c01184a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statDatas: []
+  characterStatData: {fileID: 0}
   anim: {fileID: 0}
   pEffect:
   - {fileID: 7177991128484655658, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
   - {fileID: 2433282508523890284, guid: f8ce006302b362f42bd085a2b20c72bb, type: 3}
   weapon: []
+  skillProjectiles: []
+  maxHp: 0
+  hp: 0
+  damage: 0
   moveSpeed: 5
+  def: 0
+  isSuperArmor: 0
+  isIgnoreDamage: 0
   thisObject: {fileID: 0}
   player: {fileID: 0}
   activityAllowValue: 10
   playerFindDistance: 10
   attackReadyDistance: 1
+  expAddValue: 0
   isPlayerFound: 0
   isDefault: 1
-  isAttacked: 0
+  isAttack: 0
+  dropItems:
+  - {fileID: 8384050773670843287, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  - {fileID: -95557241977493478, guid: 5a5c77dcb79de0442bebec763ee269da, type: 3}
+  - {fileID: 486598676061216866, guid: 0ef52d97518afb645bcab037905579c3, type: 3}
+  - {fileID: -7627589713841941184, guid: ea9888f27fe202749b0786f52996a112, type: 3}
+  - {fileID: -7627589713841941184, guid: 8e1f2b42eca418846939e20cdd8f57ce, type: 3}
+  - {fileID: -7627589713841941184, guid: e66aefa839533c3479f6f6660a9a0247, type: 3}
 --- !u!195 &8361463902268933653
 NavMeshAgent:
   m_ObjectHideFlags: 0

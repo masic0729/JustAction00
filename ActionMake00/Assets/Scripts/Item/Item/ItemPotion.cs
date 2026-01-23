@@ -49,6 +49,7 @@ public class ItemPotion : ItemObject
 
     public override string SetItemComment()
     {
-        return $"테스트 포션 : <color=#ff5555>{transHpValue}</color>" + "이지롱";
+        //return $"테스트 포션 : <color=#ff5555>{transHpValue}</color>" + "이지롱";
+        return $"체력을 <color=#ff5555>{transHpValue}</color>를 회복한다";
     }
 }

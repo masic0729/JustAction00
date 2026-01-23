@@ -5,9 +5,8 @@ using UnityEngine.AI;
 
 public class Enemy : Character
 {
-    public ItemObject DropItems;                                       //현재는 단일 게임오브젝트로 고정  소환하지만, 확률에 의해 다양한 아이템 및 여러 아이템 생성할 예정
-
-    protected Node root;                                            //몬스터 AI를 구동하기 위해 필요한 노드. 비헤이비어 트리이다
+    protected Node rootNode;                                        //몬스터 AI를 구동하기 위해 필요한 노드. 비헤이비어 트리이다
+    protected Node node;                                            //몬스터 각각의 노드 단위
     public Transform thisObject;                                    //표현 그대로 자신의 게임오브젝트를 담는다
     public Transform player;                                        //목표 타겟을 정하는 용도
 
@@ -60,8 +59,8 @@ public class Enemy : Character
         nav = GetComponent<NavMeshAgent>();
         pEffectDic["pDeath"] = pEffect[1];
 
-        onDeathAction += DropItem;
         onDeathAction += ExpUpForPlayer;
+        onDeathAction += NodeDisable;
     }
 
     /// <summary>
@@ -91,6 +90,15 @@ public class Enemy : Character
         {
             isDefault = false;
         }
+    }
+
+    /// <summary>
+    /// 몬스터 사망 시, 비헤이비어 트리 데이터를 없애 더 이상 작동하지 않
+    /// </summary>
+    /// <param name="attacker"></param>
+    void NodeDisable(Character attacker)
+    {
+        rootNode = null;
     }
 
     /// <summary>
@@ -129,16 +137,7 @@ public class Enemy : Character
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
 
-    /// <summary>
-    /// 몬스터 사망 시 아이템을 드랍한다
-    /// 하지만 보스몬스터는 안넣을 지 고민중
-    /// </summary>
-    void DropItem(Character notUse)
-    {
-        if (DropItems == null)
-            return;
-        Instantiate(DropItems, transform.position, transform.rotation);
-    }
+    
 
     /// <summary>
     /// 목표 위치로 이동한다. 플레이어든 복귀 위치든 특정 위치든
@@ -163,10 +162,6 @@ public class Enemy : Character
         nav.SetDestination(target);
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        
-    }
 
     public void SetEnemyIndex(int value) => enemyIndex = value;
 

@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
 
 public enum AttackType
 {
@@ -9,8 +7,6 @@ public enum AttackType
     Projectile,
     Skill
 }
-
-
 
 public class Attacker : MonoBehaviour, IAttacker
 {
@@ -22,8 +18,8 @@ public class Attacker : MonoBehaviour, IAttacker
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
-    protected CustomTrail[] weaponCustomTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
-    [SerializeField]protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
+    protected CustomTrail[] weaponCustomTrail;                                                       //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
+    //[SerializeField]protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
 
 
     [SerializeField] protected float damageMultify = 1;
@@ -62,14 +58,14 @@ public class Attacker : MonoBehaviour, IAttacker
         //ColliderTransEnable();
         //weaponCol.enabled = false; // 시작은 꺼두기
 
-        InitWeaponTrail();
+        //InitWeaponTrail();
 
     }
 
     /// <summary>
     /// 게임 시작 시 트레일 모드를 비활성화한다
     /// </summary>
-    void InitWeaponTrail()
+    /*void InitWeaponTrail()
     {
         //만약 weaponTrail 값을 할당하지 않았으면 메세지 보낼 것
         if (weaponTrail.Length == 0)
@@ -82,7 +78,7 @@ public class Attacker : MonoBehaviour, IAttacker
         {
             weaponTrail[i].emitting = false;
         }
-    }
+    }*/
 
     /// <summary>
     /// 시전자의 정보를 불러온다.
@@ -130,38 +126,9 @@ public class Attacker : MonoBehaviour, IAttacker
             objectCol.enabled = true;
 
         }
-        TransTrailByColliderEnable(objectCol.enabled);
+        //TransTrailByColliderEnable(objectCol.enabled);
     }
 
-    /// <summary>
-    /// 트레일의 경우 콜라이더의 활성화 상태를 따라간다.
-    /// </summary>
-    /// <param name="state"></param>
-    void TransTrailByColliderEnable(bool state)
-    {
-        for(int i =0; i < weaponTrail.Length;i++)
-        {
-            if(state)
-            {
-                weaponTrail[i].emitting = true;
-            }
-            else
-            {
-                weaponTrail[i].emitting = false;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 리스트 내 존재하는 모든 버프 효과들을 실행한다
-    /// </summary>
-    void UseBuffs()
-    {
-        /*foreach(BuffBase buff in buffs)
-        {
-            buff.
-        }*/
-    }
 
     virtual protected void OnTriggerEnter(Collider other)
     {
@@ -191,7 +158,6 @@ public class Attacker : MonoBehaviour, IAttacker
             }
             else
             {
-                Debug.Log(this.gameObject.name + "가 때림");
 
                 //시전자의 공격력 * 공격체의 데미지 배율에 따라 피해량이 달라짐
                 hitTarget.TakeDamage(damageMultify * owner.GetResultDamage(), owner, hitLevel);
@@ -244,7 +210,8 @@ public class Attacker : MonoBehaviour, IAttacker
         if (Physics.ComputePenetration(
             objectCol, objectCol.transform.position, objectCol.transform.rotation,
             other, other.transform.position, other.transform.rotation,
-            out dir, out dist))
+            out dir, out dist)
+            )
         {
             normal = dir;  // 충돌 표면 방향
             // 접점 위치를 penetration 깊이만큼 보정

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6819772885512568736}
   - component: {fileID: 7339001699121847349}
   - component: {fileID: 1828652746845502799}
-  - component: {fileID: 4881988431276002148}
+  - component: {fileID: 8384050773670843287}
   m_Layer: 0
   m_Name: SwordWeaponEquip
   m_TagString: Untagged
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f6e773f4260ae14f907c9819b40b281, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,11 +102,11 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4881988431276002148
+--- !u!114 &8384050773670843287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,13 +115,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839001194488567063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aec2d3a51a8fd1549b6c9dd049d7c028, type: 3}
+  m_Script: {fileID: 11500000, guid: 343f41e3e503c204db4882fb9df98b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 4
   item:
-    data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
-    comment: "\uC544\uC9C1 \uD560\uB2F9\uC744 \uC548\uD588\uC74C"
+    comment: "\uD3C9\uBC94\uD55C \uD55C\uC190\uAC80\uC774\uB2E4. \uACF5\uACA9\uB825
+      <color=#ff5555>10</color> \uC0C1\uC2B9\uD55C\uB2E4"
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 1

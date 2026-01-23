@@ -44,8 +44,4 @@ public class EnemyZombie2 : FollwingPlayerEnemyBT
     }
 
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
 }

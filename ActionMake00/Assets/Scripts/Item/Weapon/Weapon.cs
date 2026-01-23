@@ -14,7 +14,7 @@ public class Weapon : Attacker, IAttacker
     {
         base.Init();
         owner = GetComponentInParent<Character>();
-        damageMultify = owner.GetResultDamage();
+        damageMultify = 1f;
     }
 
 }

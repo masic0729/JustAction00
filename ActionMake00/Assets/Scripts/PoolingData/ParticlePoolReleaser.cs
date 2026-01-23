@@ -60,6 +60,7 @@ public class ParticlePoolReleaser : MonoBehaviour
     {
         if (this.transform.parent != null)
             this.transform.parent = null;
+
         PoolManager.instance.skillPrefabs[this.gameObject.name].Release(this.gameObject);
     }
 

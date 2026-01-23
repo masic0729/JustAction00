@@ -440,18 +440,39 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("OnEnter");
-        //Debug.Log(currentItem.comment);
-        if (type == ItemType.nullItem)
-            return;
+        if (type == ItemType.nullItem) return;
 
         inventory.TooltipView.gameObject.SetActive(true);
 
-        RectTransform slotTransform = GetComponent<RectTransform>();
-        float tooltipWidth = inventory.TooltipView.rect.width;
-        inventory.TooltipView.GetComponent<RectTransform>().position = CalToolTipPosition(slotTransform.position, tooltipWidth);
+        // 1) 툴팁이 속한 캔버스 찾기
+        Canvas canvas = inventory.TooltipView.GetComponentInParent<Canvas>();
+        RectTransform canvasRect = canvas.transform as RectTransform;
+
+        // 2) Canvas RenderMode에 맞는 카메라 선택 (Overlay면 null)
+        Camera uiCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+
+        // 3) 마우스 스크린 좌표 -> 캔버스 로컬 좌표
+        Vector2 mouseLocal;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            eventData.position,
+            uiCam,
+            out mouseLocal
+        );
+
+        // 4) 툴팁 크기(캔버스 로컬 기준) 가져오기
+        RectTransform tooltipRT = inventory.TooltipView;
+        // 레이아웃/스케일 반영된 크기를 쓰고 싶으면 lossyScale까지 고려
+        Vector2 tooltipSize = new Vector2(
+            tooltipRT.rect.width * tooltipRT.lossyScale.x,
+            tooltipRT.rect.height * tooltipRT.lossyScale.y
+        );
+
+        // 5) 최종 위치 계산 후 anchoredPosition으로 배치
+        tooltipRT.anchoredPosition = CalToolTipPosition(mouseLocal, tooltipSize, canvasRect, 55f);
+
         inventory.testItemName.text = this.currentItem.data.itemName;
         inventory.testItemComment.text = GetItemComment(this.currentItem);
-
     }
 
     public void OnPointerExit(PointerEventData eventData)

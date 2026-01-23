@@ -75,10 +75,6 @@ public class EnemyAlien : FollwingPlayerEnemyBT
     }
 
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
 
     
 }

@@ -52,7 +52,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -70,8 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 4
   item:
-    data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
-    comment: "\uC7A5\uBE44\uB294 \uC544\uC9C1 \uC5C6\uC74C"
+    comment: "\uD3C9\uBC94\uD55C \uD55C\uC190\uBB34\uAE30\uC774\uB2E4."
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 1

@@ -9,6 +9,7 @@ public class EquipRoot : ItemObject
 {
     public AddStatData statData;
     protected Player player;
+    //[SerializeField] protected string equipComment;                  //장비의 첫 설명
 
     /// <summary>
     /// 상호작용을 통해 해당 아이템에 설정된 기능들을 실행한다
@@ -33,11 +34,7 @@ public class EquipRoot : ItemObject
         if (slot.GetComponent<EquipmentSlot>() == null)
         {
             slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);
-            Debug.Log("이거 구동됨??");
-        }
-        else
-        {
-
+            //Debug.Log("이거 구동됨??");
         }
 
         //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
@@ -45,8 +42,6 @@ public class EquipRoot : ItemObject
 
         //저장 이후 장비 슬롯 매니저에 각 부위의 장비들의 스탯을 최신화해야한다
         slot.GetInventory().equipManager.UpdateCharacterStatResult();
-        //////////////////////////////////////////////////////////////
-
         
     }
 
@@ -80,6 +75,8 @@ public class EquipRoot : ItemObject
 
     public override string SetItemComment()
     {
-        return "아직 할당을 안했음";
+        //이곳에 인스펙터에 내가 설명하고 싶은 텍스트를 할당하고,
+        //이후 능력치 같은 것들은 자식 클래스에 스크립트에 작성한다
+        return itemComment;
     }
 }

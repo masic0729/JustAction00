@@ -149,11 +149,13 @@ public class Character : MonoBehaviour, ICharacterDamageable
             return;
         }
 
-        if (hp - damage < 0)
+        if (hp - (int)damage < 0)
             hp = 0;
         else
             hp -= (int)damage;
 
+
+        Debug.Log(damage + "??");
         //이곳에 체력 바 갱신
         onTransStatData?.Invoke();
 
@@ -176,6 +178,7 @@ public class Character : MonoBehaviour, ICharacterDamageable
         if (isSuperArmor == false || hitLevel != -1)
         {
             anim.SetTrigger("Hit");
+
         }
     }
 

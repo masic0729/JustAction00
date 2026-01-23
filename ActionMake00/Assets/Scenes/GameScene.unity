@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338704, g: 0.216739, b: 0.2988083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -219,7 +219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -500, y: 400}
+  m_AnchoredPosition: {x: -500, y: 250}
   m_SizeDelta: {x: 700, y: 900}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &8212748
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equipmentManager: {fileID: 1482939720}
-  SwordWeaponBasic: {fileID: 4881988431276002148, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  SwordWeaponBasic: {fileID: 0}
   player: {fileID: 1628940349}
   slot: {fileID: 0}
 --- !u!114 &226507409
@@ -3100,7 +3100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: -160}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &571356043
@@ -3189,7 +3189,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 34218696068357817, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0010661657
+      value: -0.00023570497
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Spacing.x
@@ -3213,7 +3213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2152476883280493531, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0010661657
+      value: -0.00023570497
       objectReference: {fileID: 0}
     - target: {fileID: 5224335211069199097, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Pivot.x
@@ -4789,6 +4789,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6428041037808036567, guid: 95b302f13f70c6e48a75dfa9a7a0b874, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5639,7 +5643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 47.5, y: -202.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2765, y: 1355}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1187949959
@@ -5706,6 +5710,7 @@ GameObject:
   - component: {fileID: 1192346934}
   - component: {fileID: 1192346939}
   - component: {fileID: 1192346938}
+  - component: {fileID: 1192346941}
   m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5885,6 +5890,22 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1192346941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192346931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d273a1f666fd6f4dbc5b984b802edd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  zoomNormal: 5
+  zoomReady: 4.6
+  zoomSuccess: 5.6
 --- !u!1 &1268558588
 GameObject:
   m_ObjectHideFlags: 0
@@ -7171,7 +7192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 518.23, y: 202.5}
+  m_AnchoredPosition: {x: 518.23, y: 40}
   m_SizeDelta: {x: 450, y: 700}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1482939722
@@ -8112,7 +8133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 1332769944131576386, guid: 40a1095b049ecb94f96e199d6b9b3997, type: 3}
-  - {fileID: 4881988431276002148, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  - {fileID: 0}
   - {fileID: 4488831371431100241, guid: 0427dfed3d08f694c9a52a0d11ca61fd, type: 3}
 --- !u!114 &1615472080
 MonoBehaviour:
@@ -8478,11 +8499,43 @@ PrefabInstance:
     - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: testitem3
       value: 
-      objectReference: {fileID: -3276592010884702514, guid: ea9888f27fe202749b0786f52996a112, type: 3}
+      objectReference: {fileID: -7627589713841941184, guid: ea9888f27fe202749b0786f52996a112, type: 3}
     - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: NPC_InventoryView
       value: 
       objectReference: {fileID: 1776234219}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8384050773670843287, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[1]
+      value: 
+      objectReference: {fileID: -95557241977493478, guid: 5a5c77dcb79de0442bebec763ee269da, type: 3}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[2]
+      value: 
+      objectReference: {fileID: 486598676061216866, guid: 0ef52d97518afb645bcab037905579c3, type: 3}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[3]
+      value: 
+      objectReference: {fileID: -7627589713841941184, guid: ea9888f27fe202749b0786f52996a112, type: 3}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[4]
+      value: 
+      objectReference: {fileID: -7627589713841941184, guid: 8e1f2b42eca418846939e20cdd8f57ce, type: 3}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[5]
+      value: 
+      objectReference: {fileID: -7627589713841941184, guid: e66aefa839533c3479f6f6660a9a0247, type: 3}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[6]
+      value: 
+      objectReference: {fileID: -7627589713841941184, guid: 48e0cdb9ead703443819a02b6f88a713, type: 3}
     - target: {fileID: 2130385481672763854, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: mainCamera
       value: 
@@ -8491,6 +8544,10 @@ PrefabInstance:
       propertyPath: slot
       value: 
       objectReference: {fileID: 226507411}
+    - target: {fileID: 2345411047350362779, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: SwordWeaponBasic
+      value: 
+      objectReference: {fileID: 8384050773670843287, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
     - target: {fileID: 2345411047350362779, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: equipmentManager
       value: 
@@ -8824,7 +8881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 301.5, y: 225.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 370, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1662935516

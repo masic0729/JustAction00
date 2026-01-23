@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6819772885512568736}
   - component: {fileID: 7339001699121847349}
   - component: {fileID: 1828652746845502799}
-  - component: {fileID: 486598676061216866}
+  - component: {fileID: -7627589713841941184}
   m_Layer: 0
-  m_Name: SwordWeaponEquip2
+  m_Name: PanthEquip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f6e773f4260ae14f907c9819b40b281, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,11 +102,11 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &486598676061216866
+--- !u!114 &-7627589713841941184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,19 +115,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839001194488567063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aec2d3a51a8fd1549b6c9dd049d7c028, type: 3}
+  m_Script: {fileID: 11500000, guid: 04ba0cd38c1f5ef45bec59640821ca32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 3
+  itemId: 7
   item:
-    data: {fileID: 11400000, guid: 8ad367f8ba9c7af49a29b01a66efe3e0, type: 2}
-    comment: "\uD14C\uC2A4\uD2B8\uBB34\uAE302"
+    comment: "\uAE30\uBCF8 \uD558\uC758\uC774\uB2E4. \uCCB4\uB825 <color=#ff5555>50</color>,
+      \uBC29\uC5B4\uB825 <color=#0000ff>50</color> \uC0C1\uC2B9"
     slotData: {fileID: 0}
     addCount: 0
-    currentCount: 1
+    currentCount: 0
   statData:
-    MaxHp: 0
-    Damage: 30
-    Defense: 0
+    MaxHp: 50
+    Damage: 0
+    Defense: 50
     MoveSpeed: 0
-  WeaponEquipment: {fileID: 2548763761762157146, guid: 8f92e1c83cb3f9546a0b0183d008c14c, type: 3}
+  playerArmorIndex: 1
+  baseComment: "\uAE30\uBCF8 \uD558\uC758\uC774\uB2E4."

@@ -598,7 +598,6 @@ MonoBehaviour:
   def: 0
   isSuperArmor: 0
   isIgnoreDamage: 0
-  DropItems: {fileID: 7652535839393689605, guid: b4b1c35c78fda21488f76dcad578c452, type: 3}
   thisObject: {fileID: 0}
   player: {fileID: 0}
   activityAllowValue: 10
@@ -608,6 +607,13 @@ MonoBehaviour:
   isPlayerFound: 0
   isDefault: 1
   isAttack: 0
+  dropItems:
+  - {fileID: 8384050773670843287, guid: 0dc5168c760f98b4daa096fdd8b5ae60, type: 3}
+  - {fileID: -95557241977493478, guid: 5a5c77dcb79de0442bebec763ee269da, type: 3}
+  - {fileID: 486598676061216866, guid: 0ef52d97518afb645bcab037905579c3, type: 3}
+  - {fileID: -7627589713841941184, guid: ea9888f27fe202749b0786f52996a112, type: 3}
+  - {fileID: -7627589713841941184, guid: 8e1f2b42eca418846939e20cdd8f57ce, type: 3}
+  - {fileID: -7627589713841941184, guid: e66aefa839533c3479f6f6660a9a0247, type: 3}
 --- !u!1 &1469584955207953422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3002,7 +3008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4167535521902695355
 Transform:
   m_ObjectHideFlags: 0
@@ -3026,7 +3032,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7521229824017336526}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3360,9 +3366,6 @@ MonoBehaviour:
   attackType: 0
   objectCol: {fileID: 0}
   hitEffect: []
-  weaponTrail:
-  - {fileID: 3144324603678479826}
-  - {fileID: 7885487160448705360}
   damageMultify: 1
 --- !u!1 &8565008140516968846
 GameObject:
@@ -3380,7 +3383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8735766131514351771
 Transform:
   m_ObjectHideFlags: 0
@@ -3404,7 +3407,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8565008140516968846}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

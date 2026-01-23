@@ -97,23 +97,44 @@ public abstract class SlotBase : MonoBehaviour
     /// 툴팁의 가로 축과 슬롯의 위치를 고려하여
     /// 가로 화면에 벗어나면 좌측으로 전환한다
     /// </summary>
-    /// <param name="slotPosition"></param>
-    /// <param name="viewWidth"></param>
+    /// <param mouseLocalPos="slotPosition"></param>
+    /// <param tooltipSize="viewWidth"></param>
+    /// <param canvasRect="viewWidth"></param>
+    /// <param padding="viewWidth"></param>
     /// <returns></returns>
-    public Vector2 CalToolTipPosition(Vector3 slotPosition, float viewWidth)
+    public Vector2 CalToolTipPosition(Vector2 mouseLocalPos, Vector2 tooltipSize, RectTransform canvasRect, float padding)
     {
-        Vector2 resultPosition = slotPosition;
-        //resultPosition = new Vector2(slotPosition.x + ((float)viewWidth / 2) + 55, slotPosition.y);
-        if ((slotPosition.x + viewWidth + 55) > 1920)
-        {
-            resultPosition = new Vector2(slotPosition.x - ((float)viewWidth / 2) - 55, slotPosition.y);
-        }
-        else
-        {
-            resultPosition = new Vector2(slotPosition.x + ((float)viewWidth / 2) + 55, slotPosition.y);
+        // 캔버스 로컬 좌표는 보통 중심이 (0,0)
+        float halfCanvasW = canvasRect.rect.width * 0.5f;
+        float halfCanvasH = canvasRect.rect.height * 0.5f;
 
+        float halfTipW = tooltipSize.x * 0.5f;
+        float halfTipH = tooltipSize.y * 0.5f;
+
+        // 기본: 마우스 오른쪽
+        float x = mouseLocalPos.x + halfTipW * 2;
+        float y = mouseLocalPos.y;
+
+        // 오른쪽으로 뒀을 때 캔버스 밖이면 -> 왼쪽으로 플립
+        if (x + halfTipW > halfCanvasW)
+        {
+            x = mouseLocalPos.x - halfTipW - padding;
         }
-        return resultPosition;
+
+        // 왼쪽으로도 넘치면 클램프
+        /*if (x - halfTipW < -halfCanvasW)
+        {
+            x = -halfCanvasW + halfTipW + padding;
+        }*/
+
+        // (추천) 위/아래도 안전하게 클램프
+        y = Mathf.Clamp(
+            y,
+            -halfCanvasH + halfTipH + padding,
+            halfCanvasH - halfTipH - padding
+        );
+
+        return new Vector2(x, y);
     }
 
 

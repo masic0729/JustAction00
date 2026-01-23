@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class StartSwordWeapon : MonoBehaviour
 {
     [SerializeField] EquipmentManager equipmentManager;
     public EquipWeapon SwordWeaponBasic;
     [SerializeField] Player player;
-    public SlotBase slot;
+    public EquipmentSlot slot;
 
     private void Awake()
     {
@@ -27,9 +29,12 @@ public class StartSwordWeapon : MonoBehaviour
         EquipWeapon instanceWeapon = SwordWeaponBasic;
         instanceWeapon.SetItemData(instanceWeapon.itemId);
         slot.AddItem(SwordWeaponBasic);
-        //slot.OnItemUse?.Invoke(player, slot);
+        slot.currentItem.OnItemUse?.Invoke(player, slot);
+
+        slot.GetInventory().equipManager.equipSlotDic[slot.currentItem.data.equipmentType.ToString()].equipmentStat = SwordWeaponBasic.statData;
+        slot.GetInventory().equipManager.UpdateCharacterStatResult();
+
         player.WeaponAwakeInit(SwordWeaponBasic.WeaponEquipment);
-        //equipmentManager.gameObject.SetActive(false);
     }
 
     
