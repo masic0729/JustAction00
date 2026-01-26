@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyZombie1 : FollwingPlayerEnemyBT
 {
 
+
     protected override void Start()
     {
         base.Start();
@@ -33,5 +34,9 @@ public class EnemyZombie1 : FollwingPlayerEnemyBT
         
     }
 
+    public void PlayPattenSound()
+    {
+        attackAudio.Play();
+    }
 
 }

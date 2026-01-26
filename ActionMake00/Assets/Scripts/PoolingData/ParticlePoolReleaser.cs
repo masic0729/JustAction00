@@ -29,6 +29,14 @@ public class ParticlePoolReleaser : MonoBehaviour
     private void OnEnable()
     {
         releaseTime = resetReleaseTime;
+        if(TryGetComponent<AudioSource>(out AudioSource audio))
+        {
+            if(audio.clip != null)
+            {
+                audio.Play();
+            }
+
+        }
     }
 
     // Update is called once per frame

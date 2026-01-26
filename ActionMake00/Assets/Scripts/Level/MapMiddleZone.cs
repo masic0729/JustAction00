@@ -41,7 +41,7 @@ public class MapMiddleZone : MonoBehaviour
         {
             for(int j = 0; j < enemyDatas[i].spawnCount; j++)
             {
-                SpawnActorAroundSpawnPoint(enemyDatas[i].enemyPrefab, spawnEnemy);
+                SpawnEnemyAroundSpawnPoint(enemyDatas[i].enemyPrefab, spawnEnemy);
             }
         }
     }
@@ -49,7 +49,7 @@ public class MapMiddleZone : MonoBehaviour
     void SpawnNPC(GameObject npc)
     {
         Transform spawnNPC = transform.Find("NPC");
-        SpawnActorAroundSpawnPoint(npc, spawnNPC);
+        SpawnNPC_AroundSpawnPoint(npc, spawnNPC);
 
     }
 
@@ -63,7 +63,7 @@ public class MapMiddleZone : MonoBehaviour
     /// </summary>
     /// <param name="spawnActor">생성하려는 오브젝트</param>
     /// <param name="spawnTransform">생성하려는 위치 베이스</param>
-    void SpawnActorAroundSpawnPoint(GameObject spawnActor, Transform spawnTransform)
+    void SpawnEnemyAroundSpawnPoint(GameObject spawnActor, Transform spawnTransform)
     {
         GameObject ins = Instantiate(spawnActor, spawnTransform.position, spawnTransform.rotation);
 
@@ -72,6 +72,18 @@ public class MapMiddleZone : MonoBehaviour
         randX = Random.Range(-3f, 3f);
         randZ = Random.Range(-3f, 3f);
 
+        float randRotateY = Random.Range(0f, 359f);
+
         ins.transform.Translate(randX, 0, randZ);
+        ins.transform.Rotate(0, randRotateY, 0);
+        ins.transform.parent = this.transform;
+    }
+
+    void SpawnNPC_AroundSpawnPoint(GameObject spawnActor, Transform spawnTransform)
+    {
+        GameObject ins = Instantiate(spawnActor, spawnTransform.position, spawnTransform.rotation);
+
+        ins.transform.parent = this.transform;
+
     }
 }

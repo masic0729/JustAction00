@@ -53,6 +53,9 @@ public class EnemyAlien : FollwingPlayerEnemyBT
 
             }
         }
+
+        attackAudio.Play();
+
     }
 
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)

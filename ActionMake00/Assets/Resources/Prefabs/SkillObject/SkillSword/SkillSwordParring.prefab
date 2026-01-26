@@ -9817,8 +9817,10 @@ MonoBehaviour:
   owner: {fileID: 0}
   attackType: 2
   objectCol: {fileID: 0}
-  hitEffect: []
-  damage: 7
+  hitEffect:
+  - {fileID: 0}
+  audio: {fileID: 0}
+  damageMultify: 1
 --- !u!1 &4936908092126958425
 GameObject:
   m_ObjectHideFlags: 0

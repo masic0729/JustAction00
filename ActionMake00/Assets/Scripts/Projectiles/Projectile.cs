@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : Attacker
 {
     [SerializeField]protected float moveSpeed;
-    [SerializeField] protected float destroyTime = 5f;
+    //[SerializeField] protected float destroyTime = 5f;
 
     protected override void Start()
     {
@@ -24,7 +24,7 @@ public class Projectile : Attacker
         hitLevel = 0;
         attackType = AttackType.Projectile;
 
-        Destroy(gameObject, destroyTime);
+        //Destroy(gameObject, destroyTime);
     }
 
     protected void ProjectileMove()

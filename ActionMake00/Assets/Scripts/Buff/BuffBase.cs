@@ -92,8 +92,12 @@ public abstract class BuffBase
             spawnedParticle.GetComponentInChildren<ParticlePoolReleaser>().SetReleaseTime(buffTime);
             return true;
         }
+        else
+        {
+            spawnedParticle = PoolManager.instance.Spawn(particleName, buffCharacter.transform.position, buffCharacter.transform.rotation);
 
-        spawnedParticle = PoolManager.instance.Spawn(particleName, buffCharacter.transform.position, buffCharacter.transform.rotation);
+        }
+
 
         if (particleParentName != null)
         {

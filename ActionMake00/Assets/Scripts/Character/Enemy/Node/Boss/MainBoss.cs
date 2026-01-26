@@ -12,6 +12,13 @@ public class MainBoss : BossEnemyBT
 
     Transform spawnProjectileTransform;                                     //발사체의 생성 위치
 
+    [SerializeField] AudioClip clipPunch;
+    [SerializeField] AudioClip clipHook;
+    [SerializeField] AudioClip clipCast;
+    [SerializeField] AudioClip clipGroundAttack;
+
+
+
 
     protected override void Start()
     {
@@ -37,10 +44,12 @@ public class MainBoss : BossEnemyBT
         onDeathAction += BossDeath;
         onDeathAction += ShowGameOverPanel;
 
-        playerFindDistance = 10f;
-        activityAllowValue = 20f;
-        attackReadyDistance = 3f;
+        playerFindDistance = 6f;
+        activityAllowValue = 8f;
+        attackReadyDistance = 1.5f;
         punchDistance = 2.0f;
+
+        spawnProjectileTransform = FindTransformAtChild("CastShooter").GetComponent<Transform>();
 
 
     }
@@ -48,25 +57,28 @@ public class MainBoss : BossEnemyBT
     public override void Dead(float animationTime)
     {
         base.Dead(animationTime);
+
         if(pattenEffect != null)
         {
             //보스가 사망할 때 바로 삭제해버릴 것
             pattenEffect.GetComponent<ParticlePoolReleaser>().PoolReleaser();
         }
+
+
     }
 
 
 
     public void CastWarning(int pattenIndex)
     {
-        spawnProjectileTransform = FindTransformAtChild("CastShooter").GetComponent<Transform>();
 
         if(pattenIndex != 0)
         {
             pattenEffect = PoolManager.instance.Spawn("pCastWarning", spawnProjectileTransform.position, spawnProjectileTransform.rotation);
             pattenEffect.transform.parent = spawnProjectileTransform;
         }
-        
+        PlayPattenSound(clipCast);
+
     }
 
     public void SpawnStone(int pattenIndex)
@@ -78,7 +90,7 @@ public class MainBoss : BossEnemyBT
         //이펙트가 있으면 상대적으로 강한 패턴이므로 더 많은 발사체를 소환한다 
         if(pattenEffect != null)
         {
-            Destroy(pattenEffect);
+            pattenEffect.GetComponent<ParticlePoolReleaser>().PoolReleaser(); 
             pattenEffect = null;
 
             float rotateValue = 25f;
@@ -88,7 +100,8 @@ public class MainBoss : BossEnemyBT
             instance.transform.Rotate(0, -rotateValue, 0);
         }
 
-        spawnProjectileTransform = null;
+        //이후 사운드 출력
+        //spawnProjectileTransform = null;
     }
 
 
@@ -101,6 +114,9 @@ public class MainBoss : BossEnemyBT
         currentTeleObject = Instantiate(GroundAttackGuide,transform.position, transform.rotation);
         currentTeleObject.GetComponent<GroundAttack>().SetOwner(this);
         currentTeleObject.transform.parent = this.transform;
+
+        PlayPattenSound(clipGroundAttack);
+
     }
 
     public void ClearParent()
@@ -147,5 +163,18 @@ public class MainBoss : BossEnemyBT
     {
         const float showTimer = 4f;
         GameManager.instance.Invoke("GameClear", showTimer);
+    }
+
+    public void PlayWeaponAttackSound(int index)
+    {
+        
+        attackAudio.clip = index == 0? clipPunch : clipHook;
+        attackAudio.Play();
+    }
+
+    public void PlayPattenSound(AudioClip clip)
+    {
+        attackAudio.clip = clip;
+        attackAudio.Play();
     }
 }

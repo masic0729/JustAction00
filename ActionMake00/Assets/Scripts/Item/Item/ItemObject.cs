@@ -72,6 +72,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
             Debug.Log("æ∆¿Ã≈€ »πµÊ" + other.transform.name);
             Inventory playerInventory = other.GetComponent<GUI_PlayerInput>().inventory;
             AddItemInInventory(playerInventory, this);
+            other.GetComponent<Player>().PlayItemSound();
         }
     }
 

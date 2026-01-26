@@ -21,6 +21,8 @@ public class Attacker : MonoBehaviour, IAttacker
     protected CustomTrail[] weaponCustomTrail;                                                       //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
     //[SerializeField]protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
 
+    [SerializeField] AudioSource audio;
+    //[SerializeField] AudioClip clip;
 
     [SerializeField] protected float damageMultify = 1;
 
@@ -41,7 +43,7 @@ public class Attacker : MonoBehaviour, IAttacker
 
     protected virtual void Start()
     {
-
+        audio = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -194,8 +196,18 @@ public class Attacker : MonoBehaviour, IAttacker
         }
     }
 
+    /// <summary>
+    /// 이펙트 단위로 사운드가 실행된다
+    /// </summary>
+    /// <param name="other"></param>
+
     void PlayEffect(Collider other)
     {
+        if(audio != null)
+        {
+            audio.Play();
+        }
+
         Vector3 weaponColPoint = objectCol.ClosestPoint(other.bounds.center);
         Vector3 targetColPoint = other.ClosestPoint(weaponColPoint);
         Vector3 contactPoint = (weaponColPoint + targetColPoint) * 0.5f;
@@ -216,6 +228,9 @@ public class Attacker : MonoBehaviour, IAttacker
             normal = dir;  // 충돌 표면 방향
             // 접점 위치를 penetration 깊이만큼 보정
             contactPoint = contactPoint + normal * (dist * 0.5f);
+
+            //캐릭터 시점 및 충돌 위치를 고려하여, 이펙트가 잘 보이도록 인위적으로 보정한다
+            contactPoint.y += 0.5f;
         }
 
         Quaternion particleRotate = Quaternion.LookRotation(normal);

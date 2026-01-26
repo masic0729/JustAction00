@@ -12,6 +12,7 @@ public class CommonEnemyAttackNode : Node
 
     public override NodeState Evaluate()
     {
+
         if (enemy.isDefault == false)
             return state = NodeState.Success;
 

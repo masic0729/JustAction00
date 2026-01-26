@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
             player.anim.SetTrigger("Skill0");
             canInput = false;
         }*/
-        if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill1") && canKeyQ == true)
+        if (Input.GetKeyDown(KeyCode.Q) && skillManager.isSkillCanUse("Skill1") /*&& canKeyQ == true*/)
         {
             player.anim.SetBool("isAttacking", true);
 

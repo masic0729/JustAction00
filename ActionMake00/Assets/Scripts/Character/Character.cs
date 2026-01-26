@@ -102,7 +102,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
         damage = characterStatData.GetDamage();
         moveSpeed = characterStatData.GetMoveSpeed();
         def = characterStatData.GetDef();
-        
+        onDeathAction += CharacterDeadBase;
+
+
         anim = GetComponent<Animator>();
         hitCol = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
@@ -142,44 +144,41 @@ public class Character : MonoBehaviour, ICharacterDamageable
         {
             defResult += statDatas[i].Defense;
         }
-        damage -= (int)(defResult * 0.3f);
 
-        if (isIgnoreDamage == true)
-        {
-            return;
-        }
+        float damageMultiplier = 100f / (100f + defResult);
+        float finalDamage = damage * damageMultiplier;
 
-        if (hp - (int)damage < 0)
-            hp = 0;
-        else
-            hp -= (int)damage;
+        hp -= Mathf.RoundToInt(finalDamage);
+        if (hp < 0) hp = 0;
 
+        Debug.Log(finalDamage + " (after defense)");
 
-        Debug.Log(damage + "??");
-        //이곳에 체력 바 갱신
         onTransStatData?.Invoke();
-
 
         if (hp <= 0)
         {
-            //Dead();                         //이 부분은 이벤트/액션 처리할 것
             anim.SetTrigger("Death");
             isDead = true;
-
             onDeathAction?.Invoke(attacker);
             return;
         }
 
-        if (isSuperArmor == false || hitLevel != -1)
+        if (!isSuperArmor || hitLevel != -1)
         {
             anim.SetInteger("HitLevel", hitLevel);
-        }
-
-        if (isSuperArmor == false || hitLevel != -1)
-        {
             anim.SetTrigger("Hit");
-
         }
+    }
+
+
+    /// <summary>
+    /// 캐릭터는 기본적으로 사망 시 콜라이더를 비활성화한다
+    /// </summary>
+    void CharacterDeadBase(Character attacker)
+    {
+        //이후 캐릭터의 콜라이더를 비활성화한다
+        Collider col = GetComponent<Collider>();
+        col.enabled = false;
     }
 
     /// <summary>

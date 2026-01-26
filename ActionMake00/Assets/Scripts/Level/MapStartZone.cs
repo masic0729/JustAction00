@@ -14,7 +14,9 @@ public class MapStartZone : MonoBehaviour
 
         //if(GameManager.instance.GetIsTest() == false)
         {
-            GameObject.FindWithTag("Player").transform.position = playerSpawnZone;
+            GameObject ins = GameObject.FindWithTag("Player");
+            ins.transform.position = playerSpawnZone;
+
         }
 
     }

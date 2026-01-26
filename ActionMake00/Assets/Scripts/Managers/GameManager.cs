@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameClearView;
     [SerializeField] GameObject gameOverView;
 
+    [SerializeField] AudioClip BGM_GameOverClip;
+    [SerializeField] AudioClip BGM_GameClearClip;
+    [SerializeField] AudioClip BGM_TitleClip;
+    [SerializeField] AudioClip BGM_GamePlayClip;
+
     //테스트를 위한 처리값. 현재는 맵생성에 사용하고 있다.
     [SerializeField] bool isTest = false;
 
@@ -31,6 +36,8 @@ public class GameManager : MonoBehaviour
         gameOverView.SetActive(true);
 
         GUI_PlayerInput.instance.ShowEndUI(gameOverView);
+        SoundManager.instance.PlayBGM(BGM_GameOverClip);
+
     }
 
     /// <summary>
@@ -41,6 +48,16 @@ public class GameManager : MonoBehaviour
         gameClearView.SetActive(true);
 
         GUI_PlayerInput.instance.ShowEndUI(gameClearView);
+        SoundManager.instance.PlayBGM(BGM_GameClearClip);
+    }
 
+    public void PlayGameBGM()
+    {
+        SoundManager.instance.PlayBGM(BGM_GamePlayClip);
+    }
+
+    public void PlayTitleBGM()
+    {
+        SoundManager.instance.PlayBGM(BGM_TitleClip);
     }
 }

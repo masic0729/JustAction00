@@ -19,7 +19,8 @@ public class Player : Character
     [SerializeField] int[] needExp;
     [SerializeField] const int maxLevel = 3;                              //플레이어의 체대 레벨은 3레벨이다
 
-
+    [SerializeField] AudioSource hitAudio;
+    [SerializeField] AudioSource itemAudio;
 
     protected Transform weaponTransform;
 
@@ -171,6 +172,7 @@ public class Player : Character
         
 
         base.TakeDamage(amount, attacker, hitLevel);
+        PlayHitSound();                                     //피격 시 사운드 재생
 
         if (hitLevel == -1)
             return;
@@ -254,6 +256,16 @@ public class Player : Character
         SetHp(GetHp() + statUpValue);
     }
 
+    void PlayHitSound()
+    {
+        hitAudio.Play();
+    }
+
+    public void PlayItemSound()
+    {
+        itemAudio.Play();
+    }
+
     /// <summary>
     /// 플레이어가 사망 시 플레이어 조작 권한이 모두 사라진다.
     /// 오직 마우스로만 누름으로서 
@@ -264,10 +276,7 @@ public class Player : Character
         cameraCtrl.SetCanRotate(false);
         GUI_PlayerInput.instance.UI_LockForGameEnd();
 
-
-        //이후 플레이어의 콜라이더를 비활성화한다
-        Collider col = GetComponent<Collider>();
-        col.enabled = false;
+        
     }
 
     /// <summary>

@@ -44,4 +44,9 @@ public class EnemyZombie2 : FollwingPlayerEnemyBT
     }
 
 
+    public void PlayPattenSound()
+    {
+        attackAudio.Play();
+    }
+
 }

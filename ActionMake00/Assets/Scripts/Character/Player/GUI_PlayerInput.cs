@@ -92,7 +92,7 @@ public class GUI_PlayerInput : MonoBehaviour
             return;
 
         //어떠한 창이 활성화되지 않은 채로 창 활성화를 시도해야 할 수 있다.
-        if (target.activeSelf == false && isShowing == false)
+        if (currentEnableView == null && isShowing == false)
         {
             playerCtrl.SetCanAnyInput(false);
             target.SetActive(true);

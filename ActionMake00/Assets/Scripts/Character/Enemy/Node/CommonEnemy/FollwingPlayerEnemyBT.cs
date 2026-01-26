@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class FollwingPlayerEnemyBT : TreeCtrl
 {
+    
     public ItemObject[] dropItems;                                       //현재는 단일 게임오브젝트로 고정  소환하지만, 확률에 의해 다양한 아이템 및 여러 아이템 생성할 예정
 
 
@@ -51,6 +52,7 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
     /// <returns></returns>
     protected override Node SetupBehaviorTree()
     {
+
         node = new SequenceNode(new List<Node>
         {
             //우선 플레이어가 올 때까지 대기한다
@@ -61,6 +63,7 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
             new SelecterNode(new List<Node>
             {
             //new GoToPlayerNode(mainCamera, thisObject),
+
             //여기에 공격을 하는데, 패턴1을 할 수도 있고, 2를 할 수도 있다. 말이 Stay인거지, 현재는 공격이나 다름 없음
             //또한 공격하면서 몬스터의 영역을 벗어나지 않는 선에서 
             new CommonEnemyAttackNode(player, thisObject)
@@ -75,7 +78,6 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
 
 
         });
-
 
         return node;
     }

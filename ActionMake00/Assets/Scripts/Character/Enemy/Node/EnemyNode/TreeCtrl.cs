@@ -1,6 +1,5 @@
 public abstract class TreeCtrl : Enemy
 {
-    // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();

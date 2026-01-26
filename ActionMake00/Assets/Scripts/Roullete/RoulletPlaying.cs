@@ -13,6 +13,12 @@ public class RoulletPlaying : MonoBehaviour
 
     [SerializeField] GameObject PlayButton;
 
+    [SerializeField] AudioSource roulletAudio;
+
+    [SerializeField] AudioClip roulletPlayClip;
+    [SerializeField] AudioClip roulletSpinResultClip;
+    [SerializeField] AudioClip roulletResultClip;
+
     bool isRotating = false;
     bool isEnd = false;                                                     //ÀÜ¿© ·ê·¿ È¸Àü È½¼ö°¡ ³¡³µ´Ù¸é
 
@@ -37,6 +43,7 @@ public class RoulletPlaying : MonoBehaviour
         roulletAnim = GetComponent<DOTweenAnimation>();
         roulletUI = GetComponent<RoulletUI>();
         roulleteData = GetComponent<RoulletPlayData>();
+        roulletAudio = GetComponent<AudioSource>();
     }
 
     public void PlayRoullet()
@@ -59,6 +66,8 @@ public class RoulletPlaying : MonoBehaviour
             roulletAnim.CreateTween();
             roulletAnim.DORestart();
             isRotating = true;
+
+            PlayRoulletSound(roulletPlayClip);
         }
     }
 
@@ -107,13 +116,23 @@ public class RoulletPlaying : MonoBehaviour
         {
             isRotating = false;
             PlayButton.SetActive(true);
+            PlayRoulletSound(roulletSpinResultClip);
+
         }
         else
         {
             isEnd = true;
+            PlayRoulletSound(roulletResultClip);
+
         }
 
         roulletUI.PlayAnimUI(roulleteData.currentScore);
+    }
+
+    public void PlayRoulletSound(AudioClip clip)
+    {
+        roulletAudio.clip = clip;
+        roulletAudio.Play();
     }
 
     public Inventory GetPlayerInventory() => playerInventory;

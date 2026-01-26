@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.TextCore.Text;
+using static UnityEngine.ParticleSystem;
 
 public class PoolManager : MonoBehaviour
 {
@@ -42,13 +43,15 @@ public class PoolManager : MonoBehaviour
     public GameObject Spawn(string effectName, Vector3 pos, Quaternion rot)
     {
         GameObject pool = skillPrefabs[effectName].Get();
-        Debug.Log("풀 성공" + pool.name);
 
         pool.transform.SetPositionAndRotation(pos, rot);
         pool.transform.name = effectName;
 
-        /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
-        ps.Play();*/
+        if(pool.TryGetComponent<ParticleReplacer>(out ParticleReplacer replacer) )
+        {
+            pool.transform.position += replacer.GetParticlePosition();
+        }
+
         return pool;
     }
 
@@ -61,11 +64,15 @@ public class PoolManager : MonoBehaviour
     public GameObject Spawn(string effectName, Vector3 pos)
     {
         GameObject pool = skillPrefabs[effectName].Get();
-        Debug.Log("풀 성공" + pool.name);
 
         pool.transform.name = effectName;
 
         pool.transform.position = pos;
+
+        if (pool.TryGetComponent<ParticleReplacer>(out ParticleReplacer replacer))
+        {
+            pool.transform.position += replacer.GetParticlePosition();
+        }
         /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
 
         ps.Play();*/
@@ -89,6 +96,11 @@ public class PoolManager : MonoBehaviour
         pool.transform.name = effectName;
         pool.GetComponent<Attacker>().SetOwner(owner);
 
+        if (pool.TryGetComponent<ParticleReplacer>(out ParticleReplacer replacer))
+        {
+            pool.transform.position += replacer.GetParticlePosition();
+        }
+
         return pool;
     }
 
@@ -108,6 +120,11 @@ public class PoolManager : MonoBehaviour
 
         pool.transform.position = pos;
         pool.GetComponent<Attacker>().SetOwner(owner);
+
+        if (pool.TryGetComponent<ParticleReplacer>(out ParticleReplacer replacer))
+        {
+            pool.transform.position += replacer.GetParticlePosition();
+        }
 
         /*ParticleSystem ps = pool.GetComponent<ParticleSystem>();
 
