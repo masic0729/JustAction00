@@ -10,15 +10,14 @@ public class MapDesign : MonoBehaviour
         instance = this;
     }
 
+    [Header("맵 생성 하려는 타일 개수")]
     [SerializeField, Min(2)] private int mapMakeCount = 7;
 
-    // 가운데 타일만 편집: (mapMakeCount - 2)
+    [Header("맵의 컨텐츠를 설계한 중간 타일들의 정보")]
     [SerializeField] private List<TileContentConfig> middleTileConfigs = new List<TileContentConfig>();
 
-    //타일 생성 횟수. 해당 값은 최소 2를 요구한다
     public int GetMapMakeCount() => mapMakeCount;
 
-    //get TileContentData
     public IReadOnlyList<TileContentConfig> GetMiddleTiles() => middleTileConfigs;
 
     /// <summary>
