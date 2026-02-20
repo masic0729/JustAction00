@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4870059607375054944}
   m_Layer: 0
   m_Name: PlayerStaff
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,10 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e258e61728cd48844ae7e6eb7aff5a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 0}
   attackType: 0
-  weaponCol: {fileID: 0}
-  hitEffect: {fileID: 0}
-  damage: 1
+  objectCol: {fileID: 0}
+  hitEffect:
+  - {fileID: 4021103657954561960, guid: 97b08cd657c4b4243a9e8339fd0a5188, type: 3}
+  audio: {fileID: 0}
+  damageMultify: 1
   weaponType: 1
 --- !u!65 &-4870059607375054944
 BoxCollider:
@@ -121,5 +124,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.6, y: 6, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}

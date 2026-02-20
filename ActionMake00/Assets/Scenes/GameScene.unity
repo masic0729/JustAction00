@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3266,7 +3266,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 34218696068357817, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0012594664
+      value: -0.00094554486
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Spacing.x
@@ -3278,11 +3278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_CellSize.x
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_CellSize.y
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1874076723810760049, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Name
@@ -3290,7 +3290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2152476883280493531, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0012594706
+      value: -0.00094554067
       objectReference: {fileID: 0}
     - target: {fileID: 5224335211069199097, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Pivot.x
@@ -5452,6 +5452,10 @@ PrefabInstance:
       propertyPath: NPC_InventoryView
       value: 
       objectReference: {fileID: 1776234219}
+    - target: {fileID: 1577435895329709734, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: equips.Array.data[2]
+      value: 
+      objectReference: {fileID: 6887095611742308555, guid: 0ef52d97518afb645bcab037905579c3, type: 3}
     - target: {fileID: 2130385481672763854, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: mainCamera
       value: 

@@ -121,13 +121,13 @@ MonoBehaviour:
   itemId: 3
   item:
     comment: "\uB0A0\uCE74\uB85C\uC6B4 \uD55C\uC190\uAC80\uC774\uB2E4. \uACF5\uACA9\uB825
-      <color=#ff5555>30</color> \uC0C1\uC2B9\uD55C\uB2E4"
+      <color=#ff5555>20</color> \uC0C1\uC2B9\uD55C\uB2E4"
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 0
   statData:
     MaxHp: 0
-    Damage: 30
+    Damage: 20
     Defense: 0
     MoveSpeed: 0
   WeaponEquipment: {fileID: 2548763761762157146, guid: 7635c35c45c036444bc809b41df36eb2, type: 3}

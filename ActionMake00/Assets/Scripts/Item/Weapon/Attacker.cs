@@ -149,7 +149,6 @@ public class Attacker : MonoBehaviour, IAttacker
             
 
             if (hitTarget.GetIsParring() == true &&
-                hitTarget.GetIsIgnoreDamage() == false &&
                 this.attackType == AttackType.Weapon)
             {
                 //대상이 패링상태이면서, 현재 공격타입의 무기라면(물리공격), 패링 효과가 발생한다

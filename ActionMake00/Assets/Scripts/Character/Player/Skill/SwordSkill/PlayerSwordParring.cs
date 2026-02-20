@@ -27,6 +27,7 @@ public class PlayerSwordParring : PlayerSkillInfo
     {
         base.Init();
         hitLevel = 1;
+        isParringAttack = true;
     }
 
     protected override void OnTriggerEnter(Collider other)

@@ -15,6 +15,7 @@ public class PlayerStaffExplosion : PlayerSkillInfo
     protected override void Init()
     {
         base.Init();
+        hitLevel = 0;
         attackManager = new AttackColManager();
         CheckEnemyHitBySphere();
     }

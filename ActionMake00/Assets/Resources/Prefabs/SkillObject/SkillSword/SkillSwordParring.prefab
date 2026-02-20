@@ -9818,7 +9818,7 @@ MonoBehaviour:
   attackType: 2
   objectCol: {fileID: 0}
   hitEffect:
-  - {fileID: 0}
+  - {fileID: 8525990746615576122, guid: e95b00381c188354489e2abaae7d79e2, type: 3}
   audio: {fileID: 0}
   damageMultify: 1
 --- !u!1 &4936908092126958425
