@@ -127,5 +127,5 @@ MonoBehaviour:
   statData:
     MaxHp: 0
     Damage: 0
-    Defense: 30
+    Defense: 25
     MoveSpeed: 0

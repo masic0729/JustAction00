@@ -128,7 +128,7 @@ MonoBehaviour:
   statData:
     MaxHp: 0
     Damage: 0
-    Defense: 50
+    Defense: 10
     MoveSpeed: 0
   playerArmorIndex: 1
   baseComment: "\uAE30\uBCF8 \uBAA8\uC790\uC774\uB2E4."
