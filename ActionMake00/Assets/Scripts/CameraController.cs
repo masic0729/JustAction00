@@ -56,6 +56,9 @@ public class CameraController : MonoBehaviour
         cameraPivot.transform.position = cameraPosition;
     }
 
+    /// <summary>
+    /// 플랫폼에 따라 카메라를 회전하는 방식을 조정한다
+    /// </summary>
     public void RotateCameraPivot()
     {
         float mouseX = Input.GetAxisRaw("Mouse X");

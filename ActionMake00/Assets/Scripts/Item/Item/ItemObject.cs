@@ -5,11 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 {
-    public int itemId;                                  //csv ³» Á¸ÀçÇÏ´Â id¿Í ¸ÅÄ¡ÇÏ±â À§ÇÑ °ª
+    public int itemId;                                  //csv ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ idï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
     public ItemBase item;
     protected string itemComment;
-    Collider collider;
 
 
     private void Awake()
@@ -20,7 +19,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        collider = GetComponent<Collider>();
+        //collider = GetComponent<Collider>();
         //collider.enabled = false;
 
         Invoke("EnableCol", 1.5f);
@@ -33,14 +32,14 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
     void EnableCol()
     {
-        collider.enabled = true;
+        GetComponent<Collider>().enabled = true;
     }
 
 
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ±â´É ½ÇÇàÀº ½½·Ô ³» ¾×¼Ç¿¡ ÇÒ´çµµ¾ú±â¿¡,
-    /// ÀÌ ½ºÅ©¸³Æ®¿¡ °ü¸®µÇ´Â ¹æ½ÄÀº ¾Æ´Ï´Ù.
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×¼Ç¿ï¿½ ï¿½Ò´çµµï¿½ï¿½ï¿½â¿¡,
+    /// ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½.
     /// </summary>
     /// <param name="character"></param>
     /// <param name="slot"></param>
@@ -69,7 +68,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     {
         if(other.transform.tag == "Player")
         {
-            Debug.Log("¾ÆÀÌÅÛ È¹µæ" + other.transform.name);
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½" + other.transform.name);
             Inventory playerInventory = other.GetComponent<GUI_PlayerInput>().inventory;
             AddItemInInventory(playerInventory, this);
             other.GetComponent<Player>().PlayItemSound();
@@ -87,9 +86,9 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     }
 
     /// <summary>
-    /// csvÀÇ µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Â´Ù.
-    /// id¸¦ ±â¹ÝÀ¸·Î ºÒ·¯¿À¸ç, ÇØ´ç ¾ÆÀÌÅÛÀÇ ¾ÆÀÌÄÜÀº
-    /// °æ·Î¸¦ ÅëÇØ ºÒ·¯¿Í¼­ Àû¿ëÇÑ´Ù
+    /// csvï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½.
+    /// idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
     /// </summary>
     /// <param name="itemId"></param>
     /// <param name="iconBasePath"></param>
@@ -97,26 +96,26 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     {
         ItemData instanceItemData = null;
 
-        // CSV À§Ä¡: Assets/Resources/Jsons/ItemData.CS
+        // CSV ï¿½ï¿½Ä¡: Assets/Resources/Jsons/ItemData.CS
         string path = Application.dataPath + "/Resources/Jsons/ItemData_Template.CSV";
 
         using (StreamReader reader = new StreamReader(path))
         {
-            bool isFirstLine = true; // Çì´õ ½ºÅµ¿ë
+            bool isFirstLine = true; // ï¿½ï¿½ï¿½ ï¿½ï¿½Åµï¿½ï¿½
 
             while (true)
             {
                 string line = reader.ReadLine();
 
-                // ´õ ÀÌ»ó ÀÐÀ» ÁÙÀÌ ¾øÀ¸¸é Á¾·á
+                // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (line == null)
                     break;
 
-                // ºó ÁÙÀº ½ºÅµ
+                // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                // Ã¹ ÁÙÀº Çì´õ¶ó°í °¡Á¤ÇÏ°í ½ºÅµ
+                // Ã¹ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Åµ
                 if (isFirstLine)
                 {
                     isFirstLine = false;
@@ -127,68 +126,68 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                 string[] split = line.Split(',');
                 if (split.Length < 6)
                 {
-                    Debug.LogWarning($"[SetItemData] Àß¸øµÈ ¶óÀÎ: {line}");
+                    Debug.LogWarning($"[SetItemData] ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {line}");
                     continue;
                 }
 
-                // ¸¶Áö¸· ÄÃ·³ÀÌ ID
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ID
                 if (!int.TryParse(split[5], out int id))
                 {
-                    Debug.LogWarning($"[SetItemData] ID ÆÄ½Ì ½ÇÆÐ: {split[5]}");
+                    Debug.LogWarning($"[SetItemData] ID ï¿½Ä½ï¿½ ï¿½ï¿½ï¿½ï¿½: {split[5]}");
                     continue;
                 }
 
-                // ¿øÇÏ´Â ID°¡ ¾Æ´Ï¸é ÆÐ½º
+                // ï¿½ï¿½ï¿½Ï´ï¿½ IDï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½Ð½ï¿½
                 if (id != itemId)
                     continue;
 
-                // ¿©±â µµ´ÞÇÏ¸é: Ã£°í ½ÍÀº IDÀÇ ÁÙÀÌ´Ù
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½: Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½
 
-                // ·±Å¸ÀÓ¿ë ItemData ÀÎ½ºÅÏ½º »ý¼º
+                // ï¿½ï¿½Å¸ï¿½Ó¿ï¿½ ItemData ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 instanceItemData = ScriptableObject.CreateInstance<ItemData>();
 
-                // ±âº» Á¤º¸ ¼¼ÆÃ
+                // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 instanceItemData.itemName = split[0];
 
-                // itemType ÆÄ½Ì
+                // itemType ï¿½Ä½ï¿½
                 if (!Enum.TryParse(split[2], true, out ItemType itemType))
                     itemType = ItemType.nullItem;
                 instanceItemData.itemType = itemType;
 
-                // equipmentType ÆÄ½Ì
+                // equipmentType ï¿½Ä½ï¿½
                 if (!Enum.TryParse(split[3], true, out EquipmentType equipType))
                     equipType = EquipmentType.None;
                 instanceItemData.equipmentType = equipType;
 
-                // maxCount ÆÄ½Ì
+                // maxCount ï¿½Ä½ï¿½
                 if (!int.TryParse(split[4], out int parsedMaxCount))
                     parsedMaxCount = 0;
                 instanceItemData.maxCount = parsedMaxCount;
 
-                // 3) ¾ÆÀÌÄÜ ·Îµå
-                string iconKey = split[1].Trim(); // CSVÀÇ iconKey °ª ÀüÃ¼ (¿¹: "Resources\\JsonImageData\\03_Alchemy")
+                // 3) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
+                string iconKey = split[1].Trim(); // CSVï¿½ï¿½ iconKey ï¿½ï¿½ ï¿½ï¿½Ã¼ (ï¿½ï¿½: "Resources\\JsonImageData\\03_Alchemy")
 
-                // ¿ª½½·¡½Ã(\)¸¦ ½½·¡½Ã(/)·Î ÅëÀÏ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(\)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(/)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 string normalized = iconKey.Replace("\\", "/");
 
-                // ¾Õ¿¡ "Resources/"°¡ ºÙ¾î ÀÖÀ¸¸é Á¦°Å
+                // ï¿½Õ¿ï¿½ "Resources/"ï¿½ï¿½ ï¿½Ù¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (normalized.StartsWith("Resources/"))
                 {
                     normalized = normalized.Substring("Resources/".Length);
                 }
 
-                // ÃÖÁ¾ÀûÀ¸·Î Resources.Load¿¡ ³Ñ±æ °æ·Î
-                // ¿¹: "JsonImageData/03_Alchemy"
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Resources.Loadï¿½ï¿½ ï¿½Ñ±ï¿½ ï¿½ï¿½ï¿½
+                // ï¿½ï¿½: "JsonImageData/03_Alchemy"
                 string iconPath = normalized;
 
                 Sprite icon = Resources.Load<Sprite>(iconPath);
                 if (icon == null)
                 {
-                    Debug.LogWarning($"[SetItemData] ¾ÆÀÌÄÜ ·Îµå ½ÇÆÐ: {iconPath}");
+                    Debug.LogWarning($"[SetItemData] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½: {iconPath}");
                 }
                 instanceItemData.icon = icon;
 
-                // ½½·Ô °øÅë ÇÊµåµµ ±×´ë·Î À¯Áö
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµåµµ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 *//*this.type = instanceItemData.itemType;
                 this.maxCount = instanceItemData.maxCount;
 
@@ -199,7 +198,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                     slotIcon.color = Color.white;
                 }*//*
 
-                // Ã£¾ÒÀ¸¸é ´õ ÀÐÀ» ÇÊ¿ä ¾øÀ¸´Ï ¹Ù·Î Á¾·á
+                // Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½
                 break;
             }
         }
@@ -216,7 +215,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
         if (!File.Exists(path))
         {
-            Debug.LogError("[SetItemData] CSV ÆÄÀÏ ¾øÀ½: " + path);
+            Debug.LogError("[SetItemData] CSV ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + path);
             item.data = null;
             return;
         }
@@ -241,7 +240,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
                 if (id != itemId) continue;
 
-                // ¾ÆÀÌÅÛ µ¥ÀÌÅÍ »ý¼º
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 //instanceItemData = ScriptableObject.CreateInstance<ItemData>();
                 instanceItemData = new ItemData();
 
@@ -256,7 +255,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                 int.TryParse(split[4], out int maxCountParsed);
                 instanceItemData.maxCount = maxCountParsed;
 
-                // ¾ÆÀÌÄÜ ·Îµå (Resources ±âÁØ ±×´ë·Î)
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ (Resources ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½)
                 string normalized = split[1].Replace("\\", "/");
                 if (normalized.StartsWith("Resources/"))
                     normalized = normalized.Substring("Resources/".Length);

@@ -188,7 +188,8 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
     public override void SwapItem(ItemSlot slot)
     {
         // 인벤토리 슬롯과 "교환" 로직
-        if (slot == null || slot == this) return;
+        if (slot == null || slot == this)
+            return;
 
         // 1) 인벤토리에서 온 아이템이 장비로 들어올 수 있는지 체크
         var incoming = slot.currentItem;
@@ -242,15 +243,13 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 
         // 3) 아이콘 반영
         RefreshIcon();
+
         if (slot.type != ItemType.nullItem)
         {
             slot.slotIcon.sprite = slot.currentItem.data.icon;
             slot.slotIcon.enabled = true;
             slot.slotIcon.color = Color.white;
             slot.UpdateUI();
-        }
-        else
-        {
         }
 
         // 4) 합산 재계산
@@ -262,7 +261,10 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         // 인벤토리 외의 슬롯 타입과 교환은 현재 사용하지 않음
         // 필요 시 ItemSlot 경로만 허용
         var invSlot = slot as ItemSlot;
-        if (invSlot != null) { SwapItem(invSlot); }
+        if (invSlot != null) 
+        {
+            SwapItem(invSlot);
+        }
     }
 
     public override void SumItem(ItemObject itemObject) { /* 장비는 스택 불가 */ }

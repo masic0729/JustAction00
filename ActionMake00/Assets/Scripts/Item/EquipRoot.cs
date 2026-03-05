@@ -9,7 +9,6 @@ public class EquipRoot : ItemObject
 {
     public AddStatData statData;
     protected Player player;
-    //[SerializeField] protected string equipComment;                  //장비의 첫 설명
 
     /// <summary>
     /// 상호작용을 통해 해당 아이템에 설정된 기능들을 실행한다
@@ -28,13 +27,11 @@ public class EquipRoot : ItemObject
         }
 
 
-
         //장비창 및 스텟적용. 인벤토리의 슬롯이 장비 슬롯과 교환한다는 뜻이다
         //장비 슬롯이 아니라면,
         if (slot.GetComponent<EquipmentSlot>() == null)
         {
             slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);
-            //Debug.Log("이거 구동됨??");
         }
 
         //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
@@ -42,7 +39,6 @@ public class EquipRoot : ItemObject
 
         //저장 이후 장비 슬롯 매니저에 각 부위의 장비들의 스탯을 최신화해야한다
         slot.GetInventory().equipManager.UpdateCharacterStatResult();
-        
     }
 
     public override void UpdateInventory(SlotBase slot)
@@ -68,8 +64,6 @@ public class EquipRoot : ItemObject
         Debug.Log("장비 테스트");
 
         
-
-
         return true;
     }
 

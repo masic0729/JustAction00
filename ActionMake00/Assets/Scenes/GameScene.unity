@@ -1276,7 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  target: {fileID: 0}
+  target: {fileID: 597578438}
   countText: {fileID: 1568952070}
   inventory: {fileID: 5794484}
   slotType: 1
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  target: {fileID: 0}
+  target: {fileID: 597578438}
   countText: {fileID: 1872265397}
   inventory: {fileID: 5794484}
   slotType: 1
@@ -3266,7 +3266,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 34218696068357817, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0006102042
+      value: 0.0005847459
       objectReference: {fileID: 0}
     - target: {fileID: 625338732736736569, guid: da06b949e4c472646a68c598da2d0d5a, type: 3}
       propertyPath: m_Spacing.x
@@ -4070,7 +4070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  target: {fileID: 0}
+  target: {fileID: 597578438}
   countText: {fileID: 974569700}
   inventory: {fileID: 5794484}
   slotType: 1
@@ -5771,7 +5771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1094211144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6970,11 +6970,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1094211144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -10, y: 10}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -70, y: 0}
+  m_SizeDelta: {x: 70, y: 70}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1367376620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10452,7 +10452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  target: {fileID: 0}
+  target: {fileID: 597578438}
   countText: {fileID: 2041795785}
   inventory: {fileID: 5794484}
   slotType: 1

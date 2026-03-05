@@ -127,7 +127,7 @@ MonoBehaviour:
     currentCount: 0
   statData:
     MaxHp: 0
-    Damage: 10
+    Damage: 15
     Defense: 0
     MoveSpeed: 0
   WeaponEquipment: {fileID: 8924246067352728424, guid: a7dd1f61e15c55f4eab277704c6d5f33, type: 3}

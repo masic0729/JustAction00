@@ -58,14 +58,17 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         currentCount = Mathf.Clamp(count, 0, maxCount);
 
         // 3) 델리게이트 바인딩: 아이템 쪽이 우선, 없으면 ItemObject의 핸들러 사용
-        if (ib.OnItemUse != null) OnSlotItemUse = ib.OnItemUse;
-        /*else if (itemObject.UseItem != null) */ OnSlotItemUse = itemObject.UseItem;
+        if (ib.OnItemUse != null)
+            OnSlotItemUse = ib.OnItemUse;
 
-        if (ib.OnItemUpdate != null) OnSlotItemUpdate = ib.OnItemUpdate;
+        /*else if (itemObject.UseItem != null) */
+        OnSlotItemUse = itemObject.UseItem;
+
+        if (ib.OnItemUpdate != null)
+            OnSlotItemUpdate = ib.OnItemUpdate;
         // (itemObject에 업데이트 콜백이 따로 있다면 여기서 보강)
 
         UpdateUI();
-        Debug.Log("성공");
         return true;
     }
 
@@ -172,11 +175,19 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         {
             slot.ClearSlot();
         }
+
+        //스왑한 슬롯이 장비 슬롯이면, 스왑 이후 장비 사용 및 업데이트
+        if (slot.slotType == SlotType.Equipment)
+        {
+            slot.OnSlotItemUse?.Invoke(target, slot);
+            slot.OnSlotItemUpdate?.Invoke(slot);
+        }
     }
 
     public override void SwapItem(SlotBase slot)
     {
-        if (slot == null || slot == this) return;
+        if (slot == null || slot == this)
+            return;
 
         // 현재 슬롯 데이터 보관 (명시형 + SlotBase 시그니처)
         ItemBase t_item = this.currentItem;
@@ -206,7 +217,8 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         slot.OnSlotItemUpdate = t_update;
         //slot.slotItemComment = t_item.comment;
 
-        if (slot.currentItem != null) slot.currentItem.slotData = slot;
+        if (slot.currentItem != null)
+            slot.currentItem.slotData = slot;
 
         // 각자 UI 갱신 — 자기 슬롯의 currentItem 기준
         //if (this.currentItem != null)
@@ -233,6 +245,13 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         else
         {
             slot.ClearSlot();
+        }
+
+        //스왑한 슬롯이 장비 슬롯이면, 스왑 이후 장비 사용 및 업데이트
+        if(slot.slotType == SlotType.Equipment)
+        {
+            slot.OnSlotItemUse?.Invoke(target, slot);
+            slot.OnSlotItemUpdate?.Invoke(slot);
         }
     }
 
@@ -326,7 +345,11 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override void UpdateUI()
     {
-        if (currentItem == null) { countText.text = ""; return; }
+        if (currentItem == null) 
+        {
+            countText.text = "";
+            return;
+        }
         countText.text = (currentCount > 1) ? currentCount.ToString() : "";
     }
 
@@ -355,18 +378,26 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public override bool CanSumItem(ItemBase item)
     {
-
         // 유효성 검사
-        if (item == null) return false;
-        if (currentItem == null) return false;                   // 이 슬롯이 비어있으면 합칠 수 없음
-        if (type != ItemType.Consumable) return false;           // 소비 아이템만 합치기
+        if (item == null)
+            return false;
+
+        if (currentItem == null)
+            return false;                         // 이 슬롯이 비어있으면 합칠 수 없음
+
+        if (type != ItemType.Consumable)
+            return false;                       // 소비 아이템만 합치기
 
         // 같은 아이템인지: 데이터 레퍼런스 기준 (이름 문자열보다 안전)
-        if (currentItem.data != item.data) return false;
+        if (currentItem.data != item.data)
+            return false;
 
         // 슬롯의 '현재 수량'을 써야 함 (기존 bug: currentItem.currentCount 사용)
-        if (currentCount <= 0) return false;                     // 방어적 체크
-        if (currentCount >= maxCount) return false;              // 이미 꽉 찬 슬롯
+        if (currentCount <= 0)
+            return false;                          // 방어적 체크
+
+        if (currentCount >= maxCount)
+            return false;                         // 이미 꽉 찬 슬롯
 
         // 완전히 들어갈 수 있을 때만 합치기 (넘치면 빈 슬롯으로 가도록)
         return (currentCount + item.addCount) <= maxCount;
@@ -383,7 +414,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         if (eventData.button != PointerEventData.InputButton.Right) return;
 
         Debug.Log("OnClick");
-        if (currentItem == null) return; // ← 반전 버그 수정
+        if (currentItem == null) return; // 반전 버그 수정
 
         
         OnSlotItemUse?.Invoke(target, this);
@@ -414,9 +445,11 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
         inventory.DragImage.sprite = null;
         inventory.DragImage.gameObject.SetActive(false);
 
+        //원래 이 부분은 인벤토리 외부로 이동 시 파괴되는 시스템인데, 논리 오류로 추정
         if (RectTransformUtility.RectangleContainsScreenPoint(invenTransform, eventData.position) == false)
         {
-            this.ClearSlot();
+            //this.ClearSlot();
+            //Debug.Log("나 실행됨");
         }
     }
 
@@ -424,7 +457,6 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
-        Debug.Log("OnDrag");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -439,8 +471,8 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("OnEnter");
         if (type == ItemType.nullItem) return;
+        Debug.Log("OnEnter");
 
         inventory.TooltipView.gameObject.SetActive(true);
 
@@ -477,7 +509,6 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("OnExit");
         inventory.TooltipView.gameObject.SetActive(false);
 
     }

@@ -80,7 +80,6 @@ public class Player : Character
     /// <param name="weapon"></param>
     public void WeaponInit(PlayerWeapon weapon)
     {
-        
         //현재 플레이어의 무기가 존재하면, 해당 무기 삭제
         if (weaponDic[weaponTypeString] != null && weaponTypeString != null)
         {

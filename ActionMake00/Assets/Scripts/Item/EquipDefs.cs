@@ -8,6 +8,7 @@ public class EquipDefs : EquipRoot
     public override void UseItem(Character character, SlotBase slot)
     {
         base.UseItem(character, slot);
+        //플레이어 외형 변경
         character.GetComponent<PlayerArmorCustom>().SetPlayerArmorVisual(item.data.equipmentType, playerArmorIndex);
     }
 

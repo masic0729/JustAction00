@@ -45,39 +45,37 @@ public class GUI_PlayerInput : MonoBehaviour
 
     void InputKey()
     {
-        
-
+#if UNITY_EDITOR || UNITY_STANDALONE
+        //PC 에디터 및 스탠드얼론 빌드
         if (Input.GetKeyDown(KeyCode.I))
         {
             EnableUI(UI_View.gameObject);
         }
 
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             EnableUI(UI_View.gameObject);
         }
 
-        if(Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             TestInputItem1();
         }
 
-        if(Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             //TestInputItem2();
             TestInputItem3();
-            
+
         }
-        
-        /*if(Input.GetKeyDown(KeyCode.F))
-        {
-            EnableUI(NPC_InventoryView);
-        }*/
 
         if (Input.GetKeyDown(KeyCode.T))
         {
             inventory.SortInventoryTest();
         }
+#endif
+
+
     }
     
     /// <summary>
