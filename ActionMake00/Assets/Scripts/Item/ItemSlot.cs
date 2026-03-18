@@ -411,10 +411,12 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     public void OnPointerClick(PointerEventData eventData)
     {
         // 우클릭인 경우에만 실행
-        if (eventData.button != PointerEventData.InputButton.Right) return;
+        /*if (eventData.button != PointerEventData.InputButton.Right)
+            return;*/
 
         Debug.Log("OnClick");
-        if (currentItem == null) return; // 반전 버그 수정
+        if (currentItem == null)
+            return; // 반전 버그 수정
 
         
         OnSlotItemUse?.Invoke(target, this);

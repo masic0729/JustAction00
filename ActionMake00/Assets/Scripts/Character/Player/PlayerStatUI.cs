@@ -10,7 +10,7 @@ public class PlayerStatUI : MonoBehaviour
 {
     SkillManager skillManager;
     Player player;
-    public Slider HpSlider;
+    public Image HpSlider;
     public Slider ExpSlider;
     public Slider[] SkillCoolTime; 
     public Image[] skills;
@@ -50,7 +50,7 @@ public class PlayerStatUI : MonoBehaviour
     /// </summary>
     public void PlayerUpdateHp()
     {
-        HpSlider.value = (float)player.GetHp()/player.GetResultMaxHp();
+        HpSlider.fillAmount = (float)player.GetHp()/player.GetResultMaxHp();
     }
 
     public void UpdateExp()

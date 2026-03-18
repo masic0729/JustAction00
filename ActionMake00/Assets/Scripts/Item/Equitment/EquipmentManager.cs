@@ -17,7 +17,7 @@ public class EquipmentManager : MonoBehaviour
 {
     public EquipmentSlot[] equipSlots;
     [SerializeField] Character StatViewTarget;              //캐릭터 능력치를 노출하려는 대상
-    public TextMeshProUGUI[] statTexts;
+    public Text[] statTexts;
     public Inventory inven;
 
     //안쓸 수도 있음

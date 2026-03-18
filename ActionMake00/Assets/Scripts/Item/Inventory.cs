@@ -13,8 +13,8 @@ public class Inventory : MonoBehaviour
     public RectTransform TooltipView;
     public Text testItemName;
     public Text testItemComment;
-    Transform inventoryTransform;
-    const int slotCount = 35;
+    [SerializeField] Transform inventoryTransform;
+    const int slotCount = 40;
     public List<ItemSlot> lSlot;
     SlotBase dragSlot = null;
 
@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     void Init()
     {
-        inventoryTransform = this.gameObject.transform.GetComponentInChildren<GridLayoutGroup>().transform;
+        //inventoryTransform = this.gameObject.transform.GetComponentInChildren<GridLayoutGroup>().transform;
         lSlot = new List<ItemSlot>();
         
         for (int i = 0; i < slotCount; i++)
