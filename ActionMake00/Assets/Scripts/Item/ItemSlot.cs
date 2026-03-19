@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ItemSlot : SlotBase, IPointerClickHandler,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler,
-    IPointerEnterHandler, IPointerExitHandler
+    IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private void Start()
     {
@@ -240,7 +240,11 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             slot.slotIcon.sprite = slot.currentItem.data.icon;
             slot.slotIcon.enabled = true;
             slot.slotIcon.color = Color.white;
-            slot.countText.text = (slot.currentCount > 1) ? slot.currentCount.ToString() : "";
+            if(slot.countText != null)
+            {
+                slot.countText.text = (slot.currentCount > 1) ? slot.currentCount.ToString() : "";
+            }
+
         }
         else
         {
@@ -410,6 +414,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        return;
         // 우클릭인 경우에만 실행
         /*if (eventData.button != PointerEventData.InputButton.Right)
             return;*/
@@ -463,6 +468,7 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("드래그 시작");
         // 좌클릭 + 아이템이 있어야 드래그 시작
         if (eventData.button != PointerEventData.InputButton.Left || this.currentCount == 0) return;
 
@@ -513,5 +519,16 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
     {
         inventory.TooltipView.gameObject.SetActive(false);
 
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("OnUp");
+        if (currentItem == null)
+            return; // 반전 버그 수정
+
+
+        OnSlotItemUse?.Invoke(target, this);
+        OnSlotItemUpdate?.Invoke(this);
     }
 }

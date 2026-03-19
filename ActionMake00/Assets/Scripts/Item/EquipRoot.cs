@@ -34,6 +34,7 @@ public class EquipRoot : ItemObject
             slot.SwapItem(slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()]);
         }
 
+        Debug.Log(slot.GetInventory() + " " + slot.GetInventory().equipManager);
         //교환했다면 장비 슬롯에 있는 장비 옵션을 해당 장비 슬롯 데이터에 저장한다
         slot.GetInventory().equipManager.equipSlotDic[item.data.equipmentType.ToString()].equipmentStat = statData;
 

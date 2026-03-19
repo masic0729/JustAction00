@@ -69,10 +69,10 @@ public class EquipmentManager : MonoBehaviour
     void CharacterStatUpdateForInfo()
     {
         //장비창 내 텍스트 변화용
-        statTexts[(int)StatInfo.MaxHP].text = "MAXHP\n" + StatViewTarget.GetResultMaxHp().ToString();
-        statTexts[(int)StatInfo.Damage].text = "DAMAGE\n" + StatViewTarget.GetResultDamage().ToString();
-        statTexts[(int)StatInfo.Defense].text = "DEFENSE\n" + StatViewTarget.GetResultDefense().ToString();
-        statTexts[(int)StatInfo.MoveSpeed].text = "SPEED\n" + StatViewTarget.GetResultMoveSpeed().ToString();
+        statTexts[(int)StatInfo.MaxHP].text = StatViewTarget.GetResultMaxHp().ToString();
+        statTexts[(int)StatInfo.Damage].text = StatViewTarget.GetResultDamage().ToString();
+        statTexts[(int)StatInfo.Defense].text = StatViewTarget.GetResultDefense().ToString();
+        statTexts[(int)StatInfo.MoveSpeed].text = StatViewTarget.GetResultMoveSpeed().ToString();
 
         //캐릭터의 체력바 업데이트용
         StatViewTarget.onTransStatData?.Invoke();
