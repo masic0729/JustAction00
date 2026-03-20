@@ -112,7 +112,7 @@ public abstract class SlotBase : MonoBehaviour
         float halfTipH = tooltipSize.y * 0.5f;
 
         // 기본: 마우스 오른쪽
-        float x = mouseLocalPos.x + halfTipW * 2 + 180f;
+        float x = mouseLocalPos.x + halfTipW * 2 + 200f;
         float y = mouseLocalPos.y;
 
         // 오른쪽으로 뒀을 때 캔버스 밖이면 -> 왼쪽으로 플립
