@@ -105,14 +105,14 @@ public abstract class SlotBase : MonoBehaviour
     public Vector2 CalToolTipPosition(Vector2 mouseLocalPos, Vector2 tooltipSize, RectTransform canvasRect, float padding)
     {
         // 캔버스 로컬 좌표는 보통 중심이 (0,0)
-        float halfCanvasW = canvasRect.rect.width * 0.5f;
+        float halfCanvasW = canvasRect.rect.width * 0.5f - 100f;
         float halfCanvasH = canvasRect.rect.height * 0.5f;
 
         float halfTipW = tooltipSize.x * 0.5f;
         float halfTipH = tooltipSize.y * 0.5f;
 
         // 기본: 마우스 오른쪽
-        float x = mouseLocalPos.x + halfTipW * 2;
+        float x = mouseLocalPos.x + halfTipW * 2 + 180f;
         float y = mouseLocalPos.y;
 
         // 오른쪽으로 뒀을 때 캔버스 밖이면 -> 왼쪽으로 플립

@@ -484,14 +484,14 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
         inventory.TooltipView.gameObject.SetActive(true);
 
-        // 1) 툴팁이 속한 캔버스 찾기
+        //툴팁이 속한 캔버스 찾기
         Canvas canvas = inventory.TooltipView.GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.transform as RectTransform;
 
-        // 2) Canvas RenderMode에 맞는 카메라 선택 (Overlay면 null)
+        //Canvas RenderMode에 맞는 카메라 선택 (Overlay면 null)
         Camera uiCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
 
-        // 3) 마우스 스크린 좌표 -> 캔버스 로컬 좌표
+        //마우스 스크린 좌표 -> 캔버스 로컬 좌표
         Vector2 mouseLocal;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
@@ -500,15 +500,15 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
             out mouseLocal
         );
 
-        // 4) 툴팁 크기(캔버스 로컬 기준) 가져오기
+        //툴팁 크기(캔버스 로컬 기준) 가져오기
         RectTransform tooltipRT = inventory.TooltipView;
-        // 레이아웃/스케일 반영된 크기를 쓰고 싶으면 lossyScale까지 고려
+        //레이아웃/스케일 반영된 크기를 쓰고 싶으면 lossyScale까지 고려
         Vector2 tooltipSize = new Vector2(
             tooltipRT.rect.width * tooltipRT.lossyScale.x,
             tooltipRT.rect.height * tooltipRT.lossyScale.y
         );
 
-        // 5) 최종 위치 계산 후 anchoredPosition으로 배치
+        //최종 위치 계산 후 anchoredPosition으로 배치
         tooltipRT.anchoredPosition = CalToolTipPosition(mouseLocal, tooltipSize, canvasRect, 55f);
 
         inventory.testItemName.text = this.currentItem.data.itemName;
@@ -523,7 +523,9 @@ public class ItemSlot : SlotBase, IPointerClickHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnUp");
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+
         if (currentItem == null)
             return; // 반전 버그 수정
 
