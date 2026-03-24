@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
     [SerializeField] Transform cameraPivot;
-    [SerializeField] CameraShake mainCamera;
+    [SerializeField] CameraAction mainCamera;
 
     float currentCameraRotateY;
     float rotateSpeed = 180f;
@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
     {
         if (mainCamera != null)
             return;
-        mainCamera = GameObject.Find("Main Camera").GetComponent<CameraShake>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<CameraAction>();
         currentCameraRotateY = mainCamera.transform.rotation.y;
     }
 

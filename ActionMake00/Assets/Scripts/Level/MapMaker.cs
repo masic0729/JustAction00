@@ -99,21 +99,22 @@ public class MapMaker : MonoBehaviour
         bool[,] map;
 
         //여유 공간을 크게 잡아 DFS가 좌표 경계에 걸릴 확률을 낮춘다
-        map = new bool[mapMakeCount * 4, mapMakeCount * 4];
+        map = new bool[mapMakeCount, mapMakeCount];
 
         //처음 시작하는 맵 위치는 이곳이다.
-        map[mapMakeCount * 3, mapMakeCount * 3] = true;
-        mapIndex.Add((mapMakeCount * 3, mapMakeCount * 3));
+        int firstMapPosition = mapMakeCount / 2;
+        map[firstMapPosition, firstMapPosition] = true;
+        mapIndex.Add((firstMapPosition, firstMapPosition));
 
         //생성 결과를 GameData에 기록 (추후 배치/저장/디버그에 활용)
-        GameData.instance.mapData.spawnedMapX.Add(mapMakeCount * 3);
-        GameData.instance.mapData.spawnedMapZ.Add(mapMakeCount * 3);
+        GameData.instance.mapData.spawnedMapX.Add(firstMapPosition);
+        GameData.instance.mapData.spawnedMapZ.Add(firstMapPosition);
 
 
 
 
-        currentX = (mapMakeCount * 3);
-        currentZ = (mapMakeCount * 3) + 1;
+        currentX = (firstMapPosition);
+        currentZ = (firstMapPosition) + 1;
 
         //고정적으로 위로 올라가기 때문에 첫 맵 위치에서 Z + 1한 채로 고정설정된다.
         //=> 시작 방 다음 타일을 "일단 1개" 확정하고 DFS를 시작한다
@@ -135,7 +136,7 @@ public class MapMaker : MonoBehaviour
                 }
             }
 
-            if (currentX + 1 <= mapMakeCount * 4 - 1)
+            if (currentX + 1 <= mapMakeCount - 1)
             {
                 if (map[currentX + 1, currentZ] == false)
                 {
@@ -151,7 +152,7 @@ public class MapMaker : MonoBehaviour
                 }
             }
 
-            if (currentZ + 1 <= mapMakeCount * 4 - 1)
+            if (currentZ + 1 <= mapMakeCount - 1)
             {
                 if (map[currentX, currentZ + 1] == false)
                 {

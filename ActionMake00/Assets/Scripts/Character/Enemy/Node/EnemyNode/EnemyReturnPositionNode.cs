@@ -13,7 +13,7 @@ public class EnemyReturnPositionNode : Node
 
     public override NodeState Evaluate()
     {
-        if (Vector3.Distance(targetPosition, enemy.transform.position) > 0.1f && enemy.GetIsAttack() == false)
+        if (Vector3.Distance(targetPosition, enemy.transform.position) > 0.3f && enemy.GetIsAttack() == false)
         {
             anim.SetBool("Move", true);
 
