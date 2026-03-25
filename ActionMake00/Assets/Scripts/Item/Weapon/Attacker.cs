@@ -10,15 +10,16 @@ public enum AttackType
 
 public class Attacker : MonoBehaviour, IAttacker
 {
-    [SerializeField] protected Character owner;                     //공격체의 출처
+    [SerializeField] protected Character owner;                                                       //공격체의 출처
 
-    protected List<BuffBase> ownerBuffs;                            //자신에게 획득하는 버프 
-    protected List<BuffBase> targetBuffs;                           //상대에게 제공하는 버프 
+    
+    protected List<BuffBase> ownerBuffs;                                                              //자신에게 획득하는 버프 
+    protected List<BuffBase> targetBuffs;                                                             //상대에게 제공하는 버프 
 
     [SerializeField] protected AttackType attackType;
     [SerializeField] protected Collider objectCol;
     [SerializeField] protected ParticleSystem[] hitEffect;
-    protected CustomTrail[] weaponCustomTrail;                                                       //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
+    protected CustomTrail[] weaponCustomTrail;                                                        //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
     //[SerializeField]protected TrailRenderer[] weaponTrail;                                          //근접 무기 전용 트테일 스크립트. 복수개일 수 있음
 
     [SerializeField] AudioSource audio;

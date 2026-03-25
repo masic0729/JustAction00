@@ -61,7 +61,6 @@ public class RoulletPlaying : MonoBehaviour
 
             CalResultRoullete();
 
-
             roulletAnim.endValueV3 = new Vector3(0, 0, roulleteData.targetRotate);
             roulletAnim.CreateTween();
             roulletAnim.DORestart();

@@ -72,6 +72,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
             Inventory playerInventory = other.GetComponent<GUI_PlayerInput>().inventory;
             AddItemInInventory(playerInventory, this);
             other.GetComponent<Player>().PlayItemSound();
+            PoolManager.instance.Spawn("ItemGetEffect",transform.position, transform.rotation);
         }
     }
 

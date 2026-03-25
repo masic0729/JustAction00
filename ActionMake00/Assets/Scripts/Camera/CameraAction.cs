@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -12,8 +13,10 @@ public class CameraAction : MonoBehaviour
 
     [SerializeField] float shakeDuration;   //카메라 흔들림 시간
 
-    [SerializeField] float cameraViewDefault;   //카메라 초기 확대값
-    [SerializeField] float cameraViewAction;    //카메라 액션 확대값
+    float cameraViewDefault;   //카메라 초기 확대값
+    float cameraViewAction;    //카메라 액션 확대값
+
+    string playZoomID = null;   //현재 실행중인 줌 트윈 아이디. null일 경우 실행중이 아님
 
     private void Start()
     {
@@ -27,6 +30,22 @@ public class CameraAction : MonoBehaviour
             cameraViewDefault = GetComponent<Camera>().fieldOfView;
         }
         cameraViewAction = cameraViewAction - 20f;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            DOTween.Complete("HARDZOOM");
+            DOTween.Restart("NORMALZOOM");
+            //playZoomID = "NORMALZOOM";
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            DOTween.Complete("NORMALZOOM");
+            DOTween.Restart("HARDZOOM");
+            //playZoomID = "HARDZOOM";
+        }
     }
 
     public void PlayCameraShake(float shakeMultyfy = 1f)
@@ -59,14 +78,13 @@ public class CameraAction : MonoBehaviour
             yield return null;
         }
     }
-
-    /// <summary>
-    /// 공격을 통해 확대 및 복구 기능을 요구한다
-    /// todo
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator ZoomAction()
+    public void OnZoomStart(string zoomID)
     {
-        yield return null;
+        playZoomID = zoomID;
+    }
+
+    public void OnZoomEnd()
+    {
+        playZoomID = null;
     }
 }

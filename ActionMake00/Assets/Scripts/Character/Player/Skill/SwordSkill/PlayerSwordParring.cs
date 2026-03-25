@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class PlayerSwordParring : PlayerSkillInfo
     protected override void OnEnable()
     {
         base.OnEnable();
+        DOTween.Complete("NORMALZOOM");
+        DOTween.Restart("HARDZOOM");
     }
 
     protected override void Awake()
