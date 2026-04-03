@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6554,6 +6554,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1192346931}
+    - target: {fileID: 2130385481672763854, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: sprintTime
+      value: 0.467
+      objectReference: {fileID: 0}
     - target: {fileID: 2157256263484472293, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -8098,6 +8102,7 @@ GameObject:
   - component: {fileID: 1192346942}
   - component: {fileID: 1192346943}
   - component: {fileID: 1192346944}
+  - component: {fileID: 1192346945}
   m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8542,6 +8547,147 @@ MonoBehaviour:
   loopType: 0
   loops: 1
   id: HARDZOOM
+  isRelative: 0
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 1192346936}
+  animationType: 17
+  targetType: 1
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 40
+  endValueV3: {x: 0, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalShakeRandomnessMode: 0
+  optionalString: 
+--- !u!114 &1192346945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192346931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 1
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 1
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1192346942}
+        m_TargetAssemblyTypeName: CameraAction, Assembly-CSharp
+        m_MethodName: OnZoomStart
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ROLL
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1192346942}
+        m_TargetAssemblyTypeName: CameraAction, Assembly-CSharp
+        m_MethodName: OnZoomEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.6
+  easeType: 37
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 4.965039
+      outSlope: 4.965039
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.031089995
+    - serializedVersion: 3
+      time: 0.042094745
+      value: 0.9959051
+      inSlope: 0.019691892
+      outSlope: 0.019691892
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.62879944
+      value: 0.011791229
+      inSlope: 0.1944699
+      outSlope: 0.1944699
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.39941412
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: ROLL
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
@@ -17154,7 +17300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9123198120553859374, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0008008423
+      value: 0.0010405178
       objectReference: {fileID: 0}
     - target: {fileID: 9128269951712022640, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
       propertyPath: m_AnchorMax.y

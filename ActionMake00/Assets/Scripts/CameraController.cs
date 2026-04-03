@@ -34,6 +34,7 @@ public class CameraController : MonoBehaviour
     {
         if (canRotate == false)
             return;
+
         FollowCamera();
         RotateCameraPivot();
     }

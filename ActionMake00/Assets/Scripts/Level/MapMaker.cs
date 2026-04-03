@@ -48,10 +48,10 @@ public class MapMaker : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        }*/
     }
 
     void Init()
