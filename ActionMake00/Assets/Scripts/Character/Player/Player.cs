@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -29,6 +30,8 @@ public class Player : Character
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
     protected string weaponTypeString;
+
+    public bool isRoll = false;
 
     
     // 초기화
@@ -158,19 +161,25 @@ public class Player : Character
         
     }
 
+    // Player.cs 상단 필드에 추가
+    // 퍼펙트 회피 성공 시 연출 파트로 전달하는 이벤트
+    public event Action OnPerfectDodge;
+
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
         //onTransStatData();
-
         if (isIgnoreDamage == true)
         {
-            Debug.Log(this.gameObject.name + " 무적 : " + transform.name);
+
+            // 퍼펙트 회피 성공 - 무적 중 실제 피격이 들어온 순간
+            OnPerfectDodge?.Invoke();
             return;
         }
 
-        
+
 
         base.TakeDamage(amount, attacker, hitLevel);
+
         PlayHitSound();                                     //피격 시 사운드 재생
 
         if (hitLevel == -1)

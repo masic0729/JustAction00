@@ -12,7 +12,7 @@ public class PlayerStatUI : MonoBehaviour
     Player player;
     public Image HpSlider;
     public Slider ExpSlider;
-    public Slider[] SkillCoolTime; 
+    public Image[] SkillCoolTime; 
     public Image[] skills;
 
     private void Awake()
@@ -41,7 +41,7 @@ public class PlayerStatUI : MonoBehaviour
         for (int i = 0; i < SkillCoolTime.Length; i++)
         {
 
-            SkillCoolTime[i].value = coolTimer[i] / coolTime[i];
+            SkillCoolTime[i].fillAmount = coolTimer[i] / coolTime[i];
         }
     }
 

@@ -61,8 +61,6 @@ namespace DuloGames.UI
 			// Check for escape key press
 			if (Input.GetButtonDown(this.m_EscapeInputName))
 			{
-                //나는 해당 기능을 사용하지 않을 것이다
-                return;
                 // Check for currently opened modal and exit this method if one is found
                 UIModalBox[] modalBoxes = FindObjectsOfType<UIModalBox>();
 

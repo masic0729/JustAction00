@@ -341,6 +341,10 @@ public class PlayerController : MonoBehaviour
             if (sprintCoroutine != null)
                 StopCoroutine(sprintCoroutine);
 
+            player.SetIsIgnoreDamage(true);
+            Debug.Log(player.GetIsIgnoreDamage());
+            
+
             DOTween.Complete("ROLL");
             DOTween.Restart("ROLL");
 
@@ -357,16 +361,17 @@ public class PlayerController : MonoBehaviour
         player.onTransStatData();
 
         canAttackInput = true;
-
         // 대쉬 시작 시점의 바라보는 방향을 저장 - DashMove의 초기 이동 방향으로 사용
         dashDirection = transform.forward;
         isDashing = true;
 
         player.anim.SetTrigger("Sprint");
         player.anim.SetBool("isSprint", true);
-        player.SetIsIgnoreDamage(true);
 
+        Debug.Log("무적 시작");
+        Debug.Log(player.GetIsIgnoreDamage());
         yield return new WaitForSeconds(sprintTime);
+        Debug.Log("무적 종료");
 
         player.SetIsIgnoreDamage(false);
         player.anim.SetBool("isSprint", false);

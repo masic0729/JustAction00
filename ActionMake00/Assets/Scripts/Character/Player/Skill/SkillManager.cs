@@ -10,7 +10,7 @@ public class SkillManager : MonoBehaviour
 
     Dictionary<string, float> weaponSkillCooltimeDic;
     Dictionary<string, float> weaponSkillCoolListDic;
-
+    [SerializeField] ParticleSystem[] ps;
     Player player;
 
     string currentWeaponType;
@@ -98,12 +98,22 @@ public class SkillManager : MonoBehaviour
         {
             string skillTriggerName = weaponData[i].weaponSkillBase[i].triggerName;
 
+            if (weaponSkillCooltimeDic[skillTriggerName] <= 0)
+            {
+                weaponSkillCooltimeDic[skillTriggerName] = 0;
+                continue;
+            }
 
             if (weaponSkillCooltimeDic[skillTriggerName] > 0)
+            {
                 weaponSkillCooltimeDic[skillTriggerName] -= Time.deltaTime;
+                if (weaponSkillCooltimeDic[skillTriggerName] < 0)
+                {
+                    ps[i].Play();
+                }
+            }
 
-            if (weaponSkillCooltimeDic[skillTriggerName] <= 0)
-                weaponSkillCooltimeDic[skillTriggerName] = 0;
+
         }
 
     }
