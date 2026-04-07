@@ -2,6 +2,8 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 // 플레이어의 입력을 받아 이동, 공격, 스킬, 대쉬, 상호작용 등을 처리하는 컨트롤러
 public class PlayerController : MonoBehaviour
@@ -24,10 +26,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveVector;
 
     // 수평(좌우) 입력값
-    float h;
-
-    // 수직(앞뒤) 입력값
-    float v;
+    float h, v;
 
     // 현재 실행 중인 대쉬 코루틴 참조 - 중복 실행 방지 및 중단 제어용
     public IEnumerator sprintCoroutine;
@@ -81,6 +80,17 @@ public class PlayerController : MonoBehaviour
     // 플레이어 사망 여부 - true이면 모든 입력 차단
     bool isGameEnd = false;
 
+    // Post Processing Volume 참조 - Motion Blur 파라미터 접근용
+    [SerializeField] Volume postProcessVolume;
+
+    // Motion Blur 컴포넌트 참조
+    MotionBlur motionBlur;
+
+    // 대쉬 중 적용할 Motion Blur Intensity 값
+    [SerializeField] float dashBlurIntensity = 1f;
+
+    // 대쉬 전 원래 Intensity 값 저장용
+    [SerializeField]float defaultBlurIntensity;
 
     // 초기화
     void Start()
@@ -90,14 +100,19 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // 컴포넌트 참조 초기화 함수
     void Init()
     {
         transform.tag = "Player";
         skillManager = GetComponent<SkillManager>();
-
-        // 물리 기반 이동을 위한 Rigidbody 캐싱
         rb = GetComponent<Rigidbody>();
+        
+        // Volume에서 MotionBlur 컴포넌트 추출 및 기본값 저장
+        if (postProcessVolume != null && postProcessVolume.profile.TryGet(out motionBlur))
+        {
+            motionBlur.intensity.overrideState = true;
+            defaultBlurIntensity = motionBlur.intensity.value;
+
+        }
     }
 
 
@@ -345,8 +360,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log(player.GetIsIgnoreDamage());
             
 
-            DOTween.Complete("ROLL");
-            DOTween.Restart("ROLL");
+            /*DOTween.Complete("ROLL");
+            DOTween.Restart("ROLL");*/
 
             sprintCoolTimer = sprintCoolTime;
             sprintCoroutine = Sprint();
@@ -355,29 +370,35 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // 대쉬 실행 코루틴 - 시작 방향 저장, 무적 처리, sprintTime 후 상태 복귀 
     IEnumerator Sprint()
     {
         player.onTransStatData();
 
         canAttackInput = true;
-        // 대쉬 시작 시점의 바라보는 방향을 저장 - DashMove의 초기 이동 방향으로 사용
         dashDirection = transform.forward;
         isDashing = true;
 
         player.anim.SetTrigger("Sprint");
         player.anim.SetBool("isSprint", true);
 
-        Debug.Log("무적 시작");
+        // 대쉬 시작 - Motion Blur Intensity 상승
+        if (motionBlur != null)
+            motionBlur.intensity.value = dashBlurIntensity;
+
+        Debug.Log(motionBlur.intensity.value + "??");
         Debug.Log(player.GetIsIgnoreDamage());
         yield return new WaitForSeconds(sprintTime);
-        Debug.Log("무적 종료");
 
         player.SetIsIgnoreDamage(false);
         player.anim.SetBool("isSprint", false);
-
-        // 대쉬 종료 - FixedUpdate의 DashMove 실행 중단
         isDashing = false;
+
+        // 대쉬 종료 - Motion Blur Intensity 원래 값으로 복귀
+        if (motionBlur != null)
+            motionBlur.intensity.value = defaultBlurIntensity;
+
+        Debug.Log(motionBlur.intensity.value + "??");
+
     }
 
 

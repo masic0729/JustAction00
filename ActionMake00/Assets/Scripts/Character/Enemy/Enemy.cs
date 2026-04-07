@@ -16,6 +16,10 @@ public class Enemy : Character
     
     protected Vector3 spawnPosition;                            //최초 생성 시 본인의 위치를 저장하는 용도
 
+    protected Transform assignedPatrolPos;                   // 배정된 패트롤 포인트. 복귀 및 활동 범위 기준으로 사용한다
+    private PatrolPointManager patrolManager;                  // 사망 시 포인트 해제를 위해 참조 보관
+
+
     public float activityAllowValue = 20f;                      //몬스터 활동 범위로 기본값은 5로 정의한다
     [SerializeField]
     protected float playerFindDistance = 10f;                   //플레이어가 본인 영역에 왔는 지 확인하는 범위
@@ -50,7 +54,6 @@ public class Enemy : Character
     protected override void Init()
     {
         base.Init();
-        rotateSpeed = 7.5f;
         transform.tag = "Enemy";
         player = GameObject.Find("Player").transform;
         spawnPosition = this.transform.position;
@@ -83,22 +86,26 @@ public class Enemy : Character
         }
     }
 
+    // CheckCharacterActivityZone 수정
+    // 배정된 패트롤 포인트가 있으면 해당 위치 기준으로 활동 범위를 체크한다
     void CheckCharacterActivityZone()
     {
-        float distanceSpawnPosition = Vector3.Distance(spawnPosition, transform.position);
-        if (activityAllowValue < distanceSpawnPosition)
+        Vector3 basePosition = assignedPatrolPos != null ? assignedPatrolPos.position : spawnPosition;
+        float distanceFromBase = Vector3.Distance(basePosition, transform.position);
+        if (activityAllowValue < distanceFromBase)
         {
             isDefault = false;
         }
     }
 
-    /// <summary>
-    /// 몬스터 사망 시, 비헤이비어 트리 데이터를 없애 더 이상 작동하지 않
-    /// </summary>
-    /// <param name="attacker"></param>
+    // NodeDisable 수정: 사망 시 포인트 반납
     void NodeDisable(Character attacker)
     {
         rootNode = null;
+
+        // 배정된 패트롤 포인트를 점유 해제하여 다른 몬스터가 사용할 수 있게 한다
+        if (patrolManager != null && assignedPatrolPos != null)
+            patrolManager.ReleasePoint(assignedPatrolPos);
     }
 
     /// <summary>
@@ -169,6 +176,15 @@ public class Enemy : Character
         nav.SetDestination(target);
     }
 
+
+    // 게터 세터 목록에 추가
+    public void SetAssignedPatrolPos(Transform point, PatrolPointManager manager)
+    {
+        assignedPatrolPos = point;
+        patrolManager = manager;   // 사망 시 해제용으로 매니저 보관
+    }
+
+    public Transform GetAssignedPatrolPos() => assignedPatrolPos;
 
     public void SetEnemyIndex(int value) => enemyIndex = value;
 

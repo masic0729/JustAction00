@@ -19,11 +19,13 @@ public class CheckPlayerInNearNode : Node
     public override NodeState Evaluate()
     {
         Collider[] collider = Physics.OverlapSphere(transform.position, enemy.GetPlayerFindDistance(), playerLayerMask);
-        if(collider.Length <= 0 && enemy.isPlayerFound == false)
+
+        if (collider.Length <= 0 && enemy.isPlayerFound == false)
         {
-            //못찾았으니 실패
-            return state = NodeState.Running;
+            //SelectorNode가 패트롤 노드로 넘어갈 수 있게 한다
+            return state = NodeState.Failure;
         }
+
         Debug.Log("플레이어가 근처에 있음");
         enemy.isPlayerFound = true;
         return state = NodeState.Success;

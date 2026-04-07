@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X");
         float mouseY = Input.GetAxisRaw("Mouse Y");
 
-        currentCameraRotateY += mouseX * rotateSpeed * Time.deltaTime;
+        currentCameraRotateY += mouseX * rotateSpeed * 1.5f * Time.deltaTime;
 
         currentCameraRotateX -= mouseY * rotateSpeed * Time.deltaTime;
         currentCameraRotateX = Mathf.Clamp(currentCameraRotateX, -30f, 30f);

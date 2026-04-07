@@ -72,9 +72,9 @@ public class Character : MonoBehaviour, ICharacterDamageable
     [SerializeField] protected float damage;                                 //공격력
     [SerializeField] protected float moveSpeed = 5f;                         //이동속도
     [SerializeField] protected float def;                                    //방어력
-    
 
-    protected float rotateSpeed;                                             //회전 속도
+
+    [SerializeField] protected float rotateSpeed = 7.5f;                                             //회전 속도
                                                                              
     [SerializeField]protected bool isSuperArmor = false;                     //피격이상 면역 유무. 활성화 시 경직이 없다.
     [SerializeField]protected bool isIgnoreDamage = false;                   //무적 유무. 활성화 시 피해를 입지 않는다.

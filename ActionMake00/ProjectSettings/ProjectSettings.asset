@@ -162,7 +162,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.Masic_Maker.PureAction
-    Standalone: com.DefaultCompany.PureAction
+    Standalone: com.Masic-Maker.PureAction-
   buildNumber:
     Standalone: 0
     VisionOS: 0

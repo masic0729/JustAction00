@@ -34,16 +34,47 @@ public class MapMiddleZone : MonoBehaviour
 
     }
 
+    // SpawnEnemies 수정
+    // 스폰 후 PatrolPointManager에서 포인트를 배정한다
     void SpawnEnemies(List<SpawnEntry> enemyDatas)
     {
         Transform spawnEnemy = transform.Find("ENEMY");
-        for(int i = 0; i < enemyDatas.Count; i++)
+
+        // PatrolPos 자식에서 PatrolPointManager를 찾는다
+        Transform patrolPosRoot = transform.Find("PatrolPos");
+        PatrolPointManager patrolManager = patrolPosRoot?.GetComponent<PatrolPointManager>();
+
+        for (int i = 0; i < enemyDatas.Count; i++)
         {
-            for(int j = 0; j < enemyDatas[i].spawnCount; j++)
+            for (int j = 0; j < enemyDatas[i].spawnCount; j++)
             {
-                SpawnEnemyAroundSpawnPoint(enemyDatas[i].enemyPrefab, spawnEnemy);
+                // 반환값을 받아야 포인트 배정이 가능하므로 반환형 변경
+                GameObject spawnedObj = SpawnEnemyAroundSpawnPoint(enemyDatas[i].enemyPrefab, spawnEnemy);
+
+                if (patrolManager != null && spawnedObj != null)
+                {
+                    Enemy enemy = spawnedObj.GetComponent<Enemy>();
+                    Transform point = patrolManager.ReserveRandomPoint();
+
+                    // 포인트가 없으면 배정 없이 스폰만 유지
+                    if (enemy != null && point != null)
+                        enemy.SetAssignedPatrolPos(point, patrolManager);
+                }
             }
         }
+    }
+
+    // 반환형을 GameObject로 변경해야 위 코드가 동작한다
+    GameObject SpawnEnemyAroundSpawnPoint(GameObject spawnActor, Transform spawnTransform)
+    {
+        GameObject ins = Instantiate(spawnActor, spawnTransform.position, spawnTransform.rotation);
+        float randX = Random.Range(-3f, 3f);
+        float randZ = Random.Range(-3f, 3f);
+        float randRotateY = Random.Range(0f, 359f);
+        ins.transform.Translate(randX, 0, randZ);
+        ins.transform.Rotate(0, randRotateY, 0);
+        ins.transform.parent = this.transform;
+        return ins;   // 배정을 위해 반환
     }
 
     void SpawnNPC(GameObject npc)
@@ -53,31 +84,6 @@ public class MapMiddleZone : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// 각 액터들의 생성 포인트를 기준으로
-    /// 변동 값을 주어 다양한 위치에 생성하는 방식
-    /// 몬스터 NPC 모두 같은 방식으로 소환한다
-    /// 
-    /// 추후 후순위 적으로 json기반 맵 저장 시,
-    /// 각 객체의 위치, 체력 등등 기본 데이터를 저장해야함
-    /// </summary>
-    /// <param name="spawnActor">생성하려는 오브젝트</param>
-    /// <param name="spawnTransform">생성하려는 위치 베이스</param>
-    void SpawnEnemyAroundSpawnPoint(GameObject spawnActor, Transform spawnTransform)
-    {
-        GameObject ins = Instantiate(spawnActor, spawnTransform.position, spawnTransform.rotation);
-
-        float randX = 0f, randZ = 0f;
-
-        randX = Random.Range(-3f, 3f);
-        randZ = Random.Range(-3f, 3f);
-
-        float randRotateY = Random.Range(0f, 359f);
-
-        ins.transform.Translate(randX, 0, randZ);
-        ins.transform.Rotate(0, randRotateY, 0);
-        ins.transform.parent = this.transform;
-    }
 
     void SpawnNPC_AroundSpawnPoint(GameObject spawnActor, Transform spawnTransform)
     {

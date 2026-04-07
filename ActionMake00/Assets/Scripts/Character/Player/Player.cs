@@ -58,7 +58,7 @@ public class Player : Character
 
         transform.tag = "Player";
         hp = 100;
-        rotateSpeed = 5f;
+        rotateSpeed = 20f;
 
         /*weaponDic[WeaponType.Sword.ToString()] = null;
         weaponDic[WeaponType.Staff.ToString()] = null;*/
@@ -224,7 +224,6 @@ public class Player : Character
             ExpUp(overExpValue);
 
         }
-        Debug.Log(level + "경험치가 오르긴 했어요~" + currentExp);
 
     }
 

@@ -6777,6 +6777,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 298421295}
     - target: {fileID: 1227574578442468575, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: GhostHpSlider
+      value: 
+      objectReference: {fileID: 8454091742004674643}
+    - target: {fileID: 1227574578442468575, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: skills.Array.data[0]
       value: 
       objectReference: {fileID: 80711498}
@@ -6888,6 +6892,14 @@ PrefabInstance:
       propertyPath: sprintTime
       value: 0.467
       objectReference: {fileID: 0}
+    - target: {fileID: 2130385481672763854, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: dashBlurIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130385481672763854, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
+      propertyPath: postProcessVolume
+      value: 
+      objectReference: {fileID: 1187949960}
     - target: {fileID: 2157256263484472293, guid: 7a27cdae8eab92641bc6e5d94d39694d, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -17668,7 +17680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9123198120553859374, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0023502756
+      value: -0.00066306576
       objectReference: {fileID: 0}
     - target: {fileID: 9128269951712022640, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
       propertyPath: m_AnchorMax.y
@@ -17707,6 +17719,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
+--- !u!114 &8454091742004674643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1209461047489088782, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
+  m_PrefabInstance: {fileID: 8454091742004674642}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

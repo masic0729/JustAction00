@@ -22,10 +22,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-    }
-
     public bool GetIsTest() => isTest;
 
     /// <summary>
@@ -37,7 +33,6 @@ public class GameManager : MonoBehaviour
 
         GUI_PlayerInput.instance.ShowEndUI(gameOverView);
         SoundManager.instance.PlayBGM(BGM_GameOverClip);
-
     }
 
     /// <summary>

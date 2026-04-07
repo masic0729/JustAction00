@@ -194,6 +194,17 @@ public class MapMaker : MonoBehaviour
         int endX = mapIndex[mapIndex.Count - 1].Item1 - mapIndex[mapIndex.Count - 2].Item1;
         int endZ = mapIndex[mapIndex.Count - 1].Item2 - mapIndex[mapIndex.Count - 2].Item2;
         CreateEndGround(endX, endZ, spawnPos);
+
+        // 모든 타일 배치 및 회전 완료 후 수풀 생성 실행
+        // createdMap에는 Start ~ End 모든 타일이 담겨 있음
+        for (int i = 0; i < createdMap.Count; i++)
+        {
+            // 타일에 MapDeco 컴포넌트가 없는 경우 건너뜀
+            MapDeco deco = createdMap[i].GetComponent<MapDeco>();
+            if (deco == null) continue;
+
+            deco.InitGrass();
+        }
     }
 
     GameObject CalMiddleMapsType((int, int) prevMap, (int, int) currentMap, (int, int) nextMap)
