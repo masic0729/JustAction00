@@ -12,6 +12,7 @@ public class RoulletPlaying : MonoBehaviour
     [SerializeField] Inventory playerInventory;
 
     [SerializeField] GameObject PlayButton;
+    [SerializeField] ParticleSystem ps;
 
     [SerializeField] AudioSource roulletAudio;
 
@@ -54,7 +55,7 @@ public class RoulletPlaying : MonoBehaviour
         if (/*Input.GetKeyDown(KeyCode.F1) && */isEnd == false && isRotating == false)
         {
             PlayButton.SetActive(false);
-
+            ps.Play();
             roulleteData.remainPlayCount--;
             roulletUI.SetRemainPlayCount(roulleteData.remainPlayCount);
             roulletAnim.DOKill();
