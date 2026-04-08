@@ -50,9 +50,9 @@ Pure Action은 3D 액션 게임의 전투 경험을 구현하는 데서 한 걸�
 
 ---
 <details>
-<summary>여기가 접혀있을 때 보이는 제목</summary>
+<summary>### 🤖 1. Custom Behavior Tree 기반 전투 AI</summary>
 
-### 🤖 1. Custom Behavior Tree 기반 전투 AI
+
 
 #### 왜 Behavior Tree를 선택했는가
 
@@ -153,7 +153,10 @@ public class BossEnemyBT : TreeCtrl
 
 ---
 
-### 🗺️ 2. DFS 기반 절차적 맵 생성
+<details>
+<summary>### 🗺️ 2. DFS 기반 절차적 맵 생성
+</summary>
+
 
 #### 시스템 개요
 
@@ -257,9 +260,14 @@ createMap.GetComponent<MapMiddleZone>().ActorSpawn(i - 1);
 
 <br>
 
+</details>
+
+
+
 ---
 
-### ⚔️ 3. 전투 구조 설계 — 무기 & 스킬 전환 + 공격 적중 기반 버프 시스템
+<details>
+<summary>### ⚔️ 3. 전투 구조 설계 — 무기 & 스킬 전환 + 공격 적중 기반 버프 시스템</summary>
 
 #### 설계 목표
 
@@ -448,9 +456,11 @@ public override void UseItem(Character character, SlotBase slot)
 
 <br>
 
----
+</details>
 
-### 🎰 5. 룰렛 보상 시스템 — DOTween 기반 UX 연출 + 인벤토리 연동
+<details>
+<summary>### 🎰 5. 룰렛 보상 시스템 — DOTween 기반 UX 연출 + 인벤토리 연동</summary>
+
 
 전투 이후 보상 획득 과정을 단순 클릭이 아닌 **연출 기반 선택 경험**으로 설계했습니다.
 
@@ -493,6 +503,13 @@ void CalResultRoullete()
 - 보상은 Inventory 데이터에 직접 반영되어 보상 → 아이템 → 성장 시스템이 자연스럽게 연결
 
 <br>
+
+</details>
+
+
+---
+
+
 
 ---
 
