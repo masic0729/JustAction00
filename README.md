@@ -11,8 +11,8 @@
 | 장르 | 3D 액션 RPG |
 | 플랫폼 | PC |
 | 개발 형태 | 개인 프로젝트 |
-| 개발 기간 | 2025.07 ~ 2026.01 |
-| 기술 스택 | Unity, C#, Custom Behavior Tree (직접 구현), DOTween Pro |
+| 개발 기간 | 2025.07 ~ 2026.04 |
+| 기술 스택 | Unity, C#, DOTween Pro |
 
 <br>
 
