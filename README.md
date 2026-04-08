@@ -49,6 +49,8 @@ Pure Action은 3D 액션 게임의 전투 경험을 구현하는 데서 한 걸�
 <br>
 
 ---
+<details>
+<summary>여기가 접혀있을 때 보이는 제목</summary>
 
 ### 🤖 1. Custom Behavior Tree 기반 전투 AI
 
@@ -145,6 +147,9 @@ public class BossEnemyBT : TreeCtrl
 - 전투 흐름을 코드 구조 자체로 파악 가능한 가독성 확보
 
 <br>
+
+</details>
+
 
 ---
 
