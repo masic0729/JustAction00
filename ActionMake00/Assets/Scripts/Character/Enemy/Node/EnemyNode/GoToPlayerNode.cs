@@ -23,6 +23,7 @@ public class GoToPlayerNode : Node
             enemy.anim.SetInteger("PattenIndex", rand);
             return state = NodeState.Success;
         }
+        
 
         enemy.MoveTarget(player.position);
 

@@ -70,6 +70,8 @@ public class EnemyPatrolNode : Node
         goingToPatrolPoint = !goingToPatrolPoint;
 
         currentState = PatrolState.Moving;
+        //enemy.isDefault = true;
+
     }
 
     // 목표 위치로 이동 처리 도착 시 Idle로 전환하고 다음 대기 시간을 설정한다
@@ -87,5 +89,6 @@ public class EnemyPatrolNode : Node
         idleDuration = Random.Range(2f, 5f);
         idleTimer = 0f;
         currentState = PatrolState.Idle;
+        //enemy.isDefault = false;
     }
 }

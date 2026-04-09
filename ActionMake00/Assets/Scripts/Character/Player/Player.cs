@@ -39,7 +39,6 @@ public class Player : Character
     {
         base.Start();
         Init();
-
     }
 
     protected override void Init()
@@ -93,6 +92,8 @@ public class Player : Character
 
         weaponTransform = FindTransformAtChild("PlayerWeapon");
         weaponDic[weaponTypeString] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
+        GetComponent<WeaponTrailController>().SetTrailData(weaponDic[weaponTypeString].GetComponentInChildren<TrailRenderer>());
+
         weaponDic[weaponTypeString].transform.parent = weaponTransform;
         weaponDic[weaponTypeString].SetDamage(GetResultDamage());
         WeaponInitDelay();
@@ -113,10 +114,11 @@ public class Player : Character
 
         weaponTransform = FindTransformAtChild("PlayerWeapon");
         weaponDic[weaponTypeString] = Instantiate(weapon.gameObject, weaponTransform.position, weaponTransform.rotation).GetComponent<PlayerWeapon>();
+        GetComponent<WeaponTrailController>().SetTrailData(weaponDic[weaponTypeString].GetComponentInChildren<TrailRenderer>());
+
         weaponDic[weaponTypeString].transform.parent = weaponTransform;
         weaponDic[weaponTypeString].SetDamage(GetResultDamage());
         WeaponInitDelay();
-
         PlayerStatUI playerUI = GetComponent<PlayerStatUI>();
         playerUI.UpdateSkillIcon();
     }

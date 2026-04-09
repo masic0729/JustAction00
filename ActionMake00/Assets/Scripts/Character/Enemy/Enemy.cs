@@ -37,7 +37,7 @@ public class Enemy : Character
     public bool isAttack = false;                               //몬스터의 공격중인 지 확인하는 용도
     protected bool isCanTurn = false;                           //공격 시 타겟 대상으로 회전상태
     bool isWasParried = false;                                  //패링 공격에 당했는지 확인하는 변수. 일반몬스터는 사용하지 않으며, 보스 몬스터의 근접 공격에만 유효하다
-
+    protected bool isAction = false;                                 //몬스터가 전투 중인지 확인하는 변수. 전투 해제 시 복귀한다
 
     protected override void Start()
     {

@@ -28,6 +28,7 @@ public class CheckPlayerInNearNode : Node
 
         Debug.Log("플레이어가 근처에 있음");
         enemy.isPlayerFound = true;
+        //isAction
         return state = NodeState.Success;
     }
 }
