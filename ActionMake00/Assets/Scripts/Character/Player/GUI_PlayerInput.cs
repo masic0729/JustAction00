@@ -125,8 +125,6 @@ public class GUI_PlayerInput : MonoBehaviour
         isShowing = true;
     }
 
-    //public void 
-
     void TestInputItem1()
     {
         inventory.AddItemInList(testitem1);

@@ -68,7 +68,6 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
     {
         if(other.transform.tag == "Player")
         {
-            Debug.Log("������ ȹ��" + other.transform.name);
             Inventory playerInventory = other.GetComponent<GUI_PlayerInput>().inventory;
             AddItemInInventory(playerInventory, this);
             other.GetComponent<Player>().PlayItemSound();
@@ -78,12 +77,17 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
     protected void AddItemInInventory(Inventory inven, ItemObject itemObject)
     {
-
         if (inven.AddItemInList(itemObject) == true)
         {
+            // 아이콘 데이터가 아직 로드되지 않은 경우를 대비해 보장
+            if (item.data == null)
+                SetItemData(itemId);
+
+            // 획득 UI 알림 호출
+            ItemGetNotificationUI.instance?.ShowNotification(item.data);
+
             Destroy(this.gameObject);
         }
-
     }
 
     /// <summary>
@@ -216,7 +220,6 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
         if (!File.Exists(path))
         {
-            Debug.LogError("[SetItemData] CSV ���� ����: " + path);
             item.data = null;
             return;
         }
@@ -241,7 +244,6 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
 
                 if (id != itemId) continue;
 
-                // ������ ������ ����
                 //instanceItemData = ScriptableObject.CreateInstance<ItemData>();
                 instanceItemData = new ItemData();
 
@@ -256,7 +258,6 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
                 int.TryParse(split[4], out int maxCountParsed);
                 instanceItemData.maxCount = maxCountParsed;
 
-                // ������ �ε� (Resources ���� �״��)
                 string normalized = split[1].Replace("\\", "/");
                 if (normalized.StartsWith("Resources/"))
                     normalized = normalized.Substring("Resources/".Length);
