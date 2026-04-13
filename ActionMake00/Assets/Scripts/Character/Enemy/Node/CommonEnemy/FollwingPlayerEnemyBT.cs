@@ -43,43 +43,44 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
     {
         // 홈 위치 패트롤 포인트 우선 없으면 스폰 위치
         Vector3 homePosition = assignedPatrolPos != null ? assignedPatrolPos.position : spawnPosition;
-
-        // 홈 이탈 허용 최대 거리 이 이상 벗어나면 복귀 트리거
-        float maxRoamDistance = 15f;
+        // 홈 이탈 허용 최대 거리
+        float maxRoamDistance = 10f;
 
         node = new SelecterNode(new List<Node>
+    {
+        // 브랜치 1: 전투 최우선
+        // 플레이어 감지 또는 피격 시 즉시 전투 진입
+        // CheckInRoamRangeNode가 홈 이탈 감지 시 Failure로 복귀 브랜치에 위임한다
+        new SequenceNode(new List<Node>
         {
-            // 브랜치 1: 복귀 최우선
-            // 홈 이탈 또는 전투 중 플레이어 감지 범위 이탈 시 즉시 복귀
-            // 전투 브랜치보다 앞에 배치하여 전투 중에도 복귀 조건이 먼저 평가된다
-            new SequenceNode(new List<Node>
+            // 플레이어 감지 범위 확인 또는 isPlayerFound가 true이면 전투 진입
+            new CheckPlayerInNearNode(thisObject),
+            // 홈 이탈 거리 초과 시 전투 시퀀스 중단 복귀 브랜치로 위임
+            new CheckInRoamRangeNode(homePosition, maxRoamDistance, thisObject),
+            // 공격 범위 진입까지 추적
+            new GoToPlayerNode(player, thisObject),
+            // 공격 패턴 선택
+            new SelecterNode(new List<Node>
             {
-                // 복귀 여부 판단 홈 이탈 거리 또는 플레이어 감지 범위 기준
-                new CheckShouldReturnNode(player, homePosition, maxRoamDistance, thisObject),
-                // 홈 위치로 실제 이동 수행
-                new EnemyReturnPositionNode(homePosition, thisObject)
-            }),
+                new CommonEnemyAttackNode(player, thisObject)
+            })
+        }),
 
-            // 브랜치 2: 전투
-            // 복귀 조건이 Failure일 때만 도달 플레이어 감지 시 추적 및 공격 수행
-            new SequenceNode(new List<Node>
-            {
-                // 플레이어 감지 범위 확인 범위 밖이면 Failure로 패트롤 브랜치로 이동
-                new CheckPlayerInNearNode(thisObject),
-                // 플레이어 추적 공격 범위 진입까지 이동
-                new GoToPlayerNode(player, thisObject),
-                // 공격 패턴 선택
-                new SelecterNode(new List<Node>
-                {
-                    new CommonEnemyAttackNode(player, thisObject)
-                })
-            }),
+        // 브랜치 2: 복귀
+        // 전투 시퀀스가 Failure일 때 도달
+        // CheckShouldReturnNode는 tooFarFromHome만 판단한다
+        // lostPlayer 조건은 CheckInRoamRangeNode로 이전했으므로 제거
+        new SequenceNode(new List<Node>
+        {
+            new CheckShouldReturnNode(homePosition, maxRoamDistance, thisObject),
+            new EnemyReturnPositionNode(homePosition, thisObject)
+        }),
 
-            // 브랜치 3: 패트롤 or 대기
-            // 복귀 및 전투 조건 모두 Failure일 때 실행
-            // 항상 Running을 반환하여 SelectorNode의 마지막 브랜치로 동작한다
-            new EnemyPatrolNode(thisObject)
-        });
+        // 브랜치 3: 패트롤 or 대기
+        // 전투 및 복귀 조건 모두 Failure일 때 실행
+        // 항상 Running을 반환한다
+        new EnemyPatrolNode(thisObject)
+    });
 
         return node;
     }

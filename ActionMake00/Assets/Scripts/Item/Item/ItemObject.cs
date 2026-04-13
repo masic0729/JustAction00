@@ -22,7 +22,7 @@ public abstract class ItemObject : MonoBehaviour, ItemInteration, ItemUseChecker
         //collider = GetComponent<Collider>();
         //collider.enabled = false;
 
-        Invoke("EnableCol", 1.5f);
+        Invoke("EnableCol", 0.5f);
     }
 
     protected virtual void Update()

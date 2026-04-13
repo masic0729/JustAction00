@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6819772885512568736}
   - component: {fileID: 7339001699121847349}
   - component: {fileID: 1828652746845502799}
-  - component: {fileID: 6887095611742308555}
+  - component: {fileID: -7627589713841941184}
+  - component: {fileID: 1215396707172744254}
   m_Layer: 0
-  m_Name: SwordWeaponEquip3
+  m_Name: PanthEquip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,11 +103,11 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6887095611742308555
+--- !u!114 &-7627589713841941184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,19 +116,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839001194488567063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14381ba621ed6b64091347603e4add22, type: 3}
+  m_Script: {fileID: 11500000, guid: 04ba0cd38c1f5ef45bec59640821ca32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 5
+  itemId: 7
   item:
-    comment: "\uB0A1\uC544 \uBE60\uC9C4 \uC9C0\uD321\uC774\uC774\uB2E4. \uACF5\uACA9\uB825
-      <color=#ff5555>10</color> \uC0C1\uC2B9\uD55C\uB2E4"
+    comment: "\uAE30\uBCF8 \uD558\uC758\uC774\uB2E4. \uCCB4\uB825 <color=#ff5555>50</color>,
+      \uBC29\uC5B4\uB825 <color=#0000ff>50</color> \uC0C1\uC2B9"
     slotData: {fileID: 0}
     addCount: 0
     currentCount: 0
   statData:
     MaxHp: 0
-    Damage: 15
-    Defense: 0
+    Damage: 0
+    Defense: 20
     MoveSpeed: 0
-  WeaponEquipment: {fileID: 8924246067352728424, guid: a7dd1f61e15c55f4eab277704c6d5f33, type: 3}
+  playerArmorIndex: 1
+  baseComment: "\uAE30\uBCF8 \uD558\uC758\uC774\uB2E4."
+--- !u!95 &1215396707172744254
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839001194488567063}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 658aafa94a8f9ec45be31e116ca3572a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

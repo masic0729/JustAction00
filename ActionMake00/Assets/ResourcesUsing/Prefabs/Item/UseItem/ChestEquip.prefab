@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7339001699121847349}
   - component: {fileID: 1828652746845502799}
   - component: {fileID: -7627589713841941184}
+  - component: {fileID: 5182886253559426027}
   m_Layer: 0
   m_Name: ChestEquip
   m_TagString: Untagged
@@ -132,3 +133,24 @@ MonoBehaviour:
     MoveSpeed: 0
   playerArmorIndex: 1
   baseComment: "\uAE30\uBCF8 \uC0C1\uC758\uC774\uB2E4."
+--- !u!95 &5182886253559426027
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839001194488567063}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 658aafa94a8f9ec45be31e116ca3572a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7339001699121847349}
   - component: {fileID: 1828652746845502799}
   - component: {fileID: -95557241977493478}
+  - component: {fileID: -934605538763185439}
   m_Layer: 0
   m_Name: SwordStrongWeaponEquip2
   m_TagString: Untagged
@@ -131,3 +132,24 @@ MonoBehaviour:
     Defense: 0
     MoveSpeed: 0
   WeaponEquipment: {fileID: 2548763761762157146, guid: 7635c35c45c036444bc809b41df36eb2, type: 3}
+--- !u!95 &-934605538763185439
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839001194488567063}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 658aafa94a8f9ec45be31e116ca3572a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

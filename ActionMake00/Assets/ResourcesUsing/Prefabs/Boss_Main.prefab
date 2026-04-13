@@ -999,7 +999,7 @@ MonoBehaviour:
   player: {fileID: 0}
   attackAudio: {fileID: 6410166871239911911}
   activityAllowValue: 8
-  playerFindDistance: 7
+  playerFindDistance: 5
   attackReadyDistance: 1
   expAddValue: 0
   isPlayerFound: 0
