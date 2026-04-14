@@ -44,7 +44,7 @@ public class MainBoss : BossEnemyBT
         onDeathAction += BossDeath;
         onDeathAction += ShowGameOverPanel;
 
-        playerFindDistance = 6f;
+        playerFindDistance = 5f;
         activityAllowValue = 8f;
         attackReadyDistance = 1.5f;
         punchDistance = 2.0f;

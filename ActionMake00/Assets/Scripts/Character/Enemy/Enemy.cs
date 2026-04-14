@@ -143,6 +143,7 @@ public class Enemy : Character
     void EnemyDeath(Character attacker)
     {
         anim.SetBool("isAlive", false);
+        nav.enabled = false;
     }
 
     public void MoveForward()
