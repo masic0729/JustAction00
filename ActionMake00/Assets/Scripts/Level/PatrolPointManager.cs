@@ -7,6 +7,7 @@ public class PatrolPointManager : MonoBehaviour
 {
     // 포인트별 점유 여부 테이블 Transform이 키 bool이 점유 상태
     private Dictionary<Transform, bool> occupiedTable = new Dictionary<Transform, bool>();
+    [SerializeField] int currentCanPatrolPointCount = 0;
 
     void Awake()
     {
@@ -16,6 +17,11 @@ public class PatrolPointManager : MonoBehaviour
             occupiedTable[child] = false;
         }
     }
+
+/*    private void Update()
+    {
+        currentCanPatrolPointCount = 
+    }*/
 
     // 비어있는 포인트를 랜덤 선택 후 예약하고 반환한다
     // 모든 포인트가 점유 중이면 null 반환

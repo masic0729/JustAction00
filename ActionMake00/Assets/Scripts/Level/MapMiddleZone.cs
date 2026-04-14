@@ -56,7 +56,8 @@ public class MapMiddleZone : MonoBehaviour
                     Enemy enemy = spawnedObj.GetComponent<Enemy>();
                     Transform point = patrolManager.ReserveRandomPoint();
 
-                    // 포인트가 없으면 배정 없이 스폰만 유지
+                    Debug.Log($"몬스터: {spawnedObj.name}, 배정 포인트: {point}");
+
                     if (enemy != null && point != null)
                         enemy.SetAssignedPatrolPos(point, patrolManager);
                 }

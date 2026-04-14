@@ -74,12 +74,12 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
         {
             new CheckShouldReturnNode(homePosition, maxRoamDistance, thisObject),
             new EnemyReturnPositionNode(homePosition, thisObject)
-        }),
+        })/*,
 
         // 브랜치 3: 패트롤 or 대기
         // 전투 및 복귀 조건 모두 Failure일 때 실행
         // 항상 Running을 반환한다
-        new EnemyPatrolNode(thisObject)
+        new EnemyPatrolNode(thisObject)*/
     });
 
         return node;
