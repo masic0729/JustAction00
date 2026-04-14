@@ -49,7 +49,7 @@ public class BossEnemyBT : TreeCtrl
             new DecoratorNode(
                 new SequenceNode(new List<Node>
                 {
-                    new GoToPlayerNode(player, thisObject),
+                    new GoToPlayerNode(player, thisObject, spawnPosition, 8f),
 
                     new SelecterNode(new List<Node>
                     {

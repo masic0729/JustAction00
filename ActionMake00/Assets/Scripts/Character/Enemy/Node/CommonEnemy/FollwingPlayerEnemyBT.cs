@@ -58,7 +58,7 @@ public abstract class FollwingPlayerEnemyBT : TreeCtrl
             // 홈 이탈 거리 초과 시 전투 시퀀스 중단 복귀 브랜치로 위임
             new CheckInRoamRangeNode(homePosition, maxRoamDistance, thisObject),
             // 공격 범위 진입까지 추적
-            new GoToPlayerNode(player, thisObject),
+            new GoToPlayerNode(player, thisObject, spawnPosition, 8f),
             // 공격 패턴 선택
             new SelecterNode(new List<Node>
             {
