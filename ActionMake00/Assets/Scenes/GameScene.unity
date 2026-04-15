@@ -12273,7 +12273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789ac72dfda39a644a907fc563c61311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 5794484}
+  playerInventory: {fileID: 7758971773172772332}
   PlayButton: {fileID: 1060826640}
   ps: {fileID: 846028509}
   roulletAudio: {fileID: 1615472086}
@@ -17282,7 +17282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9123198120553859374, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00023663006
+      value: -0.00066600484
       objectReference: {fileID: 0}
     - target: {fileID: 9128269951712022640, guid: 8547e0521c1e15e438926806efdc1719, type: 3}
       propertyPath: m_AnchorMax.y
