@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BuffTransDamage : BuffBase
 {
-    //µ¥¹ÌÁö º¯È­°ª. »ı¼ºÀÚ¸¦ ÅëÇØ ÇÒ´çµÈ´Ù
+    // ë°ë¯¸ì§€ ë³€í™”ê°’. ìƒì„±ìë¥¼ í†µí•´ í• ë‹¹ëœë‹¤
     float damageAmount;
 
     public BuffTransDamage(float duration, string spawnParticleName, string spawnParentName, BuffType buffType, float damageValue)
@@ -11,43 +11,51 @@ public class BuffTransDamage : BuffBase
     {
         damageAmount = damageValue;
         iconPath = "Icons/Buffs/DamageUpIcon";
-
     }
 
     public override GameObject ObjectSetup(Character target, Character buffCaster)
     {
         return base.ObjectSetup(target, buffCaster);
-
     }
 
-    
+    // ë²„í”„ ì ìš© ì‹œ ModifierContainerì˜ Buff ì†ŒìŠ¤ ê³µê²©ë ¥ ë³´ì •ì¹˜ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤
+    // ê¸°ì¡´: buffCharacter.statDatas[(int)AddStatName.Buff].Damage += damageAmount
+    // ë³€ê²½: ModifierContainerë¥¼ í†µí•´ Buff ì†ŒìŠ¤ì˜ ë³´ì •ì¹˜ë¥¼ ì½ì–´ ìˆ˜ì • í›„ ì¬ë“±ë¡í•œë‹¤
     protected override void ApplyBuff()
     {
-        if (buffCharacter != null)
+        if (buffCharacter == null)
         {
-            buffCharacter.statDatas[(int)AddStatName.Buff].Damage += damageAmount;
-            
-            Debug.Log("Ä³¸¯ÅÍ °ø“¹ ½ÃÀÛ. °ø°İ·Â Ãß°¡ °è¼ö´Â" + damageAmount + ", ÇöÀç °ø°İ·Â °è¼ö : " + buffCharacter.GetResultDamage());
+            Debug.Log("ë²„í”„ ì¤„ë ¤ í–ˆëŠ”ë° ëŒ€ìƒì´ ì—†ìŒ");
+            return;
         }
-        else
-        {
-            Debug.Log("¹öÇÁ ÁÙ·Á Çß´Âµ¥ ´ë»óÀÌ ¾øÀ½");
-        }
+
+        // í˜„ì¬ Buff ì†ŒìŠ¤ì˜ ë³´ì •ì¹˜ë¥¼ ê°€ì ¸ì™€ Damage ìˆ˜ì¹˜ë¥¼ ë”í•œ ë’¤ ë‹¤ì‹œ ë“±ë¡í•œë‹¤
+        // StatModifierDataëŠ” structì´ë¯€ë¡œ ë°˜ë“œì‹œ ë¡œì»¬ì— ë°›ì•„ì„œ ìˆ˜ì • í›„ ì¬ì„¤ì •í•´ì•¼ í•œë‹¤
+        StatModifierData current = buffCharacter.GetModifierContainer().GetModifier(StatModifierSource.Buff);
+        current.Damage += damageAmount;
+        buffCharacter.GetModifierContainer().SetModifier(StatModifierSource.Buff, current);
+
+        Debug.Log("ìºë¦­í„° ê³µë² ì‹œì‘. ê³µê²©ë ¥ ì¶”ê°€ ê³„ìˆ˜ëŠ”" + damageAmount + ", í˜„ì¬ ê³µê²©ë ¥ ê³„ìˆ˜ : " + buffCharacter.GetResultDamage());
     }
 
+    // ì§€ì† ì¤‘ íŠ¹ë³„íˆ í•  ì¼ ì—†ìœ¼ë‹ˆ ë¹„ì›Œë‘ 
     protected override void UpdateBuff()
     {
-        // Áö¼Ó Áß Æ¯º°È÷ ÇÒ ÀÏ ¾øÀ¸´Ï ºñ¿öµÒ
+
     }
 
+    // ë²„í”„ ì¢…ë£Œ ì‹œ Buff ì†ŒìŠ¤ ê³µê²©ë ¥ ë³´ì •ì¹˜ë¥¼ ì›ë˜ëŒ€ë¡œ ë˜ëŒë¦°ë‹¤
+    // ê¸°ì¡´: buffCharacter.statDatas[(int)AddStatName.Buff].Damage -= damageAmount
     protected override void ExitBuff()
     {
-        if (buffCharacter != null)
-        {
-            buffCharacter.statDatas[(int)AddStatName.Buff].Damage -= damageAmount;
+        if (buffCharacter == null)
+            return;
 
-            Debug.Log("Ä³¸¯ÅÍ °ø“¹ Á¾·á. °ø°İ·Â »èÁ¦ °è¼ö´Â" + damageAmount + ", ÇöÀç °ø°İ·Â °è¼ö : " + buffCharacter.GetResultDamage());
+        // í˜„ì¬ Buff ì†ŒìŠ¤ì˜ ë³´ì •ì¹˜ë¥¼ ê°€ì ¸ì™€ Damage ìˆ˜ì¹˜ë¥¼ ë¹¼ê³  ë‹¤ì‹œ ë“±ë¡í•œë‹¤
+        StatModifierData current = buffCharacter.GetModifierContainer().GetModifier(StatModifierSource.Buff);
+        current.Damage -= damageAmount;
+        buffCharacter.GetModifierContainer().SetModifier(StatModifierSource.Buff, current);
 
-        }
+        Debug.Log("ìºë¦­í„° ê³µë² ì¢…ë£Œ. ê³µê²©ë ¥ ì‚­ì œ ê³„ìˆ˜ëŠ”" + damageAmount + ", í˜„ì¬ ê³µê²©ë ¥ ê³„ìˆ˜ : " + buffCharacter.GetResultDamage());
     }
 }

@@ -12,19 +12,22 @@ public class EnemyReturnPositionNode : Node
 
     public override NodeState Evaluate()
     {
-        // 도착 판정과 이동 목표를 동일한 targetPosition으로 통일
-        if (Vector3.Distance(targetPosition, enemy.transform.position) > 0.3f && enemy.GetIsAttack() == false)
+        // 복귀 진입 시 공격 상태를 강제 해제한다
+        // 공격 도중 복귀가 결정됐을 때 isAttack이 남아있어 이동을 막는 문제를 방지한다
+        if (enemy.GetIsAttack())
+            enemy.SetIsAttack(false);
+
+        if (Vector3.Distance(targetPosition, enemy.transform.position) > 0.3f)
         {
             anim.SetBool("Move", true);
-            enemy.MoveTarget(targetPosition);   // GetSpawnPosition() 에서 targetPosition으로 변경
+            enemy.MoveTarget(targetPosition);
             return state = NodeState.Running;
         }
         else
         {
-            // 강제 좌표 이동 제거 NavMesh가 자연스럽게 멈추게 둔다
-            enemy.MoveTarget(transform.position);  // 제자리 정지
+            enemy.MoveTarget(transform.position);
             anim.SetBool("Move", false);
-            enemy.isDefault = true;
+            enemy.isDefault = false;
             enemy.isPlayerFound = false;
             return state = NodeState.Success;
         }

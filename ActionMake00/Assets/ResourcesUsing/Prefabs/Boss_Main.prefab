@@ -963,19 +963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b8808e24913c24fa1c881377977dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statDatas:
-  - MaxHp: 0
-    Damage: 0
-    Defense: 0
-    MoveSpeed: 0
-  - MaxHp: 0
-    Damage: 0
-    Defense: 0
-    MoveSpeed: 0
-  - MaxHp: 0
-    Damage: 0
-    Defense: 0
-    MoveSpeed: 0
   characterStatData: {fileID: 11400000, guid: 850b0ae4face7a445a80f8adbf7df178, type: 2}
   anim: {fileID: 0}
   pEffect:
@@ -987,11 +974,6 @@ MonoBehaviour:
   - {fileID: 5853966072210373655}
   skillProjectiles:
   - {fileID: 3737708309985444689, guid: 108992382f3b68846ada30cb8d8d5849, type: 3}
-  maxHp: 0
-  hp: 0
-  damage: 0
-  moveSpeed: 5
-  def: 0
   rotateSpeed: 7.5
   isSuperArmor: 0
   isIgnoreDamage: 0
@@ -1003,7 +985,7 @@ MonoBehaviour:
   attackReadyDistance: 1
   expAddValue: 0
   isPlayerFound: 0
-  isDefault: 1
+  isDefault: 0
   isAttack: 0
   GroundAttackGuide: {fileID: 724712718569153657, guid: 89291fee67a733b4891be60f22f93e6f, type: 3}
   clipPunch: {fileID: 8300000, guid: e3d42ce69a5eac24faf97eee6acc6cce, type: 3}

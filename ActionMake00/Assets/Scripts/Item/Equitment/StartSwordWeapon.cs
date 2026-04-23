@@ -29,7 +29,7 @@ public class StartSwordWeapon : MonoBehaviour
         slot.AddItem(SwordWeaponBasic);
         slot.currentItem.OnItemUse?.Invoke(player, slot);
 
-        slot.GetInventory().equipManager.equipSlotDic[slot.currentItem.data.equipmentType.ToString()].equipmentStat = SwordWeaponBasic.statData;
+        slot.GetInventory().equipManager.equipSlotDic[slot.currentItem.data.equipmentType.ToString()].equipmentStat = SwordWeaponBasic.equipmentStat;
         slot.GetInventory().equipManager.UpdateCharacterStatResult();
 
         player.WeaponAwakeInit(SwordWeaponBasic.WeaponEquipment);

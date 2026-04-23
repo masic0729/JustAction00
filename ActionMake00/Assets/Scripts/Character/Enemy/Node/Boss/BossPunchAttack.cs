@@ -11,7 +11,7 @@ public class BossPunchAttack : EnemyAttackTree
 
     public override NodeState Evaluate()
     {
-        if (enemy.isDefault == false)
+        if (enemy.isDefault == true)
             return state = NodeState.Success;
 
         if (enemy.isAttack == false)

@@ -8,6 +8,6 @@ public class EquipMain : EquipDefs
     [SerializeField] string baseComment;
     public override string SetItemComment()
     {
-        return $"{baseComment}¹æ¾î·Â <color=#0000ff>{statData.Defense}</color> »ó½Â";
+        return $"{baseComment}¹æ¾î·Â <color=#0000ff>{equipmentStat.Defense}</color> »ó½Â";
     }
 }

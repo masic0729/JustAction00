@@ -34,7 +34,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
 {
     [Header("장비 슬롯 메타")]
     public EquipmentType equipmentType;     // 이 슬롯이 담당하는 장비 타입(Weapon/Head/Top/Bottom...)
-    public AddStatData equipmentStat;       // 이 슬롯에 장착된 아이템이 제공하는 스탯(합산은 EquipmentManager가 처리)
+    public StatModifierData equipmentStat;
 
     private void Awake()
     {
@@ -127,7 +127,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         currentCount = 1;
 
         // (선택) 장비 스탯 로드가 필요하면 여기서 equipmentStat을 세팅
-        equipmentStat = new AddStatData(); // 실제 구조가 있으면 그에 맞게 채우세요.
+        equipmentStat = new StatModifierData();
 
         RefreshIcon();
         Recalc();
@@ -218,9 +218,9 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         OnSlotItemUpdate = slot.OnSlotItemUpdate;
 
         // (선택) 장비 스탯 로드
-        equipmentStat = new AddStatData(); // 실제 구조가 있으면 채우세요.
+        equipmentStat = new StatModifierData();
 
-        if(prevType == ItemType.nullItem)
+        if (prevType == ItemType.nullItem)
         {
             slot.ClearSlot();
         }
@@ -359,7 +359,7 @@ public class EquipmentSlot : SlotBase, IPointerClickHandler,
         OnSlotItemUse = null;
         OnSlotItemUpdate = null;
 
-        equipmentStat = new AddStatData(); // 장비 스탯 초기화
+        equipmentStat = new StatModifierData();
 
         RefreshIcon(); // 아이콘/텍스트 리셋
         // 재계산은 호출부에서 한 번 더 묶어서 호출하는 편이 안전하지만, 여기서는 생략 가능

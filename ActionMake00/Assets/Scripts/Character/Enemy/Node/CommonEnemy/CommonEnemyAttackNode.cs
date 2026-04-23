@@ -13,7 +13,7 @@ public class CommonEnemyAttackNode : Node
     public override NodeState Evaluate()
     {
 
-        if (enemy.isDefault == false)
+        if (enemy.isDefault == true)
             return state = NodeState.Success;
 
         if (enemy.isAttack == false && enemy.anim.GetBool("isHitting") == false)

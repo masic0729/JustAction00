@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAlien : FollwingPlayerEnemyBT
 {
     AttackColManager attackmanage;
+
     protected override void Start()
     {
         base.Start();
@@ -19,43 +22,41 @@ public class EnemyAlien : FollwingPlayerEnemyBT
         base.Init();
         attackmanage = new AttackColManager();
         pEffectDic["CommonEnemyAttack"] = pEffect[0];
-        playerFindDistance = 5f;
-        activityAllowValue = 10f;
+        playerFindDistance  = 5f;
+        activityAllowValue  = 10f;
         attackReadyDistance = 1.2f;
     }
 
-    
-
     /// <summary>
-    /// ÀÏ¹İ ¸ó½ºÅÍÀÇ ÀÏ¹İ °ø°İ
+    /// ì¼ë°˜ ëª¬ìŠ¤í„°ì˜ ì¼ë°˜ ê³µê²©
     /// </summary>
     void Attack01()
     {
         Transform attackTrans = FindTransformAtChild("mixamorig1:LeftToeBase");
-        //°ø°İÇÏ´Â À§Ä¡°¡ ¾ø°Å³ª, °ø°İ Áß »óÅÂ°¡ ¾Æ´Ï¸é »ç¿ëµÇÁö ¸» °Í
-        if(attackTrans == null)
+        //ê³µê²©í•˜ëŠ” ìœ„ì¹˜ê°€ ì—†ê±°ë‚˜, ê³µê²© ì¤‘ ìƒíƒœê°€ ì•„ë‹ˆë©´ ì‚¬ìš©ë˜ì§€ ë§ ê²ƒ
+        if (attackTrans == null)
         {
-            Debug.Log("µ¥ÀÌÅÍ ¾øÀ½");
+            Debug.Log("ë°ì´í„° ì—†ìŒ");
             return;
         }
 
         ParticleSystem ps = Instantiate(pEffectDic["CommonEnemyAttack"], attackTrans.position, attackTrans.rotation);
         ps.Play();
         Destroy(ps.gameObject, ps.main.duration);
-        //Collider playerCol = CheckPlayerAttackAround(attackTrans);
-        Collider[] playerCol = attackmanage.CheckPlayerAttackAround(attackTrans, 2f, playerLayerMask);
 
+        Collider[] playerCol = attackmanage.CheckPlayerAttackAround(attackTrans, 2f, playerLayerMask);
         if (playerCol != null)
         {
             for (int i = 0; i < playerCol.Length; i++)
             {
-                playerCol[i].GetComponent<Character>().TakeDamage(damage, this);
-
+                // ê¸°ì¡´: damage í•„ë“œ ì§ì ‘ ì ‘ê·¼
+                // ë³€ê²½: GetResultDamage()ë¡œ ë²„í”„ì™€ ì¥ë¹„ ë³´ì •ì¹˜ê°€ ë°˜ì˜ëœ ìµœì¢… ê³µê²©ë ¥ì„ ì‚¬ìš©í•œë‹¤
+                // damage í•„ë“œëŠ” AttributeSet ë‚´ë¶€ë¡œ ì´ë™ëìœ¼ë¯€ë¡œ ì§ì ‘ ì ‘ê·¼ ë¶ˆê°€
+                playerCol[i].GetComponent<Character>().TakeDamage(GetResultDamage(), this);
             }
         }
 
         attackAudio.Play();
-
     }
 
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
@@ -66,18 +67,15 @@ public class EnemyAlien : FollwingPlayerEnemyBT
             anim.SetTrigger("Hit");
         }
     }
+
     Collider CheckPlayerAttackAround(Transform trans)
     {
         Collider[] collider = Physics.OverlapSphere(trans.position, 2.0f, playerLayerMask);
-        
+
         if (collider.Length <= 0)
         {
             return null;
         }
         return collider[0];
     }
-
-
-
-    
 }

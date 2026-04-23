@@ -24,7 +24,7 @@ public class EquipmentManager : MonoBehaviour
     public Dictionary<string, EquipmentSlot> equipSlotDic = 
         new Dictionary<string, EquipmentSlot>();
 
-    public AddStatData StatResult;
+    public StatModifierData StatResult;
 
     private void Awake()
     {
@@ -49,11 +49,13 @@ public class EquipmentManager : MonoBehaviour
     }
 
 
-    
+
+    // EquipmentManager.cs - UpdateCharacterStatResult() 수정 부분
+
     public void UpdateCharacterStatResult()
     {
-        StatResult = new AddStatData(); //초기화
-
+        // 장비 슬롯 전체를 순회하며 합산값 계산 (기존 로직 동일)
+        StatResult = new StatModifierData();
         for (int i = 0; i < equipSlots.Length; i++)
         {
             StatResult.MaxHp += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.MaxHp;
@@ -61,7 +63,9 @@ public class EquipmentManager : MonoBehaviour
             StatResult.Defense += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.Defense;
             StatResult.MoveSpeed += equipSlotDic[equipSlots[i].equipmentType.ToString()].equipmentStat.MoveSpeed;
         }
-        StatViewTarget.statDatas[(int)AddStatName.Equit] = StatResult;
+
+        //ModifierContainer에 Equipment 소스로 등록
+        StatViewTarget.GetModifierContainer().SetModifier(StatModifierSource.Equipment, StatResult);
 
         CharacterStatUpdateForInfo();
     }

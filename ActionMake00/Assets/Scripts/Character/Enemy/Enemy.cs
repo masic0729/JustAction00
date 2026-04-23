@@ -1,43 +1,39 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-
-
 public class Enemy : Character
 {
-    protected Node rootNode;                                    //¸ó½ºÅÍ AI¸¦ ±¸µ¿ÇÏ±â À§ÇØ ÇÊ¿äÇÑ ³ëµå. ºñÇìÀÌºñ¾î Æ®¸®ÀÌ´Ù
-    protected Node node;                                        //¸ó½ºÅÍ °¢°¢ÀÇ ³ëµå ´ÜÀ§
-    public Transform thisObject;                                //Ç¥Çö ±×´ë·Î ÀÚ½ÅÀÇ °ÔÀÓ¿ÀºêÁ§Æ®¸¦ ´ã´Â´Ù
-    public Transform player;                                    //¸ñÇ¥ Å¸°ÙÀ» Á¤ÇÏ´Â ¿ëµµ
-    [SerializeField] protected AudioSource attackAudio;         //º¸½º °¢ ÆĞÅÏ »ç¿îµå¸¦ À§ÇÑ ¿Àµğ¿À
+    protected Node rootNode;                                    //ëª¬ìŠ¤í„° AIë¥¼ êµ¬ë™í•˜ê¸° ìœ„í•´ í•„ìš”í•œ ë…¸ë“œ. ë¹„í—¤ì´ë¹„ì–´ íŠ¸ë¦¬ì´ë‹¤
+    protected Node node;                                        //ëª¬ìŠ¤í„° ê°ê°ì˜ ë…¸ë“œ ë‹¨ìœ„
+    public Transform thisObject;                                //í‘œí˜„ ê·¸ëŒ€ë¡œ ìì‹ ì˜ ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ë‹´ëŠ”ë‹¤
+    public Transform player;                                    //ëª©í‘œ íƒ€ê²Ÿì„ ì •í•˜ëŠ” ìš©ë„
+    [SerializeField] protected AudioSource attackAudio;         //ë³´ìŠ¤ ê° íŒ¨í„´ ì‚¬ìš´ë“œë¥¼ ìœ„í•œ ì˜¤ë””ì˜¤
 
     NavMeshAgent nav;
 
-    
-    protected Vector3 spawnPosition;                            //ÃÖÃÊ »ı¼º ½Ã º»ÀÎÀÇ À§Ä¡¸¦ ÀúÀåÇÏ´Â ¿ëµµ
+    protected Vector3 spawnPosition;                            //ìµœì´ˆ ìƒì„± ì‹œ ë³¸ì¸ì˜ ìœ„ì¹˜ë¥¼ ì €ì¥í•˜ëŠ” ìš©ë„
 
-    protected Transform assignedPatrolPos;                   // ¹èÁ¤µÈ ÆĞÆ®·Ñ Æ÷ÀÎÆ®. º¹±Í ¹× È°µ¿ ¹üÀ§ ±âÁØÀ¸·Î »ç¿ëÇÑ´Ù
-    private PatrolPointManager patrolManager;                  // »ç¸Á ½Ã Æ÷ÀÎÆ® ÇØÁ¦¸¦ À§ÇØ ÂüÁ¶ º¸°ü
+    protected Transform assignedPatrolPos;                      // ë°°ì •ëœ íŒ¨íŠ¸ë¡¤ í¬ì¸íŠ¸. ë³µê·€ ë° í™œë™ ë²”ìœ„ ê¸°ì¤€ìœ¼ë¡œ ì‚¬ìš©í•œë‹¤
+    private PatrolPointManager patrolManager;                   // ì‚¬ë§ ì‹œ í¬ì¸íŠ¸ í•´ì œë¥¼ ìœ„í•´ ì°¸ì¡° ë³´ê´€
 
-
-    public float activityAllowValue = 20f;                      //¸ó½ºÅÍ È°µ¿ ¹üÀ§·Î ±âº»°ªÀº 5·Î Á¤ÀÇÇÑ´Ù
+    public float activityAllowValue = 20f;                      //ëª¬ìŠ¤í„° í™œë™ ë²”ìœ„ë¡œ ê¸°ë³¸ê°’ì€ 5ë¡œ ì •ì˜í•œë‹¤
     [SerializeField]
-    protected float playerFindDistance = 10f;                   //ÇÃ·¹ÀÌ¾î°¡ º»ÀÎ ¿µ¿ª¿¡ ¿Ô´Â Áö È®ÀÎÇÏ´Â ¹üÀ§
+    protected float playerFindDistance = 10f;                   //í”Œë ˆì´ì–´ê°€ ë³¸ì¸ ì˜ì—­ì— ì™”ëŠ” ì§€ í™•ì¸í•˜ëŠ” ë²”ìœ„
     [SerializeField]
-    protected float attackReadyDistance = 1f;                   //ÇÃ·¹ÀÌ¾î¸¦ Ãß°İ ÈÄ ´ÙÀ½ Çàµ¿À» ÇÏ±â À§ÇÑ ¿ä±¸ °Å¸®
+    protected float attackReadyDistance = 1f;                   //í”Œë ˆì´ì–´ë¥¼ ì¶”ê²© í›„ ë‹¤ìŒ í–‰ë™ì„ í•˜ê¸° ìœ„í•œ ìš”êµ¬ ê±°ë¦¬
 
-    protected int playerLayerMask = 1 << 6;                     //ÇÃ·¹ÀÌ¾î¸¦ ÀûÀ¸·Î »ïÀ» ¶§ ÆÇ´ÜÇÏ´Â ·¹ÀÌ¾î °ª
+    protected int playerLayerMask = 1 << 6;                     //í”Œë ˆì´ì–´ë¥¼ ì ìœ¼ë¡œ ì‚¼ì„ ë•Œ íŒë‹¨í•˜ëŠ” ë ˆì´ì–´ ê°’
 
-    private int enemyIndex = -1;                                //¸ó½ºÅÍ ½ºÆù ½Ã »ç¿ëÇß´ø ÀÎµ¦½º °ª. ÃßÈÄ »èÁ¦µÉ ¼ö ÀÖÀ½
-    private const int maxAttackIndex = 2;                       //ÆĞÅÏÇü °ø°İ¿¡ »ç¿ëÇÒ °¡Áş ¼öÀÌ¸ç, ÀÏ¹İ¸ó½ºÅÍ´Â »ç¿ëÇÏÁö ¾Ê´Â´Ù
-    [SerializeField] int expAddValue;                           //ÇÃ·¹ÀÌ¾î¿¡°Ô Á¦°øÇÒ °æÇèÄ¡ ¾ç
+    private int enemyIndex = -1;                                //ëª¬ìŠ¤í„° ìŠ¤í° ì‹œ ì‚¬ìš©í–ˆë˜ ì¸ë±ìŠ¤ ê°’. ì¶”í›„ ì‚­ì œë  ìˆ˜ ìˆìŒ
+    private const int maxAttackIndex = 2;                       //íŒ¨í„´í˜• ê³µê²©ì— ì‚¬ìš©í•  ê°€ì§“ ìˆ˜ì´ë©°, ì¼ë°˜ëª¬ìŠ¤í„°ëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤
+    [SerializeField] int expAddValue;                           //í”Œë ˆì´ì–´ì—ê²Œ ì œê³µí•  ê²½í—˜ì¹˜ ì–‘
 
     public bool isPlayerFound = false;
-    public bool isDefault = true;                               //¸ó½ºÅÍ°¡ º»ÀÎ ±¸¿ªÀ» ¹ş¾î³¯ ¶§, ºñÇìÀÌºñ¾î Æ®¸® »ó¿¡¼­ ÀÚµ¿À¸·Î º¹±ÍÇÏ±â À§ÇÑ ¿ëµµ. È°¼ºÈ­ ½Ã º¹±ÍÇÑ´Ù
-    public bool isAttack = false;                               //¸ó½ºÅÍÀÇ °ø°İÁßÀÎ Áö È®ÀÎÇÏ´Â ¿ëµµ
-    protected bool isCanTurn = false;                           //°ø°İ ½Ã Å¸°Ù ´ë»óÀ¸·Î È¸Àü»óÅÂ
-    bool isWasParried = false;                                  //ÆĞ¸µ °ø°İ¿¡ ´çÇß´ÂÁö È®ÀÎÇÏ´Â º¯¼ö. ÀÏ¹İ¸ó½ºÅÍ´Â »ç¿ëÇÏÁö ¾ÊÀ¸¸ç, º¸½º ¸ó½ºÅÍÀÇ ±ÙÁ¢ °ø°İ¿¡¸¸ À¯È¿ÇÏ´Ù
-    protected bool isAction = false;                                 //¸ó½ºÅÍ°¡ ÀüÅõ ÁßÀÎÁö È®ÀÎÇÏ´Â º¯¼ö. ÀüÅõ ÇØÁ¦ ½Ã º¹±ÍÇÑ´Ù
+    public bool isDefault = false;                               //ëª¬ìŠ¤í„°ê°€ ë³¸ì¸ êµ¬ì—­ì„ ë²—ì–´ë‚  ë•Œ, ë¹„í—¤ì´ë¹„ì–´ íŠ¸ë¦¬ ìƒì—ì„œ ìë™ìœ¼ë¡œ ë³µê·€í•˜ê¸° ìœ„í•œ ìš©ë„. í™œì„±í™” ì‹œ ë³µê·€í•œë‹¤
+    public bool isAttack = false;                               //ëª¬ìŠ¤í„°ì˜ ê³µê²©ì¤‘ì¸ ì§€ í™•ì¸í•˜ëŠ” ìš©ë„
+    protected bool isCanTurn = false;                           //ê³µê²© ì‹œ íƒ€ê²Ÿ ëŒ€ìƒìœ¼ë¡œ íšŒì „ìƒíƒœ
+    bool isWasParried = false;                                  //íŒ¨ë§ ê³µê²©ì— ë‹¹í–ˆëŠ”ì§€ í™•ì¸í•˜ëŠ” ë³€ìˆ˜. ì¼ë°˜ëª¬ìŠ¤í„°ëŠ” ì‚¬ìš©í•˜ì§€ ì•Šìœ¼ë©°, ë³´ìŠ¤ ëª¬ìŠ¤í„°ì˜ ê·¼ì ‘ ê³µê²©ì—ë§Œ ìœ íš¨í•˜ë‹¤
+    protected bool isAction = false;                            //ëª¬ìŠ¤í„°ê°€ ì „íˆ¬ ì¤‘ì¸ì§€ í™•ì¸í•˜ëŠ” ë³€ìˆ˜. ì „íˆ¬ í•´ì œ ì‹œ ë³µê·€í•œë‹¤
 
     protected override void Start()
     {
@@ -67,9 +63,9 @@ public class Enemy : Character
     }
 
     /// <summary>
-    /// À¯ÀúÀÇ ¹İ°İ¿¡ ÀÇÇÑ °æÁ÷ ¹× ÀüÅõ ½Ã½ºÅÛ ÃÊ±âÈ­
-    /// ÃÊ±âÈ­ÀÇ °æ¿ì ¹«±â Äİ¶óÀÌ´õ Á¤¸® ¹× »óÅÂ º¯¼ö¸¦ ÃÖ½ÅÈ­ÇÏ¿©
-    /// ºñ¿¡ÀÌºñ¾î Æ®¸®¸¦ ¹ö±× ¾øÀÌ ±¸µ¿ÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù
+    /// ìœ ì €ì˜ ë°˜ê²©ì— ì˜í•œ ê²½ì§ ë° ì „íˆ¬ ì‹œìŠ¤í…œ ì´ˆê¸°í™”
+    /// ì´ˆê¸°í™”ì˜ ê²½ìš° ë¬´ê¸° ì½œë¼ì´ë” ì •ë¦¬ ë° ìƒíƒœ ë³€ìˆ˜ë¥¼ ìµœì‹ í™”í•˜ì—¬
+    /// ë¹„ì—ì´ë¹„ì–´ íŠ¸ë¦¬ë¥¼ ë²„ê·¸ ì—†ì´ êµ¬ë™í•  ìˆ˜ ìˆê²Œ í•œë‹¤
     /// </summary>
     public void GetParringAction()
     {
@@ -79,57 +75,56 @@ public class Enemy : Character
 
     public void EnemyWeaponColDisable()
     {
-        Debug.Log("¹«±â ÃÊ±âÈ­ ½ÃÀÛ");
-        for(int i = 0; i < weapon.Length; i++)
+        Debug.Log("ë¬´ê¸° ì´ˆê¸°í™” ì‹œì‘");
+        for (int i = 0; i < weapon.Length; i++)
         {
             weapon[i].ResetColiderDisable();
         }
     }
 
-    // CheckCharacterActivityZone ¼öÁ¤
-    // ¹èÁ¤µÈ ÆĞÆ®·Ñ Æ÷ÀÎÆ®°¡ ÀÖÀ¸¸é ÇØ´ç À§Ä¡ ±âÁØÀ¸·Î È°µ¿ ¹üÀ§¸¦ Ã¼Å©ÇÑ´Ù
+    // CheckCharacterActivityZone ìˆ˜ì •
+    // ë°°ì •ëœ íŒ¨íŠ¸ë¡¤ í¬ì¸íŠ¸ê°€ ìˆìœ¼ë©´ í•´ë‹¹ ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ í™œë™ ë²”ìœ„ë¥¼ ì²´í¬í•œë‹¤
     void CheckCharacterActivityZone()
     {
         Vector3 basePosition = assignedPatrolPos != null ? assignedPatrolPos.position : spawnPosition;
         float distanceFromBase = Vector3.Distance(basePosition, transform.position);
         if (activityAllowValue < distanceFromBase)
         {
-            isDefault = false;
+            isDefault = true;  // ê¸°ì¡´ false â†’ trueë¡œ ìˆ˜ì •. ë²”ìœ„ ì´íƒˆ ì‹œ ë³µê·€ ëª¨ë“œë¡œ ì „í™˜
         }
     }
 
-    // NodeDisable ¼öÁ¤: »ç¸Á ½Ã Æ÷ÀÎÆ® ¹İ³³
+    // NodeDisable ìˆ˜ì •: ì‚¬ë§ ì‹œ í¬ì¸íŠ¸ ë°˜ë‚©
     void NodeDisable(Character attacker)
     {
         rootNode = null;
 
-        // ¹èÁ¤µÈ ÆĞÆ®·Ñ Æ÷ÀÎÆ®¸¦ Á¡À¯ ÇØÁ¦ÇÏ¿© ´Ù¸¥ ¸ó½ºÅÍ°¡ »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù
+        // ë°°ì •ëœ íŒ¨íŠ¸ë¡¤ í¬ì¸íŠ¸ë¥¼ ì ìœ  í•´ì œí•˜ì—¬ ë‹¤ë¥¸ ëª¬ìŠ¤í„°ê°€ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ í•œë‹¤
         if (patrolManager != null && assignedPatrolPos != null)
             patrolManager.ReleasePoint(assignedPatrolPos);
     }
 
-    /// <summary>
-
-    /// </summary>
     void RotateByAttack()
     {
-        if (isCanTurn == false || player == null || this.hp <= 0)
+        // ê¸°ì¡´: this.hp <= 0 ìœ¼ë¡œ ì§ì ‘ í•„ë“œ ì ‘ê·¼
+        // ë³€ê²½: GetIsDead()ë¡œ ì‚¬ë§ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤. hp í•„ë“œëŠ” AttributeSet ë‚´ë¶€ë¡œ ì´ë™ë¨
+        if (isCanTurn == false || player == null || GetIsDead())
             return;
 
-        // Update¿¡¼­ È¸Àü
+        // Updateì—ì„œ íšŒì „
         Vector3 dir = (player.position - transform.position).normalized;
         Quaternion lookRot = Quaternion.LookRotation(dir);
 
-        // º¸°£À¸·Î ºÎµå·´°Ô È¸Àü
+        // ë³´ê°„ìœ¼ë¡œ ë¶€ë“œëŸ½ê²Œ íšŒì „
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             lookRot,
             rotateSpeed * Time.deltaTime
         );
     }
+
     void ExpUpForPlayer(Character attacker)
     {
-
         if (attacker.gameObject.transform.tag == "Player")
         {
             Player player = attacker.gameObject.GetComponent<Player>();
@@ -138,7 +133,7 @@ public class Enemy : Character
     }
 
     /// <summary>
-    /// ¸ó½ºÅÍ »ç¸Á ½Ã ¾Ö´Ï¸ŞÀÌ¼Ç ¹ö±×¸¦ ¼öÁ¤ÇÏ±â À§ÇØ ¿¹¿ÜÃ³¸®ÇÑ °Í
+    /// ëª¬ìŠ¤í„° ì‚¬ë§ ì‹œ ì• ë‹ˆë©”ì´ì…˜ ë²„ê·¸ë¥¼ ìˆ˜ì •í•˜ê¸° ìœ„í•´ ì˜ˆì™¸ì²˜ë¦¬í•œ ê²ƒ
     /// </summary>
     void EnemyDeath(Character attacker)
     {
@@ -148,41 +143,41 @@ public class Enemy : Character
 
     public void MoveForward()
     {
-        
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        // ê¸°ì¡´: moveSpeed ì§ì ‘ ì ‘ê·¼
+        // ë³€ê²½: GetMoveSpeed()ë¡œ ì ‘ê·¼í•œë‹¤. moveSpeed í•„ë“œëŠ” AttributeSet ë‚´ë¶€ë¡œ ì´ë™ë¨
+        transform.Translate(Vector3.forward * GetMoveSpeed() * Time.deltaTime);
     }
 
-    
-
     /// <summary>
-    /// ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿ÇÑ´Ù. ÇÃ·¹ÀÌ¾îµç º¹±Í À§Ä¡µç Æ¯Á¤ À§Ä¡µç
+    /// ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤. í”Œë ˆì´ì–´ë“  ë³µê·€ ìœ„ì¹˜ë“  íŠ¹ì • ìœ„ì¹˜ë“ 
     /// </summary>
     /// <param name="target"></param>
     public void MoveTarget(Vector3 target)
     {
-        if (this.hp <= 0)
+        // ê¸°ì¡´: this.hp <= 0 ìœ¼ë¡œ ì§ì ‘ í•„ë“œ ì ‘ê·¼
+        // ë³€ê²½: GetIsDead()ë¡œ ì‚¬ë§ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤
+        if (GetIsDead())
             return;
 
         if (target == null)
         {
-            nav.isStopped = true;                 // ÀÌµ¿ ÁßÁö
-            nav.ResetPath();                      // ¾ÈÀüÇÏ°Ô °æ·Î ÃÊ±âÈ­
+            nav.isStopped = true;                 // ì´ë™ ì¤‘ì§€
+            nav.ResetPath();                      // ì•ˆì „í•˜ê²Œ ê²½ë¡œ ì´ˆê¸°í™”
             nav.SetDestination(transform.position);
             nav.velocity = Vector3.zero;
-            Debug.Log("¹ö±× ¶Ç´Â ÇÃ·¹ÀÌ¾î »ç¸Á ÃßÁ¤");
-            return;                               
+            Debug.Log("ë²„ê·¸ ë˜ëŠ” í”Œë ˆì´ì–´ ì‚¬ë§ ì¶”ì •");
+            return;
         }
 
         nav.isStopped = false;
         nav.SetDestination(target);
     }
 
-
-    // °ÔÅÍ ¼¼ÅÍ ¸ñ·Ï¿¡ Ãß°¡
+    // ê²Œí„° ì„¸í„° ëª©ë¡ì— ì¶”ê°€
     public void SetAssignedPatrolPos(Transform point, PatrolPointManager manager)
     {
         assignedPatrolPos = point;
-        patrolManager = manager;   // »ç¸Á ½Ã ÇØÁ¦¿ëÀ¸·Î ¸Å´ÏÀú º¸°ü
+        patrolManager = manager;   // ì‚¬ë§ ì‹œ í•´ì œìš©ìœ¼ë¡œ ë§¤ë‹ˆì € ë³´ê´€
     }
 
     public Transform GetAssignedPatrolPos() => assignedPatrolPos;
@@ -208,6 +203,4 @@ public class Enemy : Character
     public bool GetIsWasParried() => isWasParried;
 
     public void SetIsWasParried(bool state) => isWasParried = state;
-
-
 }

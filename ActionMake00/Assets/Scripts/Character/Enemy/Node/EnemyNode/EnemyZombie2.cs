@@ -23,7 +23,7 @@ public class EnemyZombie2 : FollwingPlayerEnemyBT
         pEffectDic["CommonEnemyAttack"] = pEffect[0];
         playerFindDistance = 5f;
         activityAllowValue = 10f;
-        attackReadyDistance = 5f;
+        attackReadyDistance = 4f;
     }
 
 

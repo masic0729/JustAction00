@@ -14,7 +14,7 @@ public class BossGroundAttack : EnemyAttackTree
     {
         
 
-        if (enemy.isDefault == false)
+        if (enemy.isDefault == true)
             return state = NodeState.Success;
 
         

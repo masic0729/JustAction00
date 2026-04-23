@@ -5,8 +5,6 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
-
-
 public class Player : Character
 {
     PlayerController playerCtrl;
@@ -18,7 +16,7 @@ public class Player : Character
     [SerializeField] EquipmentManager equipmentManager;
     [SerializeField] int level = 1;
     [SerializeField] int[] needExp;
-    [SerializeField] const int maxLevel = 3;                              //ÇÃ·¹ÀÌ¾îÀÇ Ã¼´ë ·¹º§Àº 3·¹º§ÀÌ´Ù
+    [SerializeField] const int maxLevel = 3;                              //í”Œë ˆì´ì–´ì˜ ì²´ëŒ€ ë ˆë²¨ì€ 3ë ˆë²¨ì´ë‹¤
 
     [SerializeField] AudioSource hitAudio;
     [SerializeField] AudioSource itemAudio;
@@ -33,8 +31,7 @@ public class Player : Character
 
     public bool isRoll = false;
 
-    
-    // ÃÊ±âÈ­
+    // ì´ˆê¸°í™”
     protected override void Start()
     {
         base.Start();
@@ -49,20 +46,19 @@ public class Player : Character
         playerLevelUp = GetComponent<PlayerLevelUp>();
         cameraCtrl = GetComponent<CameraController>();
 
-
         onTransStatData += WeaponColDisable;
 
         onDeathAction += GameEnd;
         onDeathAction += ShowGameOverPanel;
 
         transform.tag = "Player";
-        hp = 100;
+
+        // ê¸°ì¡´: hp = 100;
+        // ë³€ê²½: base.Init()ì—ì„œ CharacterStatData ê¸°ë°˜ìœ¼ë¡œ AttributeSetì´ ì´ˆê¸°í™”ë˜ë¯€ë¡œ ì œê±°í•œë‹¤
+        // ë§Œì•½ í”Œë ˆì´ì–´ì˜ ì´ˆê¸° ì²´ë ¥ì„ ScriptableObjectê°€ ì•„ë‹Œ ì½”ë“œë¡œ ê°•ì œ ì§€ì •í•˜ê³  ì‹¶ë‹¤ë©´
+        // GetAttributeSet().ApplyHealthChange(ì›í•˜ëŠ”ê°’ - GetHp(), null) í˜•íƒœë¡œ ì‚¬ìš©í•  ê²ƒ
+
         rotateSpeed = 20f;
-
-        /*weaponDic[WeaponType.Sword.ToString()] = null;
-        weaponDic[WeaponType.Staff.ToString()] = null;*/
-
-
     }
 
     protected override void Update()
@@ -74,15 +70,14 @@ public class Player : Character
         }
     }
 
-    
     /// <summary>
-    /// »õ·Î Á¦ÀÛÇÑ ¹«±â ÃÊ±âÈ­ ÇÔ¼ö·Î,
-    /// ÇØ´ç ±â´ÉÀº ¹«±â °ø°İ·ÂÀ» Àû¿ë Á÷ÈÄ¿¡ ½ÇÇàÇØ¾ß ÇÑ´Ù
+    /// ìƒˆë¡œ ì œì‘í•œ ë¬´ê¸° ì´ˆê¸°í™” í•¨ìˆ˜ë¡œ,
+    /// í•´ë‹¹ ê¸°ëŠ¥ì€ ë¬´ê¸° ê³µê²©ë ¥ì„ ì ìš© ì§í›„ì— ì‹¤í–‰í•´ì•¼ í•œë‹¤
     /// </summary>
     /// <param name="weapon"></param>
     public void WeaponInit(PlayerWeapon weapon)
     {
-        //ÇöÀç ÇÃ·¹ÀÌ¾îÀÇ ¹«±â°¡ Á¸ÀçÇÏ¸é, ÇØ´ç ¹«±â »èÁ¦
+        //í˜„ì¬ í”Œë ˆì´ì–´ì˜ ë¬´ê¸°ê°€ ì¡´ì¬í•˜ë©´, í•´ë‹¹ ë¬´ê¸° ì‚­ì œ
         if (weaponDic[weaponTypeString] != null && weaponTypeString != null)
         {
             Destroy(weaponDic[weaponTypeString].gameObject);
@@ -98,14 +93,13 @@ public class Player : Character
         weaponDic[weaponTypeString].SetDamage(GetResultDamage());
         WeaponInitDelay();
 
-
         PlayerStatUI playerUI = GetComponent<PlayerStatUI>();
         playerUI.UpdateSkillIcon();
     }
 
     /// <summary>
-    /// °ÔÀÓÀ» ½ÃÀÛÇÒ ¶§ ½ÇÇàµÈ´Ù.
-    /// ÃßÈÄ json±â¹İÀ¸·Î È®ÀåÇÒ ¶§ ½ÇÇà ±¸Á¶°¡ º¯µ¿µÉ ¿¹Á¤ÀÌ´Ù.
+    /// ê²Œì„ì„ ì‹œì‘í•  ë•Œ ì‹¤í–‰ëœë‹¤.
+    /// ì¶”í›„ jsonê¸°ë°˜ìœ¼ë¡œ í™•ì¥í•  ë•Œ ì‹¤í–‰ êµ¬ì¡°ê°€ ë³€ë™ë  ì˜ˆì •ì´ë‹¤.
     /// </summary>
     /// <param name="weapon"></param>
     public void WeaponAwakeInit(PlayerWeapon weapon)
@@ -134,20 +128,19 @@ public class Player : Character
 
     public void WeaponColDisable()
     {
-        if(weaponTypeString != null && weaponDic != null)
+        if (weaponTypeString != null && weaponDic != null)
         {
             weaponDic[weaponTypeString].ResetColiderDisable();
-
         }
     }
 
     public void TransWeapon(string weaponName)
     {
         string weaponType = weaponName;
-        //°°Àº ¹«±â Å¸ÀÔÀÌ¸é ±×³É ¹İÈ¯ÇÑ´Ù. ¹Ù²Ü ÀÌÀ¯°¡ ¾ø±â ¶§¹®ÀÌ´Ù.
+        //ê°™ì€ ë¬´ê¸° íƒ€ì…ì´ë©´ ê·¸ëƒ¥ ë°˜í™˜í•œë‹¤. ë°”ê¿€ ì´ìœ ê°€ ì—†ê¸° ë•Œë¬¸ì´ë‹¤.
         if (this.weaponTypeString == weaponType)
             return;
-        //±âÁ¸¿¡ ¾²´ø ¹«±â´Â ºñÈ°¼ºÈ­
+        //ê¸°ì¡´ì— ì“°ë˜ ë¬´ê¸°ëŠ” ë¹„í™œì„±í™”
         if (weaponDic[this.weaponTypeString] != null)
         {
             weaponDic[this.weaponTypeString].gameObject.SetActive(false);
@@ -155,34 +148,29 @@ public class Player : Character
 
         this.weaponTypeString = weaponName;
 
-        //¹«±â Å¸ÀÔ¿¡ ¸Â´Â ½ºÅ³µ¥ÀÌÅÍ ¼³Á¤
+        //ë¬´ê¸° íƒ€ì…ì— ë§ëŠ” ìŠ¤í‚¬ë°ì´í„° ì„¤ì •
         skillManager.SetCurrentWeaponType(weaponType);
         skillManager.WeaponSkillLoad(weaponType);
 
         weaponDic[weaponType].gameObject.SetActive(true);
-        
     }
 
-    // Player.cs »ó´Ü ÇÊµå¿¡ Ãß°¡
-    // ÆÛÆåÆ® È¸ÇÇ ¼º°ø ½Ã ¿¬Ãâ ÆÄÆ®·Î Àü´ŞÇÏ´Â ÀÌº¥Æ®
+    // Player.cs ìƒë‹¨ í•„ë“œì— ì¶”ê°€
+    // í¼í™íŠ¸ íšŒí”¼ ì„±ê³µ ì‹œ ì—°ì¶œ íŒŒíŠ¸ë¡œ ì „ë‹¬í•˜ëŠ” ì´ë²¤íŠ¸
     public event Action OnPerfectDodge;
 
     public override void TakeDamage(float amount, Character attacker, int hitLevel = -1)
     {
-        //onTransStatData();
         if (isIgnoreDamage == true)
         {
-
-            // ÆÛÆåÆ® È¸ÇÇ ¼º°ø - ¹«Àû Áß ½ÇÁ¦ ÇÇ°İÀÌ µé¾î¿Â ¼ø°£
+            // í¼í™íŠ¸ íšŒí”¼ ì„±ê³µ - ë¬´ì  ì¤‘ ì‹¤ì œ í”¼ê²©ì´ ë“¤ì–´ì˜¨ ìˆœê°„
             OnPerfectDodge?.Invoke();
             return;
         }
 
-
-
         base.TakeDamage(amount, attacker, hitLevel);
 
-        PlayHitSound();                                     //ÇÇ°İ ½Ã »ç¿îµå Àç»ı
+        PlayHitSound();                                     //í”¼ê²© ì‹œ ì‚¬ìš´ë“œ ì¬ìƒ
 
         if (hitLevel == -1)
             return;
@@ -193,30 +181,30 @@ public class Player : Character
             WeaponColDisable();
         }
 
-        CameraController.instance.PlayCameraShake();                    //ÇÇ°İ ½Ã Ä«¸Ş¶ó ´Ù¼Ò Èçµé¸²
+        CameraController.instance.PlayCameraShake();                    //í”¼ê²© ì‹œ ì¹´ë©”ë¼ ë‹¤ì†Œ í”ë“¤ë¦¼
         playerCtrl.SetCanAttackInput(false);
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î´Â ÀûÀ» Ã³Ä¡ ½Ã °æÇèÄ¡¸¦ È¹µæÇÑ´Ù.
-    /// È¹µæÇÒ ¶§, ¸¸¾à ÃÖ´ë °æÇèÄ¡¸¦ ÃÊ°úÇÑ °æÇèÄ¡¸¦ ¹Ş´Â´Ù¸é,
-    /// ¿ì¼± ·¹º§¾÷ ÈÄ ³ª¸ÓÁö °æÇèÄ¡¸¦ ÀÓÁö ÀúÀå ÇÏ¿© ¸¶Àú È¹µæÇÒ ¿¹Á¤ÀÌ´Ù. 
+    /// í”Œë ˆì´ì–´ëŠ” ì ì„ ì²˜ì¹˜ ì‹œ ê²½í—˜ì¹˜ë¥¼ íšë“í•œë‹¤.
+    /// íšë“í•  ë•Œ, ë§Œì•½ ìµœëŒ€ ê²½í—˜ì¹˜ë¥¼ ì´ˆê³¼í•œ ê²½í—˜ì¹˜ë¥¼ ë°›ëŠ”ë‹¤ë©´,
+    /// ìš°ì„  ë ˆë²¨ì—… í›„ ë‚˜ë¨¸ì§€ ê²½í—˜ì¹˜ë¥¼ ì„ì§€ ì €ì¥ í•˜ì—¬ ë§ˆì € íšë“í•  ì˜ˆì •ì´ë‹¤. 
     /// </summary>
     public void ExpUp(int getExp)
     {
-        //ÃßÈÄ UI_Manager¸¦ ÅëÇØ °æÇèÄ¡ ¹Ù »óÅÂ ÃÖ½ÅÈ­ ¿ä±¸
-        if(level == maxLevel)
+        //ì¶”í›„ UI_Managerë¥¼ í†µí•´ ê²½í—˜ì¹˜ ë°” ìƒíƒœ ìµœì‹ í™” ìš”êµ¬
+        if (level == maxLevel)
         {
-            Debug.Log("ÃÖ´ë ·¹º§ÀÌ¹Ç·Î, °æÇèÄ¡ È¹µæÀÌ Á¦ÇÑµË´Ï´Ù.");
+            Debug.Log("ìµœëŒ€ ë ˆë²¨ì´ë¯€ë¡œ, ê²½í—˜ì¹˜ íšë“ì´ ì œí•œë©ë‹ˆë‹¤.");
             return;
         }
         currentExp += getExp;
 
-        //°æÇèÄ¡
+        //ê²½í—˜ì¹˜
         int overExpValue = 0;
 
-        //ÀÌÈÄ ÀÏ´Ü ·¹º§¾÷ÀÌ µÇ´Â Áö È®ÀÎÈÄ ·¹º§¾÷ Ã³¸®ÇÏÀÚ¸¶ÀÚ, ¿À¹öµÇ´Â °æÇèÄ¡¸¦ È®ÀÎ
-        if(currentExp >= needExp[level - 1])
+        //ì´í›„ ì¼ë‹¨ ë ˆë²¨ì—…ì´ ë˜ëŠ” ì§€ í™•ì¸í›„ ë ˆë²¨ì—… ì²˜ë¦¬í•˜ìë§ˆì, ì˜¤ë²„ë˜ëŠ” ê²½í—˜ì¹˜ë¥¼ í™•ì¸
+        if (currentExp >= needExp[level - 1])
         {
             overExpValue = currentExp - needExp[level - 1];
 
@@ -224,45 +212,43 @@ public class Player : Character
             playerLevelUp.LevelUp();
             currentExp = 0;
             ExpUp(overExpValue);
-
         }
-
     }
 
     /// <summary>
-    /// ·¹º§¾÷¿¡ ÀÇÇÑ »õ·Î¿î ½ºÅ³À» È¹µæÇÏ´Â ÇÔ¼ö.
-    /// E ½ºÅ³À» °íÁ¤À¸·Î È°¼ºÈ­ ÇÑ´Ù.
+    /// ë ˆë²¨ì—…ì— ì˜í•œ ìƒˆë¡œìš´ ìŠ¤í‚¬ì„ íšë“í•˜ëŠ” í•¨ìˆ˜.
+    /// E ìŠ¤í‚¬ì„ ê³ ì •ìœ¼ë¡œ í™œì„±í™” í•œë‹¤.
     /// </summary>
     public void LevelUpForSkillOpen()
     {
-        Debug.Log("½ºÅ³ ÇØ±İÇØ¾ßÇÔ");
+        Debug.Log("ìŠ¤í‚¬ í•´ê¸ˆí•´ì•¼í•¨");
         playerCtrl.SetCanInputQ();
-
-        //ÀÌ»Ó¸¸ ¾Æ´Ï¶ó ÀÏÁ¤ ÁÖ±â·Î ½ºÅ³ ¶Ç´Â °ø°İ ¼º°ø ½Ã,
-        //ÇØ´ç Ãæµ¹ À§Ä¡¿¡ Ãß°¡ °ø°İ ¹ßµ¿.
-        //ÇØ´ç °ø°İÀº ¿øÇüÀ¸·Î ÅÍÁö´Â ½ºÅ³ ÇüÅÂ·Î ¹ßµ¿µÉ ¿¹Á¤.
-        //·¹ÆÛ·±½º´Â ¾Æµ¨, ¾ÆÅ©, ·Î¾ÆÀÇ º¸ÁÖÈ¿°ú, ·ÑÀÇ ½ºÅÂÆ½ µî Á¸ÀçÇÑ´Ù.
-
-
-
-        //ÀÌÈÄ UI »ó¿¡¼­ Q½ºÅ³ »ç¿ëÇÒ ¼ö ÀÖÀ½À» Ç¥½ÃÇÒ °Í
     }
 
     /// <summary>
-    /// ·¹º§¾÷¿¡ ÀÇÇØ ÇÃ·¹ÀÌ¾îÀÇ ¸ğµç ´É·ÂÄ¡°¡ ¼ÒÆø »ó½ÂÇÑ´Ù
+    /// ë ˆë²¨ì—…ì— ì˜í•´ í”Œë ˆì´ì–´ì˜ ëª¨ë“  ëŠ¥ë ¥ì¹˜ê°€ ì†Œí­ ìƒìŠ¹í•œë‹¤
+    /// ê¸°ì¡´: statDatas[(int)AddStatName.LevelUp] ì§ì ‘ ì ‘ê·¼
+    /// ë³€ê²½: ModifierContainerì˜ LevelUp ì†ŒìŠ¤ ë³´ì •ì¹˜ë¥¼ ì½ì–´ ìˆ˜ì • í›„ ì¬ë“±ë¡í•œë‹¤
+    /// StatModifierDataëŠ” structì´ë¯€ë¡œ ë°˜ë“œì‹œ ë¡œì»¬ì— ë°›ì•„ì„œ ìˆ˜ì • í›„ ì¬ì„¤ì •í•œë‹¤
     /// </summary>
     public void LevelUpForStatUp()
     {
         float statUpValue = 5f;
-        statDatas[(int)AddStatName.LevelUp].Damage += statUpValue;
-        statDatas[(int)AddStatName.LevelUp].Defense += statUpValue;
-        //statDatas[(int)AddStatName.LevelUp].MoveSpeed += statUpValue;
-        statDatas[(int)AddStatName.LevelUp].MaxHp += statUpValue;
 
+        // LevelUp ì†ŒìŠ¤ì˜ í˜„ì¬ ë³´ì •ì¹˜ë¥¼ ê°€ì ¸ì™€ ìˆ˜ì¹˜ë¥¼ ëˆ„ì í•œë‹¤
+        StatModifierData current = GetModifierContainer().GetModifier(StatModifierSource.LevelUp);
+        current.Damage  += statUpValue;
+        current.Defense += statUpValue;
+        current.MaxHp   += statUpValue;
+        GetModifierContainer().SetModifier(StatModifierSource.LevelUp, current);
+
+        // ì¥ë¹„ í•©ì‚°ë„ í•¨ê»˜ ê°±ì‹ í•œë‹¤
         equipmentManager.UpdateCharacterStatResult();
 
-        //¸ğµç ½ºÅİ Á¶Á¤ ÈÄ, Ã¼·ÂÀÇ °æ¿ì ÇöÀç Ã¼·ÂÀ» »ó½ÂÇÑ ÃÖ´ë Ã¼·Â ¸¸Å­ »ó½ÂÇÑ´Ù
-        SetHp(GetHp() + statUpValue);
+        // ë ˆë²¨ì—… ì‹œ í˜„ì¬ ì²´ë ¥ë„ ìµœëŒ€ ì²´ë ¥ ìƒìŠ¹ë¶„ë§Œí¼ í•¨ê»˜ ì˜¬ë¦°ë‹¤
+        // ê¸°ì¡´: SetHp(GetHp() + statUpValue)
+        // ë³€ê²½: AttributeSetì˜ ApplyHealthChangeë¥¼ í†µí•´ ì²´ë ¥ì„ ì¡°ì •í•œë‹¤
+        GetAttributeSet().ApplyHealthChange(statUpValue, null);
     }
 
     void PlayHitSound()
@@ -276,28 +262,25 @@ public class Player : Character
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î°¡ »ç¸Á ½Ã ÇÃ·¹ÀÌ¾î Á¶ÀÛ ±ÇÇÑÀÌ ¸ğµÎ »ç¶óÁø´Ù.
-    /// ¿ÀÁ÷ ¸¶¿ì½º·Î¸¸ ´©¸§À¸·Î¼­ 
+    /// í”Œë ˆì´ì–´ê°€ ì‚¬ë§ ì‹œ í”Œë ˆì´ì–´ ì¡°ì‘ ê¶Œí•œì´ ëª¨ë‘ ì‚¬ë¼ì§„ë‹¤.
+    /// ì˜¤ì§ ë§ˆìš°ìŠ¤ë¡œë§Œ ëˆ„ë¦„ìœ¼ë¡œì„œ 
     /// </summary>
     public void GameEnd(Character attacker = null)
     {
         playerCtrl.SetIsGameEnd(true);
         cameraCtrl.SetCanRotate(false);
         GUI_PlayerInput.instance.UI_LockForGameEnd();
-
-        
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î »ç¸Á ½Ã ÆĞ¹è È­¸éÀÌ ³ëÃâµÇ´Â ¹æ½ÄÀÌ´Ù
-    /// ÇØ´ç ÇÔ¼ö´Â »ç¸Á ¾Ö´Ï¸ŞÀÌ¼Ç ½ÃÀÛ ÈÄ ÀÏÁ¤ ½Ã°£ÀÌ Áö³­ ÈÄ¿¡ ½ÇÇàµÈ´Ù.
+    /// í”Œë ˆì´ì–´ ì‚¬ë§ ì‹œ íŒ¨ë°° í™”ë©´ì´ ë…¸ì¶œë˜ëŠ” ë°©ì‹ì´ë‹¤
+    /// í•´ë‹¹ í•¨ìˆ˜ëŠ” ì‚¬ë§ ì• ë‹ˆë©”ì´ì…˜ ì‹œì‘ í›„ ì¼ì • ì‹œê°„ì´ ì§€ë‚œ í›„ì— ì‹¤í–‰ëœë‹¤.
     /// </summary>
     public void ShowGameOverPanel(Character attacker)
     {
         const float showTimer = 4f;
         GameManager.instance.Invoke("GameOver", showTimer);
     }
-
 
     public void SetWeaponType(string typeName) => weaponTypeString = typeName;
 
@@ -306,5 +289,4 @@ public class Player : Character
     public int GetLevel() => level;
 
     public int GetNeedExp() => needExp[level - 1];
-
 }
